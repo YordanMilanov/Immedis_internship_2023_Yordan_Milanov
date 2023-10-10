@@ -2231,6 +2231,20 @@
         "runtime": {
           "bin/placeholder/HCMS.Common.dll": {}
         }
+      },
+      "HCMS.Data.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HCMS.Common": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "6.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HCMS.Data.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Data.Models.dll": {}
+        }
       }
     }
   },
@@ -7079,11 +7093,17 @@
       "type": "project",
       "path": "../HCMS.Common/HCMS.Common.csproj",
       "msbuildProject": "../HCMS.Common/HCMS.Common.csproj"
+    },
+    "HCMS.Data.Models/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Data.Models/HCMS.Data.Models.csproj",
+      "msbuildProject": "../HCMS.Data.Models/HCMS.Data.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "HCMS.Common >= 1.0.0",
+      "HCMS.Data.Models >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Proxies >= 6.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.0"
@@ -7118,6 +7138,9 @@
           "projectReferences": {
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj"
+            },
+            "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data.Models\\HCMS.Data.Models.csproj": {
+              "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data.Models\\HCMS.Data.Models.csproj"
             }
           }
         }

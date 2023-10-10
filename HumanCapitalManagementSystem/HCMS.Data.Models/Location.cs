@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HCMS.Common
+namespace HCMS.Data.Models
 {
-    public static class GeneralApplicationConstants
+    public class Location
     {
-
     }
 }
