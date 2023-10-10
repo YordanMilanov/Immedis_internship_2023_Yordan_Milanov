@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using HCMS.Common;
 
 namespace HCMS.Data.Models
@@ -37,11 +31,12 @@ namespace HCMS.Data.Models
         [Required]
         public Guid RoleId { get; set; } 
         
-        //Mapping entity field
+        //Mapping entity field FKS
 
 
         public virtual Role Role { get; set; } = null!;
     }
+
     //"Id" VARCHAR PRIMARY KEY, --GUID
     //"Username" VARCHAR(50) NOT NULL UNIQUE,
     //"Email" VARCHAR(100) NOT NULL UNIQUE,
