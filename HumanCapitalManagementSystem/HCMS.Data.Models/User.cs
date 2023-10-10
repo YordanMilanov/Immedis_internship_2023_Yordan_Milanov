@@ -29,7 +29,7 @@ namespace HCMS.Data.Models
         public string Email { get; set; } = null!;
 
         [Required]
-        public Guid RoleId { get; set; } 
+        public int RoleId { get; set; } 
         
         //Mapping entity field FKS
 

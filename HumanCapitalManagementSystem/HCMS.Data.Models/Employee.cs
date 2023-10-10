@@ -37,15 +37,15 @@ namespace HCMS.Data.Models
         [Required]
         public DateOnly DateOfBirth { get; set; }
 
-        public string? CompanyId {get; set; }
+        public Guid? CompanyId {get; set; }
 
         public virtual Company? Company { get; set; }
 
-        public string? UserId { get; set; }
+        public Guid? UserId { get; set; }
 
         public virtual User? User { get; set; }
 
-        public string? LocationId {get; set; }
+        public Guid? LocationId {get; set; }
 
         public virtual Location? Location { get; set;}
     }

@@ -1,22 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HCMS.Common;
 
 namespace HCMS.Data.Models
 {
     public class Role
     {
-        public Role()
-        {
-            this.Id = Guid.NewGuid();
-        }
 
         [Key]
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(DataModelConstants.Role.RoleNameMaxLength)]
         public string Name { get; set; } = null!;
 
+        [MaxLength(DataModelConstants.VarcharDefaultLength)]
         public string Description { get; set; } = null!;
     }
 }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HCMS.Common
+﻿namespace HCMS.Common
 {
     public static class DataModelConstants
     {
+        public const int VarcharDefaultLength = 255;
+
         public static class User
         {
             public const int UsernameMaxLength = 50;
@@ -51,6 +47,22 @@ namespace HCMS.Common
             public const int EmailMinLength = 5;
             public const int PhoneNumberMaxLength = 50;
             public const int PhoneNumberMinLength = 8;
+        }
+
+        public static class Education
+        {
+            public const int DegreeMaxLength = 50;
+            public const int DegreeMinLength = 2;
+            public const int FieldOfEducationMaxLength = 50;
+            public const int FieldOfEducationMinLength = 5;
+        }
+
+        public static class Application
+        {
+            public const int PositionMaxLength = 50;
+            public const int PositionMinLength = 3;
+            public const int DepartmentMaxLength = 50;
+            public const int DepartmentMinLength = 3;
         }
     }
 }
