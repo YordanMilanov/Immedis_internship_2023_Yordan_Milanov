@@ -1,3 +1,15 @@
 ﻿body {
-    background-image: url('~/Image/RegisterBackground.jpg');
+    background-image: url('/Image/Background.jpg');
 }
+
+.btn-primary {
+    background-color: #489dc2;
+}
+
+    .btn-primary:hover {
+        background-color: #7eafc4;
+    }
+
+    .btn-primary:active {
+        background-color: #204454;
+    }

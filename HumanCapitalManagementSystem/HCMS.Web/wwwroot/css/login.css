@@ -1,20 +1,20 @@
 ﻿body {
-    background-image: url('/Image/RegisterBackground.jpg'); /* Assuming the image is located in the 'Image' folder */
+    background-image: url('/Image/Background.jpg');
 }
-
 #formWrapper {
     color: white;
-    background-color: rgba(22, 46, 54, 0.9);
+    background-color: rgba(13, 43, 61, 0.9);
+    border-radius: 20px;
 }
 
-button {
-    color: white;
-    background-color: #2f778f;
-    border-color: #2f778f; 
-    border-radius: 5px;
-    border: none;
+.btn-primary {
+    background-color: #489dc2;
 }
 
-    button:hover {
-        background-color: #3e94b0;
+    .btn-primary:hover {
+        background-color: #7eafc4;
+    }
+
+    .btn-primary:active {
+        background-color: #204454;
     }
