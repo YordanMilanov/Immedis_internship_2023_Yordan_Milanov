@@ -1,0 +1,20 @@
+﻿body {
+    background-image: url('/Image/RegisterBackground.jpg'); /* Assuming the image is located in the 'Image' folder */
+}
+
+#formWrapper {
+    color: white;
+    background-color: rgba(22, 46, 54, 0.9);
+}
+
+button {
+    color: white;
+    background-color: #2f778f;
+    border-color: #2f778f; 
+    border-radius: 5px;
+    border: none;
+}
+
+    button:hover {
+        background-color: #3e94b0;
+    }

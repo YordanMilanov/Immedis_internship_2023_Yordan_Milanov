@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HCMS.Common;
 
 namespace HCMS.Data.Models
 {
+    [Table("Employees")]
+
     public class Employee
     {
         public Employee()

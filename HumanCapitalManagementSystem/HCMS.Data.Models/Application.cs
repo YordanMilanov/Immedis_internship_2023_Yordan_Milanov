@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using HCMS.Common;
 
 namespace HCMS.Data.Models
 {
+    [Table("Applications")]
     public class Application
     {
         public Application()

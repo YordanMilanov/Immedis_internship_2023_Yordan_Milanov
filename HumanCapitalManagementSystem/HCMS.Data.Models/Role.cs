@@ -4,6 +4,8 @@ using HCMS.Common;
 
 namespace HCMS.Data.Models
 {
+    [Table("Roles")]
+
     public class Role
     {
 

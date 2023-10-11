@@ -16,3 +16,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+header, footer {
+    background: linear-gradient(to right, #014359, #02234f);
+}
+
+.nav-item a:hover {
+    font-weight: bold;
+}

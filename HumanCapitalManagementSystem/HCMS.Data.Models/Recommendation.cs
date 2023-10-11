@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HCMS.Data.Models
 {
+    [Table("Recommendations")]
+
     public class Recommendation
     {
         public Recommendation()
