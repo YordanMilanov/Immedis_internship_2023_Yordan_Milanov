@@ -9,11 +9,20 @@
       "HCMS.Web/1.0.0": {
         "dependencies": {
           "HCMS.Data": "1.0.0",
+          "HCMS.Services": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.0"
         },
         "runtime": {
           "HCMS.Web.dll": {}
+        }
+      },
+      "BCrypt.Net-Next/4.0.3": {
+        "runtime": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "assemblyVersion": "4.0.3.0",
+            "fileVersion": "4.0.3.0"
+          }
         }
       },
       "Castle.Core/4.4.1": {
@@ -1221,6 +1230,37 @@
         "runtime": {
           "HCMS.Data.Models.dll": {}
         }
+      },
+      "HCMS.Repository/1.0.0": {
+        "dependencies": {
+          "HCMS.Common": "1.0.0",
+          "HCMS.Data": "1.0.0",
+          "HCMS.Data.Models": "1.0.0"
+        },
+        "runtime": {
+          "HCMS.Repository.dll": {}
+        }
+      },
+      "HCMS.Services/1.0.0": {
+        "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
+          "HCMS.Common": "1.0.0",
+          "HCMS.Data": "1.0.0",
+          "HCMS.Data.Models": "1.0.0",
+          "HCMS.Repository": "1.0.0",
+          "HCMS.Web.ViewModels": "1.0.0"
+        },
+        "runtime": {
+          "HCMS.Services.dll": {}
+        }
+      },
+      "HCMS.Web.ViewModels/1.0.0": {
+        "dependencies": {
+          "HCMS.Common": "1.0.0"
+        },
+        "runtime": {
+          "HCMS.Web.ViewModels.dll": {}
+        }
       }
     }
   },
@@ -1229,6 +1269,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "BCrypt.Net-Next/4.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
+      "path": "bcrypt.net-next/4.0.3",
+      "hashPath": "bcrypt.net-next.4.0.3.nupkg.sha512"
     },
     "Castle.Core/4.4.1": {
       "type": "package",
@@ -2102,6 +2149,21 @@
       "sha512": ""
     },
     "HCMS.Data.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HCMS.Repository/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HCMS.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HCMS.Web.ViewModels/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -5,5 +5,8 @@ namespace HCMS.Services.Interfaces
     public interface IUserService
     {
         Task RegisterUserAsync(UserRegisterFormModel formModel);
+
+        public Task<bool> IsUsernameExists(string username);
+        public Task<bool> IsEmailExists(string email);
     }
 }

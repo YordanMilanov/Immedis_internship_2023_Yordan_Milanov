@@ -7,11 +7,8 @@ using HCMS.Data.Models;
 
 namespace HCMS.Repository.Interfaces
 {
-    public interface IUserRepository
+    public interface IRoleRepository
     {
-        Task RegisterUser(User user);
-
-        Task<bool> UserExistsByUsername(string username);
-        Task<bool> UserExistsByEmail(string email);
+        Task<Role> GetRoleByRoleName(string roleName);
     }
 }

@@ -71,3 +71,10 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagem
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Data.Models.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\obj\Debug\net6.0\HCMS.Web.csproj.AssemblyReference.cache
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\obj\Debug\net6.0\HCMS.Web.csproj.CopyComplete
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Repository.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.ViewModels.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.pdb
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Repository.pdb
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.ViewModels.pdb
