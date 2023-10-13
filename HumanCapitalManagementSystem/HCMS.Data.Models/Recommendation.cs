@@ -19,7 +19,8 @@ namespace HCMS.Data.Models
         public string Description { get; set; } = null!;
 
 
-        public DateOnly? RecommendDate { get; set; }
+        [Required]
+        public DateTime RecommendDate { get; set; } = DateTime.Now;
 
         [Required]
         public Guid ForEmployeeId { get; set; }

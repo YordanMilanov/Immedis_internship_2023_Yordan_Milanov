@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "3gfsOVOB7Q0SuiLeq+a5G0Rlo2nLDVUf031t6Tv0C+ibAw/Vky+jYXgt2wWpyKS/LowFQv/Qft7+IqNUHJwT1Q==",
+  "dgSpecHash": "Zy75tVvEAh0cP2+LNgcWA6orMmjejs/BbJLLz28V0xLxQVivFWNroXQof6gHujjV3Q9n8B2zn6iBgAZxP67zHw==",
   "success": true,
   "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\HCMS.Web.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\danch\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

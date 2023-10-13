@@ -1,5 +1,8 @@
 using HCMS.Data;
+using HCMS.Services;
+using HCMS.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using HCMS.Data.Models;
 
 namespace HCMS.Web
 {
@@ -7,6 +10,7 @@ namespace HCMS.Web
     {
         public static void Main(string[] args)
         {
+
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             string connectionString = 
@@ -18,6 +22,7 @@ namespace HCMS.Web
                 options.UseSqlServer(connectionString));
 
             //TODO: Register Services!
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddControllersWithViews();
 

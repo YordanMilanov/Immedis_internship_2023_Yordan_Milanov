@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\HCMS.Web.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\Image\\Background.jpg",
+      "PackagePath": "staticwebassets\\Image\\Background.jpg"
+    },
+    {
+      "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\Image\\RegisterCardBackground.jpg",
+      "PackagePath": "staticwebassets\\Image\\RegisterCardBackground.jpg"
+    },
+    {
       "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },

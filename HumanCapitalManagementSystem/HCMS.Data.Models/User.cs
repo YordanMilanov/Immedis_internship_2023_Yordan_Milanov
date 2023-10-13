@@ -28,8 +28,10 @@ namespace HCMS.Data.Models
 
         [Required]
         [MaxLength(DataModelConstants.User.EmailMaxLength)]
-
         public string Email { get; set; } = null!;
+
+        [Required]
+        public DateTime RegisterDate { get; set; } = DateTime.Now;
 
         [Required]
         public int RoleId { get; set; } 

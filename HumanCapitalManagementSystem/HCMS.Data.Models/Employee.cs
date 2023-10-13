@@ -40,6 +40,9 @@ namespace HCMS.Data.Models
         [Required]
         public DateOnly DateOfBirth { get; set; }
 
+        [Required]
+        public DateTime AddDate { get; set; } = DateTime.Now;
+
         public Guid? CompanyId {get; set; }
 
         public virtual Company? Company { get; set; }

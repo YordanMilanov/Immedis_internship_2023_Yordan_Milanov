@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HCMS.Common\HCMS.Common.csproj" />
+    <ProjectReference Include="..\HCMS.Data.Models\HCMS.Data.Models.csproj" />
+    <ProjectReference Include="..\HCMS.Data\HCMS.Data.csproj" />
+  </ItemGroup>
+
+</Project>

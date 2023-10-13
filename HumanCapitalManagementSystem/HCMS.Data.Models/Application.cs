@@ -21,9 +21,12 @@ namespace HCMS.Data.Models
         [Required]
         [MaxLength(DataModelConstants.Application.DepartmentMaxLength)]
         public string Department { get; set; } = null!;
+        
         [Required]
-
         public string CoverLetter { get; set; } = null!;
+        
+        [Required]
+        public DateTime AddDate { get; set; } = DateTime.Now;
 
         [Required]
         public Guid ToCompanyId { get; set; }

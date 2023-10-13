@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "BCrypt.Net-Next/4.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/BCrypt.Net-Next.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Castle.Core/4.4.1": {
         "type": "package",
         "dependencies": {
@@ -2261,10 +2274,87 @@
         "runtime": {
           "bin/placeholder/HCMS.Data.Models.dll": {}
         }
+      },
+      "HCMS.Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HCMS.Common": "1.0.0",
+          "HCMS.Data": "1.0.0",
+          "HCMS.Data.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HCMS.Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Repository.dll": {}
+        }
+      },
+      "HCMS.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "BCrypt.Net-Next": "4.0.3",
+          "HCMS.Common": "1.0.0",
+          "HCMS.Data": "1.0.0",
+          "HCMS.Data.Models": "1.0.0",
+          "HCMS.Repository": "1.0.0",
+          "HCMS.Web.ViewModels": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HCMS.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Services.dll": {}
+        }
+      },
+      "HCMS.Web.ViewModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HCMS.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HCMS.Web.ViewModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Web.ViewModels.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "BCrypt.Net-Next/4.0.3": {
+      "sha512": "W+U9WvmZQgi5cX6FS5GDtDoPzUCV4LkBLkywq/kRZhuDwcbavOzcDAr3LXJFqHUi952Yj3LEYoWW0jbEUQChsA==",
+      "type": "package",
+      "path": "bcrypt.net-next/4.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bcrypt.net-next.4.0.3.nupkg.sha512",
+        "bcrypt.net-next.nuspec",
+        "ico.png",
+        "lib/net20/BCrypt.Net-Next.dll",
+        "lib/net20/BCrypt.Net-Next.xml",
+        "lib/net35/BCrypt.Net-Next.dll",
+        "lib/net35/BCrypt.Net-Next.xml",
+        "lib/net462/BCrypt.Net-Next.dll",
+        "lib/net462/BCrypt.Net-Next.xml",
+        "lib/net472/BCrypt.Net-Next.dll",
+        "lib/net472/BCrypt.Net-Next.xml",
+        "lib/net48/BCrypt.Net-Next.dll",
+        "lib/net48/BCrypt.Net-Next.xml",
+        "lib/net5.0/BCrypt.Net-Next.dll",
+        "lib/net5.0/BCrypt.Net-Next.xml",
+        "lib/net6.0/BCrypt.Net-Next.dll",
+        "lib/net6.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.0/BCrypt.Net-Next.dll",
+        "lib/netstandard2.0/BCrypt.Net-Next.xml",
+        "lib/netstandard2.1/BCrypt.Net-Next.dll",
+        "lib/netstandard2.1/BCrypt.Net-Next.xml",
+        "readme.md"
+      ]
+    },
     "Castle.Core/4.4.1": {
       "sha512": "zanbjWC0Y05gbx4eGXkzVycOQqVOFVeCjVsDSyuao9P4mtN1w3WxxTo193NGC7j3o2u3AJRswaoC6hEbnGACnQ==",
       "type": "package",
@@ -7119,11 +7209,27 @@
       "type": "project",
       "path": "../HCMS.Data.Models/HCMS.Data.Models.csproj",
       "msbuildProject": "../HCMS.Data.Models/HCMS.Data.Models.csproj"
+    },
+    "HCMS.Repository/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Repository/HCMS.Repository.csproj",
+      "msbuildProject": "../HCMS.Repository/HCMS.Repository.csproj"
+    },
+    "HCMS.Services/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Services/HCMS.Services.csproj",
+      "msbuildProject": "../HCMS.Services/HCMS.Services.csproj"
+    },
+    "HCMS.Web.ViewModels/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Web.ViewModels/HCMS.Web.ViewModels.csproj",
+      "msbuildProject": "../HCMS.Web.ViewModels/HCMS.Web.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "HCMS.Data >= 1.0.0",
+      "HCMS.Services >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.0"
     ]
@@ -7157,6 +7263,9 @@
           "projectReferences": {
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj"
+            },
+            "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services\\HCMS.Services.csproj": {
+              "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services\\HCMS.Services.csproj"
             }
           }
         }

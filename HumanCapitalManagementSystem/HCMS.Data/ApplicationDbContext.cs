@@ -24,6 +24,7 @@ namespace HCMS.Data
         public DbSet<Recommendation> Recommendations { get; set; } = null!;
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<UserRole> UsersRoles { get; set; } = null!;
         public DbSet<WorkRecord> WorkRecords { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

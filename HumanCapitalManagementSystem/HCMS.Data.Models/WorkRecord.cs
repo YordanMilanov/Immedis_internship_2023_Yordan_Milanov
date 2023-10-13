@@ -27,9 +27,12 @@ namespace HCMS.Data.Models
         public decimal Salary { get; set; }
 
         [Required]
-        public DateOnly StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateOnly? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        [Required] 
+        public DateTime AddDate { get; set; } = DateTime.Now;
 
         public Guid CompanyId { get; set; }
 

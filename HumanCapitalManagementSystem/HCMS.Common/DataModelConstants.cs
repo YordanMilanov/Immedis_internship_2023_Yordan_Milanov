@@ -19,6 +19,11 @@
             public const int RoleNameMaxLength = 20;
         }
 
+        public static class Company
+        {
+            public const int IndustryFieldMaxLength = 20;
+        }
+
         public static class WorkRecord
         {
             public const int PositionMaxLength = 50;
