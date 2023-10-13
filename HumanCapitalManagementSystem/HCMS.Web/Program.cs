@@ -3,6 +3,8 @@ using HCMS.Services;
 using HCMS.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using HCMS.Data.Models;
+using HCMS.Repository;
+using HCMS.Repository.Interfaces;
 
 namespace HCMS.Web
 {
@@ -22,6 +24,8 @@ namespace HCMS.Web
                 options.UseSqlServer(connectionString));
 
             //TODO: Register Services!
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddControllersWithViews();
