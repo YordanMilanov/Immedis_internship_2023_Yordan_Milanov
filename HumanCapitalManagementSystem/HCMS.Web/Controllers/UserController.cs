@@ -34,6 +34,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
+        [Route("/User/Register")]
         public async Task<IActionResult> Register(UserRegisterFormModel model)
         {
             //validate input
@@ -64,8 +65,17 @@ namespace HCMS.Web.Controllers
             }
 
             //register successful
+            try
+            {
+                await userService.RegisterUserAsync(model);
+                return RedirectToAction("Login", "User");
 
-            return RedirectToAction("Login", "User", model.Username);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("GeneralError", "An error occurred while registering the user. Please try again!");
+                return RedirectToAction("Register", "User", model);
+            }
         }
     }
 }

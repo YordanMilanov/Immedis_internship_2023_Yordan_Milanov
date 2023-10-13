@@ -34,17 +34,16 @@ namespace HCMS.Data.Models
         [Required] 
         public DateTime AddDate { get; set; } = DateTime.Now;
 
-        public Guid CompanyId { get; set; }
 
+        //FKs
+        public Guid CompanyId { get; set; }
+       
+        [ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
 
         public Guid EmployeeId { get; set; }
+       
+        [ForeignKey("EmployeeId")]
+        public virtual Employee Employee { get; set; }
     }
 }
-//"Id" VARCHAR PRIMARY KEY, --GUID
-//"Position" VARCHAR(50) NOT NULL,
-//"Department" VARCHAR(50) NULL,
-//"Salary" DECIMAL(10, 2) NOT NULL,
-//"StartDate" DATE NOT NULL,
-//"EndDate" DATE NULL, --If Null - currently at that company
-//"CompanyId" VARCHAR NOT NULL,
-//"EmployeeId" VARCHAR NOT NULL,

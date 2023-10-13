@@ -22,48 +22,38 @@ namespace HCMS.Data.Models
        
         [Required]
         [MaxLength(DataModelConstants.Employee.LastNameMaxLength)]
-
         public string LastName { get; set; } = null!;
 
         [Required]
         [MaxLength(DataModelConstants.Employee.EmailMaxLength)]
-
         public string Email { get; set; } = null!;
 
         [Required]
         [MaxLength(DataModelConstants.Employee.PhoneNumberMaxLength)]
-
         public string PhoneNumber { get; set; } = null!;
 
         public string? PhotoUrl { get; set; }
 
         [Required]
-        public DateOnly DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         public DateTime AddDate { get; set; } = DateTime.Now;
 
+        //FKs
         public Guid? CompanyId {get; set; }
 
+        [ForeignKey("CompanyId")]
         public virtual Company? Company { get; set; }
 
         public Guid? UserId { get; set; }
 
+        [ForeignKey("UserId")]
         public virtual User? User { get; set; }
 
         public Guid? LocationId {get; set; }
-
+      
+        [ForeignKey("LocationId")]
         public virtual Location? Location { get; set;}
     }
 }
-
-//"Id" VARCHAR PRIMARY KEY, --GUID
-//"FirstName" VARCHAR(50) NOT NULL,
-//"LastName" VARCHAR(50) NOT NULL,
-//"Email" VARCHAR(100) NOT NULL UNIQUE,
-//"PhoneNumber" VARCHAR(50) NOT NULL UNIQUE,
-//"PhotoURL" TEXT NULL,
-//"DateOfBirth" DATE NOT NULL,
-//"CompanyId" VARCHAR NULL,
-//"UserId" VARCHAR NULL,
-//"LocationId" VARCHAR NULL,

@@ -20,9 +20,16 @@ namespace HCMS.Repository
         }
 
         public async Task RegisterUser(User user)
-        {
-            await this.dbContext.Users.AddAsync(user);
-            await dbContext.SaveChangesAsync();
+        { 
+            await dbContext.Users.AddAsync(user);
+            try
+            {
+                await dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
         }
 
         public async Task<bool> UserExistsByUsername(string username)

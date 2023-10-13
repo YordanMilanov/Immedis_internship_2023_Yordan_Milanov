@@ -24,8 +24,11 @@ namespace HCMS.Web
                 options.UseSqlServer(connectionString));
 
             //TODO: Register Services!
+
+            //services and repositories should also be added!
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+            builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddControllersWithViews();

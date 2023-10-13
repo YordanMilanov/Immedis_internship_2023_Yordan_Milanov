@@ -30,11 +30,13 @@ namespace HCMS.Data.Models
 
         [Required]
         public Guid ToCompanyId { get; set; }
+        [ForeignKey("ToCompanyId")]
         public Company Company { get; set; } = null!;
+       
         [Required]
         public Guid FromEmployeeId { get; set; }
 
-
+        [ForeignKey("FromEmployeeId")]
         public Employee Employee { get; set; } = null!;
     }
 }

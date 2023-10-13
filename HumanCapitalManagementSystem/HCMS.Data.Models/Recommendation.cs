@@ -22,20 +22,19 @@ namespace HCMS.Data.Models
         [Required]
         public DateTime RecommendDate { get; set; } = DateTime.Now;
 
+       //FKs
+
         [Required]
         public Guid ForEmployeeId { get; set; }
-
+       
+        [ForeignKey("EmployeeId")]
         public virtual Employee Employee { get; set; } = null!;
 
         [Required]
         public Guid ToCompanyId { get; set; }
-
+        
+        [ForeignKey("CompanyId")]
         public virtual Company Company { get; set; } = null!;
 
     }
 }
-//"Id" VARCHAR PRIMARY KEY, --GUID
-//"Description" TEXT NOT NULL,
-//"RecommendDate" DATE NULL,
-//"ForEmployeeId" VARCHAR NOT NULL,
-//"ToCompanyId" VARCHAR NOT NULL,

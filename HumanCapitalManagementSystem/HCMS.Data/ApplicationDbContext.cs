@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HCMS.Common;
 using Microsoft.EntityFrameworkCore;
 using HCMS.Data.Models;
+using System.Reflection.Emit;
 
 namespace HCMS.Data
 {
@@ -43,6 +44,25 @@ namespace HCMS.Data
                                       Assembly.GetExecutingAssembly();
 
             builder.ApplyConfigurationsFromAssembly(configAssembly);
+            //Keys
+            builder.Entity<User>()
+                .HasKey(u => u.Id);
+
+
+            // Configure the many-to-many relationship
+            builder.Entity<UserRole>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
+
+            builder.Entity<UserRole>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UsersRoles)
+                .HasForeignKey(ur => ur.UserId);
+
+            builder.Entity<UserRole>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UsersRoles)
+                .HasForeignKey(ur => ur.RoleId);
+
 
             base.OnModelCreating(builder);
         }

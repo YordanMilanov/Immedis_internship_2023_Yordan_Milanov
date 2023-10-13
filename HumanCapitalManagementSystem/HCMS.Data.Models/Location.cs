@@ -22,7 +22,6 @@ namespace HCMS.Data.Models
 
         [Required]
         [MaxLength(DataModelConstants.Location.StateMaxLength)]
-
         public string State { get; set; }
 
         [Required]
@@ -32,8 +31,3 @@ namespace HCMS.Data.Models
 
     }
 }
-
-//"Address" VARCHAR(50) NULL,
-//"State" VARCHAR(50) NOT NULL,
-//"Country" VARCHAR(50) NOT NULL,
-

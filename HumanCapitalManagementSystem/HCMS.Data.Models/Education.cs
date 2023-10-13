@@ -17,13 +17,12 @@ namespace HCMS.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        public DateOnly StartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateOnly? EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         [Required]
         [MaxLength(DataModelConstants.Education.DegreeMaxLength)]
-
         public string Degree { get; set; }
 
         [Required]
@@ -35,11 +34,11 @@ namespace HCMS.Data.Models
 
         [Required]
         public Guid EmployeeId {get; set; }
-
-        public virtual Employee Employer { get; set; } = null!;
+        [ForeignKey("EmployeeId")]
+        public virtual Employee Employee { get; set; } = null!;
 
         public Guid? LocationId { get; set; }
-
+        [ForeignKey("LocationId")]
         public virtual Location? Location { get; set; }
     }
 }

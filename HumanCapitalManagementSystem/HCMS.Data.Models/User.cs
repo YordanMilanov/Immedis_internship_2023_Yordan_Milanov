@@ -5,13 +5,13 @@ using HCMS.Common;
 namespace HCMS.Data.Models
 {
     [Table("Users")]
-
     public class User
     {
 
         public User()
         {
             this.Id = Guid.NewGuid();
+            this.UsersRoles = new List<UserRole>();
         }
 
         [Key]
@@ -19,34 +19,25 @@ namespace HCMS.Data.Models
 
         [Required]
         [MaxLength(DataModelConstants.User.UsernameMaxLength)]
+        [Column("Username")]
         public string Username { get; set; } = null!;
 
         [Required]
         [MaxLength(DataModelConstants.User.PasswordMaxLength)]
+        [Column("Password")]
 
         public string Password { get; set; } = null!;
 
         [Required]
         [MaxLength(DataModelConstants.User.EmailMaxLength)]
+        [Column("Email")]
         public string Email { get; set; } = null!;
 
         [Required]
-        public DateTime RegisterDate { get; set; } = DateTime.Now;
+        [Column("RegisterDate")]
 
-        [Required]
-        public int RoleId { get; set; } 
-        
-        //Mapping entity field FKS
+        public DateTime RegisterDate { get; set; }
 
-
-        public virtual Role Role { get; set; } = null!;
+        public virtual ICollection<UserRole> UsersRoles { get; set; }
     }
-
-    //"Id" VARCHAR PRIMARY KEY, --GUID
-    //"Username" VARCHAR(50) NOT NULL UNIQUE,
-    //"Email" VARCHAR(100) NOT NULL UNIQUE,
-    //"Password" VARCHAR(50) NOT NULL,
-    //"RoleId" INT NOT NULL,
-
-
 }

@@ -32,6 +32,9 @@ namespace HCMS.Data.Models
         public string IndustryField { get; set; } = null!;
 
         public Guid? LocationId { get; set; }
+
+        [ForeignKey("LocationId")]
+        public virtual Location? Location { get; set; }
     }
 }
 

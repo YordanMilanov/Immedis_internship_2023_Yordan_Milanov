@@ -19,9 +19,7 @@ namespace HCMS.Data.Models
 
         [MaxLength(DataModelConstants.VarcharDefaultLength)]
         public string Description { get; set; } = null!;
+
+        public virtual ICollection<UserRole> UsersRoles { get; set; }
     }
 }
-
-//"Id" INT PRIMARY KEY,
-//"Name" VARCHAR(20) NOT NULL UNIQUE,
-//"Description" TEXT NULL,

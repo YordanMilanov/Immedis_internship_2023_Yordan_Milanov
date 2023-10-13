@@ -19,11 +19,13 @@ public class UserService : IUserService
 {
     private readonly IRoleRepository roleRepository;
     private readonly IUserRepository userRepository;
+    private readonly IUserRoleRepository userRoleRepository;
 
-    public UserService(IRoleRepository roleRepository, IUserRepository userRepository)
+    public UserService(IRoleRepository roleRepository, IUserRepository userRepository, IUserRoleRepository userRoleRepository)
     {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     public async Task RegisterUserAsync(UserRegisterFormModel formModel)
@@ -38,12 +40,26 @@ public class UserService : IUserService
             Username = formModel.Username,
             Password = password,
             Email = formModel.Email,
-            RegisterDate = DateTime.UtcNow,
-            RoleId = role.Id,
-            Role = role,
+            RegisterDate = DateTime.UtcNow.AddHours(3),
         };
+        UserRole userRole = new UserRole()
+        {
+            Role = role,
+            RoleId = role.Id,
+            UserId = user.Id,
+            User = user,
+        };
+        user.UsersRoles.Add(userRole);
 
-        await userRepository.RegisterUser(user);
+        try
+        {
+            //await userRoleRepository.AddUserRoleAsync(userRole);
+            await userRepository.RegisterUser(user);
+        }
+        catch (Exception)
+        {
+            throw new Exception();
+        }
     }
 
     public async Task<bool> IsUsernameExists(string username)
