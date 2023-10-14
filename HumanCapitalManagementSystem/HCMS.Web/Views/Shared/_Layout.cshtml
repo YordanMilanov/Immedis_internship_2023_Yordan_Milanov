@@ -7,13 +7,19 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HCMS.Web.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
 <header>
+    @*toastr*@
+    <partial name="_NotificationsPartial"/>
+
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow">
         <div class="container-fluid">
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">HCMS</a>
+            <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">HCMS</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -21,24 +27,23 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                            <a class="nav-link text-dark text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-dark text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                 </ul>
             </div>
         </div>
-        <partial name="_LoginPartial" />
+        <partial name="_LoginPartial"/>
     </nav>
 </header>
 
         <main role="main" class="my-5 mx-auto pb-3">
             @RenderBody()
         </main>
-    <footer class="footer text-white">
-        <div class="container">
-            2023 - Human Capital Management System - Yordan Milanov Project
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<footer class="footer text-white">
+    <div class="container">
+        2023 - Human Capital Management System - Yordan Milanov Project
+    </div>
+</footer>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

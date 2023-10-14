@@ -3,6 +3,8 @@ using HCMS.Services.Interfaces;
 using HCMS.Web.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
 
+using static HCMS.Common.NotificationMessagesConstants;
+
 namespace HCMS.Web.Controllers
 {
     public class UserController : Controller
@@ -46,6 +48,7 @@ namespace HCMS.Web.Controllers
             //validate matching passwords
             if (model.Password != model.ConfirmPassword)
             {
+                TempData[ErrorMessage] = "The confirmation of the password does not match!";
                 ModelState.AddModelError("PasswordDoesNotMatch", "Passwords do not match!");
                 return View(model);
             }
@@ -68,6 +71,7 @@ namespace HCMS.Web.Controllers
             try
             {
                 await userService.RegisterUserAsync(model);
+                TempData[SuccessMessage] = "You have successfully registered!";
                 return RedirectToAction("Login", "User");
 
             }
