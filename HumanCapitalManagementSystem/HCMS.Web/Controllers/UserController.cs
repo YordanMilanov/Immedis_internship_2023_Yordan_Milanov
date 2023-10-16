@@ -20,13 +20,43 @@ namespace HCMS.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
+            if (TempData.ContainsKey("LoginUsername"))
+            {
+
+            }
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(string TODO)
+        public async Task<IActionResult> Login(UserLoginFormModel model)
         {
-            return View();
+            //validate input
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            //validate if username not existing
+            if (!await userService.IsUsernameExists(model.Username))
+            {
+                ModelState.AddModelError("UsernameNotExists", "This username does not exist!");
+                return View(model);
+            }
+
+            //validate not matching passwords
+            if (!await userService.IsPasswordMatchByUsername(model.Username, model.Password))
+            {
+                TempData[ErrorMessage] = "The password does not match!";
+                ModelState.AddModelError("PasswordDoesNotMatch", "The password does not match!");
+                model.Password = string.Empty;
+                return View(model);
+            }
+
+            //successfully passed the validation
+            //Login Logic
+            TempData[SuccessMessage] = "You have successfully Logged in!";
+            return View(model);
+            //TODO LOGIN LOGIC !
         }
 
         [HttpGet]

@@ -11,6 +11,16 @@
         "runtime": {
           "bin/placeholder/HCMS.Common.dll": {}
         }
+      },
+      "HCMS.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/HCMS.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -19,11 +29,17 @@
       "type": "project",
       "path": "../HCMS.Common/HCMS.Common.csproj",
       "msbuildProject": "../HCMS.Common/HCMS.Common.csproj"
+    },
+    "HCMS.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Infrastructure/HCMS.Infrastructure.csproj",
+      "msbuildProject": "../HCMS.Infrastructure/HCMS.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "HCMS.Common >= 1.0.0"
+      "HCMS.Common >= 1.0.0",
+      "HCMS.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -55,6 +71,9 @@
           "projectReferences": {
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj"
+            },
+            "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\HCMS.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\HCMS.Infrastructure.csproj"
             }
           }
         }

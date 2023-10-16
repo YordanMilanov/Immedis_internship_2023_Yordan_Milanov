@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Web.ViewModels", "HCMS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{77A6B323-A982-451E-884F-029E7922CD10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCMS.Repository", "HCMS.Repository\HCMS.Repository.csproj", "{8C1B795E-FB59-4878-8357-101860B31D45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Repository", "HCMS.Repository\HCMS.Repository.csproj", "{8C1B795E-FB59-4878-8357-101860B31D45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCMS.Infrastructure", "HCMS.Infrastructure\HCMS.Infrastructure.csproj", "{627864FA-4354-4658-A0AF-AC6166A10A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{8C1B795E-FB59-4878-8357-101860B31D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C1B795E-FB59-4878-8357-101860B31D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C1B795E-FB59-4878-8357-101860B31D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{627864FA-4354-4658-A0AF-AC6166A10A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{627864FA-4354-4658-A0AF-AC6166A10A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{627864FA-4354-4658-A0AF-AC6166A10A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{627864FA-4354-4658-A0AF-AC6166A10A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

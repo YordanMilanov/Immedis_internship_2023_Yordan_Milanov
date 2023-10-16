@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using HCMS.Common;
 using Microsoft.EntityFrameworkCore;
 using HCMS.Data.Models;
-using System.Reflection.Emit;
 
 namespace HCMS.Data
 {
@@ -26,6 +20,7 @@ namespace HCMS.Data
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<UserRole> UsersRoles { get; set; } = null!;
+        public DbSet<UserClaim> UsersClaims { get; set; } = null!;
         public DbSet<WorkRecord> WorkRecords { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

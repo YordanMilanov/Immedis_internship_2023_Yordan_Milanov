@@ -1,0 +1,11 @@
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\bin\Debug\net6.0\HCMS.Infrastructure.deps.json
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\bin\Debug\net6.0\HCMS.Infrastructure.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\bin\Debug\net6.0\HCMS.Infrastructure.pdb
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\obj\Debug\net6.0\HCMS.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\obj\Debug\net6.0\HCMS.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\obj\Debug\net6.0\HCMS.Infrastructure.AssemblyInfo.cs
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\obj\Debug\net6.0\HCMS.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\obj\Debug\net6.0\HCMS.Infrastructure.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\obj\Debug\net6.0\refint\HCMS.Infrastructure.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\obj\Debug\net6.0\HCMS.Infrastructure.pdb
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Infrastructure\obj\Debug\net6.0\ref\HCMS.Infrastructure.dll

@@ -21,3 +21,5 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagem
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Services\obj\Debug\net6.0\refint\HCMS.Services.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Services\obj\Debug\net6.0\HCMS.Services.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Services\obj\Debug\net6.0\ref\HCMS.Services.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Services\bin\Debug\net6.0\HCMS.Infrastructure.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Services\bin\Debug\net6.0\HCMS.Infrastructure.pdb

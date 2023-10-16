@@ -4,6 +4,7 @@
     string username = TempData.ContainsKey("LoginUsername") ? TempData["LoginUsername"].ToString() : "";
 }
 
+<body>
 <div id="formWrapper" class="w-50 mx-auto my-auto pt-lg-5 ">
 
     <form
@@ -26,13 +27,22 @@
             <!-- Username input -->
             <div class="form-outline mt-4 mb-4 d-flex flex-column align-items-center">
                     <label class="form-label" for="username">Username</label>
-                <input type="text" id="username" class="w-75 form-control" value="@username">
+                <input type="text" 
+                       id="username" 
+                       asp-for="Username"
+                       class="w-75 form-control" 
+                       value="@username">
+                <span asp-validation-for="Username" class="bg-danger text-white"></span>
             </div>
 
             <!-- Password input -->
             <div class="form-outline mt-4 mb-4 d-flex flex-column align-items-center">
-                    <label class="form-label" for="password">Password</label>
-                    <input type="password" id="password" class="w-75 form-control" />
+                <label class="form-label" for="password">Password</label>
+                <input type="password" 
+                       id="password" 
+                       asp-for="Password"
+                       class="w-75 form-control" />
+                <span asp-validation-for="Password" class="bg-danger text-white"></span>
             </div>
 
             <!-- 2 column grid layout for inline styling -->
@@ -53,7 +63,7 @@
             </div>
 
             <!-- Submit button -->
-            <button id type="button" class="btn btn-primary btn-block mb-4 w-25 mx-auto">Sign in</button>
+            <button id type="submit" class="btn btn-primary btn-block mb-4 w-25 mx-auto">Sign in</button>
 
             <!-- Register buttons -->
             <div class="text-center">

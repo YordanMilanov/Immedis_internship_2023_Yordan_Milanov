@@ -7,6 +7,7 @@ using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using HCMS.Web.ViewModels.User;
 
 namespace HCMS.Repository
 {
@@ -34,12 +35,25 @@ namespace HCMS.Repository
 
         public async Task<bool> UserExistsByUsername(string username)
         {
-            return await this.dbContext.Users.AnyAsync(u => u.Username == username);
+            return await dbContext.Users.AnyAsync(u => u.Username.ToLower() == username.ToLower());
         }
 
         public async Task<bool> UserExistsByEmail(string email)
         {
-            return await this.dbContext.Users.AnyAsync(u => u.Email == email);
+            return await dbContext.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+        }
+
+        public async Task<UserLoginFormModel> GetUserByUsername(string username)
+        {
+
+            UserLoginFormModel user = await dbContext.Users
+                .Where(u => u.Username.ToLower() == username.ToLower())
+                .Select(u => new UserLoginFormModel()
+                {
+                    Username = u.Username,
+                    Password = u.Password
+                }).FirstAsync();
+            return user;
         }
     }
 }

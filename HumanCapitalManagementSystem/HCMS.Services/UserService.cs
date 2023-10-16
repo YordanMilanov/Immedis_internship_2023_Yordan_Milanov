@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using HCMS.Services.Interfaces;
@@ -19,18 +20,16 @@ public class UserService : IUserService
 {
     private readonly IRoleRepository roleRepository;
     private readonly IUserRepository userRepository;
-    private readonly IUserRoleRepository userRoleRepository;
 
-    public UserService(IRoleRepository roleRepository, IUserRepository userRepository, IUserRoleRepository userRoleRepository)
+    public UserService(IRoleRepository roleRepository, IUserRepository userRepository)
     {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
-        this.userRoleRepository = userRoleRepository;
     }
 
     public async Task RegisterUserAsync(UserRegisterFormModel formModel)
     {
-        Role role = await roleRepository.GetRoleByRoleName(GeneralApplicationConstants.DefaultRegistrationRole); //USER
+        Role role = await roleRepository.GetRoleByRoleName(GeneralApplicationConstants.DefaultRegistrationRole); //USER - ROLE
 
         string password = HashPassword(formModel.Password);
 
@@ -49,11 +48,18 @@ public class UserService : IUserService
             UserId = user.Id,
             User = user,
         };
+        UserClaim userClaim = new UserClaim
+        {
+            UserId = user.Id,
+            ClaimType = "ROLE",
+            ClaimValue = "USER"
+        };
+
         user.UsersRoles.Add(userRole);
+        user.UserClaims.Add(userClaim);
 
         try
         {
-            //await userRoleRepository.AddUserRoleAsync(userRole);
             await userRepository.RegisterUser(user);
         }
         catch (Exception)
@@ -71,6 +77,26 @@ public class UserService : IUserService
     {
         return await userRepository.UserExistsByEmail(email);
 
+    }
+
+    public async Task<bool> IsPasswordMatchByUsername(string username, string password)
+    {
+        try
+        {
+            //Caught below if it throws
+            UserLoginFormModel useLoginModel = await userRepository.GetUserByUsername(username);
+
+            if (VerifyPassword(useLoginModel.Password, password))
+            {
+                return true;
+            }
+            return false;
+        }
+        catch (Exception)
+        {
+            //throws if user not found
+            throw new Exception("Unexpected error occurred. The staff are working on the problem!");
+        }
     }
 
     public string HashPassword(string plainPassword)

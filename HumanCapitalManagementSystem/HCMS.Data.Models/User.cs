@@ -39,5 +39,7 @@ namespace HCMS.Data.Models
         public DateTime RegisterDate { get; set; }
 
         public virtual ICollection<UserRole> UsersRoles { get; set; }
+
+        public virtual ICollection<UserClaim> UserClaims { get; set; }
     }
 }

@@ -2216,6 +2216,30 @@
         "runtime": {
           "bin/placeholder/HCMS.Data.Models.dll": {}
         }
+      },
+      "HCMS.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/HCMS.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Infrastructure.dll": {}
+        }
+      },
+      "HCMS.Web.ViewModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HCMS.Common": "1.0.0",
+          "HCMS.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HCMS.Web.ViewModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Web.ViewModels.dll": {}
+        }
       }
     }
   },
@@ -7019,13 +7043,24 @@
       "type": "project",
       "path": "../HCMS.Data.Models/HCMS.Data.Models.csproj",
       "msbuildProject": "../HCMS.Data.Models/HCMS.Data.Models.csproj"
+    },
+    "HCMS.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Infrastructure/HCMS.Infrastructure.csproj",
+      "msbuildProject": "../HCMS.Infrastructure/HCMS.Infrastructure.csproj"
+    },
+    "HCMS.Web.ViewModels/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Web.ViewModels/HCMS.Web.ViewModels.csproj",
+      "msbuildProject": "../HCMS.Web.ViewModels/HCMS.Web.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "HCMS.Common >= 1.0.0",
       "HCMS.Data >= 1.0.0",
-      "HCMS.Data.Models >= 1.0.0"
+      "HCMS.Data.Models >= 1.0.0",
+      "HCMS.Web.ViewModels >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -7063,6 +7098,9 @@
             },
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj"
+            },
+            "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web.ViewModels\\HCMS.Web.ViewModels.csproj": {
+              "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web.ViewModels\\HCMS.Web.ViewModels.csproj"
             }
           }
         }

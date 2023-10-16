@@ -8,5 +8,7 @@ namespace HCMS.Services.Interfaces
 
         public Task<bool> IsUsernameExists(string username);
         public Task<bool> IsEmailExists(string email);
+
+        public Task<bool> IsPasswordMatchByUsername(string username, string password);
     }
 }

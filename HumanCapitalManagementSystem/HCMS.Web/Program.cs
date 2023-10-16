@@ -31,6 +31,24 @@ namespace HCMS.Web
             builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            //Session
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); //session timeout if not used.
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+            //Authorization
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("EmployeePolicy", policy =>
+                {
+                    policy.RequireRole("Employee");
+                });
+            });
+
+            //Controllers
             builder.Services.AddControllersWithViews();
 
             WebApplication app = builder.Build();
@@ -51,6 +69,7 @@ namespace HCMS.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
