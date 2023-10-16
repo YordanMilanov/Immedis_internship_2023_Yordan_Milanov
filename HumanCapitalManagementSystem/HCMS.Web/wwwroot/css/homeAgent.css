@@ -1,0 +1,28 @@
+﻿.carousel-background {
+    color: white;
+    background-color: rgba(13, 43, 61, 0.98);
+}
+
+.border-radiues-5px {
+    border-radius: 5px;
+}
+
+.tech-font {
+    font-family: 'Nova Square', sans-serif;
+}
+
+.text-bold {
+    font-weight: bold
+}
+
+.employees-background, .workrecords-background {
+    background-color: #2a4969
+}
+
+.companies-background, .recommendations-background {
+    background-color: #134475
+}
+
+.applications-background {
+    background-color: #1c354f
+}
