@@ -72,6 +72,7 @@ namespace HCMS.Web.Controllers
             {
                 await userService.RegisterUserAsync(model);
                 TempData[SuccessMessage] = "You have successfully registered!";
+                TempData["LoginUsername"] = model.Username;
                 return RedirectToAction("Login", "User");
 
             }

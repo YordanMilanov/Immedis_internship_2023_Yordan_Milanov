@@ -1,22 +1,38 @@
-﻿<body>
+﻿@using HCMS.Web.ViewModels.User﻿;
+@model UserLoginFormModel;
+@{
+    string username = TempData.ContainsKey("LoginUsername") ? TempData["LoginUsername"].ToString() : "";
+}
 
 <div id="formWrapper" class="w-50 mx-auto my-auto pt-lg-5 ">
 
-    <form>
+    <form
+        method="post"
+        asp-controller="User"
+        asp-action="Login">
 
         <div class="row px-5 align-items-center my-auto">
             <p class="text-center h1 fw-bold mb-2 mt-2">Sign in</p>
+            
+            @* Error Messages for failed login *@
+                                
+            @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <h3 class="mt-5 text-center">
+                    <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                </h3>
+            }
 
             <!-- Username input -->
             <div class="form-outline mt-4 mb-4 d-flex flex-column align-items-center">
-                <label class="form-label" for="form2Example1">Username</label>
-                <input type="email" id="form2Example1" class="w-75 form-control">
+                    <label class="form-label" for="username">Username</label>
+                <input type="text" id="username" class="w-75 form-control" value="@username">
             </div>
 
             <!-- Password input -->
             <div class="form-outline mt-4 mb-4 d-flex flex-column align-items-center">
-                <label class="form-label" for="form2Example2">Password</label>
-                <input type="password" id="form2Example2" class="w-75 form-control"/>
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="w-75 form-control" />
             </div>
 
             <!-- 2 column grid layout for inline styling -->
@@ -41,7 +57,10 @@
 
             <!-- Register buttons -->
             <div class="text-center">
-                <p>Not a member? <a href="/User/Register">Register</a></p>
+                    <p>Not a member? 
+                    <a asp-controller="User" 
+                       asp-action="Register">Register</a>
+                    </p>
                 @* <p>or sign up with:</p>
                 <button type="button" class="btn btn-link btn-floating mx-1">
                     <i class="fab fa-facebook-f"></i>
