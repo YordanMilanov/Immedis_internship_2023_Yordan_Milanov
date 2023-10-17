@@ -19,7 +19,7 @@ body {
 }
 
 header, footer {
-    background: linear-gradient(to right, #014359, #02234f);
+    background: linear-gradient(to right, #2a4969, #02234f);
 }
 
 .nav-item a:hover {

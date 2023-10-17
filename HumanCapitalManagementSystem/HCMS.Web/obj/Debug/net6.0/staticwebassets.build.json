@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MBR6FSSEe61CXqfyU4yogQVZMeBGWBeFTexRMI543H4=",
+  "Hash": "c3zM7AP9ytX8FNqR7MCZk0uad+1gtuR+CdWYKr9Hx4o=",
   "Source": "HCMS.Web",
   "BasePath": "_content/HCMS.Web",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\HCMS.Web.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\homeAgent.css",
+      "SourceId": "HCMS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\",
+      "BasePath": "_content/HCMS.Web",
+      "RelativePath": "css/homeAgent.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\homeAgent.css"
     },
     {
       "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\login.css",

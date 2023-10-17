@@ -20,6 +20,11 @@ namespace HCMS.Web.Controllers
             return View();
         }
 
+        public IActionResult HomeEmployee()
+        {
+            return View();
+        }
+
 
         [Authorize(Roles = "Employee")]
         public IActionResult Privacy()
