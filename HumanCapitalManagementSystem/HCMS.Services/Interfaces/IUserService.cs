@@ -1,4 +1,5 @@
-﻿using HCMS.Web.ViewModels.User;
+﻿using HCMS.Services.ServiceModels.User;
+using HCMS.Web.ViewModels.User;
 
 namespace HCMS.Services.Interfaces
 {
@@ -10,5 +11,7 @@ namespace HCMS.Services.Interfaces
         public Task<bool> IsEmailExists(string email);
 
         public Task<bool> IsPasswordMatchByUsername(string username, string password);
+
+        public Task<UserServiceModel> GetUserServiceModelByUsername(string username);
     }
 }

@@ -25,7 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Repository", "HCMS.Repository\HCMS.Repository.csproj", "{8C1B795E-FB59-4878-8357-101860B31D45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCMS.Infrastructure", "HCMS.Infrastructure\HCMS.Infrastructure.csproj", "{627864FA-4354-4658-A0AF-AC6166A10A85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Infrastructure", "HCMS.Infrastructure\HCMS.Infrastructure.csproj", "{627864FA-4354-4658-A0AF-AC6166A10A85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCMS.Services.ServiceModels", "HCMS.Services.ServiceModels\HCMS.Services.ServiceModels.csproj", "{7B83D640-62B4-48A2-809A-3A77D34E8E5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{627864FA-4354-4658-A0AF-AC6166A10A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{627864FA-4354-4658-A0AF-AC6166A10A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{627864FA-4354-4658-A0AF-AC6166A10A85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B83D640-62B4-48A2-809A-3A77D34E8E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B83D640-62B4-48A2-809A-3A77D34E8E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B83D640-62B4-48A2-809A-3A77D34E8E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B83D640-62B4-48A2-809A-3A77D34E8E5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{78E92BF8-5963-4C03-A511-9FCF003E4718} = {1965E96F-43B8-44E3-97E2-D9824B1A7147}
 		{C6596760-8053-4498-9721-DC2B8A327E2D} = {BF1E23F0-51EC-4EBC-8D5B-A14CBE28C836}
 		{8C1B795E-FB59-4878-8357-101860B31D45} = {77A6B323-A982-451E-884F-029E7922CD10}
+		{7B83D640-62B4-48A2-809A-3A77D34E8E5E} = {1965E96F-43B8-44E3-97E2-D9824B1A7147}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E307B50-5D5D-41D8-A954-54A38A470FA5}

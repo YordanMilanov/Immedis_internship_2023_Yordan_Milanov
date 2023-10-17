@@ -2292,6 +2292,7 @@
           "HCMS.Common": "1.0.0",
           "HCMS.Data": "1.0.0",
           "HCMS.Data.Models": "1.0.0",
+          "HCMS.Services.ServiceModels": "1.0.0",
           "HCMS.Web.ViewModels": "1.0.0"
         },
         "compile": {
@@ -2310,6 +2311,7 @@
           "HCMS.Data": "1.0.0",
           "HCMS.Data.Models": "1.0.0",
           "HCMS.Repository": "1.0.0",
+          "HCMS.Services.ServiceModels": "1.0.0",
           "HCMS.Web.ViewModels": "1.0.0"
         },
         "compile": {
@@ -2317,6 +2319,20 @@
         },
         "runtime": {
           "bin/placeholder/HCMS.Services.dll": {}
+        }
+      },
+      "HCMS.Services.ServiceModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HCMS.Common": "1.0.0",
+          "HCMS.Data.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HCMS.Services.ServiceModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Services.ServiceModels.dll": {}
         }
       },
       "HCMS.Web.ViewModels/1.0.0": {
@@ -7236,6 +7252,11 @@
       "type": "project",
       "path": "../HCMS.Services/HCMS.Services.csproj",
       "msbuildProject": "../HCMS.Services/HCMS.Services.csproj"
+    },
+    "HCMS.Services.ServiceModels/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Services.ServiceModels/HCMS.Services.ServiceModels.csproj",
+      "msbuildProject": "../HCMS.Services.ServiceModels/HCMS.Services.ServiceModels.csproj"
     },
     "HCMS.Web.ViewModels/1.0.0": {
       "type": "project",

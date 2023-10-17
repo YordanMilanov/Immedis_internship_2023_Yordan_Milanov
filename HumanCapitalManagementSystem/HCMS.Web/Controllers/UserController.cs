@@ -1,6 +1,12 @@
-﻿using HCMS.Services;
+﻿using System.Security.Claims;
+using System.Security.Principal;
+using HCMS.Services;
 using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.User;
 using HCMS.Web.ViewModels.User;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using static HCMS.Common.NotificationMessagesConstants;
@@ -18,6 +24,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
             if (TempData.ContainsKey("LoginUsername"))
@@ -53,13 +60,45 @@ namespace HCMS.Web.Controllers
             }
 
             //successfully passed the validation
+
             //Login Logic
+
+            //set successful message to the toastr
             TempData[SuccessMessage] = "You have successfully Logged in!";
-            return View(model);
-            //TODO LOGIN LOGIC !
+
+            UserServiceModel user = await userService.GetUserServiceModelByUsername(model.Username);
+
+            //Create the required claims from the userInformation
+            Claim userIdClaim = new Claim("UserId", user.Id.ToString());
+            Claim usernameClaim = new Claim("Username", user.Username);
+            Claim roleClaim = new Claim("Role", user.MaxRole.Name);
+
+            //create a collection from the claims
+            var claims = new List<Claim>
+            {
+                userIdClaim,
+                usernameClaim,
+                roleClaim,
+            };
+
+            //set the collection to the ClaimsIdentity
+            IIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            // Create a ClaimsPrincipal with the claimsIdentity identity
+            ClaimsPrincipal userPrincipal = new ClaimsPrincipal(userIdentity);
+            
+
+            AuthenticationProperties authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+            };
+            // Set the HttpContext.User to the userPrincipal
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
+
+            return RedirectToAction("HomeAgent", "Home");
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Register()
         {
             return View();
@@ -111,6 +150,13 @@ namespace HCMS.Web.Controllers
                 ModelState.AddModelError("GeneralError", "An error occurred while registering the user. Please try again!");
                 return RedirectToAction("Register", "User", model);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

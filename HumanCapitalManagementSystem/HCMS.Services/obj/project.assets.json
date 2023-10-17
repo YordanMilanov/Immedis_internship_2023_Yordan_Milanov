@@ -2247,6 +2247,7 @@
           "HCMS.Common": "1.0.0",
           "HCMS.Data": "1.0.0",
           "HCMS.Data.Models": "1.0.0",
+          "HCMS.Services.ServiceModels": "1.0.0",
           "HCMS.Web.ViewModels": "1.0.0"
         },
         "compile": {
@@ -2254,6 +2255,20 @@
         },
         "runtime": {
           "bin/placeholder/HCMS.Repository.dll": {}
+        }
+      },
+      "HCMS.Services.ServiceModels/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "HCMS.Common": "1.0.0",
+          "HCMS.Data.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HCMS.Services.ServiceModels.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HCMS.Services.ServiceModels.dll": {}
         }
       },
       "HCMS.Web.ViewModels/1.0.0": {
@@ -7114,6 +7129,11 @@
       "path": "../HCMS.Repository/HCMS.Repository.csproj",
       "msbuildProject": "../HCMS.Repository/HCMS.Repository.csproj"
     },
+    "HCMS.Services.ServiceModels/1.0.0": {
+      "type": "project",
+      "path": "../HCMS.Services.ServiceModels/HCMS.Services.ServiceModels.csproj",
+      "msbuildProject": "../HCMS.Services.ServiceModels/HCMS.Services.ServiceModels.csproj"
+    },
     "HCMS.Web.ViewModels/1.0.0": {
       "type": "project",
       "path": "../HCMS.Web.ViewModels/HCMS.Web.ViewModels.csproj",
@@ -7127,6 +7147,7 @@
       "HCMS.Data >= 1.0.0",
       "HCMS.Data.Models >= 1.0.0",
       "HCMS.Repository >= 1.0.0",
+      "HCMS.Services.ServiceModels >= 1.0.0",
       "HCMS.Web.ViewModels >= 1.0.0"
     ]
   },
@@ -7168,6 +7189,9 @@
             },
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj"
+            },
+            "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj": {
+              "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj"
             },
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web.ViewModels\\HCMS.Web.ViewModels.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web.ViewModels\\HCMS.Web.ViewModels.csproj"

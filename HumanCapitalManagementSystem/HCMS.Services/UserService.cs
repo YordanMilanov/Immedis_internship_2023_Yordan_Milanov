@@ -11,6 +11,7 @@ using HCMS.Common;
 using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
+using HCMS.Services.ServiceModels.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCMS.Services;
@@ -84,7 +85,7 @@ public class UserService : IUserService
         try
         {
             //Caught below if it throws
-            UserLoginFormModel useLoginModel = await userRepository.GetUserByUsername(username);
+            UserLoginFormModel useLoginModel = await userRepository.GetUserLoginFormModelByUsername(username);
 
             if (VerifyPassword(useLoginModel.Password, password))
             {
@@ -97,6 +98,11 @@ public class UserService : IUserService
             //throws if user not found
             throw new Exception("Unexpected error occurred. The staff are working on the problem!");
         }
+    }
+
+    public async Task<UserServiceModel> GetUserServiceModelByUsername(string username)
+    {
+       return await userRepository.GetUserServiceModelByUsername(username);
     }
 
     public string HashPassword(string plainPassword)

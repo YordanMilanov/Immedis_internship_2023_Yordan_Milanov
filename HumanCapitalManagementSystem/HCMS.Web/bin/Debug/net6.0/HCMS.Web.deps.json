@@ -1241,6 +1241,7 @@
           "HCMS.Common": "1.0.0",
           "HCMS.Data": "1.0.0",
           "HCMS.Data.Models": "1.0.0",
+          "HCMS.Services.ServiceModels": "1.0.0",
           "HCMS.Web.ViewModels": "1.0.0"
         },
         "runtime": {
@@ -1254,10 +1255,20 @@
           "HCMS.Data": "1.0.0",
           "HCMS.Data.Models": "1.0.0",
           "HCMS.Repository": "1.0.0",
+          "HCMS.Services.ServiceModels": "1.0.0",
           "HCMS.Web.ViewModels": "1.0.0"
         },
         "runtime": {
           "HCMS.Services.dll": {}
+        }
+      },
+      "HCMS.Services.ServiceModels/1.0.0": {
+        "dependencies": {
+          "HCMS.Common": "1.0.0",
+          "HCMS.Data.Models": "1.0.0"
+        },
+        "runtime": {
+          "HCMS.Services.ServiceModels.dll": {}
         }
       },
       "HCMS.Web.ViewModels/1.0.0": {
@@ -2171,6 +2182,11 @@
       "sha512": ""
     },
     "HCMS.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HCMS.Services.ServiceModels/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
