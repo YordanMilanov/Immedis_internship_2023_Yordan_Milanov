@@ -18,5 +18,7 @@ namespace HCMS.Web.ViewModels.User
         [Display(Name = "Password")]
         [StringLength(PasswordMaxLength, MinimumLength = PasswordMinLength, ErrorMessage = "Password length must be between {2} and {1} symbols.")]
         public string Password { get; set; } = null!;
+
+        public bool RememberMe { get; set; }
     }
 }

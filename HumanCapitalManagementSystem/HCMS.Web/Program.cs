@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+using HCMS.Common;
 using HCMS.Data;
 using HCMS.Services;
 using HCMS.Services.Interfaces;
@@ -7,6 +9,7 @@ using HCMS.Repository;
 using HCMS.Repository.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Options;
 
 namespace HCMS.Web
 {
@@ -45,21 +48,25 @@ namespace HCMS.Web
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/Account/Login"; // Set your login path
-                    options.AccessDeniedPath = "/Account/AccessDenied"; // Set your access denied path
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set the cookie expiration time
+                    options.AccessDeniedPath = "/User/AccessDenied"; // Set your access denied path
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);  // Set the cookie expiration time
+
+                    options.LoginPath = "/User/Login";
+                    options.LogoutPath = "/User/Logout";
                 });
 
             //Authorization
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("User", policy => policy.RequireRole("USER"));
-                options.AddPolicy("Employee", policy => policy.RequireRole("EMPLOYEE"));
-                options.AddPolicy("Admin", policy => policy.RequireRole("ADMIN"));
-            });
+            //builder.Services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("Agent", policy => policy.RequireRole(RoleConstants.AGENT));
+            //    options.AddPolicy("Employee", policy => policy.RequireRole(RoleConstants.EMPLOYEE));
+            //    options.AddPolicy("Admin", policy => policy.RequireRole(RoleConstants.ADMIN));
+            //});
 
             //Controllers
             builder.Services.AddControllersWithViews();
+
+
 
             WebApplication app = builder.Build();
 
@@ -90,6 +97,8 @@ namespace HCMS.Web
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
+
         }
     }
 }

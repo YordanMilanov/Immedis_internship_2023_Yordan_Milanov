@@ -1,19 +1,11 @@
-﻿@* ﻿@using Microsoft.AspNetCore.Identity
-@using HouseRentingSystem.Data.Models
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
- *@
-
-<ul class="navbar-nav mx-3">
-    @if (false)
+﻿<ul class="navbar-nav mx-3">
+    @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item">
-            <a class="nav-link text-white" asp-area="" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name!</a>
+            <a class="nav-link text-white" asp-area="" asp-page="/Account/Manage/Index" title="Manage">Hello,@User.FindFirst("Username")?.Value!</a>
         </li>
         <li class="nav-item">
-            <form  class="form-inline" asp-area="" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
-            </form>
+                <a href="/User/Logout" type="submit" class="nav-link btn btn-link text-white">Logout</a>
         </li>
     }
     else

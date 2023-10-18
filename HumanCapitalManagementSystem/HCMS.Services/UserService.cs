@@ -30,7 +30,7 @@ public class UserService : IUserService
 
     public async Task RegisterUserAsync(UserRegisterFormModel formModel)
     {
-        Role role = await roleRepository.GetRoleByRoleName(GeneralApplicationConstants.DefaultRegistrationRole); //USER - ROLE
+        Role role = await roleRepository.GetRoleByRoleName(RoleConstants.EMPLOYEE); //EMPLOYEE - ROLE
 
         string password = HashPassword(formModel.Password);
 
@@ -41,6 +41,7 @@ public class UserService : IUserService
             Password = password,
             Email = formModel.Email,
             RegisterDate = DateTime.UtcNow.AddHours(3),
+            UserClaims = new List<UserClaim>()
         };
         UserRole userRole = new UserRole()
         {
@@ -53,9 +54,8 @@ public class UserService : IUserService
         {
             UserId = user.Id,
             ClaimType = "ROLE",
-            ClaimValue = "USER"
+            ClaimValue = "EMPLOYEE"
         };
-
         user.UsersRoles.Add(userRole);
         user.UserClaims.Add(userClaim);
 

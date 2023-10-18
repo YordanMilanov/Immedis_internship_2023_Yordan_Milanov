@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
+using HCMS.Data.Models;
 using HCMS.Services;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.User;
@@ -71,30 +72,36 @@ namespace HCMS.Web.Controllers
             //Create the required claims from the userInformation
             Claim userIdClaim = new Claim("UserId", user.Id.ToString());
             Claim usernameClaim = new Claim("Username", user.Username);
-            Claim roleClaim = new Claim("Role", user.MaxRole.Name);
-
             //create a collection from the claims
             var claims = new List<Claim>
             {
                 userIdClaim,
                 usernameClaim,
-                roleClaim,
             };
+
+            foreach (Role role in user.Roles)
+            {
+                var roleClaim = new Claim(ClaimTypes.Role, role.Name);
+                claims.Add(roleClaim);
+            }
 
             //set the collection to the ClaimsIdentity
             IIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            
             // Create a ClaimsPrincipal with the claimsIdentity identity
             ClaimsPrincipal userPrincipal = new ClaimsPrincipal(userIdentity);
-            
+
+            bool rememberMe = model.RememberMe;
 
             AuthenticationProperties authProperties = new AuthenticationProperties
             {
-                IsPersistent = true,
+                IsPersistent = rememberMe,
             };
+
             // Set the HttpContext.User to the userPrincipal
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
 
-            return RedirectToAction("HomeAgent", "Home");
+            return RedirectToAction("Home", "Home");
         }
 
         [HttpGet]
@@ -153,9 +160,9 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Logout() 
         {
-            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
     }

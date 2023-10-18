@@ -15,6 +15,6 @@ namespace HCMS.Services.ServiceModels.User
 
         public string Username { get; set; } = null!;
 
-        public Role MaxRole { get; set; }
+        public ICollection<Role> Roles { get; set; }
     }
 }

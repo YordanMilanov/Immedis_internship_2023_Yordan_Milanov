@@ -1,0 +1,13 @@
+﻿@* ﻿@model //TODO WorkRecordFormModel *@
+@{
+    ViewData["Title"] = "Add Work Record";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr/>
+<partial name="_WorkRecordPartial" model="@Model"/>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

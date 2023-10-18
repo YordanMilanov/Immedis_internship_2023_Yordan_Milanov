@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HCMS.Data;
+﻿using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.ServiceModels.User;
@@ -61,15 +56,18 @@ namespace HCMS.Repository
         {
             return await this.dbContext
                 .Users
+                .Where(u => u.Username == username)
+                .Include(u => u.UsersRoles)
+                .ThenInclude(ur => ur.Role)
                 .Select(u => new UserServiceModel()
                 {
-                    Id = Guid.Parse(u.Id.ToString()),
+                    Id = u.Id, // Remove the Guid.Parse conversion
                     Username = u.Username,
-                    MaxRole = u.UsersRoles
-                        .OrderBy(ur => ur.Role.Id)
+                    Roles = u.UsersRoles
                         .Select(ur => ur.Role)
-                        .First()
-                }).FirstAsync();
+                        .ToList()
+                })
+                .FirstAsync();
         }
     }
 }
