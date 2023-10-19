@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\Image\\RegisterCardBackground.jpg"
     },
     {
+      "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\Employee.css",
+      "PackagePath": "staticwebassets\\css\\Employee.css"
+    },
+    {
       "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\WorkRecord.css",
       "PackagePath": "staticwebassets\\css\\WorkRecord.css"
     },

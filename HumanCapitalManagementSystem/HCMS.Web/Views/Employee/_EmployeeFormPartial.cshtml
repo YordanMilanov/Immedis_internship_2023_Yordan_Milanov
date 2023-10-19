@@ -1,0 +1,52 @@
+﻿@model HCMS.Web.ViewModels.Employee.EmployeeFormModel
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
+            <form method="post">
+                <h1 class="text-white text-center technical-font">Employee Information</h1>
+               
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" placeholder="First name...">
+                    <span asp-validation-for="FirstName" class="small text-white bg-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control"
+                           placeholder="Last name...">
+                    <span asp-validation-for="LastName" class="small text-white bg-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control"
+                           placeholder="Email...">
+                    <span asp-validation-for="Email" class="small text-white bg-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="Phone number...">
+                    <span asp-validation-for="PhoneNumber" class="small text-white bg-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="PhotoUrl"></label>
+                    <input asp-for="PhotoUrl" class="form-control" placeholder="Photo link...">
+                    <span asp-validation-for="PhotoUrl" class="small text-white bg-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="DateOfBirth"></label>
+                    <input asp-for="DateOfBirth" class="form-control" type="date" placeholder="Birth date...">
+                    <span asp-validation-for="DateOfBirth" class="small text-white bg-danger"></span>
+                </div>
+                
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3 technical-font" type="submit" value="Edit Personal info" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
