@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "c3zM7AP9ytX8FNqR7MCZk0uad+1gtuR+CdWYKr9Hx4o=",
+  "Hash": "BkuwXBfMgksBALIQvemcLFsfS/IlW6MCoRH0pZr3wm8=",
   "Source": "HCMS.Web",
   "BasePath": "_content/HCMS.Web",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\WorkRecord.css",
+      "SourceId": "HCMS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\",
+      "BasePath": "_content/HCMS.Web",
+      "RelativePath": "css/WorkRecord.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\WorkRecord.css"
     },
     {
       "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\favicon.ico",

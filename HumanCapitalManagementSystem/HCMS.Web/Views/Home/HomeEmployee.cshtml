@@ -45,15 +45,18 @@
                 </div>
             </div>
         </div>
+
+        @* CAROUSEL END *@
+
         <div class="col-4">
             <div class="row">
                 <div class="col-12 workrecords-background text-white height-25 d-flex flex-column align-items-center">
                     <!-- Content for the top right div -->
                     <div>
-                        <h1 class="text-center text-bold tech-font">Edit Work Records</h1>
-                        <p class="text-center mt-2">Receive valuable information about the professional journey of our dedicated employees. Our platform provides a comprehensive overview of their work records</p>
+                        <h1 class="text-center text-bold tech-font">My Work Records</h1>
+                        <p class="text-center mt-2">Search, edit and delete your saved personal work records, or add new one</p>
                     </div>
-                    <a class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to work records</a>
+                    <a asp-controller="WorkRecord" asp-action="Add" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to records</a>
                 </div>
             </div>
             <div class="row">

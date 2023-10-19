@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using HCMS.Web.ViewModels.WorkRecord;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HCMS.Web.Controllers
 {
     public class WorkRecordController : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "EMPLOYEE")]
         public IActionResult Add()
         {
             return View();
@@ -14,7 +15,14 @@ namespace HCMS.Web.Controllers
         [Authorize]
         public IActionResult All()
         {
-            return View();
+            WorkRecordAllQueryModel model = new WorkRecordAllQueryModel();
+            return View(model);
+        }
+
+        [Authorize]
+        public IActionResult Edit()
+        {
+            return View("Add");
         }
     }
 }

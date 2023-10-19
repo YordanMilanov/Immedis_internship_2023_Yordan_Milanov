@@ -17,6 +17,7 @@
   <ItemGroup>
 	  <ProjectReference Include="..\HCMS.Data\HCMS.Data.csproj" />
 	  <ProjectReference Include="..\HCMS.Services\HCMS.Services.csproj" />
+	  <ProjectReference Include="..\HCMS.Web.ViewModels\HCMS.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

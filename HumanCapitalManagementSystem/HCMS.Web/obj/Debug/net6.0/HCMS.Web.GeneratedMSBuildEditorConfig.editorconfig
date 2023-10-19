@@ -80,8 +80,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1JlY29yZFxBbGwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/WorkRecord/_WorkRecordPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1JlY29yZFxfV29ya1JlY29yZFBhcnRpYWwuY3NodG1s
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/WorkRecord/_WorkRecordCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1JlY29yZFxfV29ya1JlY29yZENhcmRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/WorkRecord/_WorkRecordFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1JlY29yZFxfV29ya1JlY29yZEZvcm1QYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/_ViewImports.cshtml]
