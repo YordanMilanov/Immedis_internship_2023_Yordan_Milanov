@@ -39,6 +39,23 @@ namespace HCMS.Repository
             return await dbContext.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
+        public async Task<User?> GetUserById(Guid id)
+        {
+            User user = new User();
+            try
+            {
+                user = await dbContext.Users
+                    .Where(user => user.Id == id)
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
         public async Task<UserLoginFormModel> GetUserLoginFormModelByUsername(string username)
         {
 

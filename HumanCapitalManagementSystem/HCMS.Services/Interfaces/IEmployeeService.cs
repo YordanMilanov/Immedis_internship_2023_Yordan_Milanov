@@ -5,6 +5,8 @@ namespace HCMS.Services.Interfaces
 {
     public interface IEmployeeService
     {
-        Task<Employee> UpdateEmployeeAsync(EmployeeFormModel model);
+        Task UpdateEmployeeAsync(EmployeeFormModel model);
+
+        Task<EmployeeFormModel?> GetEmployeeFormModelByUserIdAsync(Guid id);
     }
 }

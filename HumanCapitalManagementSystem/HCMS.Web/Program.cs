@@ -26,19 +26,27 @@ namespace HCMS.Web
 
             builder.Services
                 .AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(connectionString)).AddTransient<ApplicationDbContext>();
 
             //TODO: Register Services!
             
             //services and repositories should also be added!
+
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
+
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
             builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
             builder.Services.AddScoped<ICompanyService, CompanyService>();
+
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+
+            builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+            builder.Services.AddScoped<ILocationService, LocationService>();
             //Session
             builder.Services.AddSession(options =>
             {
@@ -58,14 +66,7 @@ namespace HCMS.Web
                     options.LogoutPath = "/User/Logout";
                 });
 
-            //Authorization
-            //builder.Services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("Agent", policy => policy.RequireRole(RoleConstants.AGENT));
-            //    options.AddPolicy("Employee", policy => policy.RequireRole(RoleConstants.EMPLOYEE));
-            //    options.AddPolicy("Admin", policy => policy.RequireRole(RoleConstants.ADMIN));
-            //});
-
+            
             //Controllers
             builder.Services.AddControllersWithViews();
 

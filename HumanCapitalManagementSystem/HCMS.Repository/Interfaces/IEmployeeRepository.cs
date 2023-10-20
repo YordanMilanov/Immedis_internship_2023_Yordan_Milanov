@@ -1,9 +1,12 @@
 ﻿using HCMS.Data.Models;
-
 namespace HCMS.Repository.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Task<Employee> UpdateEmployeeAsync (Employee model);
+        Task AddEmployeeAsync (Employee model);
+
+        Task<Employee?> GetEmployeeByUserIdAsync (Guid id);
+
+        Task<bool> ExistsEmployeeByUserIdAsync(Guid id);
     }
 }

@@ -37,7 +37,6 @@ namespace HCMS.Data.Models
         [Required]
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
         public DateTime AddDate { get; set; } = DateTime.Now;
 
         //FKs

@@ -10,14 +10,17 @@ using HCMS.Web.ViewModels.User;
 namespace HCMS.Repository.Interfaces
 {
     public interface IUserRepository
+
     {
-        Task RegisterUser(User user);
+    Task RegisterUser(User user);
 
-        Task<bool> UserExistsByUsername(string username);
-        Task<bool> UserExistsByEmail(string email);
+    Task<bool> UserExistsByUsername(string username);
+    Task<bool> UserExistsByEmail(string email);
 
-        Task<UserLoginFormModel> GetUserLoginFormModelByUsername(string username);
+    Task<User?> GetUserById(Guid id);
 
-        Task<UserServiceModel> GetUserServiceModelByUsername(string username);
+    Task<UserLoginFormModel> GetUserLoginFormModelByUsername(string username);
+
+    Task<UserServiceModel> GetUserServiceModelByUsername(string username);
     }
 }

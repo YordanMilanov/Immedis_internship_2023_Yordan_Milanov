@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using HCMS.Services.Interfaces;
+﻿using HCMS.Services.Interfaces;
 using HCMS.Web.ViewModels.User;
-using BCrypt.Net;
 using HCMS.Common;
-using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.ServiceModels.User;
-using Microsoft.EntityFrameworkCore;
 
 namespace HCMS.Services;
 using BCrypt.Net;
@@ -36,7 +27,6 @@ public class UserService : IUserService
 
         User user = new User
         {
-            Id = Guid.NewGuid(),
             Username = formModel.Username,
             Password = password,
             Email = formModel.Email,
