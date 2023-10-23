@@ -21,20 +21,19 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(bool))]
-        
         public async Task<IActionResult> RegisterUser([FromBody]UserRegisterFormModel model)
         {
            // validate email and username
             try
             {
-                bool isEmailExists = await userService.IsEmailExists(model.Email);
-                if (isEmailExists)
+                
+                if (await userService.IsEmailExists(model.Email))
                 {
                     return (BadRequest("Email is already used!"));
                 }
 
-                bool isUsernameExists = await userService.IsUsernameExists(model.Username);
-                if (isUsernameExists)
+
+                if (await userService.IsUsernameExists(model.Username))
                 {
                     return (BadRequest("Username is already used!"));
                 }
@@ -46,6 +45,29 @@ namespace HCMS.Web.Api.Controllers
             //validation passed
             await userService.RegisterUserAsync(model);
             return Ok("User has been successfully registered!");
+        }
+
+        [HttpPost("login")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200, Type = typeof(bool))]
+        public async Task<IActionResult> ValidateLoginUser([FromBody] UserLoginFormModel model)
+        {
+            //validate the name
+            if (!(await userService.IsUsernameExists(model.Username)))
+            {
+                return BadRequest("User name does not exists!");
+            }
+
+            //validate password
+            if (!(await userService.IsPasswordMatchByUsername(model.Username, model.Password)))
+            {
+                return BadRequest("Wrong password!");
+            }
+
+            //successful validation
+            return Ok("You have Successfully logged!");
         }
     }
 }

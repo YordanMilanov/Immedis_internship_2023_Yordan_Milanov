@@ -85,11 +85,7 @@ public class UserService : IUserService
             //Caught below if it throws
             UserLoginFormModel useLoginModel = await userRepository.GetUserLoginFormModelByUsername(username);
 
-            if (VerifyPassword(useLoginModel.Password, password))
-            {
-                return true;
-            }
-            return false;
+            return VerifyPassword(useLoginModel.Password, password);
         }
         catch (Exception)
         {

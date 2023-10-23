@@ -48,64 +48,69 @@ namespace HCMS.Web.Controllers
             {
                 return View(model);
             }
-            //validate if username not existing
-            if (!await userService.IsUsernameExists(model.Username))
-            {
-                ModelState.AddModelError("UsernameNotExists", "This username does not exist!");
-                return View(model);
-            }
 
-            //validate not matching passwords
-            if (!await userService.IsPasswordMatchByUsername(model.Username, model.Password))
-            {
-                TempData[ErrorMessage] = "The password does not match!";
-                ModelState.AddModelError("PasswordDoesNotMatch", "The password does not match!");
-                model.Password = string.Empty;
-                return View(model);
-            }
+            //validate username and password account
+            string json = JsonConvert.SerializeObject(model);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Make an HTTP POST request to the API endpoint
+            HttpResponseMessage response = await httpClient.PostAsync("/api/users/login", content);
+
 
             //successfully passed the validation
-
-            //Login Logic
-
-            //set successful message to the toastr
-            TempData[SuccessMessage] = "You have successfully Logged in!";
-
-            UserServiceModel user = await userService.GetUserServiceModelByUsername(model.Username);
-
-            //Create the required claims from the userInformation
-            Claim userIdClaim = new Claim("UserId", user.Id.ToString());
-            Claim usernameClaim = new Claim("Username", user.Username);
-            //create a collection from the claims
-            var claims = new List<Claim>
+            if (response.IsSuccessStatusCode)
             {
-                userIdClaim,
-                usernameClaim,
-            };
+                //Login Logic
+                //set successful message to the toastr
+                string successMassage = await response.Content.ReadAsStringAsync();
+                TempData[SuccessMessage] = successMassage;
 
-            foreach (Role role in user.Roles)
+                UserServiceModel user = await userService.GetUserServiceModelByUsername(model.Username);
+
+                //Create the required claims from the userInformation
+                Claim userIdClaim = new Claim("UserId", user.Id.ToString());
+                Claim usernameClaim = new Claim("Username", user.Username);
+                //create a collection from the claims
+                var claims = new List<Claim>
+                {
+                    userIdClaim,
+                    usernameClaim,
+                };
+
+                foreach (Role role in user.Roles)
+                {
+                    var roleClaim = new Claim(ClaimTypes.Role, role.Name);
+                    claims.Add(roleClaim);
+                }
+
+                //set the collection to the ClaimsIdentity
+                IIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                // Create a ClaimsPrincipal with the claimsIdentity identity
+                ClaimsPrincipal userPrincipal = new ClaimsPrincipal(userIdentity);
+
+                bool rememberMe = model.RememberMe;
+
+                AuthenticationProperties authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = rememberMe,
+                };
+
+                // Set the HttpContext.User to the userPrincipal
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal,
+                    authProperties);
+
+                return RedirectToAction("Home", "Home");
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
-                var roleClaim = new Claim(ClaimTypes.Role, role.Name);
-                claims.Add(roleClaim);
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError("ErrorMessage", errorMessage);
+                return View(model);
             }
 
-            //set the collection to the ClaimsIdentity
-            IIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            
-            // Create a ClaimsPrincipal with the claimsIdentity identity
-            ClaimsPrincipal userPrincipal = new ClaimsPrincipal(userIdentity);
-
-            bool rememberMe = model.RememberMe;
-
-            AuthenticationProperties authProperties = new AuthenticationProperties
-            {
-                IsPersistent = rememberMe,
-            };
-
-            // Set the HttpContext.User to the userPrincipal
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
-
-            return RedirectToAction("Home", "Home");
+            ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
+            return View(model);
         }
 
         [HttpGet]
@@ -116,7 +121,6 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
-        [Route("/User/Register")]
         public async Task<IActionResult> Register(UserRegisterFormModel model)
         {
             //validate input
@@ -124,42 +128,6 @@ namespace HCMS.Web.Controllers
             {
                 return View(model);
             }
-
-            ////validate matching passwords
-            //if (model.Password != model.ConfirmPassword)
-            //{
-            //    TempData[ErrorMessage] = "The confirmation of the password does not match!";
-            //    ModelState.AddModelError("PasswordDoesNotMatch", "Passwords do not match!");
-            //    return View(model);
-            //}
-
-            ////validate username not existing
-            //if (await userService.IsUsernameExists(model.Username))
-            //{
-            //    ModelState.AddModelError("UsernameExists", "This username already exists!");
-            //    return View(model);
-            //}
-
-            ////validate email not existing
-            //if (await userService.IsEmailExists(model.Email))
-            //{
-
-            //}
-
-            ////register successful
-            //try
-            //{
-            //    await userService.RegisterUserAsync(model);
-            //    TempData[SuccessMessage] = "You have successfully registered!";
-            //    TempData["LoginUsername"] = model.Username;
-            //    return RedirectToAction("Login", "User");
-
-            //}
-            //catch (Exception)
-            //{
-            //    ModelState.AddModelError("GeneralError", "An error occurred while registering the user. Please try again!");
-            //    return RedirectToAction("Register", "User", model);
-            //}
 
             try
             {
