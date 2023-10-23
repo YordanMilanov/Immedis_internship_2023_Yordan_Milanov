@@ -86,7 +86,6 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagem
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\appsettings.json
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\HCMS.Web.Api.staticwebassets.runtime.json
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\HCMS.Web.Api.exe
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\HCMS.Web.Api.deps.json
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\HCMS.Web.Api.runtimeconfig.json
