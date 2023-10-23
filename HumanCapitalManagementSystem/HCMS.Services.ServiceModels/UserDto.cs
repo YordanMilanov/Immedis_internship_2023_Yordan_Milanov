@@ -1,19 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using HCMS.Common.Structures;
 using HCMS.Data.Models;
 
-namespace HCMS.Services.ServiceModels.User
+namespace HCMS.Services.ServiceModels
 {
-    public class UserServiceModel
+    public class UserDto
     {
-        public UserServiceModel()
-        {
-            this.Id = Guid.NewGuid();
-        }
-
         public Guid Id { get; set; }
 
-        public string Username { get; set; } = null!;
+        public Name Username { get; set; }
 
         public ICollection<Role> Roles { get; set; }
     }

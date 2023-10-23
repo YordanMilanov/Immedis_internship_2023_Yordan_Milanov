@@ -1,4 +1,5 @@
-﻿using HCMS.Data.Models;
+﻿
+using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.Employee;
 
 namespace HCMS.Services.Interfaces
@@ -7,6 +8,6 @@ namespace HCMS.Services.Interfaces
     {
         Task UpdateEmployeeAsync(EmployeeFormModel model);
 
-        Task<EmployeeFormModel?> GetEmployeeFormModelByUserIdAsync(Guid id);
+        Task<EmployeeDto?> GetEmployeeDtoByUserIdAsync(Guid id);
     }
 }

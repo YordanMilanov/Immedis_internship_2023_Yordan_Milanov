@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HCMS.Common.Structures;
 using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.Employee;
 using Microsoft.EntityFrameworkCore;
+using Location = HCMS.Common.Structures.Location;
 
 namespace HCMS.Services
 {
@@ -40,7 +43,7 @@ namespace HCMS.Services
             //create new employee if employee == null
             if (employee == null)
             {
-                Location location = new Location()
+                Data.Models.Location location = new Data.Models.Location()
                 {
                     Address = model.Address,
                     State = model.State,
@@ -74,7 +77,7 @@ namespace HCMS.Services
                 //if existing employee does not have location
                 if (employee.LocationId == null)
                 {
-                    Location location = new Location()
+                    Data.Models.Location location = new Data.Models.Location()
                     {
                         Address = model.Address,
                         State = model.State,
@@ -102,7 +105,7 @@ namespace HCMS.Services
             }
         }
 
-        public async Task<EmployeeFormModel?> GetEmployeeFormModelByUserIdAsync(Guid id)
+        public async Task<EmployeeDto?> GetEmployeeDtoByUserIdAsync(Guid id)
         {
             Employee? employee = await employeeRepository.GetEmployeeByUserIdAsync(id);
 
@@ -110,22 +113,26 @@ namespace HCMS.Services
             {
                 return null;
             }
-            EmployeeFormModel employeeFormModel = new EmployeeFormModel
+           
+            EmployeeDto employeeDto = new EmployeeDto
             {
-                FirstName = employee.FirstName,
-                LastName = employee.LastName,
-                Email = employee.Email,
-                PhoneNumber = employee.PhoneNumber,
-                PhotoUrl = employee.PhotoUrl,
+                FirstName = new Name(employee.FirstName),
+                LastName = new Name(employee.LastName),
+                Email = new Email(employee.Email),
+                PhoneNumber = new Phone(employee.PhoneNumber),
+                PhotoUrl = new Photo(employee.PhotoUrl),
                 DateOfBirth = employee.DateOfBirth,
                 AddDate = employee.AddDate,
-                Country = employee.Location!.Country,
-                State = employee.Location.State,
-                Address = employee.Location.Address,
                 UserId = (Guid)employee.UserId!,
             };
 
-                return employeeFormModel;
+            Data.Models.Location location = employee.Location!;
+            if (location != null)
+            {
+                employeeDto.Location = new Location(location.Address, location.State, location.Country);
+            }
+
+            return employeeDto;
         }
     }
 }

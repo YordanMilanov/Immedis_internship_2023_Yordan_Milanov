@@ -3,10 +3,10 @@ using HCMS.Web.ViewModels.User;
 using HCMS.Common;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
-using HCMS.Services.ServiceModels.User;
 
 namespace HCMS.Services;
 using BCrypt.Net;
+using HCMS.Services.ServiceModels;
 
 public class UserService : IUserService
 {
@@ -94,9 +94,9 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<UserServiceModel> GetUserServiceModelByUsername(string username)
+    public async Task<UserDto> GetUserServiceModelByUsername(string username)
     {
-       return await userRepository.GetUserServiceModelByUsername(username);
+       return await userRepository.GetUserDtoByUsername(username);
     }
 
     public string HashPassword(string plainPassword)

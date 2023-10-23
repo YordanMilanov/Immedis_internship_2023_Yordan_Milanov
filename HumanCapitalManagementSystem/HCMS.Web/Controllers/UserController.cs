@@ -5,7 +5,7 @@ using System.Text;
 using HCMS.Data.Models;
 using HCMS.Services;
 using HCMS.Services.Interfaces;
-using HCMS.Services.ServiceModels.User;
+using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -26,17 +26,13 @@ namespace HCMS.Web.Controllers
         {
             this.userService = userService;
             this.httpClient = httpClient;
-            httpClient.BaseAddress = new Uri("https://localhost:9090");
+            //httpClient.BaseAddress = new Uri("https://localhost:9090");
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
-            if (TempData.ContainsKey("LoginUsername"))
-            {
-
-            }
             return View();
         }
 
@@ -65,11 +61,11 @@ namespace HCMS.Web.Controllers
                 string successMassage = await response.Content.ReadAsStringAsync();
                 TempData[SuccessMessage] = successMassage;
 
-                UserServiceModel user = await userService.GetUserServiceModelByUsername(model.Username);
+                UserDto user = await userService.GetUserServiceModelByUsername(model.Username);
 
                 //Create the required claims from the userInformation
                 Claim userIdClaim = new Claim("UserId", user.Id.ToString());
-                Claim usernameClaim = new Claim("Username", user.Username);
+                Claim usernameClaim = new Claim("Username", user.Username.ToString());
                 //create a collection from the claims
                 var claims = new List<Claim>
                 {
@@ -115,7 +111,7 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Register()
+        public IActionResult Register()
         {
             return View();
         }
@@ -135,7 +131,7 @@ namespace HCMS.Web.Controllers
                 string json = JsonConvert.SerializeObject(model);
                 HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                // Make an HTTP POST request to the API endpoint
+                // Make an HTTP POST request
                 HttpResponseMessage response = await httpClient.PostAsync("/api/users/register", content);
 
                 if (response.IsSuccessStatusCode)
@@ -147,21 +143,21 @@ namespace HCMS.Web.Controllers
                 }
                 else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                 {
-                    // Bad Request (e.g., email or username already used)
+                    // Bad Request
                     string errorMessage = await response.Content.ReadAsStringAsync();
-                    ModelState.AddModelError("ErrorMessage", "This email already exists!");
+                    ModelState.AddModelError("ErrorMessage", errorMessage);
                     return View(model);
                 }
                 else
                 {
-                    // Handle other HTTP error codes as needed
-                    return StatusCode((int)response.StatusCode);
+                    ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
+                    return View(model);
                 }
             }
             catch (Exception)
             {
-                // Handle exceptions as needed
-                return View("Error");
+                ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
+                return View(model);
             }
         }
 

@@ -1,9 +1,10 @@
-﻿using HCMS.Data;
+﻿using HCMS.Common.Structures;
+using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
-using HCMS.Services.ServiceModels.User;
 using Microsoft.EntityFrameworkCore;
 using HCMS.Web.ViewModels.User;
+using HCMS.Services.ServiceModels;
 
 namespace HCMS.Repository
 {
@@ -85,22 +86,22 @@ namespace HCMS.Repository
             return user;
         }
 
-        public async Task<UserServiceModel> GetUserServiceModelByUsername(string username)
+        public async Task<UserDto> GetUserDtoByUsername(string username)
         {
             return await this.dbContext
-                .Users
-                .Where(u => u.Username == username)
-                .Include(u => u.UsersRoles)
-                .ThenInclude(ur => ur.Role)
-                .Select(u => new UserServiceModel()
-                {
-                    Id = u.Id, // Remove the Guid.Parse conversion
-                    Username = u.Username,
-                    Roles = u.UsersRoles
-                        .Select(ur => ur.Role)
-                        .ToList()
-                })
-                .FirstAsync();
+            .Users
+            .Where(u => u.Username == username)
+            .Include(u => u.UsersRoles)
+            .ThenInclude(ur => ur.Role)
+            .Select(u => new UserDto()
+            {
+                Id = u.Id, // Remove the Guid.Parse conversion
+                Username = new Name(u.Username),
+                Roles = u.UsersRoles
+                    .Select(ur => ur.Role)
+                    .ToList()
+            })
+            .FirstAsync();
         }
     }
 }

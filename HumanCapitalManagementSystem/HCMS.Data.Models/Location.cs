@@ -16,7 +16,6 @@ namespace HCMS.Data.Models
         [Key]
         public Guid Id { get; set; }
 
-        [Required]
         [MaxLength(DataModelConstants.Location.AddressMaxLength)]
         public string Address { get; set; }
 

@@ -1,4 +1,4 @@
-﻿using HCMS.Services.ServiceModels.User;
+﻿using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.User;
 
 namespace HCMS.Services.Interfaces
@@ -12,6 +12,6 @@ namespace HCMS.Services.Interfaces
 
         public Task<bool> IsPasswordMatchByUsername(string username, string password);
 
-        public Task<UserServiceModel> GetUserServiceModelByUsername(string username);
+        public Task<UserDto> GetUserServiceModelByUsername(string username);
     }
 }

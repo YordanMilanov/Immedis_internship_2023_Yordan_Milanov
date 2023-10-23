@@ -10,6 +10,7 @@ using HCMS.Repository.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
+using AutoMapper;
 
 namespace HCMS.Web
 {
@@ -30,8 +31,10 @@ namespace HCMS.Web
 
             //TODO: Register Services!
 
-            //services and repositories should also be added!
+            //AutoMapper
+            builder.Services.AddAutoMapper(typeof(Program));
 
+            //services and repositories should also be added!
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
