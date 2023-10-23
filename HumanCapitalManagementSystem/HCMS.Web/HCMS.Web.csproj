@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -12,10 +12,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+	  <ProjectReference Include="..\HCMS.Data.Models\HCMS.Data.Models.csproj" />
 	  <ProjectReference Include="..\HCMS.Data\HCMS.Data.csproj" />
+	  <ProjectReference Include="..\HCMS.Repository\HCMS.Repository.csproj" />
+	  <ProjectReference Include="..\HCMS.Services.ServiceModels\HCMS.Services.ServiceModels.csproj" />
 	  <ProjectReference Include="..\HCMS.Services\HCMS.Services.csproj" />
 	  <ProjectReference Include="..\HCMS.Web.ViewModels\HCMS.Web.ViewModels.csproj" />
   </ItemGroup>

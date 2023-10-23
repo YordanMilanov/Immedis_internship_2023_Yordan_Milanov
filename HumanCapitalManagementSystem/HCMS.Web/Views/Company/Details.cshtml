@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = " - Company Details";
+}
+@model HCMS.Web.ViewModels.Company.CompanyViewModel
+
+<div class="container justify-content-center">
+    <div class="row">
+        <partial name="_CompanyCardPartial" model="@Model" />
+    </div>
+</div>
+@section Scripts
+    {
+    <link href="https://fonts.googleapis.com/css?family=Kanit:400,700" rel="stylesheet">
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Company.css" asp-append-version="true" />
+}

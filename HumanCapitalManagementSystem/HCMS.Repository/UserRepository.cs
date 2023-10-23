@@ -31,7 +31,16 @@ namespace HCMS.Repository
 
         public async Task<bool> UserExistsByUsername(string username)
         {
-            return await dbContext.Users.AnyAsync(u => u.Username.ToLower() == username.ToLower());
+            try
+            {
+                bool isExists = await dbContext.Users.AnyAsync(u => u.Username.ToLower() == username.ToLower());
+                return isExists;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+
         }
 
         public async Task<bool> UserExistsByEmail(string email)

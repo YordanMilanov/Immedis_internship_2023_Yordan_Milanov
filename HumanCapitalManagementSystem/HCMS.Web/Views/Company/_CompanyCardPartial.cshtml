@@ -1,0 +1,82 @@
+﻿@model HCMS.Web.ViewModels.Company.CompanyViewModel
+@using static HCMS.Common.RoleConstants;
+@using HCMS.Services.Interfaces
+@inject ICompanyService CompanyService
+
+@{
+    IEnumerable<string> companyNames = await CompanyService.GetAllCompanyNames();
+    string location = "";
+    if (Model?.Country != null)
+    {
+        location += Model.Country;
+    }
+    if (Model?.State != null)
+    {
+        location += ", " + Model.State;
+    }
+    if (Model?.Address != null)
+    {
+        location += ", " + Model.Address;
+    }
+}
+
+@if (Model.Name != null)
+{
+    <div class="col-4 card-background">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">@Model.Name</h4>
+                <h6 class="card-subtitle text-muted">@Model.IndustryField</h6>
+                <p class="card-text p-y-1">@Model.Description</p>
+                @if (location != "")
+                {
+                    <p>Address: @location</p>
+                }
+            </div>
+        </div>
+        <hr class="text-white" />
+        @if (User.IsInRole(EMPLOYEE))
+        {
+            <form>
+                <div class="col-6 form-group text-center mx-auto">
+                    <div class="form-group">
+                        <label class="text-center">Update Company</label>
+                        <select class="form-control text-center">
+                            @foreach (string name in companyNames)
+                            {
+                                <option value=@name>@name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3 technical-font" type="submit" value="Edit Personal info" />
+                </div>
+            </form>
+        }
+    </div>
+}
+else
+{
+    <form>
+        <div class="container">
+            <div class="col-6 mx-auto card-background technical-font">
+                <div class="form-group text-center mx-auto">
+                    <div class="form-group">
+                        <label class="text-center text-white my-2">Company Name</label>
+                        <select class="w-75 mx-auto form-control text-center">
+                            @foreach (string name in companyNames)
+                            {
+                                <option value=@name>@name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-primary my-3" type="submit" value="Update Company" />
+                </div>
+            </div>
+        </div>
+    </form>
+}
+

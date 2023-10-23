@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\HCMS.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\HCMS.Infrastructure.csproj",
       "projectName": "HCMS.Infrastructure",
-      "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\HCMS.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\HCMS.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\danch\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\danch\\AppData\\Roaming\\NuGet\\NuGet.Config",

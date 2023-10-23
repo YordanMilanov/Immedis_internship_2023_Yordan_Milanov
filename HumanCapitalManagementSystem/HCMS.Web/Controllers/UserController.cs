@@ -1,5 +1,7 @@
-﻿using System.Security.Claims;
+﻿using System.Net.Http;
+using System.Security.Claims;
 using System.Security.Principal;
+using System.Text;
 using HCMS.Data.Models;
 using HCMS.Services;
 using HCMS.Services.Interfaces;
@@ -9,7 +11,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
 
 namespace HCMS.Web.Controllers
@@ -18,10 +20,13 @@ namespace HCMS.Web.Controllers
     {
 
         private readonly IUserService userService;
+        private readonly HttpClient httpClient;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, HttpClient httpClient)
         {
             this.userService = userService;
+            this.httpClient = httpClient;
+            httpClient.BaseAddress = new Uri("https://localhost:9090");
         }
 
         [HttpGet]
@@ -43,7 +48,6 @@ namespace HCMS.Web.Controllers
             {
                 return View(model);
             }
-
             //validate if username not existing
             if (!await userService.IsUsernameExists(model.Username))
             {
@@ -121,41 +125,75 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
 
-            //validate matching passwords
-            if (model.Password != model.ConfirmPassword)
-            {
-                TempData[ErrorMessage] = "The confirmation of the password does not match!";
-                ModelState.AddModelError("PasswordDoesNotMatch", "Passwords do not match!");
-                return View(model);
-            }
+            ////validate matching passwords
+            //if (model.Password != model.ConfirmPassword)
+            //{
+            //    TempData[ErrorMessage] = "The confirmation of the password does not match!";
+            //    ModelState.AddModelError("PasswordDoesNotMatch", "Passwords do not match!");
+            //    return View(model);
+            //}
 
-            //validate username not existing
-            if (await userService.IsUsernameExists(model.Username))
-            {
-                ModelState.AddModelError("UsernameExists", "This username already exists!");
-                return View(model);
-            }
+            ////validate username not existing
+            //if (await userService.IsUsernameExists(model.Username))
+            //{
+            //    ModelState.AddModelError("UsernameExists", "This username already exists!");
+            //    return View(model);
+            //}
 
-            //validate email not existing
-            if (await userService.IsEmailExists(model.Email))
-            {
-                ModelState.AddModelError("EmailExists", "This email already exists!");
-                return View(model);
-            }
+            ////validate email not existing
+            //if (await userService.IsEmailExists(model.Email))
+            //{
 
-            //register successful
+            //}
+
+            ////register successful
+            //try
+            //{
+            //    await userService.RegisterUserAsync(model);
+            //    TempData[SuccessMessage] = "You have successfully registered!";
+            //    TempData["LoginUsername"] = model.Username;
+            //    return RedirectToAction("Login", "User");
+
+            //}
+            //catch (Exception)
+            //{
+            //    ModelState.AddModelError("GeneralError", "An error occurred while registering the user. Please try again!");
+            //    return RedirectToAction("Register", "User", model);
+            //}
+
             try
             {
-                await userService.RegisterUserAsync(model);
-                TempData[SuccessMessage] = "You have successfully registered!";
-                TempData["LoginUsername"] = model.Username;
-                return RedirectToAction("Login", "User");
+                // Serialize the model to JSON
+                string json = JsonConvert.SerializeObject(model);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
+                // Make an HTTP POST request to the API endpoint
+                HttpResponseMessage response = await httpClient.PostAsync("/api/users/register", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Registration was successful
+                    TempData[SuccessMessage] = "You have successfully registered!";
+                    TempData["LoginUsername"] = model.Username;
+                    return RedirectToAction("Login", "User");
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    // Bad Request (e.g., email or username already used)
+                    string errorMessage = await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError("ErrorMessage", "This email already exists!");
+                    return View(model);
+                }
+                else
+                {
+                    // Handle other HTTP error codes as needed
+                    return StatusCode((int)response.StatusCode);
+                }
             }
             catch (Exception)
             {
-                ModelState.AddModelError("GeneralError", "An error occurred while registering the user. Please try again!");
-                return RedirectToAction("Register", "User", model);
+                // Handle exceptions as needed
+                return View("Error");
             }
         }
 

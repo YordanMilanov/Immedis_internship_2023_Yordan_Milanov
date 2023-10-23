@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BshD8ehM37LXwp3OEjjINKN7y7DpQfZ9H01Jt822Wwqs6GuPvM+21I/PmNGw4odxURBIliRuvwwbXGIx53KHNw==",
+  "dgSpecHash": "HQhFjfDlj2DJBdvEOU2oInjPzSlTvDgXuW6aXlNKbOIcg175cmyew8up+xIOBKXRtXENpa3oWGibeimR66/BMw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data.Models\\HCMS.Data.Models.csproj",
+  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data.Models\\HCMS.Data.Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danch\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.0\\microsoft.entityframeworkcore.6.0.0.nupkg.sha512",

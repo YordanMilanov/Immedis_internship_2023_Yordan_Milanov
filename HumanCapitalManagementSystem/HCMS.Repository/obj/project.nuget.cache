@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kJjaVNBQ1I6J7oCVRLUkr8LkS3s0zQ+EOpQS9cNRVsrPzaewzxAhoe6Y1f8aqdJ2h4O9UGJyDWLDlL3H1uS10w==",
+  "dgSpecHash": "5K1Q4YuCIYHyCBMXLlhXpCIZelRIGxjcNrGijksnm7ViCHc+0NP/Qj9VTLdT4BL/WhAQ781vDVqItt6F3ItYWA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj",
+  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danch\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

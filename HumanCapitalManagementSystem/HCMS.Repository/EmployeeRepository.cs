@@ -31,17 +31,49 @@ namespace HCMS.Repository
 
         public async Task<Employee?> GetEmployeeByUserIdAsync(Guid id)
         {
-           return await dbContext.Employees
-               .Include(e => e.Location)
-               .AsTracking()
-               .FirstOrDefaultAsync(e => e.UserId == id);
+            try
+            {
+                return await dbContext.Employees
+                    .Include(e => e.Location)
+                    .AsTracking()
+                    .FirstOrDefaultAsync(e => e.UserId == id);
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
         }
 
         public async Task<bool> ExistsEmployeeByUserIdAsync(Guid id)
         {
-            return await dbContext.Employees
-                .Select(e => e.Id == id)
-                .AnyAsync();
+            try
+            {
+                return await dbContext.Employees
+                    .Select(e => e.Id == id)
+                    .AnyAsync();
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+        }
+
+        public async Task<Company?> GetEmployeeCompanyByEmployeeUserIdAsync(Guid id)
+        {
+            try
+            {
+                return await dbContext.Employees
+                    .Where(e => e.UserId == id)
+                    .AsNoTracking()
+                    .Include(e => e.Company)
+                    .ThenInclude(c => c.Location)
+                    .Select(e => e.Company)
+                    .FirstOrDefaultAsync();
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
         }
     }
 }

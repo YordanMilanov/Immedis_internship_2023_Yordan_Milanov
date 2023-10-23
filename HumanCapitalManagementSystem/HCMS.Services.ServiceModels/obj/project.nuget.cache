@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vdHlBnZwbuZbU4bOGxStwJtEcEykhIftEGDXZDjfyvtprRUs0nv6pcMSKyXGQ7GQH99cE1wonW4jvCbKVL3UVQ==",
+  "dgSpecHash": "8wFjy/6eD6ezHAMs5Q4KF6d3B4JunWujzzuR2PbTq5a7+Fbzv6dKisoPWNn6vait0AQLo/LgXnxl4sFfDC+u4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj",
+  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.0\\microsoft.entityframeworkcore.6.0.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.0\\microsoft.entityframeworkcore.abstractions.6.0.0.nupkg.sha512",

@@ -20,16 +20,16 @@ namespace HCMS.Web
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            string connectionString = 
+            string connectionString =
                 builder.Configuration.GetConnectionString("DefaultConnection") ??
                 throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services
                 .AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString)).AddTransient<ApplicationDbContext>();
+                options.UseSqlServer(connectionString));
 
             //TODO: Register Services!
-            
+
             //services and repositories should also be added!
 
 
@@ -47,6 +47,11 @@ namespace HCMS.Web
 
             builder.Services.AddScoped<ILocationRepository, LocationRepository>();
             builder.Services.AddScoped<ILocationService, LocationService>();
+
+            builder.Services.AddHttpClient("WebApi", client =>
+            {
+                client.BaseAddress = new Uri("http:localhost:9090/"); // Set your base URL
+            });
             //Session
             builder.Services.AddSession(options =>
             {
@@ -66,7 +71,7 @@ namespace HCMS.Web
                     options.LogoutPath = "/User/Logout";
                 });
 
-            
+
             //Controllers
             builder.Services.AddControllersWithViews();
 
