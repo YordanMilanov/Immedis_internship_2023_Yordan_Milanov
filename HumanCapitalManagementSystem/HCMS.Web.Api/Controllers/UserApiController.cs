@@ -2,6 +2,8 @@
 using HCMS.Web.ViewModels.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using HCMS.Services.ServiceModels;
+using Newtonsoft.Json;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -20,7 +22,7 @@ namespace HCMS.Web.Api.Controllers
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(400)]
-        [ProducesResponseType(200, Type = typeof(bool))]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> RegisterUser([FromBody]UserRegisterFormModel model)
         {
            // validate email and username
@@ -68,6 +70,22 @@ namespace HCMS.Web.Api.Controllers
 
             //successful validation
             return Ok("You have Successfully logged!");
+        }
+
+        [HttpPost("GetUserServiceModelByUsername")]
+        [Consumes("application/json")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(200, Type = typeof(UserDto))]
+        public async Task<IActionResult> GetUserServiceModelByUsername([FromQuery] string username)
+        {
+            UserDto userDto = await userService.GetUserServiceModelByUsername(username);
+
+            if (userDto != null)
+            {
+                return Ok(userDto);
+            }
+
+            return NotFound("Employee Not Found!");
         }
     }
 }

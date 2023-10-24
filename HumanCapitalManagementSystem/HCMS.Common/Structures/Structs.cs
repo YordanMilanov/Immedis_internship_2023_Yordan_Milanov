@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace HCMS.Common.Structures
 {
@@ -7,6 +8,7 @@ namespace HCMS.Common.Structures
     {
         private readonly string description;
 
+        [JsonConstructor]
         public Description(string description)
         {
             this.description = description;
@@ -21,7 +23,8 @@ namespace HCMS.Common.Structures
     public readonly struct Name
     {
         private readonly string name;
-
+      
+        [JsonConstructor]
         public Name(string name)
         {
             this.name = name;

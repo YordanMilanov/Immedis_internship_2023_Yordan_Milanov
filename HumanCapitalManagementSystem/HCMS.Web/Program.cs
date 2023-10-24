@@ -53,7 +53,7 @@ namespace HCMS.Web
 
             builder.Services.AddHttpClient("WebApi", client =>
             {
-                client.BaseAddress = new Uri("http:localhost:9090/"); // Set your base URL
+                client.BaseAddress = new Uri("https://localhost:9090/"); // Set your base URL
             });
             //Session
             builder.Services.AddSession(options =>

@@ -96,7 +96,7 @@ namespace HCMS.Repository
             .Select(u => new UserDto()
             {
                 Id = u.Id, // Remove the Guid.Parse conversion
-                Username = new Name(u.Username),
+                Username = u.Username,
                 Roles = u.UsersRoles
                     .Select(ur => ur.Role)
                     .ToList()

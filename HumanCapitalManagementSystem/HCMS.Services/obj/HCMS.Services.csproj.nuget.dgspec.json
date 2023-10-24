@@ -231,7 +231,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj": {
+                "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

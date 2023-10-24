@@ -1256,6 +1256,9 @@
         }
       },
       "HCMS.Infrastructure/1.0.0": {
+        "dependencies": {
+          "HCMS.Common": "1.0.0"
+        },
         "runtime": {
           "HCMS.Infrastructure.dll": {}
         }

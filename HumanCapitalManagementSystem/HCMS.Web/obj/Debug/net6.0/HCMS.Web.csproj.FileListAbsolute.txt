@@ -91,6 +91,8 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapita
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.runtimeconfig.json
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.pdb
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\BCrypt.Net-Next.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Castle.Core.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Humanizer.dll
@@ -136,14 +138,14 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapita
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.ServiceModels.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.ViewModels.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Data.Models.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Data.pdb
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Repository.pdb
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.ServiceModels.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.ViewModels.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Common.pdb
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Data.Models.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Infrastructure.pdb
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Repository.pdb
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.ServiceModels.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\obj\Debug\net6.0\HCMS.Web.csproj.AssemblyReference.cache
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\obj\Debug\net6.0\HCMS.Web.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\obj\Debug\net6.0\HCMS.Web.AssemblyInfoInputs.cache

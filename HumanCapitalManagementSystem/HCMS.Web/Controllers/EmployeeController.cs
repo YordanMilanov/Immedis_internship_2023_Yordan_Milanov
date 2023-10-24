@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text;
 
 namespace HCMS.Web.Controllers
 {
@@ -16,13 +18,13 @@ namespace HCMS.Web.Controllers
     {
         private readonly IEmployeeService employeeService;
         private readonly HttpClient httpClient;
-        private readonly IMapper iMapper;
+        private readonly IMapper mapper;
 
-        public EmployeeController(IEmployeeService employeeService, HttpClient httpClient, IMapper autoMapper)
+        public EmployeeController(IEmployeeService employeeService, IHttpClientFactory httpClientFactory, IMapper mapper)
         {
             this.employeeService = employeeService;
-            this.httpClient = httpClient;
-            this.iMapper = autoMapper;
+            httpClient = httpClientFactory.CreateClient("WebApi");
+            this.mapper = mapper;
         }
 
         public IActionResult All()
@@ -37,10 +39,12 @@ namespace HCMS.Web.Controllers
             //get currently logged user ID
             Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;
             string userId = userIdClaim.Value;
-            Guid userIdGuid = Guid.Parse(userId);
+
+            //set the userIdGuid as query param
+            string apiUrl = $"/api/employee/GetEmployeeDtoByUserId?userId={userId}";
 
             // Make get request
-            HttpResponseMessage response = await httpClient.GetAsync("/api/employee/getEmployeeUserId");
+            HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
             if (response.IsSuccessStatusCode)
             {
                 // Read the content as a JSON string
@@ -48,16 +52,14 @@ namespace HCMS.Web.Controllers
               
                 // Deserialize the JSON into an EmployeeDto object
                 EmployeeDto? employeeDto = JsonConvert.DeserializeObject<EmployeeDto>(jsonContent);
-               
-                EmployeeFormModel model = iMapper.Map<EmployeeFormModel>(employeeDto);
-                //map using autoMapper TODO
-
+                
+                //check if employee is not empty and attach it as a view model
+                if (employeeDto != null)
+                {
+                  EmployeeFormModel model = mapper.Map<EmployeeFormModel>(employeeDto);
+                  return View(model);
+                }
             }
-            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                return View();
-            }
-            ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
             return View();
         }
 

@@ -22,11 +22,10 @@ namespace HCMS.Web.Controllers
         private readonly IUserService userService;
         private readonly HttpClient httpClient;
 
-        public UserController(IUserService userService, HttpClient httpClient)
+        public UserController(IUserService userService, IHttpClientFactory httpClientFactory)
         {
             this.userService = userService;
-            this.httpClient = httpClient;
-            //httpClient.BaseAddress = new Uri("https://localhost:9090");
+            this.httpClient = httpClientFactory.CreateClient("WebApi");
         }
 
         [HttpGet]
@@ -61,6 +60,7 @@ namespace HCMS.Web.Controllers
                 string successMassage = await response.Content.ReadAsStringAsync();
                 TempData[SuccessMessage] = successMassage;
 
+                //webApi
                 UserDto user = await userService.GetUserServiceModelByUsername(model.Username);
 
                 //Create the required claims from the userInformation

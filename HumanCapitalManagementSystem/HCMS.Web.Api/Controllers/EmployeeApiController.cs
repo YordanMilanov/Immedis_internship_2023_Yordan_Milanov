@@ -2,6 +2,7 @@
 using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.Employee;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -18,18 +19,19 @@ namespace HCMS.Web.Api.Controllers
             this.employeeService = employeeService;
         }
 
-        [HttpPost("add")]
+        [HttpGet("GetEmployeeDtoByUserId")]
         [Produces("application/json")]
         [Consumes("application/json")]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(bool))]
-        public async Task<IActionResult> GetEmployeeDtoByUserId([FromBody] Guid userIdGuid)
+        public async Task<IActionResult> GetEmployeeDtoByUserId([FromQuery] string userId)
         {
-            EmployeeDto? employeeDto = await employeeService.GetEmployeeDtoByUserIdAsync(userIdGuid);
-
-            if(employeeDto != null)
+            EmployeeDto? employeeDto = await employeeService.GetEmployeeDtoByUserIdAsync(Guid.Parse(userId));
+            string json = JsonSerializer.Serialize(employeeDto);
+           
+            if (employeeDto != null)
             {
-                return Ok(employeeDto);
+                return Ok(json);
             }
 
             return NotFound("Employee Not Found!");
