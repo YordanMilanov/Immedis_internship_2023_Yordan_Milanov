@@ -25,11 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Repository", "HCMS.Repository\HCMS.Repository.csproj", "{8C1B795E-FB59-4878-8357-101860B31D45}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Infrastructure", "HCMS.Infrastructure\HCMS.Infrastructure.csproj", "{627864FA-4354-4658-A0AF-AC6166A10A85}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Services.ServiceModels", "HCMS.Services.ServiceModels\HCMS.Services.ServiceModels.csproj", "{7B83D640-62B4-48A2-809A-3A77D34E8E5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCMS.Web.Api", "HCMS.Web.Api\HCMS.Web.Api.csproj", "{EFDC6294-E78C-4DFB-8618-C31DBB65C926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Web.Api", "HCMS.Web.Api\HCMS.Web.Api.csproj", "{EFDC6294-E78C-4DFB-8618-C31DBB65C926}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +63,6 @@ Global
 		{8C1B795E-FB59-4878-8357-101860B31D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C1B795E-FB59-4878-8357-101860B31D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C1B795E-FB59-4878-8357-101860B31D45}.Release|Any CPU.Build.0 = Release|Any CPU
-		{627864FA-4354-4658-A0AF-AC6166A10A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{627864FA-4354-4658-A0AF-AC6166A10A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{627864FA-4354-4658-A0AF-AC6166A10A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{627864FA-4354-4658-A0AF-AC6166A10A85}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B83D640-62B4-48A2-809A-3A77D34E8E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B83D640-62B4-48A2-809A-3A77D34E8E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B83D640-62B4-48A2-809A-3A77D34E8E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU

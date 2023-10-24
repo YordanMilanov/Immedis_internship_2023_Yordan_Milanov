@@ -1,5 +1,4 @@
-﻿
-using HCMS.Services.ServiceModels;
+﻿using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.Employee;
 
 namespace HCMS.Services.Interfaces

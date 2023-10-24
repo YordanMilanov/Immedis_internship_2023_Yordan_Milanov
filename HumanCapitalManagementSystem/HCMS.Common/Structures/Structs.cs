@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using HCMS.Common.JsonConverter;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HCMS.Common.Structures
 {
@@ -20,6 +21,7 @@ namespace HCMS.Common.Structures
         }
     }
 
+    [JsonConverter(typeof(NameConverter))]
     public readonly struct Name
     {
         private readonly string name;

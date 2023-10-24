@@ -8,7 +8,7 @@ namespace HCMS.Services.ServiceModels
     public class UserDto
     {
         public Guid Id { get; set; }
-        public string Username { get; set; }
+        public Name Username { get; set; }
         public ICollection<Role> Roles { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace HCMS.Infrastructure.CustomValidationAnnotation
+namespace HCMS.Common.CustomValidationAnnotation
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public class NoWhitespaceAttribute : ValidationAttribute

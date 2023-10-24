@@ -45,6 +45,7 @@ namespace HCMS.Web.Controllers
 
             // Make get request
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+
             if (response.IsSuccessStatusCode)
             {
                 // Read the content as a JSON string

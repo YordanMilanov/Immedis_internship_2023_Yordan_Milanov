@@ -1,9 +1,7 @@
-﻿using System.Net.Http;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using HCMS.Data.Models;
-using HCMS.Services;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.User;
@@ -52,51 +50,68 @@ namespace HCMS.Web.Controllers
             HttpResponseMessage response = await httpClient.PostAsync("/api/users/login", content);
 
 
-            //successfully passed the validation
+            //successfully passed the validation - username and password
             if (response.IsSuccessStatusCode)
             {
                 //Login Logic
-                //set successful message to the toastr
-                string successMassage = await response.Content.ReadAsStringAsync();
-                TempData[SuccessMessage] = successMassage;
-
+               
+               
                 //webApi
-                UserDto user = await userService.GetUserServiceModelByUsername(model.Username);
-
-                //Create the required claims from the userInformation
-                Claim userIdClaim = new Claim("UserId", user.Id.ToString());
-                Claim usernameClaim = new Claim("Username", user.Username.ToString());
-                //create a collection from the claims
-                var claims = new List<Claim>
+                HttpResponseMessage userResponse = await httpClient.GetAsync($"api/users/GetUserServiceModelByUsername?username={model.Username}");
+                if (userResponse.IsSuccessStatusCode)
                 {
+                    // Read the response content as a string
+                    string jsonContent = await userResponse.Content.ReadAsStringAsync();
+
+                    // Deserialize the JSON string into a UserDto object
+                    UserDto? userDto = JsonConvert.DeserializeObject<UserDto>(jsonContent);
+
+                    UserDto user = await userService.GetUserServiceModelByUsername(model.Username);
+
+                    //Create the required claims from the userInformation
+                    Claim userIdClaim = new Claim("UserId", user.Id.ToString());
+                    Claim usernameClaim = new Claim("Username", user.Username.ToString());
+                    //create a collection from the claims
+                    var claims = new List<Claim>
+                    {
                     userIdClaim,
                     usernameClaim,
-                };
+                    };
 
-                foreach (Role role in user.Roles)
-                {
-                    var roleClaim = new Claim(ClaimTypes.Role, role.Name);
-                    claims.Add(roleClaim);
+                    foreach (Role role in user.Roles)
+                    {
+                        var roleClaim = new Claim(ClaimTypes.Role, role.Name);
+                        claims.Add(roleClaim);
+                    }
+
+                    //set the collection to the ClaimsIdentity
+                    IIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    // Create a ClaimsPrincipal with the claimsIdentity identity
+                    ClaimsPrincipal userPrincipal = new ClaimsPrincipal(userIdentity);
+
+                    bool rememberMe = model.RememberMe;
+
+                    AuthenticationProperties authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = rememberMe,
+                    };
+
+                    // Set the HttpContext.User to the userPrincipal
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal,
+                        authProperties);
+
+                    //set successful message to the toastr
+                    string successMassage = await response.Content.ReadAsStringAsync();
+                    TempData[SuccessMessage] = successMassage;
+
+                    return RedirectToAction("Home", "Home");
                 }
-
-                //set the collection to the ClaimsIdentity
-                IIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                // Create a ClaimsPrincipal with the claimsIdentity identity
-                ClaimsPrincipal userPrincipal = new ClaimsPrincipal(userIdentity);
-
-                bool rememberMe = model.RememberMe;
-
-                AuthenticationProperties authProperties = new AuthenticationProperties
+                else
                 {
-                    IsPersistent = rememberMe,
-                };
-
-                // Set the HttpContext.User to the userPrincipal
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal,
-                    authProperties);
-
-                return RedirectToAction("Home", "Home");
+                    ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
+                    return View(model);
+                }
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {

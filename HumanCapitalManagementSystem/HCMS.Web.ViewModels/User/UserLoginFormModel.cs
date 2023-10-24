@@ -1,4 +1,4 @@
-﻿using HCMS.Infrastructure.CustomValidationAnnotation;
+﻿using HCMS.Common.CustomValidationAnnotation;
 using System.ComponentModel.DataAnnotations;
 using static HCMS.Common.DataModelConstants.User;
 

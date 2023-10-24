@@ -72,17 +72,18 @@ namespace HCMS.Web.Api.Controllers
             return Ok("You have Successfully logged!");
         }
 
-        [HttpPost("GetUserServiceModelByUsername")]
+        [HttpGet("GetUserServiceModelByUsername")]
         [Consumes("application/json")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200, Type = typeof(UserDto))]
         public async Task<IActionResult> GetUserServiceModelByUsername([FromQuery] string username)
         {
             UserDto userDto = await userService.GetUserServiceModelByUsername(username);
+            string json = JsonConvert.SerializeObject(userDto);
 
             if (userDto != null)
             {
-                return Ok(userDto);
+                return Ok(json);
             }
 
             return NotFound("Employee Not Found!");

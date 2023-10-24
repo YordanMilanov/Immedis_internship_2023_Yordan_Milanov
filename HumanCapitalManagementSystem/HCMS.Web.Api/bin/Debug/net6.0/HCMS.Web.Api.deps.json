@@ -11,7 +11,6 @@
           "HCMS.Common": "1.0.0",
           "HCMS.Data": "1.0.0",
           "HCMS.Data.Models": "1.0.0",
-          "HCMS.Infrastructure": "1.0.0",
           "HCMS.Repository": "1.0.0",
           "HCMS.Services": "1.0.0",
           "HCMS.Services.ServiceModels": "1.0.0",
@@ -1269,6 +1268,9 @@
         }
       },
       "HCMS.Common/1.0.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
         "runtime": {
           "HCMS.Common.dll": {}
         }
@@ -1291,14 +1293,6 @@
         },
         "runtime": {
           "HCMS.Data.Models.dll": {}
-        }
-      },
-      "HCMS.Infrastructure/1.0.0": {
-        "dependencies": {
-          "HCMS.Common": "1.0.0"
-        },
-        "runtime": {
-          "HCMS.Infrastructure.dll": {}
         }
       },
       "HCMS.Repository/1.0.0": {
@@ -1338,8 +1332,7 @@
       },
       "HCMS.Web.ViewModels/1.0.0": {
         "dependencies": {
-          "HCMS.Common": "1.0.0",
-          "HCMS.Infrastructure": "1.0.0"
+          "HCMS.Common": "1.0.0"
         },
         "runtime": {
           "HCMS.Web.ViewModels.dll": {}
@@ -2281,11 +2274,6 @@
       "sha512": ""
     },
     "HCMS.Data.Models/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "HCMS.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

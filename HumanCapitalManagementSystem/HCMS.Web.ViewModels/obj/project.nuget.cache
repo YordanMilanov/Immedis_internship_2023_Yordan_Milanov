@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "tUdjmSg2TKTgPsYW5g8OWCGiO/+VTUBGkPZE1NHpYdihUpp3/9A9P9dObzabKTrJc81YRdahklc60tuQHktCLw==",
+  "dgSpecHash": "CU174k0iTkk5dWuYx09Vmy9PMMQg0cz8cLfyrNX5a2Myuh/PvZI5RqCtMO+KwiE1GSz21A40bH8Ta7ezNnLJpw==",
   "success": true,
   "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web.ViewModels\\HCMS.Web.ViewModels.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\danch\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

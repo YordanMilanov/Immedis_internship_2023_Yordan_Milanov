@@ -2338,6 +2338,9 @@
       "HCMS.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
         "compile": {
           "bin/placeholder/HCMS.Common.dll": {}
         },
@@ -2373,19 +2376,6 @@
         },
         "runtime": {
           "bin/placeholder/HCMS.Data.Models.dll": {}
-        }
-      },
-      "HCMS.Infrastructure/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "HCMS.Common": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/HCMS.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/HCMS.Infrastructure.dll": {}
         }
       },
       "HCMS.Repository/1.0.0": {
@@ -2442,8 +2432,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
-          "HCMS.Common": "1.0.0",
-          "HCMS.Infrastructure": "1.0.0"
+          "HCMS.Common": "1.0.0"
         },
         "compile": {
           "bin/placeholder/HCMS.Web.ViewModels.dll": {}
@@ -7706,11 +7695,6 @@
       "path": "../HCMS.Data.Models/HCMS.Data.Models.csproj",
       "msbuildProject": "../HCMS.Data.Models/HCMS.Data.Models.csproj"
     },
-    "HCMS.Infrastructure/1.0.0": {
-      "type": "project",
-      "path": "../HCMS.Infrastructure/HCMS.Infrastructure.csproj",
-      "msbuildProject": "../HCMS.Infrastructure/HCMS.Infrastructure.csproj"
-    },
     "HCMS.Repository/1.0.0": {
       "type": "project",
       "path": "../HCMS.Repository/HCMS.Repository.csproj",
@@ -7737,7 +7721,6 @@
       "HCMS.Common >= 1.0.0",
       "HCMS.Data >= 1.0.0",
       "HCMS.Data.Models >= 1.0.0",
-      "HCMS.Infrastructure >= 1.0.0",
       "HCMS.Repository >= 1.0.0",
       "HCMS.Services >= 1.0.0",
       "HCMS.Services.ServiceModels >= 1.0.0",
@@ -7782,9 +7765,6 @@
             },
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj"
-            },
-            "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\HCMS.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Infrastructure\\HCMS.Infrastructure.csproj"
             },
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj"

@@ -20,7 +20,6 @@
     <ProjectReference Include="..\HCMS.Common\HCMS.Common.csproj" />
     <ProjectReference Include="..\HCMS.Data.Models\HCMS.Data.Models.csproj" />
     <ProjectReference Include="..\HCMS.Data\HCMS.Data.csproj" />
-    <ProjectReference Include="..\HCMS.Infrastructure\HCMS.Infrastructure.csproj" />
     <ProjectReference Include="..\HCMS.Repository\HCMS.Repository.csproj" />
     <ProjectReference Include="..\HCMS.Services.ServiceModels\HCMS.Services.ServiceModels.csproj" />
     <ProjectReference Include="..\HCMS.Services\HCMS.Services.csproj" />

@@ -27,11 +27,10 @@ namespace HCMS.Web.Api.Controllers
         public async Task<IActionResult> GetEmployeeDtoByUserId([FromQuery] string userId)
         {
             EmployeeDto? employeeDto = await employeeService.GetEmployeeDtoByUserIdAsync(Guid.Parse(userId));
-            string json = JsonSerializer.Serialize(employeeDto);
            
             if (employeeDto != null)
             {
-                return Ok(json);
+                return Ok(employeeDto);
             }
 
             return NotFound("Employee Not Found!");

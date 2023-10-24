@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HCMS.Common\HCMS.Common.csproj" />
-    <ProjectReference Include="..\HCMS.Infrastructure\HCMS.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
