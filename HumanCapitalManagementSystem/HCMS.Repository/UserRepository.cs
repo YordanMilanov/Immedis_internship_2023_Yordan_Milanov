@@ -4,7 +4,7 @@ using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using HCMS.Web.ViewModels.User;
-using HCMS.Services.ServiceModels;
+using HCMS.Services.ServiceModels.User;
 
 namespace HCMS.Repository
 {
@@ -34,10 +34,9 @@ namespace HCMS.Repository
         {
             try
             {
-                bool isExists = await dbContext.Users.AnyAsync(u => u.Username.ToLower() == username.ToLower());
-                return isExists;
+                return await dbContext.Users.AnyAsync(u => u.Username.ToLower() == username.ToLower());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new Exception();
             }
@@ -48,7 +47,7 @@ namespace HCMS.Repository
         {
             try
             {
-                return await dbContext.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+                return await dbContext.Users.AnyAsync(u => u.Email == email);
             }
             catch (Exception)
             {
@@ -58,14 +57,14 @@ namespace HCMS.Repository
 
         public async Task<User?> GetUserById(Guid id)
         {
-            User user = new User();
+            User? user = new User();
             try
             {
                 user = await dbContext.Users
                     .Where(user => user.Id == id)
                     .FirstOrDefaultAsync();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -73,35 +72,31 @@ namespace HCMS.Repository
             return user;
         }
 
-        public async Task<UserLoginFormModel> GetUserLoginFormModelByUsername(string username)
-        {
-
-            UserLoginFormModel user = await dbContext.Users
-                .Where(u => u.Username.ToLower() == username.ToLower())
-                .Select(u => new UserLoginFormModel()
-                {
-                    Username = u.Username,
-                    Password = u.Password
-                }).FirstAsync();
-            return user;
-        }
-
         public async Task<UserDto> GetUserDtoByUsername(string username)
         {
-            return await this.dbContext
-            .Users
-            .Where(u => u.Username == username)
-            .Include(u => u.UsersRoles)
-            .ThenInclude(ur => ur.Role)
-            .Select(u => new UserDto()
+            UserDto? user = await dbContext.Users
+                .Where(u => u.Username.ToLower() == username.ToLower())
+                .Select(u => new UserDto()
+                {
+                    Id = u.Id,
+                    Username = u.Username,
+                    Email = u.Email,
+                    Password = u.Password,
+                    Roles = new List<string>()
+                }).FirstOrDefaultAsync();
+            if (user != null)
             {
-                Id = u.Id, // Remove the Guid.Parse conversion
-                Username = new Name(u.Username),
-                Roles = u.UsersRoles
-                    .Select(ur => ur.Role)
-                    .ToList()
-            })
-            .FirstAsync();
+                List<Role> roles = await dbContext.UsersRoles
+               .Where(ur => ur.User.Id == user.Id)
+               .Select(ur => ur.Role).ToListAsync();
+
+                foreach (Role role in roles)
+                {
+                    user.Roles!.Add(role.Name);
+                }
+                return user;
+            }
+            return null!;
         }
     }
 }

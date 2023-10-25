@@ -2,6 +2,8 @@
 using HCMS.Common;
 using Microsoft.EntityFrameworkCore;
 using HCMS.Data.Models;
+using HCMS.Common.Structures;
+using Microsoft.Extensions.Configuration;
 
 namespace HCMS.Data
 {
@@ -15,7 +17,7 @@ namespace HCMS.Data
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Education> Educations { get; set; } = null!;
         public DbSet<Employee> Employees { get; set; } = null!;
-        public DbSet<Location> Locations { get; set; } = null!;
+        public DbSet<Data.Models.Location> Locations { get; set; } = null!;
         public DbSet<Recommendation> Recommendations { get; set; } = null!;
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
@@ -43,7 +45,6 @@ namespace HCMS.Data
             builder.Entity<User>()
                 .HasKey(u => u.Id);
 
-
             // Configure the many-to-many relationship
             builder.Entity<UserRole>()
                 .HasKey(ur => new { ur.UserId, ur.RoleId });
@@ -57,7 +58,6 @@ namespace HCMS.Data
                 .HasOne(ur => ur.Role)
                 .WithMany(r => r.UsersRoles)
                 .HasForeignKey(ur => ur.RoleId);
-
 
             base.OnModelCreating(builder);
         }

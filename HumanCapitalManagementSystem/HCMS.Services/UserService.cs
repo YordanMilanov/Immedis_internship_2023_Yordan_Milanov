@@ -3,10 +3,11 @@ using HCMS.Web.ViewModels.User;
 using HCMS.Common;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
+using HCMS.Common.Structures;
 
 namespace HCMS.Services;
 using BCrypt.Net;
-using HCMS.Services.ServiceModels;
+using HCMS.Services.ServiceModels.User;
 
 public class UserService : IUserService
 {
@@ -19,17 +20,17 @@ public class UserService : IUserService
         this.userRepository = userRepository;
     }
 
-    public async Task RegisterUserAsync(UserRegisterFormModel formModel)
+    public async Task RegisterUserAsync(UserRegisterDto formModel)
     {
         Role role = await roleRepository.GetRoleByRoleName(RoleConstants.EMPLOYEE); //EMPLOYEE - ROLE
 
-        string password = HashPassword(formModel.Password);
+        string password = BCrypt.HashPassword(formModel.Password.ToString());
 
         User user = new User
         {
-            Username = formModel.Username,
+            Username = formModel.Username.ToString(),
             Password = password,
-            Email = formModel.Email,
+            Email = formModel.Email.ToString(),
             RegisterDate = DateTime.UtcNow.AddHours(3),
             UserClaims = new List<UserClaim>()
         };
@@ -44,7 +45,7 @@ public class UserService : IUserService
         {
             UserId = user.Id,
             ClaimType = "ROLE",
-            ClaimValue = "EMPLOYEE"
+            ClaimValue = RoleConstants.EMPLOYEE
         };
         user.UsersRoles.Add(userRole);
         user.UserClaims.Add(userClaim);
@@ -63,8 +64,7 @@ public class UserService : IUserService
     {
         try
         {
-            bool isExists = await userRepository.UserExistsByUsername(username);
-            return isExists;
+            return await userRepository.UserExistsByUsername(username);
         }
         catch (Exception)
         {
@@ -83,9 +83,9 @@ public class UserService : IUserService
         try
         {
             //Caught below if it throws
-            UserLoginFormModel useLoginModel = await userRepository.GetUserLoginFormModelByUsername(username);
+            UserDto userDto = await userRepository.GetUserDtoByUsername(username);
 
-            return VerifyPassword(useLoginModel.Password, password);
+            return VerifyPassword(userDto.Password.ToString()!, password);
         }
         catch (Exception)
         {
@@ -94,7 +94,7 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<UserDto> GetUserServiceModelByUsername(string username)
+    public async Task<UserDto> GetUserDtoByUsername(string username)
     {
        return await userRepository.GetUserDtoByUsername(username);
     }

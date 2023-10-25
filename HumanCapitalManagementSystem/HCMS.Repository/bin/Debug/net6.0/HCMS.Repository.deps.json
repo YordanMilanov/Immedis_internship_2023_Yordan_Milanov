@@ -1282,14 +1282,6 @@
         "runtime": {
           "HCMS.Web.ViewModels.dll": {}
         }
-      },
-      "HCMS.Infrastructure/1.0.0.0": {
-        "runtime": {
-          "HCMS.Infrastructure.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -2168,11 +2160,6 @@
     },
     "HCMS.Web.ViewModels/1.0.0": {
       "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "HCMS.Infrastructure/1.0.0.0": {
-      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

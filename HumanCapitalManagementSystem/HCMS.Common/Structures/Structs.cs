@@ -24,24 +24,29 @@ namespace HCMS.Common.Structures
     [JsonConverter(typeof(NameConverter))]
     public readonly struct Name
     {
-        private readonly string name;
+        private readonly string value;
       
         [JsonConstructor]
         public Name(string name)
         {
-            this.name = name;
+            this.value = name;
         }
 
         public override string ToString()
         {
-            return this.name;
+            return this.value;
         }
     }
 
+
+
+
+    [JsonConverter(typeof(PasswordConverter))]
     public readonly struct Password
     {
         private readonly string password;
 
+        [JsonConstructor]
         public Password(string password)
         {
             this.password = password;
@@ -53,18 +58,41 @@ namespace HCMS.Common.Structures
         }
     }
 
+
+    [JsonConverter(typeof(EmailConverter))]
     public readonly struct Email
     {
-        private readonly string emailAddress;
-
+        public readonly string value;
+        [JsonConstructor]
         public Email([EmailAddress] string emailAddress)
         {
-            this.emailAddress = emailAddress;
+            this.value = emailAddress;
         }
 
         public override string ToString()
         {
-            return this.emailAddress;
+            return this.value;
+        }
+
+        public bool CompareTo(string toCompare)
+        {
+            return value == toCompare;
+        }
+    }
+
+    [JsonConverter(typeof(RoleConverter))]
+    public readonly struct RoleStruct
+    {
+        public readonly string value;
+        [JsonConstructor]
+        public RoleStruct(string role)
+        {
+            this.value = role;
+        }
+
+        public override string ToString()
+        {
+            return this.value;
         }
     }
 

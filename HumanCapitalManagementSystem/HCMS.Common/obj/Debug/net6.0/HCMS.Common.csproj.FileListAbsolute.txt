@@ -12,6 +12,7 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagem
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\bin\Debug\net6.0\HCMS.Common.deps.json
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\bin\Debug\net6.0\HCMS.Common.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\bin\Debug\net6.0\HCMS.Common.pdb
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\obj\Debug\net6.0\HCMS.Common.csproj.AssemblyReference.cache
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\obj\Debug\net6.0\HCMS.Common.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\obj\Debug\net6.0\HCMS.Common.AssemblyInfoInputs.cache
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\obj\Debug\net6.0\HCMS.Common.AssemblyInfo.cs
@@ -20,4 +21,3 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapita
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\obj\Debug\net6.0\refint\HCMS.Common.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\obj\Debug\net6.0\HCMS.Common.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\obj\Debug\net6.0\ref\HCMS.Common.dll
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Common\obj\Debug\net6.0\HCMS.Common.csproj.AssemblyReference.cache

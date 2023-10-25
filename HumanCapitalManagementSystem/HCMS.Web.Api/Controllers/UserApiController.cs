@@ -2,8 +2,9 @@
 using HCMS.Web.ViewModels.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using HCMS.Services.ServiceModels;
 using Newtonsoft.Json;
+using HCMS.Common.JsonConverter;
+using HCMS.Services.ServiceModels.User;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -23,19 +24,38 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> RegisterUser([FromBody]UserRegisterFormModel model)
+        public async Task<IActionResult> RegisterUser()
         {
-           // validate email and username
+            // Read the JSON from request body
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+
+            // Deserialize the JSON
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter> { new NameConverter(), new PasswordConverter(), new EmailConverter(), new RoleConverter() }
+            };
+
+            UserRegisterDto model;
             try
             {
-                
-                if (await userService.IsEmailExists(model.Email))
+                model = JsonConvert.DeserializeObject<UserRegisterDto>(jsonReceived, settings)!;
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid JSON data");
+            }
+
+            // validate email and username
+            try
+            {
+
+                if (await userService.IsEmailExists(model.Email.ToString()))
                 {
                     return (BadRequest("Email is already used!"));
                 }
 
 
-                if (await userService.IsUsernameExists(model.Username))
+                if (await userService.IsUsernameExists(model.Username.ToString()))
                 {
                     return (BadRequest("Username is already used!"));
                 }
@@ -49,44 +69,69 @@ namespace HCMS.Web.Api.Controllers
             return Ok("User has been successfully registered!");
         }
 
-        [HttpPost("login")]
+        [HttpPost("loginValidate")]
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200, Type = typeof(bool))]
-        public async Task<IActionResult> ValidateLoginUser([FromBody] UserLoginFormModel model)
+        public async Task<IActionResult> ValidateLoginUser()
         {
+            // Read the JSON from request body
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+
+            // Deserialize the JSON
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter> { new NameConverter(), new PasswordConverter(), new EmailConverter(), new RoleConverter() }
+            };
+
+            UserLoginDto model;
+            try
+            {
+                model = JsonConvert.DeserializeObject<UserLoginDto>(jsonReceived, settings)!;
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid JSON data");
+            }
+
             //validate the name
-            if (!(await userService.IsUsernameExists(model.Username)))
+            if (!(await userService.IsUsernameExists(model.Username.ToString())))
             {
                 return BadRequest("User name does not exists!");
             }
 
             //validate password
-            if (!(await userService.IsPasswordMatchByUsername(model.Username, model.Password)))
+            if (!(await userService.IsPasswordMatchByUsername(model.Username.ToString(), model.Password.ToString()!)))
             {
                 return BadRequest("Wrong password!");
             }
 
-            //successful validation
-            return Ok("You have Successfully logged!");
+            //username and password validated
+
+            return Ok("Validation passed");
         }
 
-        [HttpGet("GetUserServiceModelByUsername")]
+        [HttpGet("UserDtoByUsername")]
+        [Produces("application/json")]
         [Consumes("application/json")]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(200, Type = typeof(UserDto))]
-        public async Task<IActionResult> GetUserServiceModelByUsername([FromQuery] string username)
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetUserDtoByUsername([FromQuery] string username)
         {
-            UserDto userDto = await userService.GetUserServiceModelByUsername(username);
-            string json = JsonConvert.SerializeObject(userDto);
+ 
+            UserDto userDto = await userService.GetUserDtoByUsername(username);
+            string jsonToSend = JsonConvert.SerializeObject(userDto);
 
-            if (userDto != null)
+            if(userDto != null)
             {
-                return Ok(json);
+                return Ok(userDto);
+            } else
+            {
+                return BadRequest("Unexpected error occurred!");
             }
-
-            return NotFound("Employee Not Found!");
         }
+   
     }
 }
+

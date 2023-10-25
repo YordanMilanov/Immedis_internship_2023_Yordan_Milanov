@@ -15,9 +15,6 @@ namespace HCMS.Repository
             this.dbContext = dbContext;
         }
 
-        int Sum(int x, int y) => x + y;
-
-
         public async Task<Company?> GetByIdAsync(Guid id)
         {
             try

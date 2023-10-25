@@ -22,11 +22,11 @@
 
             //Reverse mapping
             CreateMap<EmployeeDto, EmployeeFormModel>()
-                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
-                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
-                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
-                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.PhotoUrl))
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName.ToString()))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName.ToString()))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.ToString()))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber.ToString()))
+                .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.PhotoUrl.ToString()))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth))
                 .ForMember(dest => dest.AddDate, opt => opt.MapFrom(src => src.AddDate))
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Location.GetAddress()))

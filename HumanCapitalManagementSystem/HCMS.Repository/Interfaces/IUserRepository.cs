@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HCMS.Data.Models;
-using HCMS.Services.ServiceModels;
+using HCMS.Services.ServiceModels.User;
 using HCMS.Web.ViewModels.User;
 
 namespace HCMS.Repository.Interfaces
@@ -18,8 +18,6 @@ namespace HCMS.Repository.Interfaces
     Task<bool> UserExistsByEmail(string email);
 
     Task<User?> GetUserById(Guid id);
-
-    Task<UserLoginFormModel> GetUserLoginFormModelByUsername(string username);
 
     Task<UserDto> GetUserDtoByUsername(string username);
     }

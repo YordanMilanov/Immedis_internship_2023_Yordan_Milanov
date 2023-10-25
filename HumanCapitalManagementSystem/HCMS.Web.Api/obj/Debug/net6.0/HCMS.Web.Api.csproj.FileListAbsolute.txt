@@ -84,6 +84,12 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagem
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\ref\HCMS.Web.Api.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\Humanizer.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.csproj.AssemblyReference.cache
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.AssemblyInfoInputs.cache
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.AssemblyInfo.cs
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.csproj.CoreCompileInputs.cache
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\appsettings.json
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\HCMS.Web.Api.exe
@@ -146,13 +152,6 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapita
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\HCMS.Services.ServiceModels.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\HCMS.Services.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\bin\Debug\net6.0\HCMS.Web.ViewModels.pdb
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.csproj.AssemblyReference.cache
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.AssemblyInfoInputs.cache
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.AssemblyInfo.cs
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.csproj.CoreCompileInputs.cache
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\HCMS.Web.Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\staticwebassets\msbuild.HCMS.Web.Api.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\staticwebassets\msbuild.build.HCMS.Web.Api.props
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web.Api\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.HCMS.Web.Api.props

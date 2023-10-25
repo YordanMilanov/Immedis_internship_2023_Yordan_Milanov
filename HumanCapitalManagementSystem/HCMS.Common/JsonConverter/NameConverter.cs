@@ -1,7 +1,5 @@
 ﻿using HCMS.Common.Structures;
 using Newtonsoft.Json;
-using System;
-
 
 namespace HCMS.Common.JsonConverter
 {
@@ -14,17 +12,12 @@ namespace HCMS.Common.JsonConverter
             if (reader.TokenType == JsonToken.String)
             {
                 string name = (string)reader.Value;
-                if (name == null)
+                if (name != null)
                 {
-                    //default value if name is null
-                    return new Name("Not defined");
+                    return new Name(name);
                 }
-                //else parse it
-                return new Name(name);
             }
-
-            //default value
-            return new Name("Not defined");
+            return new Name("");
         }
 
         //cast from Name to string
