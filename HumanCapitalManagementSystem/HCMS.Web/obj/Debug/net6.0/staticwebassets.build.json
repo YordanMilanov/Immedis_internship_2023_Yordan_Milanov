@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qZvs4ZrtkOBDZV8HbPhrLal08lfULgyJ/mpZyNM0RtA=",
+  "Hash": "vL5fdu5v9wtlys4NFkJ94yTSAmlwTuHTcphhr5dRu+k=",
   "Source": "HCMS.Web",
   "BasePath": "_content/HCMS.Web",
   "Mode": "Default",
@@ -219,6 +219,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Image\\RegisterCardBackground.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\js\\Select2.js",
+      "SourceId": "HCMS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\",
+      "BasePath": "_content/HCMS.Web",
+      "RelativePath": "js/Select2.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Select2.js"
     },
     {
       "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\js\\site.js",

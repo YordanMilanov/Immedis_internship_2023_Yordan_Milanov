@@ -8,7 +8,7 @@
         <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
 
             <form method="post">
-                <h1 class="text-white text-center technical-font">Employee Information</h1>
+                <h1 class="text-white text-center technical-font">Add Work Record</h1>
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="Position"></label>
                     <input asp-for="Position" class="form-control" placeholder="Position...">
@@ -24,8 +24,8 @@
 
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="CompanyName">Update Company</label>
-                    <select class="form-control">
-                        <option>Please Select Company</option>
+                    <select id="companySelect" >
+                        <option>Company...</option>
                         @foreach (string name in companyNames)
                         {
                             <option value=@name>@name</option>

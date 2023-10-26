@@ -4,26 +4,25 @@ using HCMS.Repository.Interfaces;
 
 namespace HCMS.Repository
 {
-    public class UserRoleRepository : IUserRoleRepository
+    public class WorkRecordRepository : IWorkRecordRepository
     {
         private readonly ApplicationDbContext dbContext;
 
-        public UserRoleRepository(ApplicationDbContext dbContext)
+        public WorkRecordRepository(ApplicationDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
-
-        public async Task AddUserRoleAsync(UserRole userRole)
+        public async Task AddWorkRecord(WorkRecord model)
         {
             try
             {
-                await dbContext.UsersRoles.AddAsync(userRole);
+                await dbContext.WorkRecords.AddAsync(model);
                 await dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
+            } catch(Exception)
             {
-                string message = ex.Message;
+                throw new Exception();
             }
+
         }
     }
 }

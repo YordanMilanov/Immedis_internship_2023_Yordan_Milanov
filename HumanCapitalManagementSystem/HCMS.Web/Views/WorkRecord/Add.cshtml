@@ -1,12 +1,20 @@
 ﻿@{ ViewData["Title"] = "- Edit Work Record"; }
-
+@{
+    Layout = "_Layout";
+}
 <partial name="_WorkRecordFormPartial" model="@Model"/>
 @section Scripts
 {
     <link href="https://fonts.googleapis.com/css?family=Kanit:400,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/js/Select2.js"></script>
+    <link rel="stylesheet" href="~/css/WorkRecord.css" asp-append-version="true" />
+}
     <partial name="_ValidationScriptsPartial"/>
 }
 
 @section Styles {
     <link rel="stylesheet" href="~/css/WorkRecord.css" asp-append-version="true" />
 }
+

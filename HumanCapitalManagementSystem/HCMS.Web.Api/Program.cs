@@ -39,6 +39,9 @@ builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddScoped<ILocationService, LocationService>();
 
+builder.Services.AddScoped<IWorkRecordRepository, WorkRecordRepository>();
+builder.Services.AddScoped<IWorkRecordService, WorkRecordService>();
+
 //Add swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

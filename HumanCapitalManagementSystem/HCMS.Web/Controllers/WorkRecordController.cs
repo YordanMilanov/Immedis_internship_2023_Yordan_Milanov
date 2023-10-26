@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using HCMS.Services.Interfaces;
-using HCMS.Services.ServiceModels;
-using HCMS.Web.ViewModels.Employee;
+using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Web.ViewModels.WorkRecord;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Net.Http.Json;
+using System.Text;
+using static HCMS.Common.NotificationMessagesConstants;
 
 namespace HCMS.Web.Controllers
 {
@@ -49,9 +48,26 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
 
+            //TODO: workRecordDto needs mapping for the automapper aand the Company Name is not taken from the company Select2
+            WorkRecordDto workRecordDto = mapper.Map<WorkRecordDto>(model);
 
+            string url = "api/company/add";
+            string json = JsonConvert.SerializeObject(workRecordDto);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            return null;
+            HttpResponseMessage response = await httpClient.PostAsync(url, content);
+           
+            if(response.IsSuccessStatusCode)
+            {
+                string successMessage = "The work record has been successfully added!";
+                ViewData["SuccessMessage"] = successMessage;
+                TempData[SuccessMessage] = successMessage;
+                return View();
+            } else
+            {
+                ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
+                return View();
+            }
         }
 
 

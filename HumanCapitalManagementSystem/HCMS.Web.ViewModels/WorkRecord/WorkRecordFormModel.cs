@@ -33,7 +33,6 @@ namespace HCMS.Web.ViewModels.WorkRecord
         [DataType(DataType.Date)]
         public DateTime? EndDate { get; set; }
 
-        [Required]
         public DateTime AddDate { get; set; } = DateTime.Now;
     }
 }

@@ -11,3 +11,8 @@
     margin-left: 35px;
     position: relative;
 }
+
+/* Adjust the size of the Select2 dropdown */
+#companySelect + .select2 .select2-selection {
+    height: 38px; /* Adjust the height to your preference */
+}
