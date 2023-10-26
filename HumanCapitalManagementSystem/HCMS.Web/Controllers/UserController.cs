@@ -1,13 +1,8 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
-using System.Text.Json.Nodes;
 using AutoMapper;
-using BCrypt.Net;
 using HCMS.Common.JsonConverter;
-using HCMS.Common.Structures;
-using HCMS.Data.Models;
-using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.User;
 using HCMS.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
@@ -15,21 +10,17 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using static HCMS.Common.NotificationMessagesConstants;
 
 namespace HCMS.Web.Controllers
 {
     public class UserController : Controller
     {
-
-        private readonly IUserService userService;
         private readonly HttpClient httpClient;
         private readonly IMapper mapper;
 
-        public UserController(IUserService userService, IHttpClientFactory httpClientFactory, IMapper mapper)
+        public UserController(IHttpClientFactory httpClientFactory, IMapper mapper)
         {
-            this.userService = userService;
             this.httpClient = httpClientFactory.CreateClient("WebApi");
             this.mapper = mapper;
         }
@@ -93,7 +84,7 @@ namespace HCMS.Web.Controllers
 
                 //Create the required claims from the userInformation
                 Claim userIdClaim = new Claim("UserId", userDto.Id.ToString()!);
-                Claim usernameClaim = new Claim("Username", userDto.Username.ToString()!);
+                Claim usernameClaim = new Claim("Username", userDto.Username!.ToString());
 
                 //create a collection from the claims
                 var claims = new List<Claim>

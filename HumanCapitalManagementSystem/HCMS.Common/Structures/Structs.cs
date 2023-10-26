@@ -254,13 +254,16 @@ namespace HCMS.Common.Structures
         }
     }
 
-    public readonly struct Location
+
+    [JsonConverter(typeof(LocationConverter))]
+    public readonly struct LocationStruct
     {
         private readonly string? address;
         private readonly string state;
         private readonly string country;
 
-        public Location(string? address, string state, string country)
+        [JsonConstructor]
+        public LocationStruct(string? address, string state, string country)
         {
             this.address = address;
             this.state = state;

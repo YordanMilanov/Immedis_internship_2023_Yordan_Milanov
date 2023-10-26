@@ -44,7 +44,7 @@ namespace HCMS.Web.ViewModels.Employee
 
         public DateTime AddDate { get; set; }
 
-        //Location - Address
+        //LocationStruct - Address
         [Required]
         [StringLength(CountryMaxLength, MinimumLength = CountryMinLength, ErrorMessage = "Country name must be between {2} and {1} characters long")]
         public string Country { get; set; } = null!;

@@ -109,7 +109,7 @@ namespace HCMS.Web.Api.Controllers
 
             //username and password validated
 
-            return Ok("Validation passed");
+            return Ok("Succsessfully logged!");
         }
 
         [HttpGet("UserDtoByUsername")]
@@ -119,7 +119,7 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> GetUserDtoByUsername([FromQuery] string username)
         {
- 
+
             UserDto userDto = await userService.GetUserDtoByUsername(username);
             string jsonToSend = JsonConvert.SerializeObject(userDto);
 

@@ -11,7 +11,7 @@ using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.Employee;
 using Microsoft.EntityFrameworkCore;
-using Location = HCMS.Common.Structures.Location;
+using Location = HCMS.Common.Structures.LocationStruct;
 
 namespace HCMS.Services
 {
@@ -33,7 +33,7 @@ namespace HCMS.Services
 
 
 
-        public async Task UpdateEmployeeAsync(EmployeeFormModel model)
+        public async Task UpdateEmployeeAsync(EmployeeDto model)
         {
             //take the employee and track it from the db
             Employee? employee = await dbContext.Employees
@@ -45,9 +45,9 @@ namespace HCMS.Services
             {
                 Data.Models.Location location = new Data.Models.Location()
                 {
-                    Address = model.Address,
-                    State = model.State,
-                    Country = model.Country
+                    Address = model.Location.GetAddress(),
+                    State = model.Location.GetState(),
+                    Country = model.Location.GetCountry()
                 };
 
                 employee = new Employee
@@ -79,9 +79,9 @@ namespace HCMS.Services
                 {
                     Data.Models.Location location = new Data.Models.Location()
                     {
-                        Address = model.Address,
-                        State = model.State,
-                        Country = model.Country
+                        Address = model.Location.GetAddress(),
+                        State = model.Location.GetState(),
+                        Country = model.Location.GetCountry(),
                     };
                     employee.LocationId = location.Id;
                     employee.Location = location;
@@ -89,9 +89,9 @@ namespace HCMS.Services
                 //if existing employee has location
                 else
                 {
-                    employee.Location!.Address = model.Address;
-                    employee.Location.State = model.State;
-                    employee.Location.Country = model.Country;
+                    employee.Location!.Address = model.Location.GetAddress();
+                    employee.Location.State = model.Location.GetState();
+                    employee.Location.Country = model.Location.GetCountry();
                 }
 
                 try
@@ -100,7 +100,7 @@ namespace HCMS.Services
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception();
+                    throw new Exception(ex.Message);
                 }
             }
         }
@@ -116,11 +116,12 @@ namespace HCMS.Services
            
             EmployeeDto employeeDto = new EmployeeDto
             {
-                FirstName = new Name(employee.FirstName),
-                LastName = new Name(employee.LastName),
-                Email = new Email(employee.Email),
-                PhoneNumber = new Phone(employee.PhoneNumber),
-                PhotoUrl = new Photo(employee.PhotoUrl),
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Email = employee.Email,
+                PhoneNumber = employee.PhoneNumber,
+                PhotoUrl = employee.PhotoUrl,
                 DateOfBirth = employee.DateOfBirth,
                 AddDate = employee.AddDate,
                 UserId = (Guid)employee.UserId!,
@@ -129,7 +130,7 @@ namespace HCMS.Services
             Data.Models.Location location = employee.Location!;
             if (location != null)
             {
-                employeeDto.Location = new Location(location.Address, location.State, location.Country);
+                employeeDto.Location= new LocationStruct(location.Address, location.State, location.Country);
             }
 
             return employeeDto;

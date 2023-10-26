@@ -10,6 +10,9 @@ using static HCMS.Common.NotificationMessagesConstants;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
+using HCMS.Common.JsonConverter;
+using Newtonsoft.Json.Linq;
+using HCMS.Common.Structures;
 
 namespace HCMS.Web.Controllers
 {
@@ -46,13 +49,25 @@ namespace HCMS.Web.Controllers
             // Make get request
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
 
+
             if (response.IsSuccessStatusCode)
             {
+
+
+
                 // Read the content as a JSON string
                 string jsonContent = await response.Content.ReadAsStringAsync();
-              
+                jsonContent.Trim();
                 // Deserialize the JSON into an EmployeeDto object
-                EmployeeDto? employeeDto = JsonConvert.DeserializeObject<EmployeeDto>(jsonContent);
+
+                //adjust json mapping settings
+                //JsonSerializerSettings settings = new JsonSerializerSettings();
+                //settings.Converters.Add(new LocationConverter());
+                string jsoncontent2 = "{\"Id\":\"6d69ff1f-da54-4b2d-82b6-4fe124d2dd07\",\"FirstName\":\"Homer\",\"LastName\":\"Simpson\",\"Email\":\"HomerSimpson@mail.com\",\"PhoneNumber\":\"+123456789\",\"PhotoUrl\":\"https://www.onthisday.com/images/people/homer-simpson.jpg?w=360\",\"DateOfBirth\":\"1990-01-01T00:00:00\",\"AddDate\":\"2023-10-20T22:50:35.227\",\"CompanyId\":null,\"UserId\":\"e244761d-c019-4474-b04c-14d5361e449e\",\"Location\":{\"address\":\"Springfield\",\"state\":\"Oregon\",\"country\":\"America\"}}";
+                bool areTheSame = jsonContent == jsoncontent2;
+                EmployeeDto employee2 = JsonConvert.DeserializeObject<EmployeeDto>(jsoncontent2, new LocationConverter())!;
+                //deserializing
+                EmployeeDto? employeeDto = JsonConvert.DeserializeObject<EmployeeDto>(jsonContent, new LocationConverter());
                 
                 //check if employee is not empty and attach it as a view model
                 if (employeeDto != null)
@@ -65,7 +80,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EmployeeFormModel model)
+        public async Task<IActionResult> Edit(EmployeeDto model)
         {
             //validate input
             if (!ModelState.IsValid)
@@ -78,8 +93,7 @@ namespace HCMS.Web.Controllers
             try
             {
                 Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;
-                string userId = userIdClaim.Value;
-                Guid userIdGuid = Guid.Parse(userId);
+                Guid userIdGuid = Guid.Parse(userIdClaim.Value);
                 model.UserId = userIdGuid;
 
                 await employeeService.UpdateEmployeeAsync(model);
