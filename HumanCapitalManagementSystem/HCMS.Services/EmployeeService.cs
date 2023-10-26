@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using HCMS.Common.Structures;
 using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels;
-using HCMS.Web.ViewModels.Employee;
 using Microsoft.EntityFrameworkCore;
-using Location = HCMS.Common.Structures.LocationStruct;
 
 namespace HCMS.Services
 {
@@ -21,14 +15,16 @@ namespace HCMS.Services
         private readonly IUserRepository userRepository;
         private readonly ILocationRepository locationRepository;
         private readonly ApplicationDbContext dbContext;
+        private readonly IMapper mapper;
 
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IUserRepository userRepository, ILocationRepository locationRepository, ApplicationDbContext dbContext)
+        public EmployeeService(IEmployeeRepository employeeRepository, IUserRepository userRepository, ILocationRepository locationRepository, ApplicationDbContext dbContext, IMapper mapper)
         {
             this.employeeRepository = employeeRepository;
             this.userRepository = userRepository;
             this.locationRepository = locationRepository;
             this.dbContext = dbContext;
+            this.mapper = mapper;
         }
 
 
@@ -43,50 +39,33 @@ namespace HCMS.Services
             //create new employee if employee == null
             if (employee == null)
             {
-                Data.Models.Location location = new Data.Models.Location()
-                {
-                    Address = model.Location.GetAddress(),
-                    State = model.Location.GetState(),
-                    Country = model.Location.GetCountry()
-                };
+                //create new employee
+                Employee UpdatedEmployee = mapper.Map<Employee>(model);
+                employee = UpdatedEmployee;
 
-                employee = new Employee
-                {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    PhotoUrl = model.PhotoUrl,
-                    DateOfBirth = model.DateOfBirth,
-                    AddDate = DateTime.Now,
-                    UserId = model.UserId,
-                    LocationId = location.Id,
-                    Location = location,
-                };
                 await employeeRepository.AddEmployeeAsync(employee);
             }
             //update existing employee
             else
             {
-                employee.FirstName = model.FirstName;
-                employee.LastName = model.LastName;
-                employee.Email = model.Email;
-                employee.PhoneNumber = model.PhoneNumber;
-                employee.PhotoUrl = model.PhotoUrl;
+                //update user
+                employee.FirstName = model.FirstName.ToString();
+                employee.LastName = model.LastName.ToString();
+                employee.Email = model.Email.ToString();
+                employee.PhoneNumber = model.PhoneNumber.ToString();
+                employee.PhotoUrl = model.PhotoUrl.ToString();
                 employee.DateOfBirth = model.DateOfBirth;
-                //if existing employee does not have location
+              
+                //if existing employee does not have location -> create
                 if (employee.LocationId == null)
                 {
-                    Data.Models.Location location = new Data.Models.Location()
-                    {
-                        Address = model.Location.GetAddress(),
-                        State = model.Location.GetState(),
-                        Country = model.Location.GetCountry(),
-                    };
-                    employee.LocationId = location.Id;
+
+                    Location location = mapper.Map<Location>(model.Location);
                     employee.Location = location;
+                    employee.Location.Id = Guid.NewGuid();
+                    employee.LocationId = location.Id;
                 }
-                //if existing employee has location
+                //if existing employee has location -> update
                 else
                 {
                     employee.Location!.Address = model.Location.GetAddress();
@@ -114,20 +93,23 @@ namespace HCMS.Services
                 return null;
             }
            
-            EmployeeDto employeeDto = new EmployeeDto
-            {
-                Id = employee.Id,
-                FirstName = employee.FirstName,
-                LastName = employee.LastName,
-                Email = employee.Email,
-                PhoneNumber = employee.PhoneNumber,
-                PhotoUrl = employee.PhotoUrl,
-                DateOfBirth = employee.DateOfBirth,
-                AddDate = employee.AddDate,
-                UserId = (Guid)employee.UserId!,
-            };
+            EmployeeDto employeeDto = mapper.Map<EmployeeDto>(employee);
+            employeeDto.UserId = id;
 
-            Data.Models.Location location = employee.Location!;
+            //EmployeeDto employeeDto2 = new EmployeeDto
+            //{
+            //    Id = employee.Id,
+            //    FirstName = employee.FirstName,
+            //    LastName = employee.LastName,
+            //    Email = employee.Email,
+            //    PhoneNumber = employee.PhoneNumber,
+            //    PhotoUrl = employee.PhotoUrl,
+            //    DateOfBirth = employee.DateOfBirth,
+            //    AddDate = employee.AddDate,
+            //    UserId = (Guid)employee.UserId!,
+            //};
+
+            Location location = employee.Location!;
             if (location != null)
             {
                 employeeDto.Location= new LocationStruct(location.Address, location.State, location.Country);

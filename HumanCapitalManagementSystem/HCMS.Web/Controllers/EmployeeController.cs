@@ -7,12 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
-using Newtonsoft.Json;
-using System.Net.Http;
 using System.Text;
 using HCMS.Common.JsonConverter;
-using Newtonsoft.Json.Linq;
-using HCMS.Common.Structures;
 
 namespace HCMS.Web.Controllers
 {
@@ -54,20 +50,13 @@ namespace HCMS.Web.Controllers
             {
 
 
-
                 // Read the content as a JSON string
                 string jsonContent = await response.Content.ReadAsStringAsync();
-                jsonContent.Trim();
+
                 // Deserialize the JSON into an EmployeeDto object
 
-                //adjust json mapping settings
-                //JsonSerializerSettings settings = new JsonSerializerSettings();
-                //settings.Converters.Add(new LocationConverter());
-                string jsoncontent2 = "{\"Id\":\"6d69ff1f-da54-4b2d-82b6-4fe124d2dd07\",\"FirstName\":\"Homer\",\"LastName\":\"Simpson\",\"Email\":\"HomerSimpson@mail.com\",\"PhoneNumber\":\"+123456789\",\"PhotoUrl\":\"https://www.onthisday.com/images/people/homer-simpson.jpg?w=360\",\"DateOfBirth\":\"1990-01-01T00:00:00\",\"AddDate\":\"2023-10-20T22:50:35.227\",\"CompanyId\":null,\"UserId\":\"e244761d-c019-4474-b04c-14d5361e449e\",\"Location\":{\"address\":\"Springfield\",\"state\":\"Oregon\",\"country\":\"America\"}}";
-                bool areTheSame = jsonContent == jsoncontent2;
-                EmployeeDto employee2 = JsonConvert.DeserializeObject<EmployeeDto>(jsoncontent2, new LocationConverter())!;
-                //deserializing
-                EmployeeDto? employeeDto = JsonConvert.DeserializeObject<EmployeeDto>(jsonContent, new LocationConverter());
+                //deserializing (if not working check the request from the other side) the JsonSerializerSettingsProvider is custom made in common
+                EmployeeDto? employeeDto = JsonConvert.DeserializeObject<EmployeeDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings());
                 
                 //check if employee is not empty and attach it as a view model
                 if (employeeDto != null)
@@ -80,7 +69,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EmployeeDto model)
+        public async Task<IActionResult> Edit(EmployeeFormModel model)
         {
             //validate input
             if (!ModelState.IsValid)
@@ -88,24 +77,27 @@ namespace HCMS.Web.Controllers
                 TempData[ErrorMessage] = "Please fulfill the requirements of the input fields!";
                 return View(model);
             }
-
             //Validations completed
-            try
+            //
+            Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;
+
+            EmployeeDto employeeDto = mapper.Map<EmployeeDto>(model);
+            string jsonContent = JsonConvert.SerializeObject(employeeDto, new LocationConverter());
+            HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            string apiUrl = "/api/employee/UpdateEmployee";
+            HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+
+
+            if(response.IsSuccessStatusCode)
             {
-                Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;
-                Guid userIdGuid = Guid.Parse(userIdClaim.Value);
-                model.UserId = userIdGuid;
-
-                await employeeService.UpdateEmployeeAsync(model);
-
                 TempData[SuccessMessage] = "You have successfully edited your personal information!";
                 return RedirectToAction("Edit");
             }
-            catch (Exception)
-            {
-                ModelState.AddModelError("GeneralError", "An error occurred while registering the user. Please try again!");
+            else 
+            { 
+                ModelState.AddModelError("GeneralError", "An Error occurred while trying to update your information!");
                 TempData[ErrorMessage] = "Unexpected error occurred!";
-
                 return RedirectToAction("Edit");
             }
         }

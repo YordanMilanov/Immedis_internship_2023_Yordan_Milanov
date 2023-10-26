@@ -1,6 +1,4 @@
-﻿using HCMS.Common.JsonConverter;
-using HCMS.Common.Structures;
-using Newtonsoft.Json;
+﻿using HCMS.Common.Structures;
 
 namespace HCMS.Services.ServiceModels
 {
@@ -8,15 +6,14 @@ namespace HCMS.Services.ServiceModels
     {
         public Guid Id { get; set; }
 
-        public string FirstName { get; set; } = null!;
+        public Name FirstName { get; set; }
 
-        public string LastName { get; set; } = null!;
+        public Name LastName { get; set; }
+        public Email Email { get; set; }
 
-        public string Email { get; set; } = null!;
+        public Phone PhoneNumber { get; set; }
 
-        public string PhoneNumber { get; set; } = null!;
-
-        public string? PhotoUrl { get; set; }
+        public string PhotoUrl { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
@@ -26,7 +23,6 @@ namespace HCMS.Services.ServiceModels
 
         public Guid? UserId { get; set; }
 
-        [JsonConverter(typeof(LocationConverter))]
         public LocationStruct Location { get; set; }
     }
 }

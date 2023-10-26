@@ -20,6 +20,9 @@ builder.Services
 
 builder.Services.AddControllers();
 
+//Add autoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
 //Add Services
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

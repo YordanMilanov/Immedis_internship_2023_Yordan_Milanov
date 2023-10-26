@@ -2360,6 +2360,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "AutoMapper": "11.0.0",
           "BCrypt.Net-Next": "4.0.3",
           "HCMS.Common": "1.0.0",
           "HCMS.Data": "1.0.0",

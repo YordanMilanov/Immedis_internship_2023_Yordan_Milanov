@@ -7,17 +7,17 @@ namespace HCMS.Common.Structures
 
     public readonly struct Description
     {
-        private readonly string description;
+        private readonly string value;
 
         [JsonConstructor]
         public Description(string description)
         {
-            this.description = description;
+            this.value = description;
         }
 
         public override string ToString()
         {
-            return this.description;
+            return this.value;
         }
     }
 
@@ -38,23 +38,20 @@ namespace HCMS.Common.Structures
         }
     }
 
-
-
-
     [JsonConverter(typeof(PasswordConverter))]
     public readonly struct Password
     {
-        private readonly string password;
+        private readonly string value;
 
         [JsonConstructor]
         public Password(string password)
         {
-            this.password = password;
+            this.value = password;
         }
 
         public override string ToString()
         {
-            return this.password;
+            return this.value;
         }
     }
 
@@ -101,168 +98,165 @@ namespace HCMS.Common.Structures
     //diploma
     public readonly struct Phone
     {
-        private readonly string phone;
+        private readonly string? value;
 
-        public Phone(string phone)
+        public Phone(string? phone)
         {
-            this.phone = phone;
+            this.value = phone;
         }
 
-        public string GetPhoneNumber()
+        public override string ToString()
         {
-            return this.phone;
+            return this.value;
         }
     }
 
     public readonly struct Photo
     {
-        private readonly string? photo;
+        private readonly string value;
 
-        public Photo(string? photo)
+        public Photo(string value)
         {
-            this.photo = photo;
+            this.value = value;
         }
 
-        public string GetPhotoUrl()
+        public override string ToString()
         {
-            return this.photo ?? "No photo Link";
+            return this.value!;
         }
     }
 
     public readonly struct Position
     {
-        private readonly string position;
+        private readonly string value;
 
         public Position(string position)
         {
-            this.position = position;
+            this.value = position;
         }
 
-        public string GetValue()
+        public override string ToString()
         {
-            return this.position;
+            return this.value;
         }
     }
 
     public readonly struct Department
     {
-        private readonly string department;
+        private readonly string value;
 
         public Department(string department)
         {
-            this.department = department;
+            this.value = department;
         }
 
-        public string GetValue()
+        public override string ToString()
         {
-            return this.department;
+            return this.value;
         }
     }
 
     public readonly struct Salary
     {
-        private readonly decimal salary;
+        private readonly decimal value;
 
         public Salary(decimal salary)
         {
-            this.salary = salary;
+            this.value = salary;
         }
 
         public override string ToString()
         {
-            return this.salary.ToString();
+            return this.value.ToString();
         }
 
         public decimal GetValue()
         {
-            return this.salary;
+            return this.value;
         }
     }
 
     public readonly struct CoverLetter
     {
-        private readonly string coverLetter;
+        private readonly string value;
 
         public CoverLetter(string coverLetter)
         {
-            this.coverLetter = coverLetter;
+            this.value = coverLetter;
         }
 
-        public string GetValue()
+        public override string ToString()
         {
-            return this.coverLetter;
+            return this.value;
         }
     }
 
     public readonly struct Degree
     {
-        private readonly string degree;
+        private readonly string value;
 
         public Degree(string degree)
         {
-            this.degree = degree;
+            this.value = degree;
         }
 
-        public string GetValue()
+        public override string ToString()
         {
-            return this.degree;
+            return this.value;
         }
     }
 
     public readonly struct FieldOfEducation
     {
-        private readonly string fieldOfEducation;
+        private readonly string value;
 
         public FieldOfEducation(string fieldOfEducation)
         {
-            this.fieldOfEducation = fieldOfEducation;
+            this.value = fieldOfEducation;
         }
 
-        public string GetValueg()
+        public override string ToString()
         {
-            return this.fieldOfEducation;
+            return this.value;
         }
     }
 
     public readonly struct IndustryField
     {
-        private readonly string industryField;
+        private readonly string value;
 
         public IndustryField(string industryField)
         {
-            this.industryField = industryField;
+            this.value = industryField;
         }
 
-        public string GetValue()
+        public override string ToString()
         {
-            return this.industryField;
+            return this.value;
         }
     }
 
     public readonly struct IndustryCategory
     {
-        private readonly string industryCategory;
+        private readonly string value;
 
         public IndustryCategory(string industryCategory)
         {
-            this.industryCategory = industryCategory;
+            this.value = industryCategory;
         }
 
-        public string GetValue()
+        public override string ToString()
         {
-            return this.industryCategory;
+            return this.value;
         }
     }
 
-
-    [JsonConverter(typeof(LocationConverter))]
     public readonly struct LocationStruct
     {
         private readonly string? address;
         private readonly string state;
         private readonly string country;
 
-        [JsonConstructor]
         public LocationStruct(string? address, string state, string country)
         {
             this.address = address;

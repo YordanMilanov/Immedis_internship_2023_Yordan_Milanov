@@ -9,7 +9,7 @@ namespace HCMS.Common.JsonConverter
         {
             if (reader.TokenType == JsonToken.String)
             {
-                string email = (string)reader.Value;
+                string email = (string)reader.Value! ?? "";
                 if (email == null)
                 {
                     // Default value if the value is null

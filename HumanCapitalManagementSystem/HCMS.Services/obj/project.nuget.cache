@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "ypNq1Jwy1SaswKk0srnbttJHOmL6M0Suaq0BuRrfJ4lKA1MGZ9jyPDbztH8TJt+XAgn4+pPeJyBHnTRYBzM62Q==",
+  "dgSpecHash": "Vqwr572pFZNU7PDlwQjva7p3Ug5D3ab8bSfApaTW3hOG1G0Rtme1vjan4yhlnwxMaqtuJH7eP21hnlkUM9QcIg==",
   "success": true,
   "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Services\\HCMS.Services.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\danch\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
-    "C:\\Users\\danch\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\danch\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.0\\microsoft.entityframeworkcore.6.0.0.nupkg.sha512",
