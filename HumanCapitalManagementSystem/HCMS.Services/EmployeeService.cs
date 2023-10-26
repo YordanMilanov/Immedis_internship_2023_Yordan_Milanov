@@ -31,6 +31,14 @@ namespace HCMS.Services
 
         public async Task UpdateEmployeeAsync(EmployeeDto model)
         {
+            if (await employeeRepository.IsEmployeeEmailUsedByAnotherEmployee(model.Email.ToString(), new Guid(model.UserId.ToString()!)))
+            {
+                throw new Exception("The email you have provided is already used!");
+            } else if (await employeeRepository.IsEmployeePhoneNumberUsedByAnotherEmployee(model.Email.ToString(), new Guid(model.UserId.ToString()!)))
+            {
+                throw new Exception("The phone number you have provided is already used!");
+            }
+
             //take the employee and track it from the db
             Employee? employee = await dbContext.Employees
                 .Include(employee => employee.Location!)
@@ -79,7 +87,7 @@ namespace HCMS.Services
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception(ex.Message);
+                    throw new Exception("Unexpected error occurred!");
                 }
             }
         }
@@ -95,19 +103,6 @@ namespace HCMS.Services
            
             EmployeeDto employeeDto = mapper.Map<EmployeeDto>(employee);
             employeeDto.UserId = id;
-
-            //EmployeeDto employeeDto2 = new EmployeeDto
-            //{
-            //    Id = employee.Id,
-            //    FirstName = employee.FirstName,
-            //    LastName = employee.LastName,
-            //    Email = employee.Email,
-            //    PhoneNumber = employee.PhoneNumber,
-            //    PhotoUrl = employee.PhotoUrl,
-            //    DateOfBirth = employee.DateOfBirth,
-            //    AddDate = employee.AddDate,
-            //    UserId = (Guid)employee.UserId!,
-            //};
 
             Location location = employee.Location!;
             if (location != null)

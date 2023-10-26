@@ -4,6 +4,14 @@
         <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
             <form method="post">
                 <h1 class="text-white text-center technical-font">Employee Information</h1>
+
+                @* General Error Message Here *@
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <h3 class="mt-5 text-center">
+                        <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                    </h3>
+                }
                
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="FirstName"></label>

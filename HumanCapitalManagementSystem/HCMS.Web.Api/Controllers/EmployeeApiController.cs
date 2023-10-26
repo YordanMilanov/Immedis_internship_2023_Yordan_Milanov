@@ -69,7 +69,6 @@ namespace HCMS.Web.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            return null!;
         }
     }
 }

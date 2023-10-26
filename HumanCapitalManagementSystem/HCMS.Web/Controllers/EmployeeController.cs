@@ -15,13 +15,11 @@ namespace HCMS.Web.Controllers
     [Authorize]
     public class EmployeeController : Controller
     {
-        private readonly IEmployeeService employeeService;
         private readonly HttpClient httpClient;
         private readonly IMapper mapper;
 
-        public EmployeeController(IEmployeeService employeeService, IHttpClientFactory httpClientFactory, IMapper mapper)
+        public EmployeeController(IHttpClientFactory httpClientFactory, IMapper mapper)
         {
-            this.employeeService = employeeService;
             httpClient = httpClientFactory.CreateClient("WebApi");
             this.mapper = mapper;
         }
@@ -95,11 +93,17 @@ namespace HCMS.Web.Controllers
                 TempData[SuccessMessage] = "You have successfully edited your personal information!";
                 return RedirectToAction("Edit");
             }
-            else 
-            { 
-                ModelState.AddModelError("GeneralError", "An Error occurred while trying to update your information!");
+            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                // Read the response content as a string
+                string responseContent = await response.Content.ReadAsStringAsync();
+               ModelState.AddModelError("GeneralError", responseContent);
+                return View(model);
+            } else
+            {
+                ModelState.AddModelError("GeneralError", "Unexpected error occurred!");
                 TempData[ErrorMessage] = "Unexpected error occurred!";
-                return RedirectToAction("Edit");
+                return View(model);
             }
         }
     }

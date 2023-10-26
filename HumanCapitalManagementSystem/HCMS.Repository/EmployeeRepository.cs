@@ -44,20 +44,6 @@ namespace HCMS.Repository
             }
         }
 
-        public async Task<bool> ExistsEmployeeByUserIdAsync(Guid id)
-        {
-            try
-            {
-                return await dbContext.Employees
-                    .Select(e => e.Id == id)
-                    .AnyAsync();
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-        }
-
         public async Task<Company?> GetEmployeeCompanyByEmployeeUserIdAsync(Guid id)
         {
             try
@@ -74,6 +60,16 @@ namespace HCMS.Repository
             {
                 throw new Exception();
             }
+        }
+
+        public Task<bool> IsEmployeeEmailUsedByAnotherEmployee(string email, Guid userId)
+        {
+            return dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.Email == email);
+        }
+
+        public Task<bool> IsEmployeePhoneNumberUsedByAnotherEmployee(string phoneNumber, Guid userId)
+        {
+            return dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.PhoneNumber == phoneNumber);
         }
     }
 }
