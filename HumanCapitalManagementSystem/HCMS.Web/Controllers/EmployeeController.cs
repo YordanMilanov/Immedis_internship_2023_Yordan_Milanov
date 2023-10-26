@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
 using System.Text;
-using HCMS.Common.JsonConverter;
+using HCMS.Common;
 
 namespace HCMS.Web.Controllers
 {
@@ -82,7 +82,8 @@ namespace HCMS.Web.Controllers
             Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;
 
             EmployeeDto employeeDto = mapper.Map<EmployeeDto>(model);
-            string jsonContent = JsonConvert.SerializeObject(employeeDto, new LocationConverter());
+            employeeDto.UserId = Guid.Parse(userIdClaim.Value);
+            string jsonContent = JsonConvert.SerializeObject(employeeDto, JsonSerializerSettingsProvider.GetCustomSettings());
             HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             string apiUrl = "/api/employee/UpdateEmployee";

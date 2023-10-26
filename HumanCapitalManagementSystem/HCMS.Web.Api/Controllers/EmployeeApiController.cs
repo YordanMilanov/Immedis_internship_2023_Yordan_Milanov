@@ -54,8 +54,11 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> UpdateEmployee([FromBody] EmployeeDto model)
+        public async Task<IActionResult> UpdateEmployee()
         {
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+            EmployeeDto model = JsonConvert.DeserializeObject<EmployeeDto>(jsonReceived, JsonSerializerSettingsProvider.GetCustomSettings())!;
+
 
             try
             {
