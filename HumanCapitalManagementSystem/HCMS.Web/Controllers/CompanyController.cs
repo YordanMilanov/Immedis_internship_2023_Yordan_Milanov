@@ -88,7 +88,7 @@ namespace HCMS.Web.Controllers
             if(response.IsSuccessStatusCode)
             {
                 TempData[ErrorMessage] = "Your current company was succssesfully updated!";
-                return View();
+                return View(new EmployeeCompanyUpdateDto());
             } else
             {
                 ModelState.AddModelError("ErrorMessage", "Unexpecter error occured while updating your company!");
