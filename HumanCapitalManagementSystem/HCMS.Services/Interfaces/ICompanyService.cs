@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HCMS.Web.ViewModels.Company;
+﻿using HCMS.Services.ServiceModels.Company;
 
 namespace HCMS.Services.Interfaces
 {
     public interface ICompanyService
     {
-        Task<IEnumerable<string>> GetAllCompanyNames();
+        Task<IEnumerable<string>> GetAllCompanyNamesAsync();
 
-        Task<CompanyViewModel> GetCompanyByUserId(Guid id);
+        Task<CompanyDto> GetCompanyDtoByEmployeeIdAsync(Guid employeeId);
     }
 }

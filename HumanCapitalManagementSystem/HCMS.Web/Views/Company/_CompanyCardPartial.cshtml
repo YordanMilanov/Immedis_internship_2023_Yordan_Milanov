@@ -4,7 +4,7 @@
 @inject ICompanyService CompanyService
 
 @{
-    IEnumerable<string> companyNames = await CompanyService.GetAllCompanyNames();
+    IEnumerable<string> companyNames = await CompanyService.GetAllCompanyNamesAsync();
     string location = "";
     if (Model?.Country != null)
     {

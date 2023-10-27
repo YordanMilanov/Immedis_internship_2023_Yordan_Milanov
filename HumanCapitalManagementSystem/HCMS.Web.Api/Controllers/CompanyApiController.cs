@@ -1,5 +1,6 @@
 ﻿using HCMS.Services;
 using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.Company;
 using HCMS.Services.ServiceModels.User;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -28,7 +29,7 @@ namespace HCMS.Web.Api.Controllers
         {
             try
             {
-                IEnumerable<string> names = await companyService.GetAllCompanyNames();
+                IEnumerable<string> names = await companyService.GetAllCompanyNamesAsync();
                 if(!names.Any()) {
                     throw new Exception();
                 }
@@ -39,6 +40,26 @@ namespace HCMS.Web.Api.Controllers
             catch (Exception)
             {
                 return BadRequest();
+            }
+        }
+
+        [HttpGet("GetCompanyDtoByEmployeeId")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetCompanyDtoByEmployeeId([FromQuery]string employeeId)
+        {
+            try
+            {
+                CompanyDto companyDto = await companyService.GetCompanyDtoByEmployeeIdAsync(Guid.Parse(employeeId));
+
+
+                return null;
+            } catch (Exception)
+            {
+                return NotFound("Company not found!");
             }
         }
     }

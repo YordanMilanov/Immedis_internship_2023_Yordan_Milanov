@@ -30,7 +30,7 @@ namespace HCMS.Services
             {
                 try
                 {
-                    Company company = await companyRepository.GetCompanyByName(model.CompanyName);
+                    Company company = await companyRepository.GetCompanyByNameAsync(model.CompanyName);
                     workRecord.Company = company;
                     workRecord.CompanyId = company.Id;
                 } catch { }  

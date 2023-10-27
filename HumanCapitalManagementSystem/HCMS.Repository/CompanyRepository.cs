@@ -74,7 +74,7 @@ namespace HCMS.Repository
      
         }
 
-        public async Task<Company> GetCompanyByName(string name)
+        public async Task<Company> GetCompanyByNameAsync(string name)
         {
             try {
                 return await dbContext.Companies.FirstAsync(c => c.Name == name);
@@ -82,6 +82,23 @@ namespace HCMS.Repository
             {
                 throw new Exception("Company not found!");
             }
+        }
+
+        public async Task<Company> GetCompanyByEmployeeIdAsync(Guid employeeId)
+        {
+            try
+            {
+                Company? company = await dbContext.Employees
+                            .Where(e => e.Id == employeeId)
+                            .Include(e => e.Company)
+                            .Select(e => e.Company)
+                            .FirstAsync();
+                return company!;
+            } catch (Exception)
+            {
+                throw new Exception("Company not found");
+            }
+        
         }
     }
 }

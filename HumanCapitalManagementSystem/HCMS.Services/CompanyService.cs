@@ -3,53 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.Company;
 using HCMS.Web.ViewModels.Company;
 
 namespace HCMS.Services
 {
     public class CompanyService : ICompanyService
     {
-        private readonly ICompanyRepository CompanyRepository;
-        private readonly IEmployeeRepository employeeRepository;
+        private readonly ICompanyRepository companyRepository;
+        private readonly IMapper mapper;
 
-        public CompanyService(ICompanyRepository companyRepository, IEmployeeRepository employeeRepository)
+        public CompanyService(ICompanyRepository companyRepository, IMapper mapper)
         {
-            this.CompanyRepository = companyRepository;
-            this.employeeRepository = employeeRepository;
+            this.companyRepository = companyRepository;
+            this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<string>> GetAllCompanyNames()
+        public async Task<IEnumerable<string>> GetAllCompanyNamesAsync()
         {
-            return await CompanyRepository.GetAllCompanyNamesAsync();
+            return await companyRepository.GetAllCompanyNamesAsync();
         }
 
-        public async Task<CompanyViewModel> GetCompanyByUserId(Guid id)
+
+        public async Task<CompanyDto> GetCompanyDtoByEmployeeIdAsync(Guid employeeId)
         {
-            Company? company = await employeeRepository.GetEmployeeCompanyByEmployeeUserIdAsync(id);
-
-            if (company == null)
+            try
             {
-                return new CompanyViewModel();
+               Company company = await companyRepository.GetCompanyByEmployeeIdAsync(employeeId);
+                CompanyDto companyDto = mapper.Map<CompanyDto>(company);
+                return companyDto;
+            } catch (Exception) { 
+                throw new Exception("Unexpected error occurred!");
             }
-
-            CompanyViewModel companyViewModel = new CompanyViewModel()
-            {
-                Name = company.Name,
-                Description = company.Description,
-                IndustryField = company.IndustryField,
-            };
-            
-            if (company.Location != null)
-            {
-               companyViewModel.Country = company.Location.Country;
-               companyViewModel.State = company.Location.State;
-               companyViewModel.Address = company.Location.Address;
-            }
-
-            return companyViewModel;
         }
     }
 }
