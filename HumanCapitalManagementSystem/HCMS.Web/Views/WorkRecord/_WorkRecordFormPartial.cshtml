@@ -24,13 +24,14 @@
 
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="CompanyName">Update Company</label>
-                    <select id="companySelect" >
-                        <option>Company...</option>
+                    <select asp-for="CompanyName" id="companySelect">
+                        <option value="">Company...</option>
                         @foreach (string name in companyNames)
                         {
-                            <option value=@name>@name</option>
+                            <option  value=@name>@name</option>
                         }
                     </select>
+                    <span asp-validation-for="CompanyName" class="small text-white bg-danger"></span>
                 </div>
 
                 <div class="form-group">

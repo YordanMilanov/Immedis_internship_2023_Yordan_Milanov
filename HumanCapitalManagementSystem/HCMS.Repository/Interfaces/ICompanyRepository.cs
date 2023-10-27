@@ -12,5 +12,6 @@ namespace HCMS.Repository.Interfaces
 
         Task<IEnumerable<string>> GetAllCompanyNamesAsync();
 
+        Task<Company> GetCompanyByName(string name);
     }
 }

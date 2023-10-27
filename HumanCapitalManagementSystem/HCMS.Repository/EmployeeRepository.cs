@@ -62,14 +62,29 @@ namespace HCMS.Repository
             }
         }
 
-        public Task<bool> IsEmployeeEmailUsedByAnotherEmployee(string email, Guid userId)
+        public async Task<bool> IsEmployeeEmailUsedByAnotherEmployee(string email, Guid userId)
         {
-            return dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.Email == email);
+            return await dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.Email == email);
         }
 
-        public Task<bool> IsEmployeePhoneNumberUsedByAnotherEmployee(string phoneNumber, Guid userId)
+        public async Task<bool> IsEmployeePhoneNumberUsedByAnotherEmployee(string phoneNumber, Guid userId)
         {
-            return dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.PhoneNumber == phoneNumber);
+            return await dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.PhoneNumber == phoneNumber);
+        }
+
+        public async Task<Guid> GetEmployeeIdByUserId(Guid userId)
+        {
+            try
+            {
+                Guid EmployeeId = await dbContext.Employees
+                    .Where(e => e.UserId == userId)
+                    .Select(e => e.Id)
+                    .FirstAsync();
+                return EmployeeId;
+            } catch (Exception)
+            {
+                throw new Exception("Employee with your user Id not found!");
+            }
         }
     }
 }

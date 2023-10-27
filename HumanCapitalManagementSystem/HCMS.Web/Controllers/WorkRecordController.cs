@@ -4,6 +4,7 @@ using HCMS.Web.ViewModels.WorkRecord;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Text;
 using static HCMS.Common.NotificationMessagesConstants;
 
@@ -24,18 +25,8 @@ namespace HCMS.Web.Controllers
         [Authorize(Roles = "EMPLOYEE")]
         public async Task<IActionResult> Add()
         {
-            //all companies select
-            string allCompanyUrl = "api/company/AllCompanies";
-            HttpResponseMessage response = await httpClient.GetAsync(allCompanyUrl);
-            string jsonContent = await response.Content.ReadAsStringAsync();
-            IEnumerable<string> companies = JsonConvert.DeserializeObject<IEnumerable<string>>(jsonContent)!;
-
-            if (response.IsSuccessStatusCode)
-            {
-                ViewData["allCompanyNames"] = companies;
-                return View();
-            }
-
+           IEnumerable<string> allCompanyNames = await GetAllCompanyNamesFromApiAsync();
+            ViewData["allCompanyNames"] = allCompanyNames;
             return View();
         }
 
@@ -48,10 +39,10 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
 
-            //TODO: workRecordDto needs mapping for the automapper aand the Company Name is not taken from the company Select2
             WorkRecordDto workRecordDto = mapper.Map<WorkRecordDto>(model);
+            workRecordDto.EmployeeId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value);
 
-            string url = "api/company/add";
+            string url = "api/workRecord/add";
             string json = JsonConvert.SerializeObject(workRecordDto);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -60,9 +51,9 @@ namespace HCMS.Web.Controllers
             if(response.IsSuccessStatusCode)
             {
                 string successMessage = "The work record has been successfully added!";
-                ViewData["SuccessMessage"] = successMessage;
                 TempData[SuccessMessage] = successMessage;
-                return View();
+                IEnumerable<string> allCompanyNames = await GetAllCompanyNamesFromApiAsync();
+                return RedirectToAction("Add");
             } else
             {
                 ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
@@ -82,6 +73,21 @@ namespace HCMS.Web.Controllers
         public IActionResult Edit()
         {
             return View("Add");
+        }
+
+        private async Task<IEnumerable<string>> GetAllCompanyNamesFromApiAsync()
+        {
+            //all companies select
+            string allCompanyUrl = "api/company/AllCompanies";
+            HttpResponseMessage response = await httpClient.GetAsync(allCompanyUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonContent = await response.Content.ReadAsStringAsync();
+                IEnumerable<string> companies = JsonConvert.DeserializeObject<IEnumerable<string>>(jsonContent)!;
+                return companies;
+            }
+            return Enumerable.Empty<string>();
         }
     }
 }

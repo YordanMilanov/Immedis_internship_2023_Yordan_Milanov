@@ -121,7 +121,6 @@ namespace HCMS.Web.Api.Controllers
         {
 
             UserDto userDto = await userService.GetUserDtoByUsername(username);
-            string jsonToSend = JsonConvert.SerializeObject(userDto);
 
             if(userDto != null)
             {

@@ -86,12 +86,20 @@ namespace HCMS.Web.Controllers
                 Claim userIdClaim = new Claim("UserId", userDto.Id.ToString()!);
                 Claim usernameClaim = new Claim("Username", userDto.Username!.ToString());
 
-                //create a collection from the claims
-                var claims = new List<Claim>
-                    {
-                    userIdClaim,
-                    usernameClaim,
-                    };
+                //create a collection of claims for the role
+                var claims = new List<Claim>{userIdClaim,usernameClaim};
+
+                string employeeIdApiUrl = $"/api/employee/EmployeeIdByUserId?UserId={userDto.Id}";
+                HttpResponseMessage employeeIdResponse = await httpClient.GetAsync(employeeIdApiUrl);
+
+                //sets currently logged in the session user claim employeeId if it has employeeId(employee information)
+                if (employeeIdResponse.IsSuccessStatusCode)
+                {
+                    string employeeId = await employeeIdResponse.Content.ReadAsStringAsync();
+                    Claim employeeIdClaim = new Claim("EmployeeId", employeeId);
+                    claims.Add(employeeIdClaim);
+                }
+
 
                 foreach (string role in userDto.Roles!)
                 {

@@ -16,7 +16,7 @@ namespace HCMS.Web.ViewModels.WorkRecord
         public string? Department { get; set; }
 
         [Display(Name = "Company name")]
-        [StringLength(DepartmentMaxLength, MinimumLength = DepartmentMinLength, ErrorMessage = "Company name must be a text between {2} and {1} symbols long")]
+        //[StringLength(DepartmentMaxLength, MinimumLength = DepartmentMinLength, ErrorMessage = "Company name must be a text between {2} and {1} symbols long")]
         public string? CompanyName { get; set; }
 
         [Required]

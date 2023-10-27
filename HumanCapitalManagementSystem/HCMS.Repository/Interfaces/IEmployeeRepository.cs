@@ -11,7 +11,10 @@ namespace HCMS.Repository.Interfaces
 
         Task<Company?> GetEmployeeCompanyByEmployeeUserIdAsync(Guid id);
 
+        Task<Guid> GetEmployeeIdByUserId(Guid userId);
+
         Task<bool> IsEmployeePhoneNumberUsedByAnotherEmployee(string phoneNumber, Guid userId);
         Task<bool> IsEmployeeEmailUsedByAnotherEmployee(string email, Guid userId);
+
     }
 }

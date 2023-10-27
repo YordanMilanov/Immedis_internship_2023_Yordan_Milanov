@@ -73,5 +73,15 @@ namespace HCMS.Repository
             }
      
         }
+
+        public async Task<Company> GetCompanyByName(string name)
+        {
+            try {
+                return await dbContext.Companies.FirstAsync(c => c.Name == name);
+            } catch (Exception)
+            {
+                throw new Exception("Company not found!");
+            }
+        }
     }
 }

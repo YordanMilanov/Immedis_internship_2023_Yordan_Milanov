@@ -1,9 +1,4 @@
-﻿using HCMS.Common.JsonConverter;
-using HCMS.Common.Structures;
-using HCMS.Data.Models;
-using Newtonsoft.Json;
-
-namespace HCMS.Services.ServiceModels.User
+﻿namespace HCMS.Services.ServiceModels.User
 {
     public class UserDto
     {
@@ -15,5 +10,7 @@ namespace HCMS.Services.ServiceModels.User
         public string? Password { get; set; } = null!;
 
         public List<string>? Roles { get; set; }
+
+        public Guid? EmployeeId { get; set; }
     }
 }

@@ -9,6 +9,9 @@ using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
 using System.Text;
 using HCMS.Common;
+using HCMS.Services.ServiceModels.User;
+using HCMS.Data.Models;
+using Microsoft.AspNetCore.Authentication;
 
 namespace HCMS.Web.Controllers
 {
@@ -76,7 +79,6 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
             //Validations completed
-            //
             Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;
 
             EmployeeDto employeeDto = mapper.Map<EmployeeDto>(model);
@@ -87,9 +89,34 @@ namespace HCMS.Web.Controllers
             string apiUrl = "/api/employee/UpdateEmployee";
             HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
 
-
+            //if employee information successfully updated
             if(response.IsSuccessStatusCode)
             {
+                //if the principal has no employeeId claim -> add employee information for first time
+                if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
+                {
+                    string userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value;
+                    //set the employeeId to the claims of the user
+                    string employeeApiUrl = $"/api/employee/EmployeeIdByUserId?UserId={userId}";
+                    HttpResponseMessage employeeIdResponse = await httpClient.GetAsync(employeeApiUrl);
+                    if (employeeIdResponse.IsSuccessStatusCode)
+                    {
+                        var userClaims = new List<Claim>(HttpContext.User.Claims);
+
+                        // Add / update claims
+                        string employeeId = await employeeIdResponse.Content.ReadAsStringAsync();
+                        Claim employeeIdClaim = new Claim("EmployeeId", employeeId);
+                        userClaims.RemoveAll(c => c.Type == "EmployeeId");
+                        userClaims.Add(employeeIdClaim);
+
+                        ClaimsIdentity updatedIdentity = new ClaimsIdentity(userClaims, HttpContext.User.Identity!.AuthenticationType, ClaimTypes.Name, ClaimTypes.Role);
+
+                        ClaimsPrincipal updatedPrincipal = new ClaimsPrincipal(updatedIdentity);
+
+                        await HttpContext.SignInAsync(updatedPrincipal);
+                    }
+                }
+
                 TempData[SuccessMessage] = "You have successfully edited your personal information!";
                 return RedirectToAction("Edit");
             }

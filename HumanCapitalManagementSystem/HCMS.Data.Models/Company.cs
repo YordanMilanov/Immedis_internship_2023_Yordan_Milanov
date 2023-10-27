@@ -27,8 +27,6 @@ namespace HCMS.Data.Models
         [MaxLength(DataModelConstants.Company.IndustryFieldMaxLength)]
         public string IndustryField { get; set; } = null!;
 
-        public string IndustryCategory { get; set; }
-
         public Guid? LocationId { get; set; }
 
         [ForeignKey("LocationId")]

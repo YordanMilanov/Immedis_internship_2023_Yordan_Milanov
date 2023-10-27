@@ -48,8 +48,8 @@ namespace HCMS.Services
             if (employee == null)
             {
                 //create new employee
-                Employee UpdatedEmployee = mapper.Map<Employee>(model);
-                employee = UpdatedEmployee;
+                Employee createEmployee = mapper.Map<Employee>(model);
+                employee = createEmployee;
 
                 await employeeRepository.AddEmployeeAsync(employee);
             }
@@ -111,6 +111,18 @@ namespace HCMS.Services
             }
 
             return employeeDto;
+        }
+
+        public async Task<Guid> GetEmployeeIdByUserId(Guid userId)
+        {
+            try
+            {
+                return await employeeRepository.GetEmployeeIdByUserId(userId);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Employee with this user Id was not found!");
+            }
         }
     }
 }

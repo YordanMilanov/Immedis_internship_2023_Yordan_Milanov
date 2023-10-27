@@ -70,5 +70,26 @@ namespace HCMS.Web.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpGet("EmployeeIdByUserId")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetEmployeeIdByUserId([FromQuery] string userId)
+        {
+
+            try
+            {
+                Guid employeeId = await employeeService.GetEmployeeIdByUserId(Guid.Parse(userId));
+
+                return Content(employeeId.ToString(), "application/json");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
