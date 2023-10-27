@@ -4,7 +4,7 @@ using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
-using HCMS.Services.ServiceModels;
+using HCMS.Services.ServiceModels.Employee;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCMS.Services
@@ -12,15 +12,17 @@ namespace HCMS.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository employeeRepository;
+        private readonly ICompanyRepository companyRepository;
         private readonly IUserRepository userRepository;
         private readonly ILocationRepository locationRepository;
         private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
 
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IUserRepository userRepository, ILocationRepository locationRepository, ApplicationDbContext dbContext, IMapper mapper)
+        public EmployeeService(IEmployeeRepository employeeRepository,ICompanyRepository companyRepository ,IUserRepository userRepository, ILocationRepository locationRepository, ApplicationDbContext dbContext, IMapper mapper)
         {
             this.employeeRepository = employeeRepository;
+            this.companyRepository = companyRepository;
             this.userRepository = userRepository;
             this.locationRepository = locationRepository;
             this.dbContext = dbContext;
@@ -117,12 +119,31 @@ namespace HCMS.Services
         {
             try
             {
-                return await employeeRepository.GetEmployeeIdByUserId(userId);
+                return await employeeRepository.GetEmployeeIdByUserIdAsync(userId);
             }
             catch (Exception)
             {
                 throw new Exception("Employee with this user Id was not found!");
             }
+        }
+
+        public async Task UpdateEmployeeCompanyByCompanyName(Guid employeeId, string companyName)
+        {
+            try
+            {
+                Company company = await this.companyRepository.GetCompanyByNameAsync(companyName);
+                Employee employee = await this.employeeRepository.GetEmployeeByIdAsync(employeeId);
+                employee.Company = company;
+                employee.CompanyId = company.Id;
+
+
+                await this.employeeRepository.UpdateEmployeeAsync(employee);
+            } catch
+            {
+                throw new Exception("Unexpected error occurred!");
+            }
+      
+
         }
     }
 }

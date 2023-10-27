@@ -54,13 +54,14 @@ namespace HCMS.Web.Api.Controllers
             try
             {
                 CompanyDto companyDto = await companyService.GetCompanyDtoByEmployeeIdAsync(Guid.Parse(employeeId));
-
-
-                return null;
+                string jsonToSend = JsonConvert.SerializeObject(companyDto, Formatting.Indented);
+                return Content(jsonToSend, "application/json");
             } catch (Exception)
             {
                 return NotFound("Company not found!");
             }
         }
+
+
     }
 }

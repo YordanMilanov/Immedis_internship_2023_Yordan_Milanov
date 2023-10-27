@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using AutoMapper;
 using HCMS.Services.Interfaces;
-using HCMS.Services.ServiceModels;
 using HCMS.Web.ViewModels.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ using HCMS.Common;
 using HCMS.Services.ServiceModels.User;
 using HCMS.Data.Models;
 using Microsoft.AspNetCore.Authentication;
+using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Web.Controllers
 {

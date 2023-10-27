@@ -1,7 +1,8 @@
 ﻿using HCMS.Common.JsonConverter;
 using HCMS.Common.Structures;
 using HCMS.Services.Interfaces;
-using HCMS.Services.ServiceModels;
+using HCMS.Services.ServiceModels.Company;
+using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.User;
 using HCMS.Web.ViewModels.Employee;
 using Microsoft.AspNetCore.Mvc;
@@ -12,17 +13,19 @@ using System.Text.Json;
 
 namespace HCMS.Web.Api.Controllers
 {
-  
+
 
     [Route("api/employee")]
     [ApiController]
     public class EmployeeApiController : ControllerBase
     {
         private readonly IEmployeeService employeeService;
+        private readonly ICompanyService companyService;
 
-        public EmployeeApiController(IEmployeeService employeeService)
+        public EmployeeApiController(IEmployeeService employeeService, ICompanyService companyService)
         {
             this.employeeService = employeeService;
+            this.companyService = companyService;
         }
 
         [HttpGet("GetEmployeeDtoByUserId")]
@@ -89,6 +92,27 @@ namespace HCMS.Web.Api.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("UpdateEmployeeCompany")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> UpdateEmployeeCompany()
+        {
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+            EmployeeCompanyUpdateDto model = JsonConvert.DeserializeObject<EmployeeCompanyUpdateDto>(jsonReceived)!;
+            try
+            {
+                await employeeService.UpdateEmployeeCompanyByCompanyName(model.Id, model.CompanyName);
+                return Ok("The information has been succssesfully updated!");
+
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occured while trying to update to new company!");
             }
         }
     }

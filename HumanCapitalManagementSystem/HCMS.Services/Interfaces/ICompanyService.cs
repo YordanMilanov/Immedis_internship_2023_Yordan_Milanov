@@ -7,5 +7,7 @@ namespace HCMS.Services.Interfaces
         Task<IEnumerable<string>> GetAllCompanyNamesAsync();
 
         Task<CompanyDto> GetCompanyDtoByEmployeeIdAsync(Guid employeeId);
+
+        Task<CompanyDto> GetCompanyDtoByCompanyNameAsync(string companyName);
     }
 }

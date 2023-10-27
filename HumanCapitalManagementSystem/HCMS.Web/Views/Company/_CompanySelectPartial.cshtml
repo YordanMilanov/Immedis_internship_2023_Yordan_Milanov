@@ -1,0 +1,25 @@
+﻿@using HCMS.Web.WebServices.Interfaces;
+@using HCMS.Web.ViewModels.Company;
+@model CompanySelectViewModel;
+@inject ICompanyWebService companyWebService;
+@{
+    IEnumerable<string> companyNames = await companyWebService.GetAllCompanyNamesFromApiAsync();
+}
+<div class="card-background">
+    <form class="text-center"
+          method="post"
+          asp-controller="Company"
+          asp-action="Select">
+        <div class="form-group">
+            <label class="text-white technical-font" asp-for="Name">Select new Company</label>
+            <select asp-for="Name" id="companySelect">
+                <option value="">Company...</option>
+                @foreach (string name in companyNames)
+                {
+                    <option value="@name">@name</option>
+                }
+            </select>
+            <button type="submit" class="form-group row col-6 mx-auto mb-2 btn btn-primary text-white technical-font" >Update current company</button>
+        </div>
+    </form>
+</div>

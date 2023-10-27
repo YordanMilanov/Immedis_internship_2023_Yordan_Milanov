@@ -23,10 +23,8 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "EMPLOYEE")]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
-           IEnumerable<string> allCompanyNames = await GetAllCompanyNamesFromApiAsync();
-            ViewData["allCompanyNames"] = allCompanyNames;
             return View();
         }
 
@@ -52,8 +50,7 @@ namespace HCMS.Web.Controllers
             {
                 string successMessage = "The work record has been successfully added!";
                 TempData[SuccessMessage] = successMessage;
-                IEnumerable<string> allCompanyNames = await GetAllCompanyNamesFromApiAsync();
-                return RedirectToAction("Add");
+                return View();
             } else
             {
                 ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
@@ -73,21 +70,6 @@ namespace HCMS.Web.Controllers
         public IActionResult Edit()
         {
             return View("Add");
-        }
-
-        private async Task<IEnumerable<string>> GetAllCompanyNamesFromApiAsync()
-        {
-            //all companies select
-            string allCompanyUrl = "api/company/AllCompanies";
-            HttpResponseMessage response = await httpClient.GetAsync(allCompanyUrl);
-
-            if (response.IsSuccessStatusCode)
-            {
-                string jsonContent = await response.Content.ReadAsStringAsync();
-                IEnumerable<string> companies = JsonConvert.DeserializeObject<IEnumerable<string>>(jsonContent)!;
-                return companies;
-            }
-            return Enumerable.Empty<string>();
         }
     }
 }

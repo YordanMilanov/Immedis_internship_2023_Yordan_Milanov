@@ -1,7 +1,8 @@
-﻿@model HCMS.Web.ViewModels.WorkRecord.WorkRecordFormModel
-
+﻿@using HCMS.Web.WebServices.Interfaces;
+@model HCMS.Web.ViewModels.WorkRecord.WorkRecordFormModel
+@inject ICompanyWebService companyWebService;
 @{
-    IEnumerable<string> companyNames = (IEnumerable<string>)ViewData["allCompanyNames"]!;
+    IEnumerable<string> companyNames = await companyWebService.GetAllCompanyNamesFromApiAsync();
 }
 <div class="container">
     <div class="row">

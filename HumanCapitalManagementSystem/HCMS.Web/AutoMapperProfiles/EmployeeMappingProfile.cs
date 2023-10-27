@@ -2,7 +2,7 @@
 {
     using AutoMapper;
     using HCMS.Common.Structures;
-    using HCMS.Services.ServiceModels;
+    using HCMS.Services.ServiceModels.Employee;
     using HCMS.Web.ViewModels.Employee;
 
     public class EmployeeMappingProfile : Profile

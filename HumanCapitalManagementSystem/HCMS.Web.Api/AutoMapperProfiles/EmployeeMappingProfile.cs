@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HCMS.Common.Structures;
 using HCMS.Data.Models;
-using HCMS.Services.ServiceModels;
+using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Services.AutoMapperProfiles
 {

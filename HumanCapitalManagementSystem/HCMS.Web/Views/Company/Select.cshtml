@@ -1,0 +1,28 @@
+﻿@using HCMS.Web.ViewModels.Company;
+@model CompanySelectCardViewModel;
+
+@{
+    ViewData["Title"] = " - Company Select";
+}
+
+<div class="container justify-content-center w-50 card-background">
+    <div class="row">
+        <partial name="_CompanyCardPartial" model="@Model.CardViewModel" />
+    </div>
+
+    <div class="row">
+        <partial name="_CompanySelectPartial" model="@Model.SelectViewModel"/>
+    </div>
+</div>
+@section Scripts
+    {
+    <link href="https://fonts.googleapis.com/css?family=Kanit:400,700" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="~/js/Select2.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Company.css" asp-append-version="true" />
+}

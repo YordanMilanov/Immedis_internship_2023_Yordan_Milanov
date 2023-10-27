@@ -72,7 +72,7 @@ namespace HCMS.Repository
             return await dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.PhoneNumber == phoneNumber);
         }
 
-        public async Task<Guid> GetEmployeeIdByUserId(Guid userId)
+        public async Task<Guid> GetEmployeeIdByUserIdAsync(Guid userId)
         {
             try
             {
@@ -84,6 +84,29 @@ namespace HCMS.Repository
             } catch (Exception)
             {
                 throw new Exception("Employee with your user Id not found!");
+            }
+        }
+
+        public async Task<Employee> GetEmployeeByIdAsync(Guid id)
+        {
+            try
+            {
+             return await this.dbContext.Employees.FirstAsync(e => e.Id == id);
+            } catch(Exception)
+            {
+                throw new Exception("Employee not found!");
+            }
+        }
+
+        public async Task UpdateEmployeeAsync(Employee model)
+        {
+            try
+            {
+                this.dbContext.Employees.Update(model);
+                await this.dbContext.SaveChangesAsync();
+            } catch (Exception)
+            {
+                throw new Exception("The update operation has ben corrupted!");
             }
         }
     }

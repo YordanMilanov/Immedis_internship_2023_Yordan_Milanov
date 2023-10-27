@@ -1,6 +1,6 @@
 ﻿using HCMS.Common.Structures;
 
-namespace HCMS.Services.ServiceModels
+namespace HCMS.Services.ServiceModels.Employee
 {
     public class EmployeeDto
     {
@@ -13,7 +13,7 @@ namespace HCMS.Services.ServiceModels
 
         public Phone PhoneNumber { get; set; }
 
-        public string PhotoUrl { get; set; }
+        public string? PhotoUrl { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 

@@ -1,40 +1,40 @@
-﻿using HCMS.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using HCMS.Web.ViewModels.Company;
 using static HCMS.Common.NotificationMessagesConstants;
-using System.Net.Http;
-using HCMS.Services.ServiceModels.User;
 using Newtonsoft.Json;
 using HCMS.Services.ServiceModels.Company;
 using AutoMapper;
+using HCMS.Services.ServiceModels.Employee;
+using System.Text;
 
 namespace HCMS.Web.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly ICompanyService companyService;
         private readonly HttpClient httpClient;
         private readonly IMapper mapper;
 
-        public CompanyController(ICompanyService companyService, HttpClient httpClient, IMapper mapper)
+        public CompanyController(IHttpClientFactory httpClientFactory, IMapper mapper)
         {
             this.mapper = mapper;
-            this.httpClient = httpClient;
-            this.companyService = companyService;
+            this.httpClient = httpClientFactory.CreateClient("WebApi");
         }
 
-        [Authorize(Roles = "EMPLOYEE,ADMIN")]
-        public IActionResult Edit()
+        [Authorize(Roles = "AGENT,ADMIN")]
+        public IActionResult Details()
         {
             return View();
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Details()
+        [Authorize(Roles = "EMPLOYEE")]
+        public async Task<IActionResult> Select()
         {
+            CompanySelectCardViewModel doubleModel = new CompanySelectCardViewModel();
+
 
             //check if the user has employee information
             Claim employeeIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!;
@@ -59,10 +59,40 @@ namespace HCMS.Web.Controllers
                 CompanyDto companyDto = JsonConvert.DeserializeObject<CompanyDto>(responseContent)!;
 
                 CompanyViewModel model = mapper.Map<CompanyViewModel>(companyDto);
+                doubleModel.CardViewModel = model;
+                doubleModel.SelectViewModel = new CompanySelectViewModel();
+                //init double model
 
-                return View(model);
+
+                return View(doubleModel);
             } else
             {
+                doubleModel.CardViewModel = new CompanyViewModel();
+                doubleModel.SelectViewModel = new CompanySelectViewModel();
+                return View(doubleModel);
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "EMPLOYEE")]
+        public async Task<IActionResult>Select(CompanySelectViewModel model)
+        {
+            EmployeeCompanyUpdateDto employeeDto = new EmployeeCompanyUpdateDto();
+            employeeDto.CompanyName = model.Name;
+            employeeDto.Id = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value);
+
+            string json = JsonConvert.SerializeObject(employeeDto);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await httpClient.PostAsync("/api/employee/UpdateEmployeeCompany", content);
+
+            if(response.IsSuccessStatusCode)
+            {
+                TempData[ErrorMessage] = "Your current company was succssesfully updated!";
+                return View();
+            } else
+            {
+                ModelState.AddModelError("ErrorMessage", "Unexpecter error occured while updating your company!");
+                TempData[ErrorMessage] = "Unexpected error occurred!";
                 return View();
             }
         }

@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 using AutoMapper;
+using HCMS.Web.WebServices.Interfaces;
+using HCMS.Web.WebServices;
 
 namespace HCMS.Web
 {
@@ -36,20 +38,8 @@ namespace HCMS.Web
 
             //services and repositories should also be added!
 
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<ICompanyWebService, CompanyWebService>();
 
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-
-            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-            builder.Services.AddScoped<ICompanyService, CompanyService>();
-
-            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-            builder.Services.AddScoped<IUserRoleRepository, UserRoleRepository>();
-
-            builder.Services.AddScoped<ILocationRepository, LocationRepository>();
-            builder.Services.AddScoped<ILocationService, LocationService>();
 
             builder.Services.AddHttpClient("WebApi", client =>
             {

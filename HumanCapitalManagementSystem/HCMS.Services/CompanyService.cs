@@ -34,10 +34,26 @@ namespace HCMS.Services
             try
             {
                Company company = await companyRepository.GetCompanyByEmployeeIdAsync(employeeId);
+                if(company == null) {
+                    throw new Exception("");
+                }
                 CompanyDto companyDto = mapper.Map<CompanyDto>(company);
                 return companyDto;
             } catch (Exception) { 
-                throw new Exception("Unexpected error occurred!");
+                throw new Exception("Employee company not found!");
+            }
+        }
+
+        public async Task<CompanyDto> GetCompanyDtoByCompanyNameAsync(string companyName)
+        {
+            try
+            {
+                Company company = await this.companyRepository.GetCompanyByNameAsync(companyName);
+                CompanyDto companyDto = mapper.Map<CompanyDto>(company);
+                return companyDto;
+            } catch
+            {
+                throw new Exception("No company was found!");
             }
         }
     }
