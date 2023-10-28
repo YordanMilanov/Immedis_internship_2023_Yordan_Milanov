@@ -8,6 +8,7 @@ using HCMS.Services.ServiceModels.Company;
 using AutoMapper;
 using HCMS.Services.ServiceModels.Employee;
 using System.Text;
+using HCMS.Services.ServiceModels.Location;
 
 namespace HCMS.Web.Controllers
 {
@@ -31,8 +32,18 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "EMPLOYEE")]
-        public async Task<IActionResult> Select()
+        public async Task<IActionResult> Select(string redirect)
         {
+            //first check if this is redirect
+            if(redirect == "success")
+            {
+                TempData[SuccessMessage] = "Your current company was succssesfully updated!";
+            }
+            else if(redirect == "error")
+            {
+                TempData[ErrorMessage] = "Unexpected error occurred!";
+            }
+
             CompanySelectCardViewModel doubleModel = new CompanySelectCardViewModel();
 
 
@@ -48,21 +59,32 @@ namespace HCMS.Web.Controllers
             }
 
             //user has employee information
-            string employeeApiUrl = $"/api/company/GetCompanyDtoByEmployeeId?EmployeeId={employeeIdClaim.Value}";
-            HttpResponseMessage response = await httpClient.GetAsync(employeeApiUrl);
+            string employeeCompanyApiUrl = $"/api/company/GetCompanyDtoByEmployeeId?EmployeeId={employeeIdClaim.Value}";
+            HttpResponseMessage response = await httpClient.GetAsync(employeeCompanyApiUrl);
             if (response.IsSuccessStatusCode)
             {
-                // Read the response content as a string
                 string responseContent = await response.Content.ReadAsStringAsync();
-
-                // Deserialize the JSON content into a UserDto object
                 CompanyDto companyDto = JsonConvert.DeserializeObject<CompanyDto>(responseContent)!;
-
                 CompanyViewModel model = mapper.Map<CompanyViewModel>(companyDto);
-                doubleModel.CardViewModel = model;
-                doubleModel.SelectViewModel = new CompanySelectViewModel();
+
+                //check if company has location and take it
+                string LocationDtoApiUrl = $"/api/location/GetLocationById?id={companyDto.LocationId}";
+                HttpResponseMessage locationResponse = await httpClient.GetAsync(LocationDtoApiUrl);
+
+                if(locationResponse.IsSuccessStatusCode)
+                {
+                    string locationResponseContent = await locationResponse.Content.ReadAsStringAsync();
+                    LocationDto locationDto = JsonConvert.DeserializeObject<LocationDto>(locationResponseContent)!;
+                    model.Country = locationDto.Country!;
+                    model.State = locationDto.State!;
+                    model.Address = locationDto.Address!;
+                }
+
                 //init double model
 
+  
+                doubleModel.CardViewModel = model;
+                doubleModel.SelectViewModel = new CompanySelectViewModel();
 
                 return View(doubleModel);
             } else
@@ -85,15 +107,24 @@ namespace HCMS.Web.Controllers
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PostAsync("/api/employee/UpdateEmployeeCompany", content);
 
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                TempData[ErrorMessage] = "Your current company was succssesfully updated!";
-                return View(new EmployeeCompanyUpdateDto());
+
+                Claim employeeIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!;
+                string employeeApiUrl = $"/api/company/GetCompanyDtoByEmployeeId?EmployeeId={employeeIdClaim.Value}";
+                HttpResponseMessage CompanyDtoResponse = await httpClient.GetAsync(employeeApiUrl);
+
+                CompanyDto companyDto = JsonConvert.DeserializeObject<CompanyDto>(await CompanyDtoResponse.Content.ReadAsStringAsync())!;
+                CompanySelectCardViewModel returnModel = new CompanySelectCardViewModel();
+
+                returnModel.CardViewModel = mapper.Map<CompanyViewModel>(companyDto);
+                returnModel.SelectViewModel = new CompanySelectViewModel();
+
+                //the 3rd parameter is the route attribute for redirect and in the get method if it is success it adds tempdata(check in get method)
+                return RedirectToAction("Select", "Company", new { redirect = "success"});
             } else
             {
-                ModelState.AddModelError("ErrorMessage", "Unexpecter error occured while updating your company!");
-                TempData[ErrorMessage] = "Unexpected error occurred!";
-                return View();
+                return RedirectToAction("Select", "Company", new { redirect = "error"});
             }
         }
     }

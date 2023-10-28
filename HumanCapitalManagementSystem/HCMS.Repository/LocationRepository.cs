@@ -20,5 +20,15 @@ namespace HCMS.Repository
                 .Where(l => l.Country == country && l.State == state && l.Address == address)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<Location> GetLocationById(Guid id)
+        {
+           try
+            {
+                return await dbContext.Locations.FirstAsync(l => l.Id == id);
+            } catch(Exception) {
+                throw new Exception("Location not found!");
+            }
+        }
     }
 }
