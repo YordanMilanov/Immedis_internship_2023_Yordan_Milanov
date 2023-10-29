@@ -23,19 +23,17 @@
 
 @if (Model!.Name != null)
 {
-    <div class="col-8 mx-auto card-background">
-        <div class="card">
-            <div class="card-block">
+        <div class="card-partial">
+            <div>
                 <h4 class="card-title">@Model.Name</h4>
-                <h6 class="card-subtitle text-muted">@Model.IndustryField</h6>
-                <p class="card-text p-y-1">@Model.Description</p>
+                <h6 class="card-subtitle">@Model.IndustryField</h6>
+            <p class="card-text p-y-1 my-2">@Model.Description</p>
                 @if (location != "")
                 {
                     <p>Address: @location</p>
                 }
             </div>
         </div>
-        <hr class="text-white" />
-    </div>
+        <hr class="text-white"/>
 }
 

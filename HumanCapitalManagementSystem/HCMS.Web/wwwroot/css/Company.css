@@ -10,3 +10,11 @@
     height: 35px;
     margin-bottom: 15px;
 }
+
+.card-partial {
+    color: floralwhite;
+    background: linear-gradient(to right, #004785, #003454);
+    border-radius: 10px;
+    border: 1px solid floralwhite;
+}
+#005b85

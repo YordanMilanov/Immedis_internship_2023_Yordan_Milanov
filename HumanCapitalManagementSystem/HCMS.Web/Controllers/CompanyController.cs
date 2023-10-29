@@ -34,7 +34,7 @@ namespace HCMS.Web.Controllers
         [Authorize(Roles = "EMPLOYEE")]
         public async Task<IActionResult> Select(string redirect)
         {
-            //first check if this is redirect
+            //first check if this is redirect from the same page
             if(redirect == "success")
             {
                 TempData[SuccessMessage] = "Your current company was succssesfully updated!";
@@ -42,6 +42,12 @@ namespace HCMS.Web.Controllers
             else if(redirect == "error")
             {
                 TempData[ErrorMessage] = "Unexpected error occurred!";
+            }
+
+            //if the user has no employee information redirect to add employee information
+            if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
+            {
+                return RedirectToAction("Edit", "Employee", new { redirect = "Please first add your employee information to be able to add company information!" });
             }
 
             CompanySelectCardViewModel doubleModel = new CompanySelectCardViewModel();

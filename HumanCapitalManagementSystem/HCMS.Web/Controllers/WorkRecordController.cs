@@ -25,6 +25,10 @@ namespace HCMS.Web.Controllers
         [Authorize(Roles = "EMPLOYEE")]
         public IActionResult Add()
         {
+            //if the user has no employee information redirect to add employee information
+            if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId")) {
+                return RedirectToAction("Edit", "Employee", new { redirect = "Please first add your employee information to be able to add work records!" });
+            }
             return View();
         }
 

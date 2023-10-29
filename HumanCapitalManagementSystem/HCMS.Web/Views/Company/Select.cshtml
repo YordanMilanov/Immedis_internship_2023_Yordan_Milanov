@@ -5,13 +5,17 @@
     ViewData["Title"] = " - Company Select";
 }
 
-<div class="container justify-content-center w-50 card-background">
-    <div class="row">
+<div class="container justify-content-center w-25 card-background">
+    <div class="row d-inline">
+        <div class="text-center mx-auto">
         <partial name="_CompanyCardPartial" model="@Model.CardViewModel" />
+        </div>
     </div>
 
-    <div class="row">
+    <div class="row d-inline">
+        <div class="text-center mx-auto">
         <partial name="_CompanySelectPartial" model="@Model.SelectViewModel"/>
+        </div>
     </div>
 </div>
 @section Scripts
