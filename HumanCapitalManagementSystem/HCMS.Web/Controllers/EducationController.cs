@@ -25,6 +25,12 @@ namespace HCMS.Web.Controllers
         [HttpGet]
         public IActionResult Edit()
         {
+            //check if the current user has employeeId
+            bool hasEmployeeId = HttpContext.User.Claims.Any(c => c.Type == "EmployeeId");
+            if (!hasEmployeeId)
+            {
+                return RedirectToAction("Edit", "Employee", new { redirect = "You must first add personal information to be able to add education information!" });
+            }
             return View();
         }
 

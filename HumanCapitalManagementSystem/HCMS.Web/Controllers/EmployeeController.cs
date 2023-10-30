@@ -34,7 +34,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string redirect)
+        public async Task<IActionResult> Edit(string? redirect)
         {
             //check if it is redirect
             if(redirect != null)
@@ -42,7 +42,6 @@ namespace HCMS.Web.Controllers
                 TempData[WarningMessage] = redirect;
                 return View();
             }
-            redirect = "";
 
             //get currently logged user ID
             Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;

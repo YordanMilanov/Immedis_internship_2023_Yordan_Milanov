@@ -49,3 +49,33 @@ header, footer {
     width: 100%;
     height: 100%;
 }
+
+.custom-dropdown-button {
+    color: white;
+    background-color: #02234f;
+    border: none;
+}
+
+.custom-dropdown-button :Hover {
+    background-color: #ffffff;
+    color: #02234f;
+    font: bold;
+    border: none;
+}
+
+.custom-dropdown-menu {
+    color: white;
+    background-color: #012557;
+}
+
+.dropdown-item {
+    color: white;
+    background-color: #012557;
+    transition: background-color 0.3s;
+}
+
+    .dropdown-item:hover {
+        background-color: #ffffff;
+        color: #012557;
+        font: bold;
+    }
