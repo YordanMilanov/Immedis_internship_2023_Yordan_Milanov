@@ -1,6 +1,8 @@
-﻿using HCMS.Data;
+﻿using HCMS.Common;
+using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace HCMS.Repository
 {
@@ -12,7 +14,9 @@ namespace HCMS.Repository
         {
             this.dbContext = dbContext;
         }
-        public async Task AddWorkRecord(WorkRecord model)
+
+
+        public async Task AddWorkRecordAsync(WorkRecord model)
         {
             try
             {
@@ -23,6 +27,34 @@ namespace HCMS.Repository
                 throw new Exception();
             }
 
+        }
+
+        public async Task<List<WorkRecord>> AllWorkRecordsByEmployeeIdAsync(Guid id)
+        {
+            try
+            {
+                return await dbContext.WorkRecords.Where(wr => wr.EmployeeId == id).ToListAsync();
+            } catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+       public async Task<List<WorkRecord>> AllWorkRecordsAsync()
+        {
+           return await dbContext.WorkRecords.ToListAsync();
+        }
+
+        public async Task<List<WorkRecord>> SearchStringAndFilteredAsync(string search, OrderPageEnum order)
+        {
+            //to be finished paging
+            if(order == OrderPageEnum.Newest) { }
+
+                IQueryable query = await dbContext.WorkRecords
+                .Where(wr => wr.Position.Contains(search)
+                    || wr.Department!.Contains(search)).AsQueryable();
+
+            throw new NotImplementedException();
         }
     }
 }

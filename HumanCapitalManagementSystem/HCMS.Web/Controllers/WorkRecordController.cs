@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Castle.Core.Internal;
+using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Web.ViewModels.WorkRecord;
 using Microsoft.AspNetCore.Authorization;
@@ -23,8 +25,15 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "EMPLOYEE")]
-        public IActionResult Add()
+        public IActionResult Add(string? redirect)
         {
+            //check redirect
+            if(redirect != null)
+            {
+                TempData[WarningMessage] = redirect;
+                return View();
+            }
+
             //if the user has no employee information redirect to add employee information
             if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId")) {
                 return RedirectToAction("Edit", "Employee", new { redirect = "Please first add your employee information to be able to add work records!" });
@@ -62,13 +71,69 @@ namespace HCMS.Web.Controllers
             }
         }
 
-
+        [HttpGet]
         [Authorize]
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            WorkRecordAllQueryModel model = new WorkRecordAllQueryModel();
+            //for ADMIN and AGENT
+            if (HttpContext.User.Claims.Any(c => c.Type == "Role" && (c.Value == "ADMIN" || c.Value == "AGENT")))
+            {
+                string apiAllUrl = $"/api/workRecord/all";
+                HttpResponseMessage responseAll = await httpClient.GetAsync(apiAllUrl);
+
+                if (responseAll.IsSuccessStatusCode)
+                {
+                    string jsonContent = await responseAll.Content.ReadAsStringAsync();
+                    List<WorkRecordDto> workRecords = JsonConvert.DeserializeObject<List<WorkRecordDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                    List<WorkRecordViewModel> workRecordViewModels = workRecords.Select(wr => mapper.Map<WorkRecordViewModel>(wr)).ToList();
+
+                    if (workRecordViewModels.IsNullOrEmpty())
+                    {
+                        return View(new List<WorkRecordViewModel>());
+                    }
+                    return View(workRecordViewModels);
+                }
+                //for EMPLOYEE
+                else if (HttpContext.User.Claims.Any(c => c.Type == "Role" && c.Value == "EMPLOYEE"))
+                {
+                    Guid employeeId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value);
+
+                    if (employeeId == Guid.Empty)
+                    {
+                        return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no personal information. Please first add personal information!" });
+                    }
+
+                    string apiEmployeeUrl = $"/api/workRecord/allByEmployeeId?employeeId={employeeId}";
+                    HttpResponseMessage response = await httpClient.GetAsync(apiEmployeeUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonContent = await response.Content.ReadAsStringAsync();
+                        List<WorkRecordDto> employeeWorkRecords = JsonConvert.DeserializeObject<List<WorkRecordDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+
+                        if (employeeWorkRecords.IsNullOrEmpty())
+                        {
+                            return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no work records. Please first add work records!" });
+                        }
+
+                        return View(employeeWorkRecords);
+                    }
+                }
+            }
+            return View(new List<WorkRecordDto>());
+        }
+
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> All(WorkRecordQueryModel model)
+        {
+
             return View(model);
         }
+
+
+
 
         [Authorize]
         public IActionResult Edit()

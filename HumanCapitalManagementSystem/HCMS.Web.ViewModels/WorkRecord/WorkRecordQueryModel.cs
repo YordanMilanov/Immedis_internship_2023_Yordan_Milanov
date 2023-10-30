@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HCMS.Common;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HCMS.Web.ViewModels.WorkRecord.Enum;
 
 namespace HCMS.Web.ViewModels.WorkRecord
 {
-    public class WorkRecordAllQueryModel
+    public class WorkRecordQueryModel
     {
-        public WorkRecordAllQueryModel()
+        public WorkRecordQueryModel()
         {
             this.CurrentPage = 1;
             this.WorkRecordsPerPage = 3;
 
-            this.WorkRecords = new HashSet<WorkRecordViewModel>();
+            this.WorkRecords = new List<WorkRecordViewModel>();
         }
 
         [DisplayName("Search by word")]

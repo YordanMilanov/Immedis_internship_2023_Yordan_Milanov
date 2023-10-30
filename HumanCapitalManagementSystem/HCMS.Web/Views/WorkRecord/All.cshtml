@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Work Records";
 }
-@model HCMS.Web.ViewModels.WorkRecord.WorkRecordAllQueryModel
+@model HCMS.Web.ViewModels.WorkRecord.WorkRecordQueryModel
 
 
 @{
@@ -20,8 +20,7 @@
                                     Model.WorkRecordsPerPage);
 
     //check check if this page is the last
-        bool shouldNextPageButtonBeDisabled = Model.CurrentPage == maxPage ||
-                                              !Model.WorkRecords.Any();
+        bool shouldNextPageButtonBeDisabled = Model.CurrentPage == maxPage || !Model.WorkRecords.Any();
 }
 
 <div class="container text-white bg-dark">

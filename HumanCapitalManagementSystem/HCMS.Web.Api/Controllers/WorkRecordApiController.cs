@@ -32,12 +32,49 @@ namespace HCMS.Web.Api.Controllers
 
             try
             {
-                await workRecordService.AddWorkRecord(model);
+                await workRecordService.AddWorkRecordAsync(model);
                 return Ok("The information has been succssesfully updated!");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("allByEmployeeId")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> WorkRecordAllByEmployeeId([FromQuery] Guid id)
+        {
+            try
+            {
+                List<WorkRecordDto> allWorkRecords = await workRecordService.GetAllWorkRecordsDtosByEmployeeId(id);
+                string jsonString = JsonConvert.SerializeObject(allWorkRecords, JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(jsonString, "application/json");
+            } catch (Exception)
+            {
+                return BadRequest("Could not complete get all work records operation!");
+            }
+        }
+
+        [HttpGet("all")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> AllWorkRecords()
+        {
+            try
+            {
+                List<WorkRecordDto> allWorkRecords = await workRecordService.GetAllWorkRecordsDtosAsync();
+                string jsonString = JsonConvert.SerializeObject(allWorkRecords, JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(jsonString, "application/json");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Could not complete get all work records operation!");
             }
         }
     }
