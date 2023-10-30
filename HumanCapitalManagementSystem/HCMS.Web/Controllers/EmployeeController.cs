@@ -42,6 +42,7 @@ namespace HCMS.Web.Controllers
                 TempData[WarningMessage] = redirect;
                 return View();
             }
+            redirect = "";
 
             //get currently logged user ID
             Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;

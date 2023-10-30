@@ -13,18 +13,14 @@ namespace HCMS.Services
     {
         private readonly IEmployeeRepository employeeRepository;
         private readonly ICompanyRepository companyRepository;
-        private readonly IUserRepository userRepository;
-        private readonly ILocationRepository locationRepository;
         private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
 
 
-        public EmployeeService(IEmployeeRepository employeeRepository,ICompanyRepository companyRepository ,IUserRepository userRepository, ILocationRepository locationRepository, ApplicationDbContext dbContext, IMapper mapper)
+        public EmployeeService(IEmployeeRepository employeeRepository,ICompanyRepository companyRepository, ApplicationDbContext dbContext, IMapper mapper)
         {
             this.employeeRepository = employeeRepository;
             this.companyRepository = companyRepository;
-            this.userRepository = userRepository;
-            this.locationRepository = locationRepository;
             this.dbContext = dbContext;
             this.mapper = mapper;
         }
@@ -87,7 +83,7 @@ namespace HCMS.Services
                 {
                     await dbContext.SaveChangesAsync();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw new Exception("Unexpected error occurred!");
                 }

@@ -59,6 +59,8 @@
 
         public static class Education
         {
+            public const int UniversityMaxLength = 50;
+            public const int UniversityMinLength = 2;
             public const int DegreeMaxLength = 50;
             public const int DegreeMinLength = 2;
             public const int FieldOfEducationMaxLength = 50;

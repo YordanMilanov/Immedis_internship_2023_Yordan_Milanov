@@ -1,0 +1,13 @@
+﻿.form-card {
+    background-color: #134475;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.technical-font {
+    font-family: 'Kanit', sans-serif;
+}
+
+#degreeSelect + .select2 .select2-selection {
+    height: 40px;
+}

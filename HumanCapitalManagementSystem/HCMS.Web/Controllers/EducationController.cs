@@ -1,0 +1,65 @@
+﻿using AutoMapper;
+using HCMS.Services.ServiceModels.Education;
+using HCMS.Services.ServiceModels.Employee;
+using HCMS.Web.ViewModels.Education;
+using HCMS.Web.ViewModels.Employee;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Security.Claims;
+using System.Text;
+using static HCMS.Common.NotificationMessagesConstants;
+
+namespace HCMS.Web.Controllers
+{
+    public class EducationController : Controller
+    {
+        private readonly HttpClient httpClient;
+        private readonly IMapper mapper;
+
+        public EducationController(IHttpClientFactory httpClientFactory, IMapper mapper)
+        {
+            this.mapper = mapper;
+            this.httpClient = httpClientFactory.CreateClient("WebApi");
+        }
+
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EducationFormModel model)
+        {
+            //validate input
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            //get currently logged user ID
+            Claim employeeIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!;
+            Guid employeeId = Guid.Parse(employeeIdClaim.Value);
+            EducationDto educationDto = mapper.Map<EducationDto>(model);
+            educationDto.EmployeeId = employeeId;
+            string jsonContent = JsonConvert.SerializeObject(educationDto, JsonSerializerSettingsProvider.GetCustomSettings());
+            HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            string apiUrl = "/api/education/EditEducation";
+            HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+
+            //if employee information successfully updated
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = "Education information has been succssesfully added!";
+                return View();
+            } else
+            {
+                TempData[ErrorMessage] = response.Content.ToString();
+                return View();
+
+            }
+        }
+    }
+}

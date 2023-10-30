@@ -22,12 +22,16 @@ namespace HCMS.Data.Models
         public DateTime? EndDate { get; set; }
 
         [Required]
+        [MaxLength(DataModelConstants.Education.UniversityMaxLength)]
+        public string University { get; set; } = null!;
+
+        [Required]
         [MaxLength(DataModelConstants.Education.DegreeMaxLength)]
-        public string Degree { get; set; }
+        public string Degree { get; set; } = null!;
 
         [Required]
         [MaxLength(DataModelConstants.Education.FieldOfEducationMaxLength)]
-        public string FieldOfEducation { get; set; }
+        public string FieldOfEducation { get; set; } = null!;
 
         [Required]
         public decimal Grade { get; set; }
@@ -42,12 +46,3 @@ namespace HCMS.Data.Models
         public virtual Location? Location { get; set; }
     }
 }
-
-//"Id" VARCHAR PRIMARY KEY, --GUID
-//"StartDate" DATE NOT NULL,
-//"EndDate" DATE NULL,
-//"Degree" VARCHAR(50) NOT NULL,
-//"FieldOfEducation" VARCHAR(50) NOT NULL,
-//"Grade" DECIMAL(19,2) NOT NULL,
-//"EmployeeId" VARCHAR NOT NULL,
-//"LocationId" VARCHAR NULL,

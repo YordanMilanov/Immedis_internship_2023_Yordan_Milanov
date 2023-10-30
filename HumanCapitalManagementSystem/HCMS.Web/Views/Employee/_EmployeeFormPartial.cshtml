@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
             <form method="post">
-                <h1 class="text-white text-center technical-font">Employee Information</h1>
+                <h1 class="text-white text-center technical-font">Personal Information</h1>
 
                 @* General Error Message Here *@
                 @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
@@ -12,67 +12,67 @@
                         <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
                     </h3>
                 }
-               
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="FirstName"></label>
                     <input asp-for="FirstName" class="form-control" placeholder="First name...">
                     <span asp-validation-for="FirstName" class="small text-white bg-danger"></span>
                 </div>
-               
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="LastName"></label>
                     <input asp-for="LastName" class="form-control"
                            placeholder="Last name...">
                     <span asp-validation-for="LastName" class="small text-white bg-danger"></span>
                 </div>
-               
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="Email"></label>
                     <input asp-for="Email" class="form-control"
                            placeholder="Email...">
                     <span asp-validation-for="Email" class="small text-white bg-danger"></span>
                 </div>
-               
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="PhoneNumber"></label>
                     <input asp-for="PhoneNumber" class="form-control" placeholder="Phone number...">
                     <span asp-validation-for="PhoneNumber" class="small text-white bg-danger"></span>
                 </div>
-               
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="PhotoUrl"></label>
                     <input asp-for="PhotoUrl" class="form-control" placeholder="Photo link...">
                     <span asp-validation-for="PhotoUrl" class="small text-white bg-danger"></span>
                 </div>
-               
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="DateOfBirth"></label>
                     <input asp-for="DateOfBirth" class="form-control" type="date" placeholder="Birth date...">
                     <span asp-validation-for="DateOfBirth" class="small text-white bg-danger"></span>
                 </div>
-                
-                <hr class="text-white"/>
+
+                <hr class="text-white" />
                 <h3 class="text-white text-center technical-font">Address</h3>
-               
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="Country"></label>
                     <input asp-for="Country" class="form-control" placeholder="Country...">
                     <span asp-validation-for="Country" class="small text-white bg-danger"></span>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="State"></label>
                     <input asp-for="State" class="form-control" placeholder="State...">
                     <span asp-validation-for="State" class="small text-white bg-danger"></span>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="Address"></label>
                     <input asp-for="Address" class="form-control" placeholder="Address...">
                     <span asp-validation-for="Address" class="small text-white bg-danger"></span>
                 </div>
-                
-                <hr class="text-white"/>
+
+                <hr class="text-white" />
 
                 <div class="text-center">
                     <input class="btn btn-primary mt-3 technical-font" type="submit" value="Edit Personal info" />

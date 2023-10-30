@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\css\\Company.css"
     },
     {
+      "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\Education.css",
+      "PackagePath": "staticwebassets\\css\\Education.css"
+    },
+    {
       "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\Employee.css",
       "PackagePath": "staticwebassets\\css\\Employee.css"
     },

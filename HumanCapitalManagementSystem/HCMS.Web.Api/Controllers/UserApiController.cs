@@ -29,16 +29,11 @@ namespace HCMS.Web.Api.Controllers
             // Read the JSON from request body
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
 
-            // Deserialize the JSON
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                Converters = new List<JsonConverter> { new NameConverter(), new PasswordConverter(), new EmailConverter(), new RoleConverter() }
-            };
-
             UserRegisterDto model;
             try
             {
-                model = JsonConvert.DeserializeObject<UserRegisterDto>(jsonReceived, settings)!;
+                // Deserialize the JSON
+                model = JsonConvert.DeserializeObject<UserRegisterDto>(jsonReceived, JsonSerializerSettingsProvider.GetCustomSettings())!;
             }
             catch (JsonException)
             {

@@ -1,6 +1,7 @@
 ﻿using HCMS.Common.JsonConverter;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using static HCMS.Common.DataModelConstants;
 
 namespace HCMS.Common.Structures
 {
@@ -253,8 +254,13 @@ namespace HCMS.Common.Structures
 
     public readonly struct LocationStruct
     {
+        [StringLength(Location.AddressMaxLength, MinimumLength = Location.AddressMaxLength, ErrorMessage = "Address must be between {2} and {1} characters long")]
         private readonly string? address;
+
+        [StringLength(Location.StateMaxLength,MinimumLength = Location.StateMinLength, ErrorMessage = "State must be between {2} and {1} characters long")]
         private readonly string state;
+
+        [StringLength(Location.CountryMaxLength, MinimumLength = Location.CountryMinLength, ErrorMessage = "Country must be between {2} and {1} characters long")]
         private readonly string country;
 
         public LocationStruct(string? address, string state, string country)

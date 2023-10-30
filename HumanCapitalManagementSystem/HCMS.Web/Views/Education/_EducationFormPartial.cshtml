@@ -1,0 +1,90 @@
+﻿@model HCMS.Web.ViewModels.Education.EducationFormModel
+<div class="container w-50 mx-auto form-card">
+    <div class="row">
+        <div class="form-body">
+            <form method="post">
+                <h1 class="text-white text-center technical-font">Education Information</h1>
+
+                @* General Error Message Here *@
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <h3 class="mt-5 text-center">
+                        <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                    </h3>
+                }
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="University"></label>
+                    <input asp-for="University" class="form-control" placeholder="Field of education...">
+                    <span asp-validation-for="University" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="FieldOfEducation"></label>
+                    <input asp-for="FieldOfEducation" class="form-control" placeholder="Field of education...">
+                    <span asp-validation-for="FieldOfEducation" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="Degree">Degree</label>
+                    <select asp-for="Degree" name="Degree" class="form-control" id="degreeSelect">
+                        <option value=""></option>
+                        <option value="Associate">Associate Degree</option>
+                        <option value="Bachelor">Bachelor's Degree</option>
+                        <option value="Master">Master's Degree</option>
+                        <option value="Professional">Professional Degree</option>
+                        <option value="Doctorate">Doctorate Degree</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span asp-validation-for="Degree" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="Grade"></label>
+                    <input asp-for="Grade" type="number" class="form-control" placeholder="Grade...">
+                    <span asp-validation-for="Grade" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="StartDate"></label>
+                    <input asp-for="StartDate" class="form-control" type="date" placeholder="Start date...">
+                    <span asp-validation-for="StartDate" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="EndDate"></label>
+                    <input asp-for="EndDate" class="form-control" type="date" placeholder="End date...">
+                    <span asp-validation-for="EndDate" class="small text-white bg-danger"></span>
+                </div>
+
+                <hr class="text-white" />
+                <h3 class="text-white text-center technical-font">University Address</h3>
+
+                <div class="row">
+                    <div class="col-4 form-group">
+                        <label class="text-white technical-font" asp-for="Country"></label>
+                        <input asp-for="Country" class="form-control" placeholder="Country...">
+                        <span asp-validation-for="Country" class="small text-white bg-danger"></span>
+                    </div>
+
+                    <div class="col-4 form-group">
+                        <label class="text-white technical-font" asp-for="State"></label>
+                        <input asp-for="State" class="form-control" placeholder="State...">
+                        <span asp-validation-for="State" class="small text-white bg-danger"></span>
+                    </div>
+
+                    <div class="col-4 form-group">
+                        <label class="text-white technical-font" asp-for="Address"></label>
+                        <input asp-for="Address" class="form-control" placeholder="Address...">
+                        <span asp-validation-for="Address" class="small text-white bg-danger"></span>
+                    </div>
+                </div>
+
+                <hr class="text-white" />
+
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3 technical-font" type="submit" value="Submit education information" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
