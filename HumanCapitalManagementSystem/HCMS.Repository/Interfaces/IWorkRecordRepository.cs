@@ -1,5 +1,6 @@
 ﻿using HCMS.Common;
 using HCMS.Data.Models;
+using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Repository.Interfaces
 {
@@ -11,6 +12,8 @@ namespace HCMS.Repository.Interfaces
 
         public Task<List<WorkRecord>> AllWorkRecordsAsync();
 
-        public Task<List<WorkRecord>> SearchStringAndFilteredAsync(string search, OrderPageEnum order);
+        public Task<List<WorkRecord>> GetWorkRecordsPageAsync(WorkRecordQueryDto searchModel);
+
+        public Task<int> WorkRecordsCountByEmployeeIdAsync(Guid employeeId);
     }
 }

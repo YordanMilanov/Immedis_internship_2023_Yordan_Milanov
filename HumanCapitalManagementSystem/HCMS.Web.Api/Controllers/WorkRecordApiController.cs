@@ -50,7 +50,7 @@ namespace HCMS.Web.Api.Controllers
         {
             try
             {
-                List<WorkRecordDto> allWorkRecords = await workRecordService.GetAllWorkRecordsDtosByEmployeeId(id);
+                List<WorkRecordDto> allWorkRecords = await workRecordService.GetAllWorkRecordsDtosByEmployeeIdAsync(id);
                 string jsonString = JsonConvert.SerializeObject(allWorkRecords, JsonSerializerSettingsProvider.GetCustomSettings());
                 return Content(jsonString, "application/json");
             } catch (Exception)
@@ -75,6 +75,33 @@ namespace HCMS.Web.Api.Controllers
             catch (Exception)
             {
                 return BadRequest("Could not complete get all work records operation!");
+            }
+        }
+
+        [HttpPost("currentPage")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> WorkRecordsCurrentPage()
+        {
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+            WorkRecordQueryDto model = JsonConvert.DeserializeObject<WorkRecordQueryDto>(jsonReceived)!;
+
+            try
+            {
+                model.TotalWorkRecords = await workRecordService.GetWorkRecordsCountByEmployeeIdAsync(model.EmployeeId);
+
+                //set current page models
+                model.WorkRecords = await workRecordService.GetWorkRecordsPageAsync(model);
+
+
+                string jsonString = JsonConvert.SerializeObject(model, JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(jsonString, "application/json");
+
+            } catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to load the page!");
             }
         }
     }

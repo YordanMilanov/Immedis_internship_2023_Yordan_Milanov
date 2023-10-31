@@ -56,7 +56,7 @@ namespace HCMS.Services
             return AllWorkRecordsDtos;
         }
 
-        public async Task<List<WorkRecordDto>> GetAllWorkRecordsDtosByEmployeeId(Guid id)
+        public async Task<List<WorkRecordDto>> GetAllWorkRecordsDtosByEmployeeIdAsync(Guid id)
         {
             try
             {
@@ -74,11 +74,30 @@ namespace HCMS.Services
 
         }
 
-        public async Task<List<WorkRecordDto>> FilteredBySearchAndOrdered()
+        public async Task<List<WorkRecordDto>> GetWorkRecordsPageAsync(WorkRecordQueryDto searchModel)
         {
+            try 
+            {
+                List<WorkRecord> workRecords = await workRecordRepository.GetWorkRecordsPageAsync(searchModel);
+                List<WorkRecordDto> workRecordDtos = workRecords.Select(wr => mapper.Map<WorkRecordDto>(wr)).ToList();
+                return workRecordDtos;
+            }
+            catch (Exception)
+            {
+                throw new Exception("Unexpected error occurred while trying to load the page!");
+            }
+        }
 
-
-            throw new NotImplementedException();
+        public async Task<int> GetWorkRecordsCountByEmployeeIdAsync(Guid employeeId)
+        {
+            try
+            {
+            return await workRecordRepository.WorkRecordsCountByEmployeeIdAsync(employeeId);
+            }
+            catch(Exception)
+            {
+                throw new Exception("No work records was found");
+            }
         }
     }
 }

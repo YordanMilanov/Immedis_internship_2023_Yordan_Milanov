@@ -8,10 +8,18 @@ namespace HCMS.Web.AutoMapperProfiles
     {
         public WorkRecordMappingProfile()
         {
-            CreateMap<WorkRecordFormModel, WorkRecordDto>()
-         .ForMember(dest => dest.Id, opt => opt.Ignore()); // You may need to ignore or set the Id as appropriate
-         //.ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.CompanyName));
-            CreateMap<WorkRecordDto, WorkRecordFormModel>();
+
+            CreateMap<WorkRecordViewModel, WorkRecordDto>().ReverseMap();
+
+            CreateMap<WorkRecordQueryDto, WorkRecordQueryModel>()
+           .ForMember(dest => dest.SearchString, opt => opt.MapFrom(src => src.SearchString))
+           .ForMember(dest => dest.OrderPageEnum, opt => opt.MapFrom(src => src.OrderPageEnum))
+           .ForMember(dest => dest.CurrentPage, opt => opt.MapFrom(src => src.CurrentPage))
+           .ForMember(dest => dest.TotalWorkRecords, opt => opt.MapFrom(src => src.TotalWorkRecords))
+           .ForMember(dest => dest.WorkRecordsPerPage, opt => opt.MapFrom(src => src.WorkRecordsPerPage))
+           .ForMember(dest => dest.WorkRecords, opt => opt.MapFrom(src => src.WorkRecords)); //here we map from WorkRecordDto to WorkRecordViewModel
+          
+            CreateMap<WorkRecordQueryDto, WorkRecordQueryModel>().ReverseMap();
         }
     }
 }

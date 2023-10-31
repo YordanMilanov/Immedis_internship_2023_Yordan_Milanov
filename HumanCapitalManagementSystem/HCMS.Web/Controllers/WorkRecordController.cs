@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using static HCMS.Common.NotificationMessagesConstants;
 
@@ -73,72 +74,48 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> AllPersonal(WorkRecordQueryModel model)
         {
-            //for ADMIN and AGENT
-            if (HttpContext.User.Claims.Any(c => c.Type == "Role" && (c.Value == "ADMIN" || c.Value == "AGENT")))
+            if (model == null)
             {
-                string apiAllUrl = $"/api/workRecord/all";
-                HttpResponseMessage responseAll = await httpClient.GetAsync(apiAllUrl);
-
-                if (responseAll.IsSuccessStatusCode)
-                {
-                    string jsonContent = await responseAll.Content.ReadAsStringAsync();
-                    List<WorkRecordDto> workRecords = JsonConvert.DeserializeObject<List<WorkRecordDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-                    List<WorkRecordViewModel> workRecordViewModels = workRecords.Select(wr => mapper.Map<WorkRecordViewModel>(wr)).ToList();
-
-                    if (workRecordViewModels.IsNullOrEmpty())
-                    {
-                        return View(new List<WorkRecordViewModel>());
-                    }
-                    return View(workRecordViewModels);
-                }
-                //for EMPLOYEE
-                else if (HttpContext.User.Claims.Any(c => c.Type == "Role" && c.Value == "EMPLOYEE"))
-                {
-                    Guid employeeId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value);
-
-                    if (employeeId == Guid.Empty)
-                    {
-                        return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no personal information. Please first add personal information!" });
-                    }
-
-                    string apiEmployeeUrl = $"/api/workRecord/allByEmployeeId?employeeId={employeeId}";
-                    HttpResponseMessage response = await httpClient.GetAsync(apiEmployeeUrl);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonContent = await response.Content.ReadAsStringAsync();
-                        List<WorkRecordDto> employeeWorkRecords = JsonConvert.DeserializeObject<List<WorkRecordDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-
-                        if (employeeWorkRecords.IsNullOrEmpty())
-                        {
-                            return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no work records. Please first add work records!" });
-                        }
-
-                        return View(employeeWorkRecords);
-                    }
-                }
+                model = new WorkRecordQueryModel();
             }
-            return View(new List<WorkRecordDto>());
-        }
 
+            //For Employees
+            if (HttpContext.User.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "EMPLOYEE"))
+            {
+                WorkRecordQueryDto workRecordQueryDto = mapper.Map<WorkRecordQueryDto>(model);
+                Guid EmployeeId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value);
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> All(WorkRecordQueryModel model)
-        {
+                if (EmployeeId == Guid.Empty)
+                {
+                    return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no personal information. Please first add personal information!" });
+                }
 
-            return View(model);
-        }
+                workRecordQueryDto.EmployeeId = EmployeeId;
 
+                string url = "api/workRecord/currentPage";
+                string json = JsonConvert.SerializeObject(workRecordQueryDto);
+                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
+                HttpResponseMessage response = await httpClient.PostAsync(url, content);
 
-
-        [Authorize]
-        public IActionResult Edit()
-        {
-            return View("Add");
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+                    WorkRecordQueryDto responseQueryDto = JsonConvert.DeserializeObject<WorkRecordQueryDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                    WorkRecordQueryModel workRecordQueryModel = mapper.Map<WorkRecordQueryModel>(responseQueryDto);
+                    return View("All", workRecordQueryModel);
+                }
+                else
+                {
+                    return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no personal information. Please first add personal information!" });
+                }
+            } 
+            else
+            {
+                return RedirectToAction("Add", "WorkRecord", new { redirect = "To be done for AGENT and ADMIN" });
+            }
         }
     }
 }

@@ -6,10 +6,12 @@ namespace HCMS.Services.Interfaces
     {
         public Task AddWorkRecordAsync(WorkRecordDto model);
 
-        public Task<List<WorkRecordDto>> GetAllWorkRecordsDtosByEmployeeId(Guid id);
+        public Task<List<WorkRecordDto>> GetAllWorkRecordsDtosByEmployeeIdAsync(Guid id);
 
         public Task<List<WorkRecordDto>> GetAllWorkRecordsDtosAsync();
 
-        public Task<List<WorkRecordDto>> FilteredBySearchAndOrdered();
+        public Task<List<WorkRecordDto>> GetWorkRecordsPageAsync(WorkRecordQueryDto searchModel);
+
+        public Task<int> GetWorkRecordsCountByEmployeeIdAsync(Guid employeeId);
     }
 }
