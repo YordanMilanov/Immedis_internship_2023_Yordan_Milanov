@@ -54,14 +54,14 @@ namespace HCMS.Repository
                 //check if the page is for certain employee or no
                 if (searchModel.EmployeeId != null)
                 {
-                    query.Where(wr => wr.EmployeeId == searchModel.EmployeeId);
+                  query = query.Where(wr => wr.EmployeeId == searchModel.EmployeeId);
 
                 }
 
                 //check the search string
                 if (searchModel.SearchString != null)
                 {
-                    query.Where(wr => wr.Position.Contains(searchModel.SearchString!) || wr.Department!.Contains(searchModel.SearchString!));
+                   query = query.Where(wr => wr.Position.Contains(searchModel.SearchString!) || wr.Department!.Contains(searchModel.SearchString!));
 
                 }
 
@@ -84,7 +84,7 @@ namespace HCMS.Repository
 
                 //Pagination
                 int workRecordsCountToSkip = (searchModel.CurrentPage - 1) * searchModel.WorkRecordsPerPage;
-                query.Skip(workRecordsCountToSkip).Take(searchModel.WorkRecordsPerPage);
+                query = query.Skip(workRecordsCountToSkip).Take(searchModel.WorkRecordsPerPage);
 
                 List<WorkRecord> records = await query.ToListAsync();
                 return records;
