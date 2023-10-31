@@ -1,16 +1,31 @@
 ﻿@model HCMS.Web.ViewModels.WorkRecord.WorkRecordViewModel
-<div class="col-md-4">
+<div class="col-4 text-black card-background">
     <div class="card mb-3">
-        <div class="card-body text-center">
+        <div class="text-center">
             <h4>@Model.Position</h4>
-            <h6>Editress: <b>@Model.CompanyName</b></h6>
+            @if (!string.IsNullOrEmpty(Model.CompanyName))
+            {
+            <h6>Company: <b>@Model.CompanyName</b></h6>
+            }
             <h6>
-                Price Per Month:
+                Salary:
                 <b>@($"{Model.Salary:f2}") BGN</b>
             </h6>
+            @if (!string.IsNullOrEmpty(Model.CompanyName))
+            {
+                <h6>Company: <b>@Model.CompanyName</b></h6>
+            }
+            <p>Start date: @Model.StartDate.ToString("dd.MM.yyyy")</p>
+            @if (Model.EndDate != null)
+            {
+                DateTime endDate = Model.EndDate.Value;
+                <p>End date: @endDate.ToString("dd.MM.yyyy")</p>
+            }
             <br />
             <a asp-controller="WorkRecord" asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-success">Edit</a>
+            <a asp-controller="WorkRecord" asp-action="Delete" asp-route-id="@Model.Id"
+               class="btn btn-danger">Delete</a>
         </div>
     </div>
 </div>

@@ -52,11 +52,7 @@ namespace HCMS.Repository
             {
                 IQueryable<WorkRecord> query = dbContext.WorkRecords;
                 //check if the page is for certain employee or no
-                if (searchModel.EmployeeId != null)
-                {
                   query = query.Where(wr => wr.EmployeeId == searchModel.EmployeeId);
-
-                }
 
                 //check the search string
                 if (searchModel.SearchString != null)
