@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Castle.Core.Internal;
-using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Web.ViewModels.WorkRecord;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using static HCMS.Common.NotificationMessagesConstants;

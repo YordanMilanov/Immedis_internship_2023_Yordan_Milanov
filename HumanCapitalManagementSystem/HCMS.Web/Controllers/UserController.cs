@@ -1,8 +1,7 @@
-﻿using System.Security.Claims;
-using System.Security.Principal;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using AutoMapper;
-using HCMS.Common.JsonConverter;
 using HCMS.Services.ServiceModels.User;
 using HCMS.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
@@ -11,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HCMS.Web.Controllers
 {
@@ -41,94 +41,59 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
 
-            //validate username and password account
-
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                Converters = new List<JsonConverter> { new NameConverter(), new PasswordConverter(), new EmailConverter(), new RoleConverter() }
-            };
-
-
             UserLoginDto userDtoToBeChecked = mapper.Map<UserLoginDto>(model);
-            string json = JsonConvert.SerializeObject(userDtoToBeChecked, settings);
+            string json = JsonConvert.SerializeObject(userDtoToBeChecked, JsonSerializerSettingsProvider.GetCustomSettings());
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // Make a HTTP request, Consumes UserLoginDto -> Validate username and password
-            HttpResponseMessage response = await httpClient.PostAsync("/api/users/loginValidate", content);
 
-            //return if validation didnt passed
-            if(response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            // Make a HTTP request, Consumes UserLoginDto -> Validate username, password and return JwtToken with claims
+            HttpResponseMessage response = await httpClient.PostAsync("/api/users/loginUser", content);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                ModelState.AddModelError("ErrorMessage", errorMessage);
-                return View(model);
-            }
-            //successfully passed the validation - username and password, and returned the UserDto
-            UserDto userDto = null!;
-            HttpResponseMessage getUserDtoResponse = await httpClient.GetAsync($"/api/users/UserDtoByUsername?username={model.Username}");
+                string tokenString = await response.Content.ReadAsStringAsync();
 
-            if (getUserDtoResponse.IsSuccessStatusCode)
-            {
-                if (getUserDtoResponse.Content != null)
+                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+
+                try
                 {
-                    // Read the response content as a string
-                    string responseContent = await getUserDtoResponse.Content.ReadAsStringAsync();
+                    var tokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = "http://localhost:9090",
+                        ValidAudience = "http://localhost:8080",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretKeySecretKey")),
+                         RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+                    };
 
-                    // Deserialize the JSON content into a UserDto object
-                    userDto = JsonConvert.DeserializeObject<UserDto>(responseContent)!;
+                    IEnumerable<Claim> claims = tokenHandler.ValidateToken(tokenString, tokenValidationParameters, out var validatedToken).Claims;
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    claimsIdentity.AddClaim(new Claim("JWT", tokenString));
+                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+                    bool rememberMe = model.RememberMe;
+
+                    AuthenticationProperties authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = rememberMe,
+                    };
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal,
+                        authProperties);
+
+                    TempData[SuccessMessage] = "You have logged successfully!";
+                    return RedirectToAction("Home", "Home");
+
                 }
-            
-
-
-               
-
-                //Create the required claims from the userInformation
-                Claim userIdClaim = new Claim("UserId", userDto.Id.ToString()!);
-                Claim usernameClaim = new Claim("Username", userDto.Username!.ToString());
-
-                //create a collection of claims for the role
-                var claims = new List<Claim>{userIdClaim,usernameClaim};
-
-                string employeeIdApiUrl = $"/api/employee/EmployeeIdByUserId?UserId={userDto.Id}";
-                HttpResponseMessage employeeIdResponse = await httpClient.GetAsync(employeeIdApiUrl);
-
-                //sets currently logged in the session user claim employeeId if it has employeeId(employee information)
-                if (employeeIdResponse.IsSuccessStatusCode)
+                catch (Exception ex)
                 {
-                    string employeeId = await employeeIdResponse.Content.ReadAsStringAsync();
-                    Claim employeeIdClaim = new Claim("EmployeeId", employeeId);
-                    claims.Add(employeeIdClaim);
+                    // Handle the exception when token validation fails
+                    TempData[ErrorMessage] = "Token validation failed: " + ex.Message;
+                    return RedirectToAction("Login", "User");
                 }
-
-
-                foreach (string role in userDto.Roles!)
-                {
-                    var roleClaim = new Claim(ClaimTypes.Role, role.ToString());
-                    claims.Add(roleClaim);
-                }
-
-                //set the collection to the ClaimsIdentity
-                IIdentity userIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                // Create a ClaimsPrincipal with the claimsIdentity identity
-                ClaimsPrincipal userPrincipal = new ClaimsPrincipal(userIdentity);
-
-                bool rememberMe = model.RememberMe;
-
-                AuthenticationProperties authProperties = new AuthenticationProperties
-                {
-                    IsPersistent = rememberMe,
-                };
-
-                // Set the HttpContext.User to the userPrincipal
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal,
-                    authProperties);
-
-                //set successful message to the toastr
-                string successMassage = await response.Content.ReadAsStringAsync();
-                TempData[SuccessMessage] = successMassage;
-
-                return RedirectToAction("Home", "Home");
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
@@ -137,6 +102,7 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
 
+            //something wrong happened!
             ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
             return View(model);
         }
@@ -163,13 +129,8 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
 
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                Converters = new List<JsonConverter> { new NameConverter(), new PasswordConverter(), new EmailConverter() }
-            };
-
             UserRegisterDto userDtoToBeRegistered = mapper.Map<UserRegisterDto>(model);
-            string serializedRegisterDto = JsonConvert.SerializeObject(userDtoToBeRegistered, settings);
+            string serializedRegisterDto = JsonConvert.SerializeObject(userDtoToBeRegistered, JsonSerializerSettingsProvider.GetCustomSettings());
             HttpContent content = new StringContent(serializedRegisterDto, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await httpClient.PostAsync("/api/users/register", content);

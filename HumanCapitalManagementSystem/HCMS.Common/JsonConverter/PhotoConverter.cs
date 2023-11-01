@@ -10,7 +10,7 @@
         {
             if (reader.TokenType == JsonToken.Null)
             {
-                return new Photo(null);
+                return new Photo(null!);
             }
 
             if (reader.TokenType == JsonToken.String)

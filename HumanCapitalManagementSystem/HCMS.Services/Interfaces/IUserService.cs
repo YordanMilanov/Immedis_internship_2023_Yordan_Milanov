@@ -1,5 +1,4 @@
 ﻿using HCMS.Services.ServiceModels.User;
-using HCMS.Web.ViewModels.User;
 
 namespace HCMS.Services.Interfaces
 {

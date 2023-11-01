@@ -1,10 +1,13 @@
 ﻿using HCMS.Services.Interfaces;
-using HCMS.Web.ViewModels.User;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using HCMS.Common.JsonConverter;
 using HCMS.Services.ServiceModels.User;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -13,10 +16,12 @@ namespace HCMS.Web.Api.Controllers
     public class UserApiController : ControllerBase
     {
         private readonly IUserService userService;
+        private readonly IEmployeeService employeeService;
 
-        public UserApiController(IUserService userService)
+        public UserApiController(IUserService userService, IEmployeeService employeeService)
         {
             this.userService = userService;
+            this.employeeService = employeeService;
         }
 
         [HttpPost("register")]
@@ -125,7 +130,88 @@ namespace HCMS.Web.Api.Controllers
                 return BadRequest("Unexpected error occurred!");
             }
         }
-   
+
+
+        [AllowAnonymous]
+        [HttpPost("loginUser")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> loginUser()
+        {
+            // Read the JSON from request body
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+
+            UserLoginDto model;
+        
+            try
+            {
+                model = JsonConvert.DeserializeObject<UserLoginDto>(jsonReceived, JsonSerializerSettingsProvider.GetCustomSettings())!;
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid JSON data");
+            }
+
+            //validate the name
+            if (!(await userService.IsUsernameExists(model.Username.ToString())))
+            {
+                return BadRequest("User name does not exists!");
+            }
+
+            //validate password
+            if (!(await userService.IsPasswordMatchByUsername(model.Username.ToString(), model.Password.ToString()!)))
+            {
+                return BadRequest("Wrong password!");
+            }
+
+
+
+            UserDto userDto = await userService.GetUserDtoByUsername(model.Username.ToString());
+
+            //Create the required claims from the userInformation
+            Claim userIdClaim = new Claim("UserId", userDto.Id.ToString()!);
+            Claim usernameClaim = new Claim("Username", userDto.Username!.ToString());
+
+            //create a collection of claims for the role
+            var claims = new List<Claim> { userIdClaim, usernameClaim };
+
+
+            Guid? employeeId = await employeeService.GetEmployeeIdByUserId(Guid.Parse(userDto.Id.ToString()!));
+            if(employeeId != null)
+            {
+                Claim employeeIdClaim = new Claim("EmployeeId", employeeId.ToString()!);
+                claims.Add(employeeIdClaim);
+            }
+
+            foreach (string role in userDto.Roles!)
+            {
+                Claim roleClaim = new Claim(ClaimTypes.Role, role.ToString());
+                claims.Add(roleClaim);
+            }
+
+            //generate JWT
+
+            // Define your security key and other token parameters
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretKeySecretKey")); //ITS VERY IMPORTANT HOW LONG IS THE KEY !!!
+            SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer: "http://localhost:9090",
+                audience: "http://localhost:8080",
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(3),
+                signingCredentials: credentials
+            );
+
+
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return Content(tokenString, "application/json");
+        }
     }
 }
 

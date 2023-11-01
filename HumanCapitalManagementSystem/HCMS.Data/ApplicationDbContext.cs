@@ -2,8 +2,6 @@
 using HCMS.Common;
 using Microsoft.EntityFrameworkCore;
 using HCMS.Data.Models;
-using HCMS.Common.Structures;
-using Microsoft.Extensions.Configuration;
 
 namespace HCMS.Data
 {

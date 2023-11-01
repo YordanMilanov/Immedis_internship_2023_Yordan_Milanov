@@ -2246,19 +2246,6 @@
         "runtime": {
           "bin/placeholder/HCMS.Services.ServiceModels.dll": {}
         }
-      },
-      "HCMS.Web.ViewModels/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "HCMS.Common": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/HCMS.Web.ViewModels.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/HCMS.Web.ViewModels.dll": {}
-        }
       }
     }
   },
@@ -7094,11 +7081,6 @@
       "type": "project",
       "path": "../HCMS.Services.ServiceModels/HCMS.Services.ServiceModels.csproj",
       "msbuildProject": "../HCMS.Services.ServiceModels/HCMS.Services.ServiceModels.csproj"
-    },
-    "HCMS.Web.ViewModels/1.0.0": {
-      "type": "project",
-      "path": "../HCMS.Web.ViewModels/HCMS.Web.ViewModels.csproj",
-      "msbuildProject": "../HCMS.Web.ViewModels/HCMS.Web.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -7106,8 +7088,7 @@
       "HCMS.Common >= 1.0.0",
       "HCMS.Data >= 1.0.0",
       "HCMS.Data.Models >= 1.0.0",
-      "HCMS.Services.ServiceModels >= 1.0.0",
-      "HCMS.Web.ViewModels >= 1.0.0"
+      "HCMS.Services.ServiceModels >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -7148,9 +7129,6 @@
             },
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj"
-            },
-            "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web.ViewModels\\HCMS.Web.ViewModels.csproj": {
-              "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web.ViewModels\\HCMS.Web.ViewModels.csproj"
             }
           }
         }

@@ -4,16 +4,25 @@ using System.Diagnostics;
 using HCMS.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using HCMS.Common;
+using System.Net.Http;
+using System.IdentityModel.Tokens.Jwt;
+using Newtonsoft.Json.Linq;
 
 namespace HCMS.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly HttpClient httpClient;
+
+        public HomeController(IHttpClientFactory httpClientFactory)
+        {
+            this.httpClient = httpClientFactory.CreateClient("WebApi");
+        }
 
         [AllowAnonymous]
         public IActionResult Index()
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (HttpContext.User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Home");
             }
@@ -23,7 +32,7 @@ namespace HCMS.Web.Controllers
             }
         }
 
-        [Authorize(Roles = "ADMIN,EMPLOYEE,AGENT")]
+        [Authorize]
         public IActionResult Home()
         {
             if (HttpContext.User.IsInRole(RoleConstants.ADMIN))
@@ -58,13 +67,6 @@ namespace HCMS.Web.Controllers
 
         [Authorize(Roles = RoleConstants.ADMIN)]
         public IActionResult HomeAdmin()
-        {
-            return View();
-        }
-
-
-        [Authorize(Roles = "Employee")]
-        public IActionResult Privacy()
         {
             return View();
         }

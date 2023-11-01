@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -11,7 +11,6 @@
     <ProjectReference Include="..\HCMS.Data.Models\HCMS.Data.Models.csproj" />
     <ProjectReference Include="..\HCMS.Data\HCMS.Data.csproj" />
     <ProjectReference Include="..\HCMS.Services.ServiceModels\HCMS.Services.ServiceModels.csproj" />
-    <ProjectReference Include="..\HCMS.Web.ViewModels\HCMS.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

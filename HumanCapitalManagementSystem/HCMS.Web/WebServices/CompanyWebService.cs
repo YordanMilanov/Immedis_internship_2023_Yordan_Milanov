@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Newtonsoft.Json;
-using System.Net.Http;
+﻿using Newtonsoft.Json;
 using HCMS.Web.WebServices.Interfaces;
 
 namespace HCMS.Web.WebServices
@@ -8,12 +6,10 @@ namespace HCMS.Web.WebServices
     public class CompanyWebService : ICompanyWebService
     {
         private readonly HttpClient httpClient;
-        private readonly IMapper mapper;
 
-        public CompanyWebService(IHttpClientFactory httpClientFactory, IMapper mapper)
+        public CompanyWebService(IHttpClientFactory httpClientFactory)
         {
             httpClient = httpClientFactory.CreateClient("WebApi");
-            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<string>> GetAllCompanyNamesFromApiAsync()

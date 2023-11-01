@@ -1,17 +1,14 @@
 ﻿using System.Security.Claims;
 using AutoMapper;
-using HCMS.Services.Interfaces;
 using HCMS.Web.ViewModels.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
 using System.Text;
-using HCMS.Common;
-using HCMS.Services.ServiceModels.User;
-using HCMS.Data.Models;
 using Microsoft.AspNetCore.Authentication;
 using HCMS.Services.ServiceModels.Employee;
+using System.Net.Http.Headers;
 
 namespace HCMS.Web.Controllers
 {
@@ -27,13 +24,14 @@ namespace HCMS.Web.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = "AGENT,ADMIN")]
         public IActionResult All()
-        {
-            
+        {    
             return View();
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Edit(string? redirect)
         {
             //check if it is redirect
@@ -49,6 +47,10 @@ namespace HCMS.Web.Controllers
 
             //set the userIdGuid as query param
             string apiUrl = $"/api/employee/GetEmployeeDtoByUserId?userId={userId}";
+           
+            //set the JWT to the httpClient
+            string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
 
             // Make get request
             HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
@@ -77,6 +79,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(EmployeeFormModel model)
         {
             //validate input
@@ -94,6 +97,11 @@ namespace HCMS.Web.Controllers
             HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             string apiUrl = "/api/employee/UpdateEmployee";
+            
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+            
             HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
 
             //if employee information successfully updated
@@ -103,6 +111,8 @@ namespace HCMS.Web.Controllers
                 if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
                 {
                     string userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value;
+              
+                    //JWT is already set
                     //set the employeeId to the claims of the user
                     string employeeApiUrl = $"/api/employee/EmployeeIdByUserId?UserId={userId}";
                     HttpResponseMessage employeeIdResponse = await httpClient.GetAsync(employeeApiUrl);

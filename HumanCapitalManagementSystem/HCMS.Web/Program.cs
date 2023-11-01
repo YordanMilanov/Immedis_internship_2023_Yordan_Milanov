@@ -1,18 +1,5 @@
-using System.Security.Cryptography.X509Certificates;
-using HCMS.Common;
-using HCMS.Data;
-using HCMS.Services;
-using HCMS.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using HCMS.Data.Models;
-using HCMS.Repository;
-using HCMS.Repository.Interfaces;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Options;
-using AutoMapper;
-using HCMS.Web.WebServices.Interfaces;
-using HCMS.Web.WebServices;
+using HCMS.Web.Extensions;
 
 namespace HCMS.Web
 {
@@ -23,32 +10,22 @@ namespace HCMS.Web
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            string connectionString =
-                builder.Configuration.GetConnectionString("DefaultConnection") ??
-                throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-            builder.Services
-                .AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
-
-            //TODO: Register Services!
-
             //AutoMapper
             builder.Services.AddAutoMapper(typeof(Program));
 
-            //services and repositories should also be added!
+            //services
+            builder.Services.AddServices();
 
-            builder.Services.AddScoped<ICompanyWebService, CompanyWebService>();
-
-
+            //http client
             builder.Services.AddHttpClient("WebApi", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:9090/"); // Set your base URL
+                client.BaseAddress = new Uri("https://localhost:9090/");
             });
+
             //Session
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); //session timeout if not used.
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -63,7 +40,6 @@ namespace HCMS.Web
                     options.LoginPath = "/User/Login";
                     options.LogoutPath = "/User/Logout";
                 });
-
 
             //Controllers
             builder.Services.AddControllersWithViews();
@@ -81,7 +57,6 @@ namespace HCMS.Web
             {
                 //!app.Environment.IsDevelopment()
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

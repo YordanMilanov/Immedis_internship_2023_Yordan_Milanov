@@ -1,5 +1,4 @@
 ﻿using HCMS.Data.Models;
-using HCMS.Web.ViewModels.User;
 
 namespace HCMS.Repository.Interfaces
 {

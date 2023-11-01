@@ -1,15 +1,8 @@
-﻿using HCMS.Common.JsonConverter;
-using HCMS.Common.Structures;
-using HCMS.Services.Interfaces;
-using HCMS.Services.ServiceModels.Company;
+﻿using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Employee;
-using HCMS.Services.ServiceModels.User;
-using HCMS.Web.ViewModels.Employee;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Net;
-using System.Text;
-using System.Text.Json;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -33,6 +26,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetEmployeeDtoByUserId([FromQuery] string userId)
         {
             //get the employeeDto
@@ -57,6 +51,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> UpdateEmployee()
         {
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
@@ -80,12 +75,13 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetEmployeeIdByUserId([FromQuery] string userId)
         {
 
             try
             {
-                Guid employeeId = await employeeService.GetEmployeeIdByUserId(Guid.Parse(userId));
+                Guid? employeeId = await employeeService.GetEmployeeIdByUserId(Guid.Parse(userId));
 
                 return Content(employeeId.ToString(), "application/json");
             }
@@ -100,6 +96,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> UpdateEmployeeCompany()
         {
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
