@@ -2,6 +2,7 @@
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HCMS.Repository.Implementation
 {
@@ -54,14 +55,24 @@ namespace HCMS.Repository.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Education>> GetAllEducationsByEmployeeIdAsync(Guid employeeId)
+        public async Task<IEnumerable<Education>> GetEducationsPageByEmployeeIdAsync(Guid employeeId, int page)
         {
             
             try
             {
-                return await dbContext.Educations.Include(e => e.Location).Where(e => e.EmployeeId == employeeId).ToListAsync();
+                return await dbContext.Educations.Include(e => e.Location).Where(e => e.EmployeeId == employeeId).Skip(page * 3).Take(3).ToListAsync();
             } catch(Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<int> GetEducationCountByEmployeeIdAsync(Guid employeeId)
+        {
+            try
+            {
+                return await dbContext.Educations.Where(e => e.EmployeeId == employeeId).CountAsync();
+            } catch(Exception ex) {
                 throw new Exception(ex.Message);
             }
         }

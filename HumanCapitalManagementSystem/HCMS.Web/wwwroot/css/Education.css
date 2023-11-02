@@ -14,16 +14,21 @@
 
 .all-container {
     color: white;
-    background-color: #134475;
+    background-image: url('/Image/WoodBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 10px;
 }
 
 .card-partial {
     display: inline-block;
-    color: floralwhite;
-    background: linear-gradient(to right, #004785, #003454);
+    color: black;
+    background-image: url('/Image/DiplomaBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     border-radius: 10px;
-    border: 1px solid floralwhite;
     margin-top: 5px;
     margin-bottom: 5px;
 }

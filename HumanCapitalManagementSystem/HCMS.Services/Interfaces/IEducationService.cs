@@ -10,7 +10,7 @@ namespace HCMS.Services.Interfaces
 
         Task<EducationDto> GetEducationDtoByIdAsync(Guid id);
 
-        Task<List<EducationDto>> GetAllEducationDtosByEmployeeIdAsync(Guid employeeId);
+        Task<List<EducationDto>> GetEducationPageDtosByEmployeeIdAsync(Guid employeeId, int page);
 
     }
 }

@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-
-namespace HCMS.Web.ViewModels.Education
+﻿namespace HCMS.Web.ViewModels.Education
 {
     public class EducationViewModel
     {

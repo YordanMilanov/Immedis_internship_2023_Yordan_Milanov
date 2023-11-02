@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
-using HCMS.Services;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Education;
-using HCMS.Services.ServiceModels.Employee;
-using HCMS.Services.ServiceModels.User;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -74,17 +70,17 @@ namespace HCMS.Web.Api.Controllers
             }
         }
        
-        [HttpGet("AllEducationsByEmployeeId")]
+        [HttpGet("EducationsPageByEmployeeId")]
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         [Authorize]
-        public async Task<IActionResult> GetAllEducationsByEmployeeId([FromQuery]string employeeId)
+        public async Task<IActionResult> GetEducationsPageByEmployeeId([FromQuery]string employeeId, [FromQuery]int page)
         {
             try
             {
-                List<EducationDto> educations = await educationService.GetAllEducationDtosByEmployeeIdAsync(Guid.Parse(employeeId));
+                List<EducationDto> educations = await educationService.GetEducationPageDtosByEmployeeIdAsync(Guid.Parse(employeeId), page);
 
                 string educationsJson = JsonConvert.SerializeObject(educations, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
 
@@ -92,6 +88,28 @@ namespace HCMS.Web.Api.Controllers
             } catch(Exception)
             {
                 return BadRequest("Unexpected error occurred while trying to load your educations!");
+            }
+        }
+
+
+        [HttpGet("EducationsCountByEmployeeId")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<IActionResult> GetEducationsCountByEmployeeId([FromQuery] string employeeId)
+        {
+            try
+            {
+                int count = await educationService.GetEducationCountByEmployeeIdAsync(Guid.Parse(employeeId));
+                string educationsCountJson = JsonConvert.SerializeObject(count, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+
+                return Content(educationsCountJson, "application/json");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to load your educations count!");
             }
         }
     }

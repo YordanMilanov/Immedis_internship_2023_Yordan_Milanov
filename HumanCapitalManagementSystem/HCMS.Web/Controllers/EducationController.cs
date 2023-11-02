@@ -81,8 +81,12 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(EducationPageModel model)
         {
+            if (model == null)
+            {
+                model = new EducationPageModel();
+            }
 
             if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
             {
@@ -90,8 +94,8 @@ namespace HCMS.Web.Controllers
             }
 
             string employeeId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value;
-
-            string url = $"api/education/AllEducationsByEmployeeId?employeeId={employeeId}";
+            
+            string url = $"api/education/EducationsPageByEmployeeId?employeeId={employeeId}&page={model.Page}";
 
             //set JWT
             string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
@@ -104,10 +108,20 @@ namespace HCMS.Web.Controllers
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 List<EducationDto> educationDtos = JsonConvert.DeserializeObject<List<EducationDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                 List<EducationViewModel> educationViewModels = educationDtos.Select(e => mapper.Map<EducationViewModel>(e)).ToList();
+                model.Educations = educationViewModels;
 
-                ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
-              
-                return View(educationViewModels);
+                //take count of all educations
+                string countUrl = $"api/education/EducationsCountByEmployeeId?employeeId={employeeId}";
+                HttpResponseMessage countResponse = await httpClient.GetAsync(url);
+                if (countResponse.IsSuccessStatusCode)
+                {
+                    string jsonCountContent = await response.Content.ReadAsStringAsync();
+                    int educationsCount = JsonConvert.DeserializeObject<int>(jsonCountContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                    model.TotalPage = educationsCount;
+                }
+                    ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
+
+                return View(model);
             } 
             else
             {

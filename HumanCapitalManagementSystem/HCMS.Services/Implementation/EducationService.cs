@@ -3,6 +3,7 @@ using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Education;
+using System;
 
 namespace HCMS.Services.Implementation
 {
@@ -85,11 +86,11 @@ namespace HCMS.Services.Implementation
             }
         }
 
-        public async Task<List<EducationDto>> GetAllEducationDtosByEmployeeIdAsync(Guid employeeId)
+        public async Task<List<EducationDto>> GetEducationPageDtosByEmployeeIdAsync(Guid employeeId, int page)
         {
             try
             {
-                IEnumerable<Education> educations = await educationRepository.GetAllEducationsByEmployeeIdAsync(employeeId);
+                IEnumerable<Education> educations = await educationRepository.GetEducationsPageByEmployeeIdAsync(employeeId, page);
                 List<EducationDto> educationDtos = educations.Select(e => mapper.Map<EducationDto>(e)).ToList();
                 return educationDtos;
             } catch (Exception ex)

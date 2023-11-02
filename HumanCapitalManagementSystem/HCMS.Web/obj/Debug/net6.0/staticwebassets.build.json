@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "CT5ng/GfUHilNJXLAcRpzzc00keSizZjAbesjf8/P60=",
+  "Hash": "hCeLCSudipDo1B/uFIAiE/NInUUe4Lq+tCqd71emTa8=",
   "Source": "HCMS.Web",
   "BasePath": "_content/HCMS.Web",
   "Mode": "Default",
@@ -221,6 +221,23 @@
       "OriginalItemSpec": "wwwroot\\Image\\Background.jpg"
     },
     {
+      "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\Image\\DiplomaBackground.jpg",
+      "SourceId": "HCMS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\",
+      "BasePath": "_content/HCMS.Web",
+      "RelativePath": "Image/DiplomaBackground.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Image\\DiplomaBackground.jpg"
+    },
+    {
       "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\Image\\RegisterCardBackground.jpg",
       "SourceId": "HCMS.Web",
       "SourceType": "Discovered",
@@ -236,6 +253,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Image\\RegisterCardBackground.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\Image\\WoodBackground.jpg",
+      "SourceId": "HCMS.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\",
+      "BasePath": "_content/HCMS.Web",
+      "RelativePath": "Image/WoodBackground.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Image\\WoodBackground.jpg"
     },
     {
       "Identity": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\js\\Education.js",
