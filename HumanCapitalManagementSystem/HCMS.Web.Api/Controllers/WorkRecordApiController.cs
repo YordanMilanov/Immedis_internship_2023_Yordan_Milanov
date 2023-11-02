@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -24,6 +25,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> WorkRecordAdd()
         {
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
@@ -46,6 +48,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> WorkRecordAllByEmployeeId([FromQuery] Guid id)
         {
             try
@@ -64,6 +67,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize(Roles = "AGENT,ADMIN")]
         public async Task<IActionResult> AllWorkRecords()
         {
             try
@@ -83,6 +87,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> WorkRecordsCurrentPage()
         {
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();

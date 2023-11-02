@@ -178,8 +178,8 @@ namespace HCMS.Web.Api.Controllers
             var claims = new List<Claim> { userIdClaim, usernameClaim };
 
 
-            Guid? employeeId = await employeeService.GetEmployeeIdByUserId(Guid.Parse(userDto.Id.ToString()!));
-            if(employeeId != null)
+            Guid employeeId = await employeeService.GetEmployeeIdByUserId(Guid.Parse(userDto.Id.ToString()!));
+            if(employeeId != Guid.Empty)
             {
                 Claim employeeIdClaim = new Claim("EmployeeId", employeeId.ToString()!);
                 claims.Add(employeeIdClaim);

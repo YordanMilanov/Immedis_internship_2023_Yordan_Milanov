@@ -72,7 +72,7 @@ namespace HCMS.Repository.Implementation
             return await dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.PhoneNumber == phoneNumber);
         }
 
-        public async Task<Guid?> GetEmployeeIdByUserIdAsync(Guid userId)
+        public async Task<Guid> GetEmployeeIdByUserIdAsync(Guid userId)
         {
             return await dbContext.Employees
                     .Where(e => e.UserId == userId)

@@ -112,7 +112,7 @@ namespace HCMS.Services.Implementation
             return employeeDto;
         }
 
-        public async Task<Guid?> GetEmployeeIdByUserId(Guid userId)
+        public async Task<Guid> GetEmployeeIdByUserId(Guid userId)
         {
                 return await employeeRepository.GetEmployeeIdByUserIdAsync(userId);
         }

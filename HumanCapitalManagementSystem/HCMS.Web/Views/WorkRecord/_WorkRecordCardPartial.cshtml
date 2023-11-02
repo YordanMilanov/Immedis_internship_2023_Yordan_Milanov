@@ -1,27 +1,27 @@
 ﻿@model HCMS.Web.ViewModels.WorkRecord.WorkRecordViewModel
-<div class="col-4 text-black card-background">
-    <div class="card mb-3">
+<div class="col-3 my-2 mx-4 card-partial">
+    <div class="mb-3">
         <div class="text-center">
             <h4>@Model.Position</h4>
-            @if (!string.IsNullOrEmpty(Model.CompanyName))
+            @if (Model.CompanyName != null)
             {
-            <h6>Company: <b>@Model.CompanyName</b></h6>
+            <p>Company: <b>@Model.CompanyName</b></p>
             }
-            <h6>
-                Salary:
-                <b>@($"{Model.Salary:f2}") BGN</b>
-            </h6>
-            @if (!string.IsNullOrEmpty(Model.CompanyName))
+            @if (Model.Department != null)
             {
-                <h6>Company: <b>@Model.CompanyName</b></h6>
+                <p>Department: <b>@Model.Department</b></p>
             }
-            <p>Start date: @Model.StartDate.ToString("dd.MM.yyyy")</p>
+            <h6>Start date: <b>@Model.StartDate.ToString("dd.MM.yyyy")</b></h6>
             @if (Model.EndDate != null)
             {
                 DateTime endDate = Model.EndDate.Value;
-                <p>End date: @endDate.ToString("dd.MM.yyyy")</p>
+                <h6>End date: <b>@endDate.ToString("dd.MM.yyyy")</b></h6>
             }
-            <br />
+
+            <p>
+                Salary: <b>@($"{Model.Salary:f2}") BGN</b>
+            </p>
+
             <a asp-controller="WorkRecord" asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-success">Edit</a>
             <a asp-controller="WorkRecord" asp-action="Delete" asp-route-id="@Model.Id"

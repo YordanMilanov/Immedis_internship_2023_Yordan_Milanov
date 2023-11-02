@@ -52,15 +52,17 @@ namespace HCMS.Repository.Implementation
         {
             try
             {
-                IQueryable<WorkRecord> query = dbContext.WorkRecords;
+                IQueryable<WorkRecord> query = dbContext.WorkRecords.Include(wr => wr.Company);
                 //check if the page is for certain employee or no
                 query = query.Where(wr => wr.EmployeeId == searchModel.EmployeeId);
 
                 //check the search string
                 if (searchModel.SearchString != null)
                 {
-                    query = query.Where(wr => wr.Position.Contains(searchModel.SearchString!) || wr.Department!.Contains(searchModel.SearchString!));
-
+                    query = query.Where(wr => 
+                    wr.Position.Contains(searchModel.SearchString!) || 
+                    wr.Department!.Contains(searchModel.SearchString!) || 
+                    wr.Company.Name.Contains(searchModel.SearchString!));
                 }
 
                 //check the order
@@ -73,7 +75,7 @@ namespace HCMS.Repository.Implementation
                         query = query.OrderByDescending(wr => wr.StartDate);
                         break;
                     case OrderPageEnum.SalaryAscending:
-                        query = query.OrderByDescending(wr => wr.Salary);
+                        query = query.OrderBy(wr => wr.Salary);
                         break;
                     case OrderPageEnum.SalaryDescending:
                         query = query.OrderByDescending(wr => wr.Salary);

@@ -8,7 +8,7 @@ public class WorkRecordMappingProfile : Profile
     public WorkRecordMappingProfile()
     {
         CreateMap<WorkRecord, WorkRecordDto>()
-            .ForMember(dest => dest.CompanyName, opt => opt.Ignore());
+            .ForMember(dest => dest.CompanyName,opt => opt.MapFrom(src => src.Company.Name));
 
 
         CreateMap<WorkRecordDto, WorkRecord>()

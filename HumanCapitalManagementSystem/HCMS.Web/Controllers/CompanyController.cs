@@ -9,6 +9,7 @@ using AutoMapper;
 using HCMS.Services.ServiceModels.Employee;
 using System.Text;
 using HCMS.Services.ServiceModels.Location;
+using System.Net.Http.Headers;
 
 namespace HCMS.Web.Controllers
 {
@@ -31,7 +32,7 @@ namespace HCMS.Web.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "EMPLOYEE")]
+        [Authorize]
         public async Task<IActionResult> Select(string redirect)
         {
             //first check if this is redirect from the same page
@@ -66,6 +67,11 @@ namespace HCMS.Web.Controllers
 
             //user has employee information
             string employeeCompanyApiUrl = $"/api/company/GetCompanyDtoByEmployeeId?EmployeeId={employeeIdClaim.Value}";
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
             HttpResponseMessage response = await httpClient.GetAsync(employeeCompanyApiUrl);
             if (response.IsSuccessStatusCode)
             {
@@ -102,7 +108,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "EMPLOYEE")]
+        [Authorize]
         public async Task<IActionResult>Select(CompanySelectViewModel model)
         {
             EmployeeCompanyUpdateDto employeeDto = new EmployeeCompanyUpdateDto();
@@ -111,6 +117,11 @@ namespace HCMS.Web.Controllers
 
             string json = JsonConvert.SerializeObject(employeeDto);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
             HttpResponseMessage response = await httpClient.PostAsync("/api/employee/UpdateEmployeeCompany", content);
 
             if (response.IsSuccessStatusCode)

@@ -4,6 +4,7 @@ using HCMS.Web.ViewModels.WorkRecord;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using static HCMS.Common.NotificationMessagesConstants;
@@ -22,7 +23,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "EMPLOYEE")]
+        [Authorize]
         public IActionResult Add(string? redirect)
         {
             //check redirect
@@ -40,7 +41,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "EMPLOYEE")]
+        [Authorize]
         public async Task<IActionResult> Add(WorkRecordFormModel model)
         {
             if (!ModelState.IsValid)
@@ -54,6 +55,10 @@ namespace HCMS.Web.Controllers
             string url = "api/workRecord/add";
             string json = JsonConvert.SerializeObject(workRecordDto);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
 
             HttpResponseMessage response = await httpClient.PostAsync(url, content);
            
@@ -78,22 +83,28 @@ namespace HCMS.Web.Controllers
                 model = new WorkRecordQueryModel();
             }
 
+            
+
+            if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
+            {
+                return RedirectToAction("Edit", "Employee", new { redirect = "You have no personal information. Please first add personal information!" });
+            }
+
             //For Employees
             if (HttpContext.User.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "EMPLOYEE"))
             {
                 WorkRecordQueryDto workRecordQueryDto = mapper.Map<WorkRecordQueryDto>(model);
-                Guid EmployeeId = Guid.Parse(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value);
 
-                if (EmployeeId == Guid.Empty)
-                {
-                    return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no personal information. Please first add personal information!" });
-                }
-
-                workRecordQueryDto.EmployeeId = EmployeeId;
+                string EmployeeId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value;
+                workRecordQueryDto.EmployeeId = Guid.Parse(EmployeeId);
 
                 string url = "api/workRecord/currentPage";
                 string json = JsonConvert.SerializeObject(workRecordQueryDto);
                 HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                //set JWT
+                string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
 
                 HttpResponseMessage response = await httpClient.PostAsync(url, content);
 
@@ -102,6 +113,7 @@ namespace HCMS.Web.Controllers
                     string jsonContent = await response.Content.ReadAsStringAsync();
                     WorkRecordQueryDto responseQueryDto = JsonConvert.DeserializeObject<WorkRecordQueryDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                     WorkRecordQueryModel workRecordQueryModel = mapper.Map<WorkRecordQueryModel>(responseQueryDto);
+                    ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
                     return View("All", workRecordQueryModel);
                 }
                 else

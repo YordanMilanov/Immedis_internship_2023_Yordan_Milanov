@@ -3,8 +3,10 @@ using HCMS.Services.ServiceModels.Education;
 using HCMS.Services.ServiceModels.Employee;
 using HCMS.Web.ViewModels.Education;
 using HCMS.Web.ViewModels.Employee;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using static HCMS.Common.NotificationMessagesConstants;
@@ -23,6 +25,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Edit()
         {
             //check if the current user has employeeId
@@ -36,6 +39,7 @@ namespace HCMS.Web.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Edit(EducationFormModel model)
         {
             //validate input
@@ -53,6 +57,11 @@ namespace HCMS.Web.Controllers
             HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             string apiUrl = "/api/education/EditEducation";
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
             HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
 
             //if employee information successfully updated

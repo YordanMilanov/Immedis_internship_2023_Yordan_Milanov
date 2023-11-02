@@ -8,7 +8,7 @@ namespace HCMS.Services.Interfaces
 
         Task<EmployeeDto?> GetEmployeeDtoByUserIdAsync(Guid id);
 
-        Task<Guid?> GetEmployeeIdByUserId(Guid userId);
+        Task<Guid> GetEmployeeIdByUserId(Guid userId);
 
         Task UpdateEmployeeCompanyByCompanyName(Guid employeeId, string companyName);
     }
