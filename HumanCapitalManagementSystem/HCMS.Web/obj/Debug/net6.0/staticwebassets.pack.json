@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\js\\Education.js",
+      "PackagePath": "staticwebassets\\js\\Education.js"
+    },
+    {
       "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\js\\Select2.js",
       "PackagePath": "staticwebassets\\js\\Select2.js"
     },

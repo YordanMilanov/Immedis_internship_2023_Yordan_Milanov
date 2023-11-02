@@ -53,5 +53,17 @@ namespace HCMS.Repository.Implementation
 
             throw new NotImplementedException();
         }
+
+        public async Task<IEnumerable<Education>> GetAllEducationsByEmployeeIdAsync(Guid employeeId)
+        {
+            
+            try
+            {
+                return await dbContext.Educations.Include(e => e.Location).Where(e => e.EmployeeId == employeeId).ToListAsync();
+            } catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

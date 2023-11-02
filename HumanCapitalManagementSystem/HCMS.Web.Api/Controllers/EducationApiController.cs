@@ -2,7 +2,9 @@
 using HCMS.Services;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Education;
+using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -28,6 +30,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> EditEducation()
         {
             // Read the JSON from request body
@@ -68,6 +71,27 @@ namespace HCMS.Web.Api.Controllers
             catch (Exception)
             {
                 return BadRequest("Unexpected error occurred!");
+            }
+        }
+       
+        [HttpGet("AllEducationsByEmployeeId")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<IActionResult> GetAllEducationsByEmployeeId([FromQuery]string employeeId)
+        {
+            try
+            {
+                List<EducationDto> educations = await educationService.GetAllEducationDtosByEmployeeIdAsync(Guid.Parse(employeeId));
+
+                string educationsJson = JsonConvert.SerializeObject(educations, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+
+                return Content(educationsJson, "application/json");
+            } catch(Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to load your educations!");
             }
         }
     }

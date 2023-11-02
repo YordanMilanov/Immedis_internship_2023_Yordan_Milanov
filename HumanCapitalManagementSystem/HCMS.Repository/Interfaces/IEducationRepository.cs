@@ -9,5 +9,7 @@ namespace HCMS.Repository.Interfaces
         Task UpdateEducationAsync(Education education);
 
         Task<Education> GetEducationByIdAsync(Guid id);
+
+        Task<IEnumerable<Education>> GetAllEducationsByEmployeeIdAsync(Guid employeeId);
     }
 }

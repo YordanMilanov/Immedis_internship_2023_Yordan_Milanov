@@ -84,5 +84,18 @@ namespace HCMS.Services.Implementation
                 throw new Exception("Unexpected error occurred while trying to update your education!");
             }
         }
+
+        public async Task<List<EducationDto>> GetAllEducationDtosByEmployeeIdAsync(Guid employeeId)
+        {
+            try
+            {
+                IEnumerable<Education> educations = await educationRepository.GetAllEducationsByEmployeeIdAsync(employeeId);
+                List<EducationDto> educationDtos = educations.Select(e => mapper.Map<EducationDto>(e)).ToList();
+                return educationDtos;
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace HCMS.Services.Interfaces
         Task<Guid> GetEmployeeIdByUserId(Guid userId);
 
         Task UpdateEmployeeCompanyByCompanyName(Guid employeeId, string companyName);
+
     }
 }

@@ -83,7 +83,7 @@ namespace HCMS.Web.Api.Controllers
             {
                 Guid? employeeId = await employeeService.GetEmployeeIdByUserId(Guid.Parse(userId));
 
-                return Content(employeeId.ToString(), "application/json");
+                return Content(employeeId.ToString()!, "application/json");
             }
             catch (Exception ex)
             {

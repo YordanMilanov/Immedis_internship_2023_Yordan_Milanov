@@ -1,0 +1,27 @@
+﻿@model HCMS.Web.ViewModels.Education.EducationViewModel
+
+@{
+    string address = $"{Model.State}, {Model.Country}";
+}
+<div class="col-3 my-2 mx-4 card-partial">
+    <div class="mb-3">
+        <div class="text-center">
+            <h4>@Model.FieldOfEducation</h4>
+            <p>University: <b>@Model.University</b></p>
+            <p>Degree: <b>@Model.Degree</b></p>
+            <p>Grade: <b>@Model.Grade</b></p>
+            <h6>Start date: <b>@Model.StartDate.ToString("dd.MM.yyyy")</b></h6>
+            @if (Model.EndDate != null)
+            {
+                DateTime endDate = Model.EndDate.Value;
+                <h6>End date: <b>@endDate.ToString("dd.MM.yyyy")</b></h6>
+            }
+            <p>Address: @address</p>
+
+            <a asp-controller="Education" asp-action="Edit" asp-route-id="@Model.Id"
+               class="btn btn-success">Edit</a>
+            <a asp-controller="Education" asp-action="Delete" asp-route-id="@Model.Id"
+               class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>

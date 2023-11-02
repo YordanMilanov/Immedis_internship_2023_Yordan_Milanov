@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using HCMS.Services.ServiceModels.Education;
 using HCMS.Services.ServiceModels.Employee;
+using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Web.ViewModels.Education;
 using HCMS.Web.ViewModels.Employee;
+using HCMS.Web.ViewModels.WorkRecord;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -74,6 +76,43 @@ namespace HCMS.Web.Controllers
                 TempData[ErrorMessage] = response.Content.ToString();
                 return View();
 
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> All()
+        {
+
+            if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
+            {
+                return RedirectToAction("Edit", "Employee", new { redirect = "You have no personal information. Please first add personal information!" });
+            }
+
+            string employeeId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value;
+
+            string url = $"api/education/AllEducationsByEmployeeId?employeeId={employeeId}";
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonContent = await response.Content.ReadAsStringAsync();
+                List<EducationDto> educationDtos = JsonConvert.DeserializeObject<List<EducationDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                List<EducationViewModel> educationViewModels = educationDtos.Select(e => mapper.Map<EducationViewModel>(e)).ToList();
+
+                ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
+              
+                return View(educationViewModels);
+            } 
+            else
+            {
+                TempData[WarningMessage] = "No education information was found! Please first add your educations.";
+                return View("Edit");
             }
         }
     }
