@@ -28,8 +28,29 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit([FromQuery]string educationId)
         {
+            if(educationId != null) {
+                string url = $"/api/education/EducationsDtoById?educationId={educationId}";
+
+                //set JWT
+                string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+                HttpResponseMessage response = await httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+                    EducationDto educationDto = JsonConvert.DeserializeObject<EducationDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                    EducationFormModel educationFormModel = mapper.Map<EducationFormModel>(educationDto);
+                    return View(educationFormModel);
+                } else
+                {
+                    TempData[ErrorMessage] = "No education was found!";
+                    return View();
+                }
+            }
+
             //check if the current user has employeeId
             bool hasEmployeeId = HttpContext.User.Claims.Any(c => c.Type == "EmployeeId");
             if (!hasEmployeeId)
@@ -49,6 +70,7 @@ namespace HCMS.Web.Controllers
             {
                 return View(model);
             }
+
 
             //get currently logged user ID
             Claim employeeIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!;
@@ -70,7 +92,7 @@ namespace HCMS.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData[SuccessMessage] = "Education information has been succssesfully added!";
-                return View();
+                return RedirectToAction("All", "Education");
             } else
             {
                 TempData[ErrorMessage] = response.Content.ToString();
@@ -112,12 +134,12 @@ namespace HCMS.Web.Controllers
 
                 //take count of all educations
                 string countUrl = $"api/education/EducationsCountByEmployeeId?employeeId={employeeId}";
-                HttpResponseMessage countResponse = await httpClient.GetAsync(url);
+                HttpResponseMessage countResponse = await httpClient.GetAsync(countUrl);
                 if (countResponse.IsSuccessStatusCode)
                 {
-                    string jsonCountContent = await response.Content.ReadAsStringAsync();
-                    int educationsCount = JsonConvert.DeserializeObject<int>(jsonCountContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-                    model.TotalPage = educationsCount;
+                    string jsonCountContent = await countResponse.Content.ReadAsStringAsync();
+                    string educationsCount = JsonConvert.DeserializeObject<string>(jsonCountContent)!;
+                    model.TotalEducations = int.Parse(educationsCount);
                 }
                     ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
 

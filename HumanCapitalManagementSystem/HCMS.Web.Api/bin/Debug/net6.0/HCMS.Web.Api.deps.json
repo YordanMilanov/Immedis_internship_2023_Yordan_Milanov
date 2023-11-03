@@ -1332,6 +1332,7 @@
       },
       "HCMS.Repository/1.0.0": {
         "dependencies": {
+          "AutoMapper": "11.0.0",
           "HCMS.Common": "1.0.0",
           "HCMS.Data": "1.0.0",
           "HCMS.Data.Models": "1.0.0",

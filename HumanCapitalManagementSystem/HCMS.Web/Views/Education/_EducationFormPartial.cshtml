@@ -12,6 +12,9 @@
                         <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
                     </h3>
                 }
+
+                <input asp-for="Id" class="d-none" value="@Model.Id">
+
                 <div class="form-group">
                     <label class="text-white technical-font" asp-for="University"></label>
                     <input asp-for="University" class="form-control" placeholder="Field of education...">

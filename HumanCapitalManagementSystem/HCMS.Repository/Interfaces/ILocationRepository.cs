@@ -7,5 +7,7 @@ namespace HCMS.Repository.Interfaces
         Task<Location?> GetLocationByCountryStateAddressAsync(string country, string state, string address);
 
         Task<Location> GetLocationById(Guid id);
+
+        Task UpdateLocationAsync(Location location);
     }
 }

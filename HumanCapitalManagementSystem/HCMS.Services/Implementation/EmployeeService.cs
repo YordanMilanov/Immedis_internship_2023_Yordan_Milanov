@@ -5,7 +5,6 @@ using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Employee;
-using Microsoft.EntityFrameworkCore;
 
 namespace HCMS.Services.Implementation
 {
@@ -13,15 +12,13 @@ namespace HCMS.Services.Implementation
     {
         private readonly IEmployeeRepository employeeRepository;
         private readonly ICompanyRepository companyRepository;
-        private readonly ApplicationDbContext dbContext;
         private readonly IMapper mapper;
 
 
-        public EmployeeService(IEmployeeRepository employeeRepository, ICompanyRepository companyRepository, ApplicationDbContext dbContext, IMapper mapper)
+        public EmployeeService(IEmployeeRepository employeeRepository, ICompanyRepository companyRepository, IMapper mapper)
         {
             this.employeeRepository = employeeRepository;
             this.companyRepository = companyRepository;
-            this.dbContext = dbContext;
             this.mapper = mapper;
         }
 
@@ -38,56 +35,33 @@ namespace HCMS.Services.Implementation
                 throw new Exception("The phone number you have provided is already used!");
             }
 
-            //take the employee and track it from the db
-            Employee? employee = await dbContext.Employees
-                .Include(employee => employee.Location!)
-                .FirstOrDefaultAsync(e => e.UserId == model.UserId);
+            //arrange update object
+            Employee employee = mapper.Map<Employee>(model);
 
-            //create new employee if employee == null
-            if (employee == null)
+            if (employee.Location!.Country != null && employee.Location.State != null)
             {
-                //create new employee
-                Employee createEmployee = mapper.Map<Employee>(model);
-                employee = createEmployee;
-
-                await employeeRepository.AddEmployeeAsync(employee);
+                Location location = mapper.Map<Location>(model.Location);
+                location.OwnerId = employee.Id;
+                location.OwnerType = employee.GetType().Name;
+                employee.Location = location;
             }
-            //update existing employee
-            else
+
+            try
             {
-                //update user
-                employee.FirstName = model.FirstName.ToString();
-                employee.LastName = model.LastName.ToString();
-                employee.Email = model.Email.ToString();
-                employee.PhoneNumber = model.PhoneNumber.ToString();
-                employee.PhotoUrl = model.PhotoUrl!.ToString();
-                employee.DateOfBirth = model.DateOfBirth;
 
-                //if existing employee does not have location -> create
-                if (employee.LocationId == null)
+                //create new employee if employee == null
+                if (model.Id != Guid.Empty)
                 {
-
-                    Location location = mapper.Map<Location>(model.Location);
-                    employee.Location = location;
-                    employee.Location.Id = Guid.NewGuid();
-                    employee.LocationId = location.Id;
+                    await employeeRepository.UpdateEmployeeAsync(employee);
                 }
-                //if existing employee has location -> update
+                //update existing employee
                 else
                 {
-                    employee.Location!.Address = model.Location.GetAddress();
-                    employee.Location.State = model.Location.GetState();
-                    employee.Location.Country = model.Location.GetCountry();
+                    await employeeRepository.AddEmployeeAsync(employee);
                 }
-
-                try
-                {
-                    await dbContext.SaveChangesAsync();
-                }
-                catch (Exception)
-                {
-                    throw new Exception("Unexpected error occurred!");
-                }
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 

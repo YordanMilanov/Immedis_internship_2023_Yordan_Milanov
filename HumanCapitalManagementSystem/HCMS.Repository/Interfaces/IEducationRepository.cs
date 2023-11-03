@@ -11,5 +11,7 @@ namespace HCMS.Repository.Interfaces
         Task<Education> GetEducationByIdAsync(Guid id);
 
         Task<IEnumerable<Education>> GetEducationsPageByEmployeeIdAsync(Guid employeeId, int page);
+
+        Task<int> GetEducationCountByEmployeeIdAsync(Guid employeeId);
     }
 }

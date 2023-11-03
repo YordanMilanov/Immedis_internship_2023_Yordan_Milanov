@@ -14,7 +14,7 @@
 
 .all-container {
     color: white;
-    background-image: url('/Image/WoodBackground.jpg');
+    background-image: url('/Image/EducationBackground.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -24,7 +24,7 @@
 .card-partial {
     display: inline-block;
     color: black;
-    background-image: url('/Image/DiplomaBackground.jpg');
+    background: #1976D2;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

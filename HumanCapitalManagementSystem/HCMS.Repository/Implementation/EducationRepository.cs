@@ -1,18 +1,21 @@
-﻿using HCMS.Data;
+﻿using AutoMapper;
+using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace HCMS.Repository.Implementation
 {
     internal class EducationRepository : IEducationRepository
     {
         private readonly ApplicationDbContext dbContext;
+        private readonly IMapper mapper;
 
-        public EducationRepository(ApplicationDbContext dbContext)
+        public EducationRepository(ApplicationDbContext dbContext, IMapper mapper)
         {
+
             this.dbContext = dbContext;
+            this.mapper = mapper;
         }
 
         public async Task AddEducationAsync(Education education)
@@ -32,7 +35,7 @@ namespace HCMS.Repository.Implementation
         {
             try
             {
-                return await dbContext.Educations.FirstAsync(e => e.Id == id);
+                return await dbContext.Educations.Include(e => e.Location).FirstAsync(e => e.Id == id);
             }
             catch (Exception)
             {
@@ -40,19 +43,42 @@ namespace HCMS.Repository.Implementation
             }
         }
 
-        public async Task UpdateEducationAsync(Education education)
+        public async Task UpdateEducationAsync(Education educationInfo)
         {
             try
             {
-                dbContext.Educations.Update(education);
+                Education education = await dbContext.Educations.Include(e => e.Location).FirstAsync(e => e.Id == educationInfo.Id);
+                education.University = educationInfo.University;
+                education.FieldOfEducation = educationInfo.FieldOfEducation;
+                education.Degree = educationInfo.Degree;
+                education.Grade = educationInfo.Grade;
+                education.StartDate = educationInfo.StartDate;
+                education.EndDate = educationInfo.EndDate;
+                if(education.LocationId != Guid.Empty)
+                {
+                    education.Location!.Country = educationInfo.Location!.Address;
+                    education.Location.State = educationInfo.Location.State;
+                    education.Location.Country = educationInfo.Location.Country;
+                } else
+                {
+                    Location location = new Location
+                    {
+                        Address = educationInfo.Location!.Address,
+                        State = educationInfo.Location.State,
+                        Country = educationInfo.Location.Country,
+                        OwnerId = education.Id,
+                        OwnerType = education.GetType().ToString()
+                    };
+                    education.Location = location;
+                    education.LocationId = location.Id;
+                }
+
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)
             {
                 throw new Exception("Unexpected error occurred while updating education!");
             }
-
-            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Education>> GetEducationsPageByEmployeeIdAsync(Guid employeeId, int page)
@@ -60,7 +86,7 @@ namespace HCMS.Repository.Implementation
             
             try
             {
-                return await dbContext.Educations.Include(e => e.Location).Where(e => e.EmployeeId == employeeId).Skip(page * 3).Take(3).ToListAsync();
+                return await dbContext.Educations.Include(e => e.Location).Where(e => e.EmployeeId == employeeId).Skip((page - 1) * 3).Take(3).ToListAsync();
             } catch(Exception ex)
             {
                 throw new Exception(ex.Message);

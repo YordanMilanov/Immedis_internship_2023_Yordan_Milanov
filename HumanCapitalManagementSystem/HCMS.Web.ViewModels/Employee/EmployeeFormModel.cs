@@ -15,6 +15,8 @@ namespace HCMS.Web.ViewModels.Employee
             AddDate = DateTime.Now;
         }
 
+        public Guid Id { get; set; }
+
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         [Display(Name = "First name")]
         public string FirstName { get; set; } = null!;

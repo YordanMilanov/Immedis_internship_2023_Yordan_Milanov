@@ -18,8 +18,7 @@
             }
             <p>Address: @address</p>
 
-            <a asp-controller="Education" asp-action="Edit" asp-route-id="@Model.Id"
-               class="btn btn-success">Edit</a>
+            <a href="@Url.Action("Edit", "Education", new {educationId = @Model.Id})" class="btn btn-success">Edit</a>
             <a asp-controller="Education" asp-action="Delete" asp-route-id="@Model.Id"
                class="btn btn-danger">Delete</a>
         </div>

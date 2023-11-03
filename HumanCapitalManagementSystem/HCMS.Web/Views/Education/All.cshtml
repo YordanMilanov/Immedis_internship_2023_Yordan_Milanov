@@ -9,6 +9,11 @@
     {
         ViewBag.Title += " - " + username;
     }
+
+    int educationPerPage = 3;
+    int maxPage = (int)Math.Ceiling(Model.TotalEducations * 1.00 / educationPerPage);
+    int currentPage = Model.Page;
+    int indexCurrentPage = Model.Page * 3;
 }
 
 <div class="container all-container">
@@ -29,33 +34,42 @@
             }
         </div>
     </div>
-    <form method="get">
-    <div class="row justify-content-center">
-        @* previous page *@
-        <div class="col-1 mt-4  d-flex justify-content-end form-group">
-            <div class="form-group">
-                <btn type="submit" class="btn btn btn-dark" id="previousPageButton"><<</btn>
+
+    @* Navigation page buttons *@
+    @if (Model.Educations.Any())
+    {
+    <form method="get"
+        asp-controller="Education"
+        asp-action="All">
+
+        <div class="row justify-content-center">
+            @* previous page *@
+            <div class="col-1 mt-4  d-flex justify-content-end form-group">
+                <div class="form-group">
+                        <button type="submit" class="btn btn-outline-dark" id="previousPageButton">&lt;&lt;</button>
+                </div>
+            </div>
+
+            <input type="hidden" asp-for="@Model.Page" value="@Model.Page" id="Page" />
+            <input type="submit" id="formId" class="d-none"/>
+            <input class="d-none" type="hidden" value="@maxPage" id="maxPage"/>
+             
+            @* next page button *@
+            <div class="col-1 mt-4 form-group">
+                <div class="form-group">
+                        <button type="submit" class="btn btn-outline-dark" id="nextPageButton">>></button>
+                </div>
             </div>
         </div>
 
-        <input type="hidden" asp-for="@Model.Page" value="@Model.Page" id="Page" />
-        <input type="submit" id="formId" class="d-none" />
-         
-        @* next page button *@
-        <div class="col-1 mt-4 form-group">
-            <div class="form-group">
-                <btn type="submit" class="btn btn btn-dark" id="nextPageButton">>></btn>
-            </div>
-        </div>
-    </div>
     </form>
+    }
 
     <hr />
 </div>
-
-
 @section Scripts
     {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="~/js/Education.js"></script>
 }
 

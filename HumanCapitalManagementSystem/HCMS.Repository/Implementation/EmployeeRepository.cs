@@ -15,11 +15,20 @@ namespace HCMS.Repository.Implementation
         }
 
 
-        public async Task AddEmployeeAsync(Employee employee)
+        public async Task AddEmployeeAsync(Employee model)
         {
             try
             {
-                await dbContext.Employees.AddAsync(employee);
+                Employee employeeToSave = model;
+                employeeToSave.Id = Guid.NewGuid();
+                if(model.Location != null)
+                {
+                    employeeToSave.Location!.Id = Guid.NewGuid();
+                    employeeToSave.LocationId = employeeToSave.Location!.Id;
+                    employeeToSave.Location.OwnerId = employeeToSave.Id;
+                }
+
+                await dbContext.Employees.AddAsync(employeeToSave);
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -96,7 +105,33 @@ namespace HCMS.Repository.Implementation
         {
             try
             {
-                dbContext.Employees.Update(model);
+                Employee employee = await dbContext.Employees.Include(e => e.Location).FirstAsync(e => e.Id == model.Id);
+                if (employee == null)
+                {
+                    throw new Exception("Employee not found");
+                }
+
+                if (employee.LocationId == null && model.Location != null)
+                {
+                    Location location = model.Location!;
+                    location.Id = Guid.NewGuid();
+                    employee.Location = location;
+                    employee.LocationId = location.Id;
+                } 
+                else if(employee.LocationId != null && model.Location != null)
+                {
+                    employee.Location!.Address = model.Location.Address;
+                    employee.Location.State = model.Location.State;
+                    employee.Location.Country = model.Location.Country;
+                }
+
+                employee.FirstName = model.FirstName;
+                employee.LastName = model.LastName;
+                employee.Email = model.Email;
+                employee.PhoneNumber = model.PhoneNumber;
+                employee.PhotoUrl = model.PhotoUrl;
+                employee.DateOfBirth = model.DateOfBirth;
+
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)

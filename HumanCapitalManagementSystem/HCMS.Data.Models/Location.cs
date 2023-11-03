@@ -27,6 +27,11 @@ namespace HCMS.Data.Models
         [MaxLength(DataModelConstants.Location.CountryMaxLength)]
         public string Country {get; set; }
 
+        [Required]
+        public Guid OwnerId { get; set; }
+
+        [Required]
+        public string OwnerType { get; set; }
 
     }
 }

@@ -135,7 +135,7 @@ namespace HCMS.Web.Controllers
                 }
 
                 TempData[SuccessMessage] = "You have successfully edited your personal information!";
-                return RedirectToAction("Edit");
+                return RedirectToAction("Home", "Home");
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {

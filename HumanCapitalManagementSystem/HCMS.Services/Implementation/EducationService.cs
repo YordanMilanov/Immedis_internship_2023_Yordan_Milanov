@@ -3,6 +3,7 @@ using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Education;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace HCMS.Services.Implementation
@@ -53,32 +54,8 @@ namespace HCMS.Services.Implementation
         {
             try
             {
-                Education educationToUpdate = await educationRepository.GetEducationByIdAsync(educationDto.Id);
-                Guid locationId = educationToUpdate.Location!.Id;
-
-                if (educationToUpdate.LocationId != null)
-                {
-                    educationToUpdate.University = educationDto.University;
-                    educationToUpdate.FieldOfEducation = educationDto.FieldOfEducation;
-                    educationToUpdate.Degree = educationDto.Degree;
-                    educationToUpdate.Grade = educationDto.Grade;
-                    educationToUpdate.StartDate = educationDto.StartDate;
-                    educationToUpdate.EndDate = educationDto.EndDate;
-                    educationToUpdate.Location = new Location()
-                    {
-                        Address = educationDto.Location.GetAddress(),
-                        State = educationDto.Location.GetState(),
-                        Country = educationDto.Location.GetCountry()
-                    };
-                    educationToUpdate.Location.Id = locationId;
-                    educationToUpdate.LocationId = locationId;
-                    await educationRepository.UpdateEducationAsync(educationToUpdate);
-                }
-                else
-                {
-                    Education updatedEducation = mapper.Map<Education>(educationDto);
-                    await educationRepository.UpdateEducationAsync(updatedEducation);
-                }
+                Education educationInfo = mapper.Map<Education>(educationDto);
+                await educationRepository.UpdateEducationAsync(educationInfo);
             }
             catch (Exception)
             {
@@ -94,6 +71,17 @@ namespace HCMS.Services.Implementation
                 List<EducationDto> educationDtos = educations.Select(e => mapper.Map<EducationDto>(e)).ToList();
                 return educationDtos;
             } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<int> GetEducationCountByEmployeeIdAsync(Guid employeeId)
+        {
+            try
+            {
+                return await educationRepository.GetEducationCountByEmployeeIdAsync(employeeId);
+            } catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }

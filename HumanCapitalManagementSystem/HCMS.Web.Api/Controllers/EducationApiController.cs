@@ -103,7 +103,7 @@ namespace HCMS.Web.Api.Controllers
             try
             {
                 int count = await educationService.GetEducationCountByEmployeeIdAsync(Guid.Parse(employeeId));
-                string educationsCountJson = JsonConvert.SerializeObject(count, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+                string educationsCountJson = JsonConvert.SerializeObject(count, Formatting.Indented);
 
                 return Content(educationsCountJson, "application/json");
             }
@@ -111,6 +111,27 @@ namespace HCMS.Web.Api.Controllers
             {
                 return BadRequest("Unexpected error occurred while trying to load your educations count!");
             }
+        }
+
+        [HttpGet("EducationsDtoById")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<IActionResult> GetEducationDtoById([FromQuery] string educationId)
+        {
+            try
+            {
+                EducationDto educationDto = await educationService.GetEducationDtoByIdAsync(Guid.Parse(educationId));
+                string educationDtoJson = JsonConvert.SerializeObject(educationDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(educationDtoJson, "application/json");
+            } catch(Exception)
+            {
+                return BadRequest("Education was not found!");
+            }
+
+
         }
     }
 }
