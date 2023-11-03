@@ -13,23 +13,11 @@ namespace HCMS.Data.Models
             this.Id = Guid.NewGuid();
         }
 
-        [Key]
         public Guid Id { get; set; }
-
-        [Required]
-        [MaxLength(DataModelConstants.VarcharDefaultLength)]
         public string Name { get; set; } = null!;
-
-        [Required]
         public string Description { get; set; } = null!;
-
-        [Required]
-        [MaxLength(DataModelConstants.Company.IndustryFieldMaxLength)]
         public string IndustryField { get; set; } = null!;
-
         public Guid? LocationId { get; set; }
-
-        [ForeignKey("LocationId")]
         public virtual Location? Location { get; set; }
     }
 }

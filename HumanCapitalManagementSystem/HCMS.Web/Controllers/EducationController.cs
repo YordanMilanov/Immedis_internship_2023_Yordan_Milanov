@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using HCMS.Services.ServiceModels.Education;
-using HCMS.Services.ServiceModels.Employee;
-using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Web.ViewModels.Education;
-using HCMS.Web.ViewModels.Employee;
-using HCMS.Web.ViewModels.WorkRecord;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -28,8 +24,10 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Edit([FromQuery]string educationId)
+        public async Task<IActionResult> Edit([FromQuery]string? educationId)
         {
+
+
             if(educationId != null) {
                 string url = $"/api/education/EducationsDtoById?educationId={educationId}";
 
@@ -44,20 +42,25 @@ namespace HCMS.Web.Controllers
                     EducationDto educationDto = JsonConvert.DeserializeObject<EducationDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                     EducationFormModel educationFormModel = mapper.Map<EducationFormModel>(educationDto);
                     return View(educationFormModel);
-                } else
+                } 
+                else
                 {
                     TempData[ErrorMessage] = "No education was found!";
                     return View();
                 }
             }
-
-            //check if the current user has employeeId
-            bool hasEmployeeId = HttpContext.User.Claims.Any(c => c.Type == "EmployeeId");
-            if (!hasEmployeeId)
+            else
             {
-                return RedirectToAction("Edit", "Employee", new { redirect = "You must first add personal information to be able to add education information!" });
+                //check if the current user has employeeId
+                bool hasEmployeeId = HttpContext.User.Claims.Any(c => c.Type == "EmployeeId");
+                if (!hasEmployeeId)
+                {
+                    return RedirectToAction("Edit", "Employee", new { redirect = "You must first add personal information to be able to add education information!" });
+                }
+
+                //Adding
+                return View(new EducationFormModel());
             }
-            return View();
         }
 
 

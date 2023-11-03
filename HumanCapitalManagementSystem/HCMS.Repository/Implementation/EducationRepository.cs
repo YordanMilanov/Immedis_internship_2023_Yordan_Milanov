@@ -20,8 +20,24 @@ namespace HCMS.Repository.Implementation
 
         public async Task AddEducationAsync(Education education)
         {
+            education.Id = Guid.NewGuid();
             try
             {
+                if(education.Location != null)
+                {
+                    Location location = new Location
+                    {
+                        Address = education.Location.Address,
+                        State = education.Location.State,
+                        Country = education.Location.Country,
+                        OwnerId = education.Id,
+                        OwnerType = education.GetType().Name
+                    };
+                    education.Location = location;
+                    education.LocationId = location.Id;
+                }
+
+
                 await dbContext.Educations.AddAsync(education);
                 await dbContext.SaveChangesAsync();
             }
