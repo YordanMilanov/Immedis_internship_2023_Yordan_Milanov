@@ -3,8 +3,6 @@ using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Education;
-using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace HCMS.Services.Implementation
 {
@@ -12,13 +10,11 @@ namespace HCMS.Services.Implementation
     {
         private readonly IMapper mapper;
         private readonly IEducationRepository educationRepository;
-        private readonly ILocationRepository locationRepository;
 
-        public EducationService(IEducationRepository educationRepository, ILocationRepository locationRepository, IMapper mapper)
+        public EducationService(IEducationRepository educationRepository, IMapper mapper)
         {
             this.mapper = mapper;
             this.educationRepository = educationRepository;
-            this.locationRepository = locationRepository;
         }
 
         public async Task AddEducationAsync(EducationDto educationDto)
@@ -82,6 +78,18 @@ namespace HCMS.Services.Implementation
             {
                 return await educationRepository.GetEducationCountByEmployeeIdAsync(employeeId);
             } catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task DeleteById(Guid id)
+        {
+            try
+            {
+                await educationRepository.DeleteByIdAsync(id);
+            } 
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }

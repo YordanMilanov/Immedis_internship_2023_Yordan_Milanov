@@ -13,12 +13,10 @@ namespace HCMS.Web.Api.Controllers
     {
 
         private readonly IEducationService educationService;
-        private readonly IMapper mapper;
 
-        public EducationApiController(IEducationService educationService, IMapper mapper)
+        public EducationApiController(IEducationService educationService)
         {
             this.educationService = educationService;
-            this.mapper = mapper;
         }
 
         [HttpPost("EditEducation")]
@@ -50,7 +48,7 @@ namespace HCMS.Web.Api.Controllers
                     try
                     {
                         await educationService.AddEducationAsync(model);
-                        return Content("Succssesfully added the education record!", "application/json");
+                        return Content("Successfully added the education record!", "application/json");
                     }
                     catch (Exception)
                     {
@@ -60,7 +58,7 @@ namespace HCMS.Web.Api.Controllers
                 else
                 {
                     await educationService.EditEducationAsync(model);
-                    return Content("Succssesfully updated the education record!", "application/json");
+                    return Content("Successfully updated the education record!", "application/json");
 
                 }
             }
@@ -132,6 +130,25 @@ namespace HCMS.Web.Api.Controllers
             }
 
 
+        }
+
+        [HttpDelete("DeleteById")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<IActionResult> DeleteById([FromQuery] string EducationId)
+        {
+            try
+            {
+                await educationService.DeleteById(Guid.Parse(EducationId));
+                return Ok("Successfully deleted the education record!");
+            } 
+            catch(Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to delete your education information!");
+            }
         }
     }
 }

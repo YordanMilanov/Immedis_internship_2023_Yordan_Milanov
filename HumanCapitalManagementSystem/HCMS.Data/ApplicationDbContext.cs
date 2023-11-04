@@ -1,8 +1,7 @@
-﻿using System.Reflection;
-using HCMS.Common;
-using Microsoft.EntityFrameworkCore;
+﻿using HCMS.Common;
 using HCMS.Data.Models;
-using System.Reflection.Emit;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace HCMS.Data
 {

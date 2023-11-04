@@ -109,5 +109,24 @@ namespace HCMS.Web.Api.Controllers
                 return BadRequest("Unexpected error occurred while trying to load the page!");
             }
         }
+
+        [HttpDelete("DeleteById")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<IActionResult> DeleteById([FromQuery] string id)
+        {
+            try
+            {
+                await workRecordService.DeleteById(Guid.Parse(id));
+                return Ok("Successfully deleted the work record!");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to delete your work record!");
+            }
+        }
     }
 }

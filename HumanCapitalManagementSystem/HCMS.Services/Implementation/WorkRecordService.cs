@@ -100,5 +100,16 @@ namespace HCMS.Services.Implementation
                 throw new Exception("No work records was found");
             }
         }
+
+        public async Task DeleteById(Guid id)
+        {
+            try
+            {
+                await this.workRecordRepository.DeleteById(id);
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

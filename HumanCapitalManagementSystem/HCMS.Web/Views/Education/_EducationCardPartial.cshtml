@@ -17,10 +17,10 @@
                 <h6>End date: <b>@endDate.ToString("dd.MM.yyyy")</b></h6>
             }
             <p>Address: @address</p>
-
+            
+            <p id="id" value="@Model.Id" />
             <a href="@Url.Action("Edit", "Education", new {educationId = @Model.Id})" class="btn btn-success">Edit</a>
-            <a asp-controller="Education" asp-action="Delete" asp-route-id="@Model.Id"
-               class="btn btn-danger">Delete</a>
+            <a href="@Url.Action("Delete", "Education", new {id = @Model.Id})" class="btn btn-danger">Delete</a>
         </div>
     </div>
 </div>

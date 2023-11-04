@@ -13,5 +13,7 @@ namespace HCMS.Services.Interfaces
         Task<List<EducationDto>> GetEducationPageDtosByEmployeeIdAsync(Guid employeeId, int page);
 
         Task<int> GetEducationCountByEmployeeIdAsync(Guid employeeId);
+
+        Task DeleteById(Guid id);
     }
 }

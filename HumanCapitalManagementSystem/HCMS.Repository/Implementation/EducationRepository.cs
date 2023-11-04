@@ -118,5 +118,19 @@ namespace HCMS.Repository.Implementation
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task DeleteByIdAsync(Guid id)
+        {
+            try
+            {
+                Education educationToDelete = await this.dbContext.Educations.FirstAsync(e => e.Id == id);
+                this.dbContext.Educations.Remove(educationToDelete);
+                await this.dbContext.SaveChangesAsync();
+            } 
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

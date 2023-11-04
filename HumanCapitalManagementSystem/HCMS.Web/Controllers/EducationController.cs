@@ -94,7 +94,7 @@ namespace HCMS.Web.Controllers
             //if employee information successfully updated
             if (response.IsSuccessStatusCode)
             {
-                TempData[SuccessMessage] = "Education information has been succssesfully added!";
+                TempData[SuccessMessage] = "Education information has been successfully added!";
                 return RedirectToAction("All", "Education");
             } else
             {
@@ -106,8 +106,13 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> All(EducationPageModel model)
+        public async Task<IActionResult> All(EducationPageModel model, string? redirectMessage)
         {
+            if(redirectMessage != null)
+            {
+                TempData[InformationMessage] = redirectMessage;
+            }
+
             if (model == null)
             {
                 model = new EducationPageModel();
@@ -152,6 +157,29 @@ namespace HCMS.Web.Controllers
             {
                 TempData[WarningMessage] = "No education information was found! Please first add your educations.";
                 return View("Edit");
+            }
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Delete(string id)
+        {
+            string url = $"api/education/DeleteById?EducationId={id}";
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.DeleteAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("All", new { redirectMessage = "The education record was successfully deleted!" });
+            } 
+            else
+            {
+                return RedirectToAction("All", new { redirectMessage = "Unexpected error occurred while trying to deleted!" });
             }
         }
     }

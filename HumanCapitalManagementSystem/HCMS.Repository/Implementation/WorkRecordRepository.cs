@@ -106,5 +106,19 @@ namespace HCMS.Repository.Implementation
                 throw new Exception("No work records was found");
             }
         }
+
+        public async Task DeleteById(Guid id)
+        {
+            try
+            {
+                WorkRecord workRecord = await this.dbContext.WorkRecords.FirstAsync(wr => wr.Id == id);
+                this.dbContext.WorkRecords.Remove(workRecord);
+                await this.dbContext.SaveChangesAsync();
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

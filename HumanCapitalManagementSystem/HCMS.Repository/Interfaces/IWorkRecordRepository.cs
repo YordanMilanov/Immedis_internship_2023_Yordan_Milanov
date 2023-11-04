@@ -15,5 +15,7 @@ namespace HCMS.Repository.Interfaces
         public Task<List<WorkRecord>> GetWorkRecordsPageAsync(WorkRecordQueryDto searchModel);
 
         public Task<int> WorkRecordsCountByEmployeeIdAsync(Guid employeeId);
+
+        public Task DeleteById(Guid id);
     }
 }

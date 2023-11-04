@@ -76,8 +76,13 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> AllPersonal(WorkRecordQueryModel model)
+        public async Task<IActionResult> AllPersonal(WorkRecordQueryModel model, string redirectMessage)
         {
+            if(redirectMessage != null)
+            {
+                TempData[InformationMessage] = redirectMessage;
+            }
+
             if (model == null)
             {
                 model = new WorkRecordQueryModel();
@@ -124,6 +129,28 @@ namespace HCMS.Web.Controllers
             else
             {
                 return RedirectToAction("Add", "WorkRecord", new { redirect = "To be done for AGENT and ADMIN" });
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Delete(string id)
+        {
+            string url = $"api/workRecord/DeleteById?id={id}";
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.DeleteAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("AllPersonal", new { redirectMessage = "The work record was successfully deleted!" });
+            }
+            else
+            {
+                return RedirectToAction("AllPersonal", new { redirectMessage = "Unexpected error occurred while trying to deleted!" });
             }
         }
     }
