@@ -121,4 +121,16 @@ internal class UserService : IUserService
             throw new Exception(ex.Message);
         }
     }
+
+    public async Task UpdateUserAsync(UserUpdateDto model)
+    {
+        try {
+            User user = mapper.Map<User>(model);
+            await this.userRepository.UpdateUserAsync(user);
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 }

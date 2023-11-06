@@ -198,11 +198,50 @@ namespace HCMS.Web.Controllers
             return RedirectToAction("Home", "Home");
         }
 
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult EditProfile(string modelJson)
+        {
+            UserUpdateFormModel viewModel = JsonConvert.DeserializeObject<UserUpdateFormModel>(modelJson)!;
+
+            return View(viewModel);
+        }
+
         [HttpPost]
         [Authorize]
-        public Task<IActionResult> Profile(UserRegisterFormModel model)
+        public async Task<IActionResult> EditProfile(UserUpdateFormModel model)
         {
-            return null;
+            //validate input
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            UserUpdateDto userToBeUpdated = mapper.Map<UserUpdateDto>(model);
+            string jsonToSend = JsonConvert.SerializeObject(userToBeUpdated, JsonSerializerSettingsProvider.GetCustomSettings());
+            HttpContent content = new StringContent(jsonToSend, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PostAsync("/api/users/update", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = "You have successfully updated your profile information!";
+                return RedirectToAction("Profile", "User");
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                // Bad Request
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError("ErrorMessage", errorMessage);
+                return View(model);
+            }
+            else
+            {
+                ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
+                return View(model);
+            }
         }
     }
 }

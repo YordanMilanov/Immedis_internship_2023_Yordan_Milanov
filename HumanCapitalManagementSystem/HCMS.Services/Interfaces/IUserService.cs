@@ -14,5 +14,7 @@ namespace HCMS.Services.Interfaces
         public Task<UserDto> GetUserDtoByUsername(string username);
 
         public Task<UserViewDto> GetUserViewDtoById(Guid id);
+
+        public Task UpdateUserAsync(UserUpdateDto model);
     }
 }

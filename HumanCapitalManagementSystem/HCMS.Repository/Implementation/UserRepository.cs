@@ -85,5 +85,20 @@ namespace HCMS.Repository.Implementation
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task UpdateUserAsync(User model)
+        {
+            try
+            {
+                User user = await this.dbContext.Users.FirstAsync(u => u.Id == model.Id);
+                user.Username = model.Username;
+                user.Email = model.Email;
+                await dbContext.SaveChangesAsync();
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

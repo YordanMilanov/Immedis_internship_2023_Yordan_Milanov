@@ -1,7 +1,6 @@
 ﻿using HCMS.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using HCMS.Common.JsonConverter;
 using HCMS.Services.ServiceModels.User;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
@@ -79,16 +78,10 @@ namespace HCMS.Web.Api.Controllers
             // Read the JSON from request body
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
 
-            // Deserialize the JSON
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                Converters = new List<JsonConverter> { new NameConverter(), new PasswordConverter(), new EmailConverter(), new RoleConverter() }
-            };
-
             UserLoginDto model;
             try
             {
-                model = JsonConvert.DeserializeObject<UserLoginDto>(jsonReceived, settings)!;
+                model = JsonConvert.DeserializeObject<UserLoginDto>(jsonReceived, JsonSerializerSettingsProvider.GetCustomSettings())!;
             }
             catch (JsonException)
             {
@@ -218,7 +211,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> GetUserDtoById([FromQuery] string Id)
+        public async Task<IActionResult> GetUserViewDtoById([FromQuery] string Id)
         {
             try
             {
@@ -228,6 +221,61 @@ namespace HCMS.Web.Api.Controllers
             catch(Exception)
             {
                return BadRequest("No user was found!");
+            }
+        }
+
+
+        [HttpPost("update")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> UpdateUser()
+        {
+            // Read the JSON from request body
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+
+            UserUpdateDto model;
+            try
+            {
+                // Deserialize the JSON
+                model = JsonConvert.DeserializeObject<UserUpdateDto>(jsonReceived)!;
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid JSON data");
+            }
+
+            UserViewDto currentUser = await this.userService.GetUserViewDtoById(model.Id);
+
+
+            // validate email and username
+            try
+            {
+                if (currentUser.Email != model.Email)
+                {
+                    if (await userService.IsEmailExists(model.Email.ToString()))
+                    {
+                        return (BadRequest("Email is already used!"));
+                    }
+                }
+
+                if (currentUser.Username != model.Username)
+                {
+                    if (await userService.IsUsernameExists(model.Username.ToString()))
+                    {
+                        return (BadRequest("Username is already used!"));
+                    }
+                }
+
+                //fields are valid
+                //update
+                await userService.UpdateUserAsync(model);
+                return Ok("Your profile information was successfully updated!");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while updating your profile!");
             }
         }
     }

@@ -25,6 +25,11 @@ namespace HCMS.Web.Api.AutoMapperProfiles
            .ForMember(dest => dest.RegisterDate, opt => opt.MapFrom(src => src.RegisterDate))
            .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.UsersRoles.Select(ur => ur.Role.Name).ToList()))
            .ReverseMap();
+
+            CreateMap<UserUpdateDto, UserDto>().ReverseMap();
+            CreateMap<UserUpdateDto, User>().ReverseMap();
+            CreateMap<User, UserUpdateDto>();
+
         }
     }
 }

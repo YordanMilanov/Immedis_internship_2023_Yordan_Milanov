@@ -1,5 +1,4 @@
 ﻿using HCMS.Data.Models;
-using HCMS.Services.ServiceModels.User;
 
 namespace HCMS.Repository.Interfaces
 {
@@ -10,9 +9,8 @@ namespace HCMS.Repository.Interfaces
 
     Task<bool> UserExistsByUsername(string username);
     Task<bool> UserExistsByEmail(string email);
-
     Task<User> GetUserByIdAsync(Guid id);
     Task<User> GetUserByUsernameAsync(string username);
-
+    Task UpdateUserAsync(User user);
     }
 }
