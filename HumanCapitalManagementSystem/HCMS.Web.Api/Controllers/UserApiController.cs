@@ -278,6 +278,37 @@ namespace HCMS.Web.Api.Controllers
                 return BadRequest("Unexpected error occurred while updating your profile!");
             }
         }
+
+        [HttpPost("passwordUpdate")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> UpdatePassword()
+        {
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+
+            UserPasswordDto model;
+            try
+            {
+                // Deserialize the JSON
+                model = JsonConvert.DeserializeObject<UserPasswordDto>(jsonReceived)!;
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid JSON data");
+            }
+
+            try
+            {
+                await userService.UpdatePassword(model);
+                return Ok("Your password was successfully updated!");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while updating your profile!");
+            }
+        }
     }
 }
 

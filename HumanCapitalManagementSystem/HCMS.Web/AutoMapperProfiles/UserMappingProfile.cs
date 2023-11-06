@@ -28,8 +28,8 @@ namespace HCMS.Web.AutoMapperProfiles
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password.ToString()));
 
             CreateMap<UserViewDto, UserViewModel>().ReverseMap();
-            CreateMap<UserViewModel, UserViewDto>().ReverseMap();
             CreateMap<UserUpdateFormModel, UserUpdateDto>().ReverseMap();
+            CreateMap<UserPasswordFormModel, UserPasswordDto>();
         }
     }
 }

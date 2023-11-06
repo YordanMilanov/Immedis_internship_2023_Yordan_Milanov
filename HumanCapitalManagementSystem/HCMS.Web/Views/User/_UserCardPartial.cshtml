@@ -18,8 +18,10 @@
                     <input type="hidden" name="modelJson" value="@modelJson" />
                     <button type="submit" class="btn btn-outline-dark mx-1">Edit Profile</button>
                 </form>
-
-                <button class="btn btn-outline-dark mx-1">Change Password</button>
+                <form method="get" action="@Url.Action("ChangePassword", "User")">
+                    <input type="hidden" name="modelJson" value="@modelJson" />
+                    <button class="btn btn-outline-dark mx-1">Change Password</button>
+                </form>
             </div>
         </div>
     </div>

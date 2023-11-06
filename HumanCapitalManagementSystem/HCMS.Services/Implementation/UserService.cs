@@ -104,10 +104,6 @@ internal class UserService : IUserService
         return userDto;
     }
 
-    public bool VerifyPassword(string hashedPassword, string providedPlainPassword)
-    {
-        return BCrypt.Verify(providedPlainPassword, hashedPassword);
-    }
 
     public async Task<UserViewDto> GetUserViewDtoById(Guid id)
     {
@@ -125,7 +121,9 @@ internal class UserService : IUserService
     public async Task UpdateUserAsync(UserUpdateDto model)
     {
         try {
-            User user = mapper.Map<User>(model);
+            User user = await this.userRepository.GetUserByIdAsync(model.Id);
+            user.Username = model.Username;
+            user.Email = model.Email;
             await this.userRepository.UpdateUserAsync(user);
         }
         catch(Exception ex)
@@ -133,4 +131,19 @@ internal class UserService : IUserService
             throw new Exception(ex.Message);
         }
     }
+
+    public async Task UpdatePassword(UserPasswordDto model)
+    {
+       User user = await this.userRepository.GetUserByIdAsync(model.Id);
+        if(VerifyPassword(user.Password, model.CurrentPassword)){
+            string newPassword = BCrypt.HashPassword(model.NewPassword);
+            user.Password = newPassword;
+        };
+        await this.userRepository.UpdateUserAsync(user);
+    }
+    public bool VerifyPassword(string hashedPassword, string providedPlainPassword)
+    {
+        return BCrypt.Verify(providedPlainPassword, hashedPassword);
+    }
+
 }

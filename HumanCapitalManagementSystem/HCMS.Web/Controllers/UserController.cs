@@ -243,5 +243,48 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult ChangePassword() 
+        {
+            ViewData["Id"] = HttpContext.User.FindFirst("UserId").Value!;
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(UserPasswordFormModel model) 
+        {
+            //validate input
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            UserPasswordDto userPassword = mapper.Map<UserPasswordDto>(model);
+            string jsonToSend = JsonConvert.SerializeObject(userPassword, JsonSerializerSettingsProvider.GetCustomSettings());
+            HttpContent content = new StringContent(jsonToSend, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PostAsync("/api/users/passwordUpdate", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = "You have successfully updated your password!";
+                return RedirectToAction("Profile", "User");
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError("ErrorMessage", errorMessage);
+                return View();
+            }
+            else
+            {
+                ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
+                return View();
+            }
+        }
     }
 }

@@ -2,7 +2,6 @@
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using HCMS.Services.ServiceModels.User;
 
 namespace HCMS.Repository.Implementation
 {
