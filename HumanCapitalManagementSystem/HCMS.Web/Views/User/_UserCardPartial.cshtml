@@ -1,0 +1,20 @@
+﻿@model HCMS.Web.ViewModels.User.UserViewModel
+
+
+<div class="col-3 my-2 mx-4 card-partial">
+    <div class="mb-3">
+        <div class="text-center">
+            <h1 class="text-bold">User Profile</h1>
+            <h4>Username: @Model.Username</h4>
+            <h4>Email: <b>@Model.Email</b></h4>
+            <h4>Registration date: <b>@Model.RegisterDate</b></h4>
+            <p id="id" type="hidden" class="hidden" value="@Model.Id" />
+            
+            @* on click reveals the the profile update card by jQuery *@
+            <a href="@Url.Action("Edit", "Education", new {educationId = @Model.Id})" class="btn btn-info">Edit Information</a>
+
+            @* on click reveals the the password update card by jQuery *@
+            <a href="@Url.Action("Delete", "Education", new {id = @Model.Id})" class="btn btn-info">Change Password</a>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,8 @@ using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 
 namespace HCMS.Services.Implementation;
+
+using AutoMapper;
 using BCrypt.Net;
 using HCMS.Services.ServiceModels.User;
 
@@ -11,11 +13,13 @@ internal class UserService : IUserService
 {
     private readonly IRoleRepository roleRepository;
     private readonly IUserRepository userRepository;
+    private readonly IMapper mapper;
 
-    public UserService(IRoleRepository roleRepository, IUserRepository userRepository)
+    public UserService(IRoleRepository roleRepository, IUserRepository userRepository, IMapper mapper)
     {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.mapper = mapper;
     }
 
     public async Task RegisterUserAsync(UserRegisterDto formModel)
@@ -81,7 +85,8 @@ internal class UserService : IUserService
         try
         {
             //Caught below if it throws
-            UserDto userDto = await userRepository.GetUserDtoByUsername(username);
+            User user = await userRepository.GetUserByUsernameAsync(username);
+            UserDto userDto = mapper.Map<UserDto>(user);
 
             return VerifyPassword(userDto.Password!.ToString(), password);
         }
@@ -94,12 +99,9 @@ internal class UserService : IUserService
 
     public async Task<UserDto> GetUserDtoByUsername(string username)
     {
-        return await userRepository.GetUserDtoByUsername(username);
-    }
-
-    public string HashPassword(string plainPassword)
-    {
-        return BCrypt.HashPassword(plainPassword);
+        User user = await userRepository.GetUserByUsernameAsync(username);
+        UserDto userDto = mapper.Map<UserDto>(user);
+        return userDto;
     }
 
     public bool VerifyPassword(string hashedPassword, string providedPlainPassword)
@@ -107,4 +109,16 @@ internal class UserService : IUserService
         return BCrypt.Verify(providedPlainPassword, hashedPassword);
     }
 
+    public async Task<UserViewDto> GetUserViewDtoById(Guid id)
+    {
+        try
+        {
+           User user = await this.userRepository.GetUserByIdAsync(id);
+            return mapper.Map<UserViewDto>(user);
+        } 
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 }

@@ -11,6 +11,8 @@
 
         public List<string>? Roles { get; set; }
 
+        public DateTime RegisterDate { get; set; }
+
         public Guid? EmployeeId { get; set; }
     }
 }

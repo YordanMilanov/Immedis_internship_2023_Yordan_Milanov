@@ -1,0 +1,65 @@
+﻿@using HCMS.Web.ViewModels.User;
+@model UserRegisterFormModel;
+
+<div class="card text-white">
+    <div class="card-body p-md-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+
+                @* Error Messages for failed registration *@
+
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <h3 class="mt-5 text-center">
+                        <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                    </h3>
+                }
+
+
+                @*Input fields - form*@
+                <form class="mx-1 mx-md-4"
+                      method="post"
+                      asp-controller="User"
+                      asp-action="Register">
+                    <div class="d-flex flex-row align-items-center mb-4">
+
+                        <i class="fas fa-user fa-lg me-3 fa-fw mt-4"></i>
+
+                        <div class="form-outline flex-fill mb-0">
+
+                            <label class="form-label" for="username">Username</label>
+                            <input type="text"
+                                   id="username"
+                                   asp-for="Username"
+                                   class="form-control" />
+                            <span asp-validation-for="Username" class="bg-danger text-white"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw mt-4"></i>
+
+                        <div class="form-outline flex-fill mb-0">
+
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email"
+                                   id="email"
+                                   asp-for="Email"
+                                   class="form-control" />
+                            <span asp-validation-for="Email" class="bg-danger text-white"></span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

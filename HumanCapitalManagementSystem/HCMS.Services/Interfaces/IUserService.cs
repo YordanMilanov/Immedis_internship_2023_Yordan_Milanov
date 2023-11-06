@@ -12,5 +12,7 @@ namespace HCMS.Services.Interfaces
         public Task<bool> IsPasswordMatchByUsername(string username, string password);
 
         public Task<UserDto> GetUserDtoByUsername(string username);
+
+        public Task<UserViewDto> GetUserViewDtoById(Guid id);
     }
 }

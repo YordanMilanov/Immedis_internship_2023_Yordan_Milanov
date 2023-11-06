@@ -70,12 +70,13 @@ header, footer {
 
 .dropdown-item {
     color: white;
-    background-color: #012557;
+    font: bold;
+    background-color: transparent;
     transition: background-color 0.3s;
 }
 
-    .dropdown-item:hover {
-        background-color: #ffffff;
-        color: #012557;
-        font: bold;
-    }
+.dropdown-item:hover {
+    background-color: #ffffff;
+    color: #012557;
+    font: bold;
+}

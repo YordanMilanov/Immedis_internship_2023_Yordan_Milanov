@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
 using Microsoft.IdentityModel.Tokens;
+using HCMS.Services.ServiceModels.Employee;
+using HCMS.Web.ViewModels.Employee;
+using System.Net.Http.Headers;
 
 namespace HCMS.Web.Controllers
 {
@@ -161,6 +164,45 @@ namespace HCMS.Web.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+        }
+        
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Profile() {
+
+            Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;
+            string userId = userIdClaim.Value;
+
+            string apiUrl = $"/api/users/GetUserViewDtoById?Id={userId}";
+
+            string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
+
+            HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+
+
+                string jsonContent = await response.Content.ReadAsStringAsync();
+
+                UserViewDto? userViewDto = JsonConvert.DeserializeObject<UserViewDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings());
+
+                if (userViewDto != null)
+                {
+                    UserViewModel viewModel = mapper.Map<UserViewModel>(userViewDto);
+                    return View(viewModel);
+                }
+            }
+            return RedirectToAction("Home", "Home");
+        }
+
+        [HttpPost]
+        [Authorize]
+        public Task<IActionResult> Profile(UserRegisterFormModel model)
+        {
+            return null;
         }
     }
 }

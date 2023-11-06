@@ -53,48 +53,37 @@ namespace HCMS.Repository.Implementation
             }
         }
 
-        public async Task<User?> GetUserById(Guid id)
+        public async Task<User> GetUserByIdAsync(Guid id)
         {
-            User? user = new User();
             try
             {
-                user = await dbContext.Users
+                return await dbContext.Users
+                    .Include(u => u.UsersRoles)
+                    .ThenInclude(ur => ur.Role)
                     .Where(user => user.Id == id)
-                    .FirstOrDefaultAsync();
+                    .FirstAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
 
-            return user;
         }
 
-        public async Task<UserDto> GetUserDtoByUsername(string username)
+        public async Task<User> GetUserByUsernameAsync(string username)
         {
-            UserDto? user = await dbContext.Users
-                .Where(u => u.Username.ToLower() == username.ToLower())
-                .Select(u => new UserDto()
-                {
-                    Id = u.Id,
-                    Username = u.Username,
-                    Email = u.Email,
-                    Password = u.Password,
-                    Roles = new List<string>()
-                }).FirstOrDefaultAsync();
-            if (user != null)
+            try
             {
-                List<Role> roles = await dbContext.UsersRoles
-               .Where(ur => ur.User.Id == user.Id)
-               .Select(ur => ur.Role).ToListAsync();
-
-                foreach (Role role in roles)
-                {
-                    user.Roles!.Add(role.Name);
-                }
-                return user;
+                return await dbContext.Users
+                .Where(u => u.Username.ToLower() == username.ToLower())
+                .Include(u => u.UsersRoles)
+                .ThenInclude(ur => ur.Role)
+                .FirstAsync();
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
-            return null!;
         }
     }
 }

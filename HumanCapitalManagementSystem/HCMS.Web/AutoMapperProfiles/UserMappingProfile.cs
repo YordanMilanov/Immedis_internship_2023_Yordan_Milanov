@@ -26,6 +26,9 @@ namespace HCMS.Web.AutoMapperProfiles
             CreateMap<UserLoginDto, UserLoginFormModel>()
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.Username.ToString()))
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password.ToString()));
+
+            CreateMap<UserViewDto, UserViewModel>();
+            CreateMap<UserViewModel, UserViewDto>();
         }
     }
 }

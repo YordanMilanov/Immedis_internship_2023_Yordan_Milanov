@@ -1,0 +1,34 @@
+﻿.form-card {
+    background-color: #134475;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.technical-font {
+    font-family: 'Kanit', sans-serif;
+}
+
+#degreeSelect + .select2 .select2-selection {
+    height: 40px;
+}
+
+.all-container {
+    color: white;
+    background: black;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+.card-partial {
+    display: inline-block;
+    color: black;
+    background: #1976D2;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

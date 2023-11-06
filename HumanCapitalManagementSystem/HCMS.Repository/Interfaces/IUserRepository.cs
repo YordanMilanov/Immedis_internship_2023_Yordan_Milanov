@@ -11,8 +11,8 @@ namespace HCMS.Repository.Interfaces
     Task<bool> UserExistsByUsername(string username);
     Task<bool> UserExistsByEmail(string email);
 
-    Task<User?> GetUserById(Guid id);
+    Task<User> GetUserByIdAsync(Guid id);
+    Task<User> GetUserByUsernameAsync(string username);
 
-    Task<UserDto> GetUserDtoByUsername(string username);
     }
 }

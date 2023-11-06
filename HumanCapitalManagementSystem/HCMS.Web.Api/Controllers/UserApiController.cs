@@ -212,6 +212,24 @@ namespace HCMS.Web.Api.Controllers
 
             return Content(tokenString, "application/json");
         }
+
+        [HttpGet("GetUserViewDtoById")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetUserDtoById([FromQuery] string Id)
+        {
+            try
+            {
+                UserViewDto userViewDto = await this.userService.GetUserViewDtoById(Guid.Parse(Id));
+                return Ok(userViewDto);
+            } 
+            catch(Exception)
+            {
+               return BadRequest("No user was found!");
+            }
+        }
     }
 }
 
