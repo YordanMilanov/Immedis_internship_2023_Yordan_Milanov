@@ -1,4 +1,5 @@
-﻿using HCMS.Data;
+﻿using HCMS.Common;
+using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -138,6 +139,52 @@ namespace HCMS.Repository.Implementation
             {
                 throw new Exception("The update operation has ben corrupted!");
             }
+        }
+
+        public async Task<(int, IEnumerable<Employee>)> GetCurrentPageAsync(int currentPage, int employeesPerPage, string? searchString, OrderPageEnum orderPageEnum)
+        {
+            try
+            {
+                IQueryable<Employee> query = dbContext.Employees.Include(e => e.Location).Include(e => e.Company);
+
+                //check the search string
+                if (searchString != null)
+                {
+                    query = query.Where(e =>
+                    e.FirstName.Contains(searchString!) ||
+                    e.LastName.Contains(searchString!) ||
+                    e.Email.Contains(searchString!) ||
+                    e.PhoneNumber.Contains(searchString!) ||
+                    e.Location!.Address.Contains(searchString!) ||
+                    e.Location.State.Contains(searchString!) ||
+                    e.Location.Country.Contains(searchString!) ||
+                    e.Company!.Name.Contains(searchString!));
+                }
+
+                int countOfElements = query.Count();
+
+                //check the order
+                switch (orderPageEnum)
+                {
+                    case OrderPageEnum.Newest:
+                        query = query.OrderBy(e => e.AddDate);
+                        break;
+                    case OrderPageEnum.Oldest:
+                        query = query.OrderByDescending(e => e.AddDate);
+                        break;
+                }
+
+                //Pagination
+                int employeesCountToSkip = (currentPage - 1) * employeesPerPage;
+                query = query.Skip(employeesCountToSkip).Take(employeesPerPage);
+
+                List<Employee> employees = await query.ToListAsync();
+                return (countOfElements, employees);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            };
         }
     }
 }

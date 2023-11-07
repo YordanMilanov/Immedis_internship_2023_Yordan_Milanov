@@ -15,6 +15,8 @@ namespace HCMS.Services.ServiceModels.Employee
 
         public string? PhotoUrl { get; set; }
 
+        public string? CompanyName { get; set; }
+
         public DateTime DateOfBirth { get; set; }
 
         public DateTime AddDate { get; set; }

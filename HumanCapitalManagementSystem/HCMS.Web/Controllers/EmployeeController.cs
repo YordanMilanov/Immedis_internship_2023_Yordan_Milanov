@@ -9,6 +9,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using HCMS.Services.ServiceModels.Employee;
 using System.Net.Http.Headers;
+using HCMS.Services.ServiceModels.Company;
+using HCMS.Web.ViewModels.Company;
 
 namespace HCMS.Web.Controllers
 {
@@ -25,9 +27,37 @@ namespace HCMS.Web.Controllers
         }
 
         [Authorize(Roles = "AGENT,ADMIN")]
-        public IActionResult All()
-        {    
-            return View();
+        public async Task<IActionResult> All(EmployeeQueryModel model)
+        {
+            if (model == null)
+            {
+                model = new EmployeeQueryModel();
+            }
+
+
+            EmployeeQueryDto companyQueryDto = mapper.Map<EmployeeQueryDto>(model);
+
+            string url = "api/employee/page";
+            string json = JsonConvert.SerializeObject(companyQueryDto);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonContent = await response.Content.ReadAsStringAsync();
+                EmployeeQueryDto responseQueryDto = JsonConvert.DeserializeObject<EmployeeQueryDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                EmployeeQueryModel employeeQueryModel = mapper.Map<EmployeeQueryModel>(responseQueryDto);
+                return View(employeeQueryModel);
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
         [HttpGet]

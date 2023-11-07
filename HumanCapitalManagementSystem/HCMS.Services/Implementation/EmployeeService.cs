@@ -4,6 +4,7 @@ using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.Company;
 using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Services.Implementation
@@ -109,6 +110,32 @@ namespace HCMS.Services.Implementation
             }
 
 
+        }
+
+        public async Task<EmployeeQueryDto> GetCurrentPageAsync(EmployeeQueryDto model)
+        {
+            try
+            {
+                (int, IEnumerable<Employee>) result = await this.employeeRepository.GetCurrentPageAsync(model.CurrentPage, model.EmployeesPerPage, model.SearchString, model.OrderPageEnum);
+
+                if (result is (int totalCount, List<Employee> companies))
+                {
+                    List<EmployeeDto> employeeDtos = companies.Select(c => mapper.Map<EmployeeDto>(c)).ToList();
+                    model.TotalEmployees = totalCount;
+                    model.Employees = employeeDtos;
+                    return model;
+                }
+                else
+                {
+                    throw new Exception("Unexpected error occurred!");
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

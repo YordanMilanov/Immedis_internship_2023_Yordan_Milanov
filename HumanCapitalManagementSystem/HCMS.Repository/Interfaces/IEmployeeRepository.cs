@@ -1,4 +1,5 @@
-﻿using HCMS.Data.Models;
+﻿using HCMS.Common;
+using HCMS.Data.Models;
 
 namespace HCMS.Repository.Interfaces
 {
@@ -18,6 +19,6 @@ namespace HCMS.Repository.Interfaces
 
         Task<bool> IsEmployeePhoneNumberUsedByAnotherEmployee(string phoneNumber, Guid userId);
         Task<bool> IsEmployeeEmailUsedByAnotherEmployee(string email, Guid userId);
-
+        Task<(int, IEnumerable<Employee>)> GetCurrentPageAsync(int currentPage, int employeesPerPage, string? searchString, OrderPageEnum orderPageEnum);
     }
 }

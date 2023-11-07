@@ -1,0 +1,35 @@
+﻿@model HCMS.Web.ViewModels.Employee.EmployeeViewModel
+@{
+    string location = "";
+    if (Model?.Country != null)
+    {
+        location += Model.Country;
+    }
+    if (Model?.State != null)
+    {
+        location += ", " + Model.State;
+    }
+    if (Model?.Address != null)
+    {
+        location += ", " + Model.Address;
+    }
+}
+
+
+<div class="col-3 my-2 mx-4 card-partial">
+    <div class="mb-3">
+        <div>
+            <h3 class="text-center">@Model!.FirstName @Model.LastName</h3>
+            <p>Email: <b>@Model.Email</b></p>
+            <p>Phone number: <b>@Model.PhoneNumber</b></p>
+            <p>Birth Date: <b>@Model.DateOfBirth.ToString("dd.MM.yyyy")</b></p>
+            <p>Date Added: <b>@Model.AddDate.ToString("dd.MM.yyyy")</b></p>
+            <p>Company: <b>@Model.CompanyName</b></p>
+            
+            @if (location != "" || location != null)
+            {
+                <p>Address: <b>@location</b></p>
+            }
+        </div>
+    </div>
+</div>
