@@ -1,12 +1,9 @@
 ﻿using HCMS.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using HCMS.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using HCMS.Common;
-using System.Net.Http;
-using System.IdentityModel.Tokens.Jwt;
-using Newtonsoft.Json.Linq;
+
 
 namespace HCMS.Web.Controllers
 {

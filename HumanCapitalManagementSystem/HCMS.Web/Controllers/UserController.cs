@@ -248,7 +248,7 @@ namespace HCMS.Web.Controllers
         [Authorize]
         public IActionResult ChangePassword() 
         {
-            ViewData["Id"] = HttpContext.User.FindFirst("UserId").Value!;
+            ViewData["Id"] = HttpContext.User.FindFirst("UserId")!.Value!;
             return View();
         }
 

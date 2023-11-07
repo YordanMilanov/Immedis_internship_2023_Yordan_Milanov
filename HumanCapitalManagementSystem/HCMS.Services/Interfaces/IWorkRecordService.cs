@@ -10,7 +10,7 @@ namespace HCMS.Services.Interfaces
 
         public Task<List<WorkRecordDto>> GetAllWorkRecordsDtosAsync();
 
-        public Task<List<WorkRecordDto>> GetWorkRecordsPageAsync(WorkRecordQueryDto searchModel);
+        public Task<(int, List<WorkRecordDto>)> GetWorkRecordsPageAndTotalCountAsync(WorkRecordQueryDto searchModel);
 
         public Task<int> GetWorkRecordsCountByEmployeeIdAsync(Guid employeeId);
         public Task DeleteById(Guid id);

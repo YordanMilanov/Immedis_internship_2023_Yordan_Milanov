@@ -3,6 +3,7 @@ using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Company;
+using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Services.Implementation
 {
@@ -21,7 +22,6 @@ namespace HCMS.Services.Implementation
         {
             return await companyRepository.GetAllCompanyNamesAsync();
         }
-
 
         public async Task<CompanyDto> GetCompanyDtoByEmployeeIdAsync(Guid employeeId)
         {
@@ -53,6 +53,29 @@ namespace HCMS.Services.Implementation
             {
                 throw new Exception("No company was found!");
             }
+        }
+
+        public async Task<(int, List<CompanyDto>)> GetCompaniesPageAndTotalCountAsync(CompanyQueryDto model)
+        {
+            try
+            {
+                object result = await this.companyRepository.GetCurrentPageAndTotalCountAsync(model.CurrentPage, model.SearchString, model.CompaniesPerPage);
+
+                if (result is (int totalCount, List<Company> companies))
+                {
+                    List<CompanyDto> companyDtos = companies.Select(c => mapper.Map<CompanyDto>(c)).ToList();
+                    return (totalCount, companyDtos);
+                }
+                else
+                {
+                    throw new Exception("Unexpected error occurred!");
+                };
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }

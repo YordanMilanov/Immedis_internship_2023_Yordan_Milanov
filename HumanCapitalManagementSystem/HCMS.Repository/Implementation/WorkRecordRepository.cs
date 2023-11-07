@@ -48,25 +48,28 @@ namespace HCMS.Repository.Implementation
             return await dbContext.WorkRecords.ToListAsync();
         }
 
-        public async Task<List<WorkRecord>> GetWorkRecordsPageAsync(WorkRecordQueryDto searchModel)
+        public async Task<(int, List<WorkRecord>)> GetWorkRecordsPageAndTotalCountAsync(string? searchString, OrderPageEnum orderPageEnum, int currentPage, int perPage, Guid employeeId)
         {
             try
             {
                 IQueryable<WorkRecord> query = dbContext.WorkRecords.Include(wr => wr.Company);
+                
                 //check if the page is for certain employee or no
-                query = query.Where(wr => wr.EmployeeId == searchModel.EmployeeId);
+                query = query.Where(wr => wr.EmployeeId == employeeId);
 
                 //check the search string
-                if (searchModel.SearchString != null)
+                if (searchString != null)
                 {
                     query = query.Where(wr => 
-                    wr.Position.Contains(searchModel.SearchString!) || 
-                    wr.Department!.Contains(searchModel.SearchString!) || 
-                    wr.Company.Name.Contains(searchModel.SearchString!));
+                    wr.Position.Contains(searchString!) || 
+                    wr.Department!.Contains(searchString!) || 
+                    wr.Company.Name.Contains(searchString!));
                 }
 
+                int countOfElements = query.Count();
+
                 //check the order
-                switch (searchModel.OrderPageEnum)
+                switch (orderPageEnum)
                 {
                     case OrderPageEnum.Newest:
                         query = query.OrderBy(wr => wr.StartDate);
@@ -83,11 +86,11 @@ namespace HCMS.Repository.Implementation
                 }
 
                 //Pagination
-                int workRecordsCountToSkip = (searchModel.CurrentPage - 1) * searchModel.WorkRecordsPerPage;
-                query = query.Skip(workRecordsCountToSkip).Take(searchModel.WorkRecordsPerPage);
+                int workRecordsCountToSkip = (currentPage - 1) * perPage;
+                query = query.Skip(workRecordsCountToSkip).Take(perPage);
 
                 List<WorkRecord> records = await query.ToListAsync();
-                return records;
+                return (countOfElements, records);
             }
             catch (Exception ex)
             {

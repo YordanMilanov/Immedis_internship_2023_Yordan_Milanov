@@ -8,7 +8,7 @@ using HCMS.Services.ServiceModels.Location;
 
 namespace HCMS.Web.Api.Controllers
 {
-    [Route("api/location")]
+    [Route("api/Location")]
     [ApiController]
     public class LocationApiController : ControllerBase
     {

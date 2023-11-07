@@ -15,5 +15,6 @@ namespace HCMS.Repository.Interfaces
         Task<Company> GetCompanyByNameAsync(string name);
 
         Task<Company> GetCompanyByEmployeeIdAsync(Guid employeeId);
+        Task <(int, IEnumerable<Company>)> GetCurrentPageAndTotalCountAsync(int currentPage, string? searchString, int companiesPerPage);
     }
 }

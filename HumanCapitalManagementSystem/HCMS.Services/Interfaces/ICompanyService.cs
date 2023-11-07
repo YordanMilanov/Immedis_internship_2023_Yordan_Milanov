@@ -1,4 +1,5 @@
 ﻿using HCMS.Services.ServiceModels.Company;
+using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Services.Interfaces
 {
@@ -9,5 +10,6 @@ namespace HCMS.Services.Interfaces
         Task<CompanyDto> GetCompanyDtoByEmployeeIdAsync(Guid employeeId);
 
         Task<CompanyDto> GetCompanyDtoByCompanyNameAsync(string companyName);
+        Task<(int, List<CompanyDto>)> GetCompaniesPageAndTotalCountAsync(CompanyQueryDto model);
     }
 }

@@ -1,0 +1,37 @@
+﻿@model HCMS.Web.ViewModels.Company.CompanyViewModel
+@{
+    string location = "";
+    if (Model?.Country != null)
+    {
+        location += Model.Country;
+    }
+    if (Model?.State != null)
+    {
+        location += ", " + Model.State;
+    }
+    if (Model?.Address != null)
+    {
+        location += ", " + Model.Address;
+    }
+}
+
+
+<div class="col-3 my-2 mx-4 card-partial">
+    <div class="mb-3">
+        <div>
+            <h3 class="text-center">@Model!.Name</h3>
+            <p>Industry: <b>@Model.IndustryField</b></p>
+            <p>Industry: <b>@Model.Description</b></p>
+            @if(location != "" || location != null)
+            {
+                <p>Address: <b>@location</b></p>
+            }
+            <div class="text-center mt-3">
+                <a asp-controller="Company" asp-action="Edit" asp-route-id="@Model.Name"
+                   class="btn btn-success">Edit</a>
+                <a asp-controller="Company" asp-action="Delete" asp-route-id="@Model.Name"
+                   class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>

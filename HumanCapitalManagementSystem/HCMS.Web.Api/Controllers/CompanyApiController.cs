@@ -1,7 +1,9 @@
-﻿using HCMS.Services;
+﻿using AutoMapper;
+using HCMS.Services;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Company;
 using HCMS.Services.ServiceModels.User;
+using HCMS.Services.ServiceModels.WorkRecord;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
@@ -62,6 +64,39 @@ namespace HCMS.Web.Api.Controllers
             }
         }
 
+        [HttpPost("all")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetAllCompanies()
+        {
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+            CompanyQueryDto model = JsonConvert.DeserializeObject<CompanyQueryDto>(jsonReceived)!;
+
+            try
+            {
+                object result = await companyService.GetCompaniesPageAndTotalCountAsync(model);
+                if (result is (int totalCount, List<CompanyDto> companies))
+                {
+                    model.Companies = companies;
+                    model.TotalCompanies = totalCount;
+
+                    string jsonString = JsonConvert.SerializeObject(model, JsonSerializerSettingsProvider.GetCustomSettings());
+                    return Content(jsonString, "application/json");
+                }
+                else
+                {
+                    throw new Exception();
+                }
+
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to load the page!");
+            }
+        }
 
     }
 }

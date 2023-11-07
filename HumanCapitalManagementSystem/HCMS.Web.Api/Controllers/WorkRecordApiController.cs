@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -95,16 +96,23 @@ namespace HCMS.Web.Api.Controllers
 
             try
             {
-                model.TotalWorkRecords = await workRecordService.GetWorkRecordsCountByEmployeeIdAsync(model.EmployeeId);
+                object result = await workRecordService.GetWorkRecordsPageAndTotalCountAsync(model);
+                if (result is (int totalCount, List<WorkRecordDto> workRecords))
+                {
+                    model.WorkRecords = workRecords;
+                    model.TotalWorkRecords = totalCount;
 
-                //set current page models
-                model.WorkRecords = await workRecordService.GetWorkRecordsPageAsync(model);
 
+                    string jsonString = JsonConvert.SerializeObject(model, JsonSerializerSettingsProvider.GetCustomSettings());
+                    return Content(jsonString, "application/json");
+                } 
+                else
+                {
+                    throw new Exception();
+                }
 
-                string jsonString = JsonConvert.SerializeObject(model, JsonSerializerSettingsProvider.GetCustomSettings());
-                return Content(jsonString, "application/json");
-
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return BadRequest("Unexpected error occurred while trying to load the page!");
             }

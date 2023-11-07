@@ -1,4 +1,5 @@
-﻿using HCMS.Data.Models;
+﻿using HCMS.Common;
+using HCMS.Data.Models;
 using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Repository.Interfaces
@@ -11,8 +12,8 @@ namespace HCMS.Repository.Interfaces
 
         public Task<List<WorkRecord>> AllWorkRecordsAsync();
 
-        //TODO fix not working with Dto but with DATA MODEL
-        public Task<List<WorkRecord>> GetWorkRecordsPageAsync(WorkRecordQueryDto searchModel);
+        // Returns total Count with this settings and the records
+        public Task<(int, List<WorkRecord>)> GetWorkRecordsPageAndTotalCountAsync(string? searchString, OrderPageEnum orderPageEnum, int currentPage, int perPage, Guid employeeId);
 
         public Task<int> WorkRecordsCountByEmployeeIdAsync(Guid employeeId);
 

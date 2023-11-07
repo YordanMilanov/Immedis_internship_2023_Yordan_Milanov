@@ -75,13 +75,26 @@ namespace HCMS.Services.Implementation
 
         }
 
-        public async Task<List<WorkRecordDto>> GetWorkRecordsPageAsync(WorkRecordQueryDto searchModel)
+        public async Task<(int, List<WorkRecordDto>)> GetWorkRecordsPageAndTotalCountAsync(WorkRecordQueryDto searchModel)
         {
             try
             {
-                List<WorkRecord> workRecords = await workRecordRepository.GetWorkRecordsPageAsync(searchModel);
-                List<WorkRecordDto> workRecordDtos = workRecords.Select(wr => mapper.Map<WorkRecordDto>(wr)).ToList();
-                return workRecordDtos;
+                object result = await workRecordRepository.GetWorkRecordsPageAndTotalCountAsync(
+                    searchModel.SearchString, 
+                    searchModel.OrderPageEnum, 
+                    searchModel.CurrentPage, 
+                    searchModel.WorkRecordsPerPage,
+                    Guid.Parse(searchModel.EmployeeId.ToString()));
+
+                if (result is (int totalCount, List<WorkRecord> workRecords))
+                {
+                    List<WorkRecordDto> workRecordDtos = workRecords.Select(wr => mapper.Map<WorkRecordDto>(wr)).ToList();
+                    return (totalCount, workRecordDtos);
+                }
+                else
+                {
+                    throw new Exception("Unexpected error occurred!");
+                 };
             }
             catch (Exception)
             {

@@ -36,11 +36,11 @@ namespace HCMS.Web.Controllers
         public async Task<IActionResult> Select(string redirect)
         {
             //first check if this is redirect from the same page
-            if(redirect == "success")
+            if (redirect == "success")
             {
                 TempData[SuccessMessage] = "Your current company was succssesfully updated!";
             }
-            else if(redirect == "error")
+            else if (redirect == "error")
             {
                 TempData[ErrorMessage] = "Unexpected error occurred!";
             }
@@ -58,8 +58,8 @@ namespace HCMS.Web.Controllers
             Claim employeeIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!;
 
             //if user does not have redirect to employee information
-            if(employeeIdClaim == null)
-            { 
+            if (employeeIdClaim == null)
+            {
                 ModelState.AddModelError("ErrorMessage", "To be able to add the current workplace, first you need to add your personal information!");
                 TempData[ErrorMessage] = "Add employee information, please!";
                 return View("~/Views/Employee/Edit.cshtml");
@@ -79,11 +79,11 @@ namespace HCMS.Web.Controllers
                 CompanyDto companyDto = JsonConvert.DeserializeObject<CompanyDto>(responseContent)!;
                 CompanyViewModel model = mapper.Map<CompanyViewModel>(companyDto);
 
-                //check if company has location and take it
-                string LocationDtoApiUrl = $"/api/location/GetLocationById?id={companyDto.LocationId}";
+                //check if company has Location and take it
+                string LocationDtoApiUrl = $"/api/Location/GetLocationById?id={companyDto.LocationId}";
                 HttpResponseMessage locationResponse = await httpClient.GetAsync(LocationDtoApiUrl);
 
-                if(locationResponse.IsSuccessStatusCode)
+                if (locationResponse.IsSuccessStatusCode)
                 {
                     string locationResponseContent = await locationResponse.Content.ReadAsStringAsync();
                     LocationDto locationDto = JsonConvert.DeserializeObject<LocationDto>(locationResponseContent)!;
@@ -94,7 +94,7 @@ namespace HCMS.Web.Controllers
 
                 //init double model
 
-  
+
                 doubleModel.CardViewModel = model;
                 doubleModel.SelectViewModel = new CompanySelectViewModel();
 
@@ -109,7 +109,7 @@ namespace HCMS.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult>Select(CompanySelectViewModel model)
+        public async Task<IActionResult> Select(CompanySelectViewModel model)
         {
             EmployeeCompanyUpdateDto employeeDto = new EmployeeCompanyUpdateDto();
             employeeDto.CompanyName = model.Name;
@@ -138,11 +138,62 @@ namespace HCMS.Web.Controllers
                 returnModel.SelectViewModel = new CompanySelectViewModel();
 
                 //the 3rd parameter is the route attribute for redirect and in the get method if it is success it adds tempdata(check in get method)
-                return RedirectToAction("Select", "Company", new { redirect = "success"});
+                return RedirectToAction("Select", "Company", new { redirect = "success" });
             } else
             {
-                return RedirectToAction("Select", "Company", new { redirect = "error"});
+                return RedirectToAction("Select", "Company", new { redirect = "error" });
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "AGENT,ADMIN")]
+        public async Task<IActionResult> All(CompanyQueryModel model)
+        {
+            if (model == null)
+            {
+                model = new CompanyQueryModel();
+            }
+
+
+            CompanyQueryModel companyQueryDto = mapper.Map<CompanyQueryModel>(model);
+
+            string url = "api/company/all";
+            string json = JsonConvert.SerializeObject(companyQueryDto);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonContent = await response.Content.ReadAsStringAsync();
+                CompanyQueryDto responseQueryDto = JsonConvert.DeserializeObject<CompanyQueryDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                CompanyQueryModel companyQueryModel = mapper.Map<CompanyQueryModel>(responseQueryDto);
+                ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
+                return View("All", companyQueryModel);
+            }
+            else
+            {
+                return RedirectToAction("Add", "Company", new { redirect = "There is no any companies. Please first add company information!" });
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "AGENT,ADMIN")]
+        public async Task<IActionResult> Edit(string companyId)
+        {
+            if(companyId == null)
+            {
+                return View(new CompanyFormModel());
+            } 
+            else
+            {
+                return null;
             }
         }
     }
 }
+

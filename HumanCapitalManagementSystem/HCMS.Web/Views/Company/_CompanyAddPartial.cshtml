@@ -1,0 +1,21 @@
+﻿@model HCMS.Web.ViewModels.Company.CompanyFormModel
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
+            <form method="post">
+                <h1 class="text-white text-center technical-font">Work place information</h1>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" placeholder="Company name...">
+                    <span asp-validation-for="Name" class="small text-white bg-danger"></span>
+                </div>
+
+                <hr class="text-white" />
+
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3 technical-font" type="submit" value="Edit work place" />
+                </div>
+            </form>
+        </div>
+    </div>

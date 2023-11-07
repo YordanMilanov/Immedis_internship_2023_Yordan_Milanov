@@ -1,4 +1,6 @@
-﻿namespace HCMS.Services.ServiceModels.Company
+﻿using HCMS.Common.Structures;
+
+namespace HCMS.Services.ServiceModels.Company
 {
     public class CompanyDto
     {
@@ -6,6 +8,8 @@
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string IndustryField { get; set; } = null!;
+
+        public LocationStruct Location { get; set; }
         public Guid? LocationId { get; set; }
     }
 }

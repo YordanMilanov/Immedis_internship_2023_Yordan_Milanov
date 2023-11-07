@@ -1,4 +1,5 @@
-﻿using HCMS.Data;
+﻿using HCMS.Common;
+using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -102,6 +103,39 @@ namespace HCMS.Repository.Implementation
                 throw new Exception("Company not found");
             }
 
+        }
+
+        public async Task<(int, IEnumerable<Company>)> GetCurrentPageAndTotalCountAsync(int currentPage, string? searchString, int companiesPerPage)
+        {
+            try
+            {
+                IQueryable<Company> query = dbContext.Companies.Include(c => c.Location);
+
+                //check the search string
+                if (searchString != null)
+                {
+                    query = query.Where(company =>
+                    company.Name.Contains(searchString!) ||
+                    company.IndustryField.Contains(searchString!) ||
+                    company.Description.Contains(searchString!) ||
+                    company.Location!.Country.Contains(searchString!) ||
+                    company.Location!.State.Contains(searchString!) ||
+                    company.Location!.Address.Contains(searchString!));
+                }
+
+                int totalCount = await query.CountAsync();
+
+                //Pagination
+                int workRecordsCountToSkip = (currentPage - 1) * companiesPerPage;
+                query = query.Skip(workRecordsCountToSkip).Take(companiesPerPage);
+
+                List<Company> companies = await query.ToListAsync();
+                return (totalCount, companies);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            };
         }
     }
 }
