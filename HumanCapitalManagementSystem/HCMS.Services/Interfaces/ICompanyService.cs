@@ -11,5 +11,8 @@ namespace HCMS.Services.Interfaces
 
         Task<CompanyDto> GetCompanyDtoByCompanyNameAsync(string companyName);
         Task<(int, List<CompanyDto>)> GetCompaniesPageAndTotalCountAsync(CompanyQueryDto model);
+        Task<CompanyDto> GetCompanyDtoByIdAsync(Guid id);
+        Task AddCompanyDtoAsync(CompanyDto model);
+        Task EditCompanyDtoAsync(CompanyDto model);
     }
 }

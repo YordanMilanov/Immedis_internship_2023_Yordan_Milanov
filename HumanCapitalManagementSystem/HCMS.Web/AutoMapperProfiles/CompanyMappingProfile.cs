@@ -29,6 +29,14 @@ namespace HCMS.Web.AutoMapperProfiles
             CreateMap<CompanyViewModel, CompanyDto>()
                 .ForMember(dest => dest.Location, opt => opt.MapFrom(src =>
                     new LocationStruct(src.Address, src.State, src.Country)));
+
+            CreateMap<CompanyDto, CompanyFormModel>()
+            .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Location.GetAddress()))
+            .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.Location.GetState()))
+            .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Location.GetCountry()));
+
+            CreateMap<CompanyFormModel, CompanyDto>()
+                .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new LocationStruct(src.Address, src.State, src.Country)));
         }
     }
 }

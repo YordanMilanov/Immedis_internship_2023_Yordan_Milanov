@@ -273,9 +273,9 @@ namespace HCMS.Web.Api.Controllers
                 await userService.UpdateUserAsync(model);
                 return Ok("Your profile information was successfully updated!");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest("Unexpected error occurred while updating your profile!");
+                return BadRequest(ex.Message);
             }
         }
 
@@ -306,7 +306,7 @@ namespace HCMS.Web.Api.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Unexpected error occurred while updating your profile!");
+                return BadRequest("Unexpected error occurred while updating your password!");
             }
         }
     }

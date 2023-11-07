@@ -89,6 +89,13 @@ namespace HCMS.Repository.Implementation
         {
             try
             {
+                if(await this.dbContext.Users.AnyAsync(u => u.Username == model.Username && u.Id != model.Id)) {
+                    throw new Exception("Username is already used!");
+                } 
+                else if(await this.dbContext.Users.AnyAsync(u => u.Email == model.Email && u.Id != model.Id))
+                {
+                    throw new Exception("Email is already used!");
+                }
                 User user = await this.dbContext.Users.FirstAsync(u => u.Id == model.Id);
                 user.Username = model.Username;
                 user.Email = model.Email;

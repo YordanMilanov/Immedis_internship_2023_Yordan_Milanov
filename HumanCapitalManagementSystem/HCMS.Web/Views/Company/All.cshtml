@@ -60,10 +60,14 @@
             </div>
 
             @* Submit button *@
-            <div class="col-1 mt-4 form-group">
+            <div class="col-1 d-flex mt-4 form-group">
                 <div class="form-group">
                     <input type="submit" value="Search" class="btn btn-primary" />
                 </div>
+            </div>
+
+            <div class="col-2 d-flex mt-4 justify-content-center form-group">
+                <a asp-controller="Company" asp-action="Edit" class="btn btn-primary">Add Company</a>
             </div>
 
             @* next page button *@

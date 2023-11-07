@@ -1,5 +1,4 @@
-﻿using HCMS.Common;
-using HCMS.Data;
+﻿using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -16,17 +15,17 @@ namespace HCMS.Repository.Implementation
             this.dbContext = dbContext;
         }
 
-        public async Task<Company?> GetByIdAsync(Guid id)
+        public async Task<Company> GetByIdAsync(Guid id)
         {
             try
             {
                 return await dbContext.Companies
                     .Include(c => c.Location)
-                    .FirstOrDefaultAsync(c => c.Id == id);
+                    .FirstAsync(c => c.Id == id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -136,6 +135,48 @@ namespace HCMS.Repository.Implementation
             {
                 throw new Exception(ex.Message);
             };
+        }
+
+        public async Task<bool> CompanyExistsByNameAsync(string name)
+        {
+            return await this.dbContext.Companies.AnyAsync(c => c.Name == name);
+        }
+
+        public async Task AddCompanyAsync(Company model)
+        {
+            try
+            {
+                await this.dbContext.Companies.AddAsync(model);
+                await this.dbContext.SaveChangesAsync();
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task EditCompanyAsync(Company model)
+        {
+            try
+            {
+                if(await this.dbContext.Companies.AnyAsync(c => c.Name == model.Name && c.Id != model.Id))
+                {
+                    throw new Exception("Company name is already used");
+                }
+
+                Company company = await this.dbContext.Companies.Include(c => c.Location).FirstAsync(c => c.Id == model.Id);
+                company.Name = model.Name;
+                company.IndustryField = model.IndustryField;
+                company.Description = model.Description;
+                company.Location!.Address = model.Location!.Address;
+                company.Location.State = model.Location.State;
+                company.Location.Country = model.Location.Country;
+                await this.dbContext.SaveChangesAsync();
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

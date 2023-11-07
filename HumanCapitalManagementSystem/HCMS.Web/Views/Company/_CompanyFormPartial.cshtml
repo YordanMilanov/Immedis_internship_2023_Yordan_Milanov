@@ -1,23 +1,96 @@
 ﻿@model HCMS.Web.ViewModels.Company.CompanyFormModel
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
-            <form method="post">
-                <h1 class="text-white text-center technical-font">Work place information</h1>
 
-                <div class="form-group">
-                    <label class="text-white technical-font" asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" placeholder="Company name...">
-                    <span asp-validation-for="Name" class="small text-white bg-danger"></span>
+@{
+
+    string buttonText = "Add company";
+    if(Model.Id != Guid.Empty || Model.Id == null)
+    {
+        buttonText = "Edit Company";
+    }
+}
+
+<div class="container">
+    <div class="row technical-font text-white">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
+            <form class="mx-1 mx-md-4"
+                  method="post"
+                  asp-controller="Company"
+                  asp-action="Edit">
+
+                <h2 class="text-white text-center technical-font">Company Information</h2>
+
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <h3 class="mt-5 text-center">
+                        <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                    </h3>
+                }
+
+                <input type="text" id="Id" asp-for="Id" class="d-none" value="@Model.Id"/>
+
+                <div class="d-flex flex-row align-items-center">
+                    <div class="form-outline flex-fill mb-0 mt-2">
+                        <label class="form-label" for="Name">Company Name</label>
+                        <input type="text"
+                               id="Name"
+                               asp-for="Name"
+                               class="form-control" 
+                               placeholder="Company..." />
+                        <span asp-validation-for="Name" class="bg-danger text-white"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row align-items-center">
+                    <div class="form-outline flex-fill mb-0 mt-2">
+                        <label class="form-label" for="IndustryField">Industry field</label>
+                        <input type="text"
+                               id="IndustryField"
+                               asp-for="IndustryField"
+                               class="form-control"
+                               placeholder="Industry..."/>
+                        <span asp-validation-for="IndustryField" class="bg-danger text-white"></span>
+                    </div>
+                </div>
+
+
+                <div class="d-flex flex-row align-items-center">
+                    <div class="form-outline flex-fill mb-0 mt-2">
+                        <label class="form-label" for="Description">Description</label>
+                        <input type="text"
+                               id="Description"
+                               asp-for="Description"
+                               class="form-control"
+                               placeholder="Description..."/>
+                        <span asp-validation-for="Description" class="bg-danger text-white"></span>
+                    </div>
                 </div>
 
                 <hr class="text-white" />
+                <h3 class="text-white text-center technical-font">Address</h3>
 
-                <div class="text-center">
-                    <input class="btn btn-primary mt-3 technical-font" type="submit" value="Edit work place" />
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="Country"></label>
+                    <input asp-for="Country" class="form-control" placeholder="Country...">
+                    <span asp-validation-for="Country" class="small text-white bg-danger"></span>
                 </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="State"></label>
+                    <input asp-for="State" class="form-control" placeholder="State...">
+                    <span asp-validation-for="State" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="Address"></label>
+                    <input asp-for="Address" class="form-control" placeholder="Address...">
+                    <span asp-validation-for="Address" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-center mx-4 mt-5">
+                    <button type="submit" class="btn btn-primary btn-lg">@buttonText</button>
+                </div>
+
             </form>
         </div>
     </div>
-
 </div>

@@ -2,6 +2,7 @@
 using HCMS.Services;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Company;
+using HCMS.Services.ServiceModels.Education;
 using HCMS.Services.ServiceModels.User;
 using HCMS.Services.ServiceModels.WorkRecord;
 using Microsoft.AspNetCore.Mvc;
@@ -98,5 +99,63 @@ namespace HCMS.Web.Api.Controllers
             }
         }
 
+
+        [HttpGet("GetCompanyById")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetCompanyDtoById([FromQuery] string id)
+        {
+            try {
+            CompanyDto companyDto = await companyService.GetCompanyDtoByIdAsync(Guid.Parse(id));
+            string jsonToSend = JsonConvert.SerializeObject(companyDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+            return Content(jsonToSend, "application/json");
+            } catch (Exception) {
+                return NotFound("Company not found!");
+            }
+
+        }
+
+        [HttpPost("updateCompany")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> UpdateCompany()
+        {
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+
+            CompanyDto model;
+            try
+            {
+                // Deserialize the JSON
+                model = JsonConvert.DeserializeObject<CompanyDto>(jsonReceived, JsonSerializerSettingsProvider.GetCustomSettings())!;
+            }
+            catch (JsonException)
+            {
+                return BadRequest("Invalid JSON data");
+            }
+
+            try
+            {
+                if (model.Id == Guid.Empty)
+                {
+                    await companyService.AddCompanyDtoAsync(model);
+                    return Content("Successfully added the company information!", "application/json");
+                }
+                else
+                {
+                    await companyService.EditCompanyDtoAsync(model);
+                    return Content("Successfully updated the company information!", "application/json");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

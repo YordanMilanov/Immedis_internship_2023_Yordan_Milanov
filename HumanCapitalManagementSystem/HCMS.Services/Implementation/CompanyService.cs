@@ -3,7 +3,6 @@ using HCMS.Data.Models;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Company;
-using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Services.Implementation
 {
@@ -76,6 +75,53 @@ namespace HCMS.Services.Implementation
                 throw new Exception(ex.Message);
             }
 
+        }
+
+        public async Task<CompanyDto> GetCompanyDtoByIdAsync(Guid id)
+        {
+            try
+            {
+                Company company = await companyRepository.GetByIdAsync(id);
+                CompanyDto companyDto = mapper.Map<CompanyDto>(company);
+                return companyDto;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+
+        }
+
+        public async Task AddCompanyDtoAsync(CompanyDto model)
+        {
+            try
+            {
+               if(await this.companyRepository.CompanyExistsByNameAsync(model.Name))
+                {
+                    throw new Exception("Company name is already used please use another name!");
+                }
+                Company company = mapper.Map<Company>(model);
+                await this.companyRepository.AddCompanyAsync(company);
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task EditCompanyDtoAsync(CompanyDto model)
+        {
+
+            try
+            {
+                Company company = mapper.Map<Company>(model);
+                await this.companyRepository.EditCompanyAsync(company);
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

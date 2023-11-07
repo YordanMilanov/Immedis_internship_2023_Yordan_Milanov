@@ -4,7 +4,7 @@ namespace HCMS.Repository.Interfaces
 {
     public interface ICompanyRepository
     {
-        Task<Company?> GetByIdAsync(Guid id);
+        Task<Company> GetByIdAsync(Guid id);
 
         Task<Company?> GetByNameAsync(string name);
 
@@ -16,5 +16,9 @@ namespace HCMS.Repository.Interfaces
 
         Task<Company> GetCompanyByEmployeeIdAsync(Guid employeeId);
         Task <(int, IEnumerable<Company>)> GetCurrentPageAndTotalCountAsync(int currentPage, string? searchString, int companiesPerPage);
+
+        Task<bool> CompanyExistsByNameAsync(string name);
+        Task AddCompanyAsync(Company model);
+        Task EditCompanyAsync(Company company);
     }
 }

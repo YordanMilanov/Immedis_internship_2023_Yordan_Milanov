@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HCMS.Common.Structures;
 using HCMS.Data.Models;
 using HCMS.Services.ServiceModels.Company;
 
@@ -9,11 +10,12 @@ namespace HCMS.Web.Api.AutoMapperProfiles
         public CompanyMappingProfile()
         {
             // Mapping from CompanyDto to Company
-            CreateMap<CompanyDto, Company>()
-                .ForMember(dest => dest.Location, opt => opt.Ignore()); // Ignore Location mapping
+            CreateMap<CompanyDto, Company>();
 
-            // Mapping from Company to CompanyDto
-            CreateMap<Company, CompanyDto>();
+            CreateMap<Company, CompanyDto>()
+          .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new LocationStruct(src.Location!.Address, src.Location!.State, src.Location!.Country)));
+
+
         }
     }
 }

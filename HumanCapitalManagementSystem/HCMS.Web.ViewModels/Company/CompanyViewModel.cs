@@ -1,11 +1,8 @@
-﻿using HCMS.Common;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace HCMS.Web.ViewModels.Company
+﻿namespace HCMS.Web.ViewModels.Company
 {
     public class CompanyViewModel
     {
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Description { get; set; } = null!;
         public string IndustryField { get; set; } = null!;

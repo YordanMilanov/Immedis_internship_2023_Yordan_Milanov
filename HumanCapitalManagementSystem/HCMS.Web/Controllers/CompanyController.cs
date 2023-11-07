@@ -10,6 +10,8 @@ using HCMS.Services.ServiceModels.Employee;
 using System.Text;
 using HCMS.Services.ServiceModels.Location;
 using System.Net.Http.Headers;
+using HCMS.Web.ViewModels.Employee;
+using HCMS.Services.ServiceModels.User;
 
 namespace HCMS.Web.Controllers
 {
@@ -183,15 +185,68 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "AGENT,ADMIN")]
-        public async Task<IActionResult> Edit(string companyId)
+        public async Task<IActionResult> Edit(string? id, string? redirectMessage)
         {
-            if(companyId == null)
+            if(id == null)
             {
                 return View(new CompanyFormModel());
             } 
             else
             {
-                return null;
+                string url = $"api/company/GetCompanyById?id={id}";
+
+                //set JWT
+                string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+                HttpResponseMessage response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+                    CompanyDto companyDto = JsonConvert.DeserializeObject<CompanyDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                    CompanyFormModel model = mapper.Map<CompanyFormModel>(companyDto);
+
+                    return View(model);
+
+                } 
+                else
+                {
+                    TempData[WarningMessage] = "No company information was found";
+                    return View("All","Company");
+                }
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "AGENT,ADMIN")]
+        public async Task<IActionResult> Edit(CompanyFormModel model)
+        {
+            //validate input
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            CompanyDto companyDto = mapper.Map<CompanyDto>(model);
+            string json = JsonConvert.SerializeObject(companyDto, JsonSerializerSettingsProvider.GetCustomSettings());
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+            HttpResponseMessage response = await httpClient.PostAsync("/api/company/updateCompany", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = "Company information was successfully updated!";
+                return RedirectToAction("All", "Company");
+            }
+            else
+            {
+                string responseMessage = await response.Content.ReadAsStringAsync();
+                TempData[ErrorMessage] = responseMessage.Substring(1, responseMessage.Length - 2);
+                ModelState.AddModelError("ErrorMessage", responseMessage.Substring(1, responseMessage.Length - 2));
+                return View("Edit", model);
             }
         }
     }
