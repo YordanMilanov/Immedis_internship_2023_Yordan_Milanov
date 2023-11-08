@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets\\css\\Employee.css"
     },
     {
+      "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\User.css",
+      "PackagePath": "staticwebassets\\css\\User.css"
+    },
+    {
       "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\WorkRecord.css",
       "PackagePath": "staticwebassets\\css\\WorkRecord.css"
     },

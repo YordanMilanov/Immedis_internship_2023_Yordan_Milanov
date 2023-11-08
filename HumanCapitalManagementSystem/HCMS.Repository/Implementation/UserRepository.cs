@@ -1,5 +1,7 @@
-﻿using HCMS.Data;
+﻿using HCMS.Common;
+using HCMS.Data;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -105,6 +107,54 @@ namespace HCMS.Repository.Implementation
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<QueryPageWrapClass<User>> GetUserCurrentPageAsync(QueryParameterClass parameters)
+        {
+            try
+            {
+                IQueryable<User> query = dbContext.Users.Include(u => u.UsersRoles).ThenInclude(ur => ur.Role);
+
+                //check the search string
+                if (parameters.SearchString != null)
+                {
+                    query = query.Where(u =>
+                    u.Username.Contains(parameters.SearchString) ||
+                    u.Email.Contains(parameters.SearchString) ||
+                    u.UsersRoles.Any(ur => ur.Role.Name.Contains(parameters.SearchString)));
+                }
+
+                int countOfElements = query.Count();
+
+                //check the order
+                switch (parameters.OrderPageEnum)
+                {
+                    case OrderPageEnum.Newest:
+                        query = query.OrderBy(e => e.RegisterDate);
+                        break;
+                    case OrderPageEnum.Oldest:
+                        query = query.OrderByDescending(e => e.RegisterDate);
+                        break;
+                }
+
+                //Pagination
+                int usersCountToSkip = (parameters.CurrentPage - 1) * parameters.ItemsPerPage;
+                query = query.Skip(usersCountToSkip).Take(parameters.ItemsPerPage);
+
+                List<User> users = await query.ToListAsync();
+
+                QueryPageWrapClass<User> result = new QueryPageWrapClass<User>()
+                {
+                    TotalItems = countOfElements,
+                    Items = users
+                };
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            };
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 
 namespace HCMS.Repository.Interfaces
 {
@@ -12,5 +13,6 @@ namespace HCMS.Repository.Interfaces
     Task<User> GetUserByIdAsync(Guid id);
     Task<User> GetUserByUsernameAsync(string username);
     Task UpdateUserAsync(User user);
+    Task<QueryPageWrapClass<User>> GetUserCurrentPageAsync(QueryParameterClass parameters);
     }
 }

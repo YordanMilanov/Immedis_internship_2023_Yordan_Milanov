@@ -14,6 +14,7 @@ namespace HCMS.Services.AutoMapperProfiles
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => new Name(src.LastName)))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => new Email(src.Email)))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => new Phone(src.PhoneNumber)))
+                .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.Company!.Name))
                 .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new LocationStruct(src.Location!.Address, src.Location.State, src.Location.Country)));
 
             CreateMap<EmployeeDto, Employee>()

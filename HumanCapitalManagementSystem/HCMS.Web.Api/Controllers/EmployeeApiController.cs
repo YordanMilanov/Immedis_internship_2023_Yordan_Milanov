@@ -14,12 +14,10 @@ namespace HCMS.Web.Api.Controllers
     public class EmployeeApiController : ControllerBase
     {
         private readonly IEmployeeService employeeService;
-        private readonly ICompanyService companyService;
 
-        public EmployeeApiController(IEmployeeService employeeService, ICompanyService companyService)
+        public EmployeeApiController(IEmployeeService employeeService)
         {
             this.employeeService = employeeService;
-            this.companyService = companyService;
         }
 
         [HttpGet("GetEmployeeDtoByUserId")]

@@ -50,25 +50,26 @@
                 <div class="col-12 workrecords-background text-white height-25 d-flex flex-column align-items-center">
                     <!-- Content for the top right div -->
                     <div>
-                        <h1 class="text-center text-bold tech-font">Work Records</h1>
-                        <p class="text-center mt-2">Receive valuable information about the professional journey of our dedicated employees. Our platform provides a comprehensive overview of their work records</p>
+                        <h1 class="text-center text-bold tech-font">All Users</h1>
+                        <p class="text-center mt-2">Information about the registered users, their roles and permissions</p>
                     </div>
-                    <a asp-controller="WorkRecord" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to work records</a>
+                    <a asp-controller="User" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to users</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 recommendations-background text-white height-25 d-flex flex-column align-items-center">
                     <!-- Content for the bottom right div -->
                     <div>
-                        <h1 class="text-center text-bold tech-font">Recommendations</h1>
-                        <p class="text-center mt-2">Recommendations from companies which recognized the value of their workers, their skills and achievements.</p>
+                        <h1 class="text-center text-bold tech-font">Current workplace</h1>
+                        <p class=" text-center mt-2">Add information about your current work place</p>
                     </div>
-                    <a class="btn btn-outline-primary text-white border-white mt-auto mb-4">Recommendations</a>
+                    <a asp-controller="Company" asp-action="Select" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Edit your workplace</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="row height-25">
+       
         <div class="col-4 employees-background text-white d-flex flex-column align-items-center">
             <div>
                 <h1 class="text-center text-bold tech-font">Employees</h1>
@@ -76,22 +77,23 @@
             </div>
             <a asp-controller="Employee" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to employees</a>
         </div>
-      
+
         <div class="col-4 companies-background text-white d-flex flex-column align-items-center">
+            <div>
+                <h1 class="text-center text-bold tech-font">My Company Employees</h1>
+                <p class="text-center mt-2">Inspect and manage your current company employees</p>
+            </div>
+            <a asp-controller="Employee" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">employees</a>
+        </div>
+
+        <div class="col-4 employees-background text-white d-flex flex-column align-items-center">
             <div>
                 <h1 class="text-center text-bold tech-font">Companies</h1>
                 <p class=" text-center mt-2">Explore a wide array of companies, each with a unique story and vision. Our platform showcases businesses from diverse sectors</p>
             </div>
             <a asp-controller="Company" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to companies</a>
         </div>
-      
-        <div class="col-4 applications-background text-white d-flex flex-column align-items-center">
-            <div>
-                <h1 class="text-center text-bold tech-font">Applications</h1>
-                <p class=" text-center mt-2">Discover a variety of applications that address different needs and industries. Get more details about the employees provided in their applications</p>
-            </div>
-            <a class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to applications</a>
-        </div>
+
     </div>
 </div>
 

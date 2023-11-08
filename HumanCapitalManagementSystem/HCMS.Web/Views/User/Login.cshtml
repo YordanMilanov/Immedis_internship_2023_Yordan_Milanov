@@ -1,7 +1,7 @@
 ﻿@using HCMS.Web.ViewModels.User﻿;
 @model UserLoginFormModel;
 @{
-    string username = TempData.ContainsKey("LoginUsername") ? TempData["LoginUsername"].ToString() : "";
+    string username = (TempData.ContainsKey("LoginUsername") ? TempData["LoginUsername"]!.ToString() : "")!;
 }
 
 <body>

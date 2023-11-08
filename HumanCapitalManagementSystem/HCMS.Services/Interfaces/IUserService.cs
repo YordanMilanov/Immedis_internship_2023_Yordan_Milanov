@@ -1,4 +1,5 @@
-﻿using HCMS.Services.ServiceModels.User;
+﻿using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.User;
 
 namespace HCMS.Services.Interfaces
 {
@@ -18,5 +19,6 @@ namespace HCMS.Services.Interfaces
         public Task UpdateUserAsync(UserUpdateDto model);
 
         public Task UpdatePassword(UserPasswordDto model);
+        public Task<QueryDtoResult<UserViewDto>> GetUsersCurrentPageAsync(QueryDto model);
     }
 }

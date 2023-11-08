@@ -1,12 +1,15 @@
 ﻿using HCMS.Services.Interfaces;
 using HCMS.Common;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 
 namespace HCMS.Services.Implementation;
 
 using AutoMapper;
 using BCrypt.Net;
+using HCMS.Data.Models.QueryPageGenerics;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.User;
 
 internal class UserService : IUserService
@@ -141,6 +144,26 @@ internal class UserService : IUserService
         };
         await this.userRepository.UpdateUserAsync(user);
     }
+
+    public async Task<QueryDtoResult<UserViewDto>> GetUsersCurrentPageAsync(QueryDto model)
+    {
+        try
+        {
+            QueryParameterClass parameters = mapper.Map<QueryParameterClass>(model);
+
+            QueryPageWrapClass<User> pageItems = await this.userRepository.GetUserCurrentPageAsync(parameters);
+            QueryDtoResult<UserViewDto> result = mapper.Map<QueryDtoResult<UserViewDto>>(pageItems);
+            result.ItemsPerPage = model.ItemsPerPage;
+            result.CurrentPage = model.CurrentPage;
+            result.OrderPageEnum = model.OrderPageEnum;
+            result.SearchString = model.SearchString;
+            return result;
+        } catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
     public bool VerifyPassword(string hashedPassword, string providedPlainPassword)
     {
         return BCrypt.Verify(providedPlainPassword, hashedPassword);

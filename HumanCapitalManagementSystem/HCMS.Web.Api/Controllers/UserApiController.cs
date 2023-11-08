@@ -7,6 +7,9 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HCMS.Services.ServiceModels.Employee;
+using HCMS.Services.ServiceModels.WorkRecord;
+using HCMS.Services.ServiceModels.BaseClasses;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -137,7 +140,7 @@ namespace HCMS.Web.Api.Controllers
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
 
             UserLoginDto model;
-        
+
             try
             {
                 model = JsonConvert.DeserializeObject<UserLoginDto>(jsonReceived, JsonSerializerSettingsProvider.GetCustomSettings())!;
@@ -171,11 +174,21 @@ namespace HCMS.Web.Api.Controllers
             var claims = new List<Claim> { userIdClaim, usernameClaim };
 
 
-            Guid employeeId = await employeeService.GetEmployeeIdByUserId(Guid.Parse(userDto.Id.ToString()!));
-            if(employeeId != Guid.Empty)
+
+            EmployeeDto? employeeDto = await employeeService.GetEmployeeDtoByUserIdAsync(Guid.Parse(userDto.Id.ToString()!));
+            if (employeeDto != null)
             {
-                Claim employeeIdClaim = new Claim("EmployeeId", employeeId.ToString()!);
+                Claim employeeIdClaim = new Claim("EmployeeId", employeeDto.Id.ToString()!);
                 claims.Add(employeeIdClaim);
+
+                Claim employeeNameClaim = new Claim("EmployeeName", $"{employeeDto.FirstName} {employeeDto.LastName}");
+                claims.Add(employeeNameClaim);
+
+                if (employeeDto.CompanyName != null)
+                {
+                    Claim employeeCompanyName = new Claim("EmployeeCompany", employeeDto.CompanyName!);
+                    claims.Add(employeeCompanyName);
+                }
             }
 
             foreach (string role in userDto.Roles!)
@@ -186,20 +199,7 @@ namespace HCMS.Web.Api.Controllers
 
             //generate JWT
 
-            // Define your security key and other token parameters
-            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretKeySecretKey")); //ITS VERY IMPORTANT HOW LONG IS THE KEY !!!
-            SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-
-
-            JwtSecurityToken token = new JwtSecurityToken(
-                issuer: "http://localhost:9090",
-                audience: "http://localhost:8080",
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(3),
-                signingCredentials: credentials
-            );
-
+            JwtSecurityToken token = GenerateToken(claims);
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
@@ -308,6 +308,44 @@ namespace HCMS.Web.Api.Controllers
             {
                 return BadRequest("Unexpected error occurred while updating your password!");
             }
+        }
+
+        [HttpPost("allPage")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetAllCurrentPage([FromBody]QueryDto model)
+        {
+            try
+            {
+                QueryDtoResult<UserViewDto> userQueryDto = await userService.GetUsersCurrentPageAsync(model);
+                string jsonString = JsonConvert.SerializeObject(userQueryDto,Formatting.Indented,JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(jsonString, "application/json");
+
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to load the page!");
+            }
+        }
+
+        private static JwtSecurityToken GenerateToken(List<Claim> claims)
+        {
+            // Define your security key and other token parameters
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretKeySecretKey")); //ITS VERY IMPORTANT HOW LONG IS THE KEY !!!
+            SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+
+
+            JwtSecurityToken token = new JwtSecurityToken(
+                issuer: "http://localhost:9090",
+                audience: "http://localhost:8080",
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(3),
+                signingCredentials: credentials
+            );
+            return token;
         }
     }
 }

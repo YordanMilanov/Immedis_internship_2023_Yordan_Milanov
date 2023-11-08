@@ -78,18 +78,13 @@ namespace HCMS.Services.Implementation
             EmployeeDto employeeDto = mapper.Map<EmployeeDto>(employee);
             employeeDto.UserId = id;
 
-            Location location = employee.Location!;
-            if (location != null)
-            {
-                employeeDto.Location = new LocationStruct(location.Address, location.State, location.Country);
-            }
-
             return employeeDto;
         }
 
         public async Task<Guid> GetEmployeeIdByUserId(Guid userId)
         {
                 return await employeeRepository.GetEmployeeIdByUserIdAsync(userId);
+                
         }
 
         public async Task UpdateEmployeeCompanyByCompanyName(Guid employeeId, string companyName)

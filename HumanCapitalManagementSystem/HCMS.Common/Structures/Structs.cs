@@ -108,7 +108,7 @@ namespace HCMS.Common.Structures
 
         public override string ToString()
         {
-            return this.value;
+            return this.value!;
         }
     }
 

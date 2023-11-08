@@ -11,9 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using static HCMS.Common.NotificationMessagesConstants;
 using Microsoft.IdentityModel.Tokens;
-using HCMS.Services.ServiceModels.Employee;
-using HCMS.Web.ViewModels.Employee;
 using System.Net.Http.Headers;
+using HCMS.Web.ViewModels.Employee;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Web.ViewModels.BaseViewModel;
 
 namespace HCMS.Web.Controllers
 {
@@ -284,6 +285,46 @@ namespace HCMS.Web.Controllers
             {
                 ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
                 return View();
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "AGENT,ADMIN")]
+        public async Task<IActionResult> All(PageQueryModel model)
+        {
+
+            string apiUrl = "/api/users/allPage";
+
+            string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
+           
+            QueryDto queryDto = mapper.Map<QueryDto>(model);
+            string jsonToSend = JsonConvert.SerializeObject(queryDto, Formatting.Indented);
+
+            HttpContent content = new StringContent(jsonToSend, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                try
+                {
+                    string jsonContent = await response.Content.ReadAsStringAsync();
+
+                    QueryDtoResult<UserViewDto> userQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<UserViewDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                    UserQueryModel check = new UserQueryModel();
+                    UserQueryModel userQueryModel = mapper.Map<UserQueryModel>(userQueryDto);
+                    return View(userQueryModel);
+                } catch(Exception) {
+                    TempData[ErrorMessage] = "Unexpected error occurred!";
+                    return RedirectToAction("Home", "Home");
+                } 
+            } 
+            else
+            {
+                TempData[ErrorMessage] = "Unexpected error occurred!";
+                return RedirectToAction("Home", "Home");
             }
         }
     }

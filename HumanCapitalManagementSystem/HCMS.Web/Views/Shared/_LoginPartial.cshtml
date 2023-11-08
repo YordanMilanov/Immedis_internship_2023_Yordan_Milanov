@@ -7,6 +7,10 @@
                 </button>
             <ul class="dropdown-menu dropdown-menu-lg-end custom-dropdown-menu my-2">
                 <li><a class="dropdown-item" href="/User/Profile">Profile</a></li>
+                @if (User.Claims.Any(c => c.Type == "Role" && c.Value == "AGENT"))
+                {
+                    <li><a asp-controller="Employee" asp-action="All" class="dropdown-item">My Company employees</a></li>
+                }
                 <li><a class="dropdown-item" href="/WorkRecord/AllPersonal">My Work Records</a></li>
                 <li><a class="dropdown-item" href="/Education/All">My Educations</a></li>
                 <li><a class="dropdown-item" href="/User/Logout">Logout</a></li>

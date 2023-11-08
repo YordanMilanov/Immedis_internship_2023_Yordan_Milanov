@@ -8,6 +8,6 @@ namespace HCMS.Services.ServiceModels.Employee
         public int CurrentPage { get; set; }
         public int TotalEmployees { get; set; }
         public int EmployeesPerPage { get; set; }
-        public IEnumerable<EmployeeDto> Employees { get; set; }
+        public IEnumerable<EmployeeDto>? Employees { get; set; }
     }
 }

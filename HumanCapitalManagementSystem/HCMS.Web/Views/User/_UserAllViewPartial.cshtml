@@ -1,0 +1,13 @@
+﻿@model HCMS.Web.ViewModels.User.UserViewModel
+
+<div class="col-3 card-partial">
+    <div class="mb-3 mt-1 mx-2 technical-font">
+        <div>
+            <h3 class="text-bold text-center"><b>@Model.Username</b></h3>
+            <p>Email: <b>@Model.Email</b></p>
+            <p>Roles: <b>@string.Join(", ", Model.Roles!)</b></p>
+            <p>Registration date: <b>@Model.RegisterDate.ToString("dd.MM.yyyy")</b></p>
+            <p id="id" type="hidden" class="hidden" value="@Model.Id" />
+        </div>
+    </div>
+</div>

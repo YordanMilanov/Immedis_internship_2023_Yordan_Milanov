@@ -45,6 +45,7 @@ namespace HCMS.Repository.Implementation
             {
                 return await dbContext.Employees
                     .Include(e => e.Location)
+                    .Include(e => e.Company)
                     .AsTracking()
                     .FirstOrDefaultAsync(e => e.UserId == id);
             }
@@ -94,7 +95,7 @@ namespace HCMS.Repository.Implementation
         {
             try
             {
-                return await dbContext.Employees.FirstAsync(e => e.Id == id);
+                return await dbContext.Employees.Include(e => e.Company).FirstAsync(e => e.Id == id);
             }
             catch (Exception)
             {

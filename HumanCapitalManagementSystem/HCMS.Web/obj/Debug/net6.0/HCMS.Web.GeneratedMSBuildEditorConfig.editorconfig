@@ -128,6 +128,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/User/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/User/ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -150,6 +154,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/User/_PasswordUpdatePartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfUGFzc3dvcmRVcGRhdGVQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserAllViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlckFsbFZpZXdQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserCardPartial.cshtml]
