@@ -1,4 +1,5 @@
 ﻿using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
 using HCMS.Services.ServiceModels.Employee;
 using Microsoft.AspNetCore.Authorization;
@@ -122,16 +123,33 @@ namespace HCMS.Web.Api.Controllers
         {
 
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
-            EmployeeQueryDto model = JsonConvert.DeserializeObject<EmployeeQueryDto>(jsonReceived)!;
+            QueryDto model = JsonConvert.DeserializeObject<QueryDto>(jsonReceived)!;
             try
             {
-                EmployeeQueryDto employeeQueryDto = await employeeService.GetCurrentPageAsync(model);
+                QueryDtoResult<EmployeeDto> employeeQueryDto = await employeeService.GetCurrentPageAsync(model);
                 string jsonToSend = JsonConvert.SerializeObject(employeeQueryDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
                 return Content(jsonToSend, "application/json");
             }
             catch (Exception)
             {
                 return BadRequest("Unexpected error occured while trying to update to new company!");
+            }
+        }
+
+        [HttpGet("Dismiss")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> EmployeeDismissCompany([FromQuery]string id)
+        {
+            try
+            {
+                await this.employeeService.RemoveEmployeeCompanyByIdAsync(Guid.Parse(id));
+                return Ok("The company was successfully left!");
+            } catch(Exception)
+            {
+                return BadRequest("Unexpected error occurred!");
             }
         }
     }

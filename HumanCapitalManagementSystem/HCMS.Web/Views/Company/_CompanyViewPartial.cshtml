@@ -1,4 +1,6 @@
-﻿@model HCMS.Web.ViewModels.Company.CompanyViewModel
+﻿@using System.Security.Claims;
+@using HCMS.Common;
+@model HCMS.Web.ViewModels.Company.CompanyViewModel
 @{
     string location = "";
     if (Model?.Country != null)
@@ -26,10 +28,16 @@
             {
                 <p>Address: <b>@location</b></p>
             }
-            <div class="text-center mt-3">
-                <a asp-controller="Company" asp-action="Edit" asp-route-id="@Model.Id"
-                   class="btn btn-success">Edit</a>
-            </div>
+            
+            @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
+            {
+                @if (User.Claims.Any(claim => claim.Type == "EmployeeCompany" && claim.Value == Model.Name))
+                {
+                    <div class="text-center mt-3">
+                        <a asp-controller="Company" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+                    </div>
+                }
+            }
         </div>
     </div>
 </div>

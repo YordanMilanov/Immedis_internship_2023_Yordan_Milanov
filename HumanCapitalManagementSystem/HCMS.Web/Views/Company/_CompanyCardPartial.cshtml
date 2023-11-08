@@ -1,11 +1,14 @@
-﻿@using HCMS.Web.ViewModels.Company;
+﻿@using HCMS.Common;
+@using HCMS.Web.ViewModels.Company;
 @model CompanyViewModel;
 @using static HCMS.Common.RoleConstants;
 @using HCMS.Web.WebServices.Interfaces
+@using System.Security.Claims;
 @inject ICompanyWebService companyWebService;
 
 @{
     IEnumerable<string> companyNames = await companyWebService.GetAllCompanyNamesFromApiAsync();
+    string employeeId = User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")?.Value!;
     string location = "";
     if (Model?.Country != null)
     {
@@ -32,7 +35,21 @@
                 {
                     <p>Address: @location</p>
                 }
+
+            <div class="text-center mb-2">
+                <a asp-controller="Employee" asp-action="Dismiss" asp-route-id="@employeeId" class="btn btn-warning">Leave</a>
             </div>
+            </div>
+
+        @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
+        {
+            @if (User.Claims.Any(claim => claim.Type == "EmployeeCompany" && claim.Value == Model.Name))
+            {
+                <div class="text-center mb-1">
+                    <a asp-controller="Company" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
+                </div>
+            }
+        }
         </div>
         <hr class="text-white"/>
 }

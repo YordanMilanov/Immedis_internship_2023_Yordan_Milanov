@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using HCMS.Common.Structures;
-using HCMS.Data;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
-using HCMS.Services.ServiceModels.Company;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Services.Implementation
@@ -107,30 +106,36 @@ namespace HCMS.Services.Implementation
 
         }
 
-        public async Task<EmployeeQueryDto> GetCurrentPageAsync(EmployeeQueryDto model)
+        public async Task<QueryDtoResult<EmployeeDto>> GetCurrentPageAsync(QueryDto model)
         {
             try
             {
-                (int, IEnumerable<Employee>) result = await this.employeeRepository.GetCurrentPageAsync(model.CurrentPage, model.EmployeesPerPage, model.SearchString, model.OrderPageEnum);
+                QueryParameterClass parameters = mapper.Map<QueryParameterClass>(model);
+                QueryPageWrapClass<Employee> result = await this.employeeRepository.GetCurrentPageAsync(parameters);
 
-                if (result is (int totalCount, List<Employee> companies))
-                {
-                    List<EmployeeDto> employeeDtos = companies.Select(c => mapper.Map<EmployeeDto>(c)).ToList();
-                    model.TotalEmployees = totalCount;
-                    model.Employees = employeeDtos;
-                    return model;
-                }
-                else
-                {
-                    throw new Exception("Unexpected error occurred!");
-                };
+                QueryDtoResult<EmployeeDto> modelToReturn = mapper.Map<QueryDtoResult<EmployeeDto>>(result);
+                modelToReturn.CurrentPage = model.CurrentPage;
+                modelToReturn.OrderPageEnum = model.OrderPageEnum;
+                modelToReturn.ItemsPerPage = model.ItemsPerPage;
+                modelToReturn.SearchString = model.SearchString;
+                return modelToReturn;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
 
-            throw new NotImplementedException();
+        public async Task RemoveEmployeeCompanyByIdAsync(Guid id)
+        {
+            try
+            {
+                await this.employeeRepository.LeaveCompanyByIdAsync(id);
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using HCMS.Services.ServiceModels.Employee;
+﻿using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Services.Interfaces
 {
@@ -11,6 +12,7 @@ namespace HCMS.Services.Interfaces
         Task<Guid> GetEmployeeIdByUserId(Guid userId);
 
         Task UpdateEmployeeCompanyByCompanyName(Guid employeeId, string companyName);
-        Task<EmployeeQueryDto> GetCurrentPageAsync(EmployeeQueryDto model);
+        Task<QueryDtoResult<EmployeeDto>> GetCurrentPageAsync(QueryDto model);
+        Task RemoveEmployeeCompanyByIdAsync(Guid id);
     }
 }

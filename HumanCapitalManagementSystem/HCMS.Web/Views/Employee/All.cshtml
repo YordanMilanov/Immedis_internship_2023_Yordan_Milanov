@@ -1,5 +1,6 @@
-﻿@using HCMS.Web.ViewModels.Employee;
-@model EmployeeQueryModel;
+﻿@using HCMS.Web.ViewModels.BaseViewModel;
+@using HCMS.Web.ViewModels.Employee;
+@model ResultQueryModel<EmployeeViewModel>;
 @{
     ViewBag.Title = "All Employees";
 }
@@ -12,10 +13,10 @@
         previousPage = 1;
     }
 
-    int maxPage = (int)Math.Ceiling((double)Model.TotalEmployees /
-                                    Model.EmployeesPerPage);
+    int maxPage = (int)Math.Ceiling((double)Model.TotalItems /
+                                    Model.ItemsPerPage);
 
-    bool shouldNextPageButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Employees.Any();
+    bool shouldNextPageButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Items.Any();
 }
 
 <div class="container all-container technical-font">
@@ -36,8 +37,8 @@
             @* Per Page Select *@
             <div class="col-3 form-group text-center justify-content-center">
                 <div class="form-group">
-                    <label asp-for="EmployeesPerPage"></label>
-                    <select asp-for="EmployeesPerPage" class="form-control text-center">
+                    <label asp-for="ItemsPerPage"></label>
+                    <select asp-for="ItemsPerPage" class="form-control text-center">
                         <option value="3">3</option>
                         <option value="6">6</option>
                         <option value="9">9</option>
@@ -83,14 +84,14 @@
     <hr />
 
     @* Work Record Cards *@
-    @if (!Model.Employees.Any())
+    @if (!Model.Items.Any())
     {
         <h2 class="text-center">No employees were found!</h2>
     }
 
     <div class="container">
         <div class="row justify-content-center">
-            @foreach (var employee in Model.Employees)
+            @foreach (var employee in Model.Items)
             {
                 <partial name="_EmployeeViewPartial" model="@employee" />
             }
@@ -102,7 +103,7 @@
     @* Page navigation *@
     <div class="row justify-content-center">
         <div class="col-1 mb-3 d-flex justify-content-center">
-            @if (Model.Employees.Any())
+            @if (Model.Items.Any())
             {
                 @if (maxPage == 1)
                 {

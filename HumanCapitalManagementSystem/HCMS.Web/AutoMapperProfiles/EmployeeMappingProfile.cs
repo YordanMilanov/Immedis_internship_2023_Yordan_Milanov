@@ -2,7 +2,9 @@
 {
     using AutoMapper;
     using HCMS.Common.Structures;
+    using HCMS.Services.ServiceModels.BaseClasses;
     using HCMS.Services.ServiceModels.Employee;
+    using HCMS.Web.ViewModels.BaseViewModel;
     using HCMS.Web.ViewModels.Employee;
 
     public class EmployeeMappingProfile : Profile
@@ -54,6 +56,9 @@
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Location.GetAddress()))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.Location.GetState()))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Location.GetCountry()));
+
+            CreateMap<ResultQueryModel<EmployeeViewModel>, QueryDto>();
+            CreateMap<QueryDtoResult<EmployeeDto>, ResultQueryModel<EmployeeViewModel>>();
         }
     }
 }

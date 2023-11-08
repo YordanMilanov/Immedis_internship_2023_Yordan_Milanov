@@ -1,6 +1,7 @@
 ﻿using HCMS.Common;
 using HCMS.Data;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -142,30 +143,29 @@ namespace HCMS.Repository.Implementation
             }
         }
 
-        public async Task<(int, IEnumerable<Employee>)> GetCurrentPageAsync(int currentPage, int employeesPerPage, string? searchString, OrderPageEnum orderPageEnum)
+        public async Task<QueryPageWrapClass<Employee>> GetCurrentPageAsync(QueryParameterClass parameters)
         {
             try
             {
                 IQueryable<Employee> query = dbContext.Employees.Include(e => e.Location).Include(e => e.Company);
-
                 //check the search string
-                if (searchString != null)
+                if (parameters.SearchString != null)
                 {
                     query = query.Where(e =>
-                    e.FirstName.Contains(searchString!) ||
-                    e.LastName.Contains(searchString!) ||
-                    e.Email.Contains(searchString!) ||
-                    e.PhoneNumber.Contains(searchString!) ||
-                    e.Location!.Address.Contains(searchString!) ||
-                    e.Location.State.Contains(searchString!) ||
-                    e.Location.Country.Contains(searchString!) ||
-                    e.Company!.Name.Contains(searchString!));
+                    e.FirstName.Contains(parameters.SearchString!) ||
+                    e.LastName.Contains(parameters.SearchString!) ||
+                    e.Email.Contains(parameters.SearchString!) ||
+                    e.PhoneNumber.Contains(parameters.SearchString!) ||
+                    e.Location!.Address.Contains(parameters.SearchString!) ||
+                    e.Location.State.Contains(parameters.SearchString!) ||
+                    e.Location.Country.Contains(parameters.SearchString!) ||
+                    e.Company!.Name.Contains(parameters.SearchString!));
                 }
 
                 int countOfElements = query.Count();
 
                 //check the order
-                switch (orderPageEnum)
+                switch (parameters.OrderPageEnum)
                 {
                     case OrderPageEnum.Newest:
                         query = query.OrderBy(e => e.AddDate);
@@ -176,16 +176,35 @@ namespace HCMS.Repository.Implementation
                 }
 
                 //Pagination
-                int employeesCountToSkip = (currentPage - 1) * employeesPerPage;
-                query = query.Skip(employeesCountToSkip).Take(employeesPerPage);
+                int employeesCountToSkip = (parameters.CurrentPage - 1) * parameters.ItemsPerPage;
+                query = query.Skip(employeesCountToSkip).Take(parameters.ItemsPerPage);
 
                 List<Employee> employees = await query.ToListAsync();
-                return (countOfElements, employees);
+                return new QueryPageWrapClass<Employee>()
+                {
+                    Items = employees,
+                    TotalItems = countOfElements
+                };
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             };
+        }
+
+        public async Task LeaveCompanyByIdAsync(Guid id)
+        {
+            try
+            {
+                Employee employee = await this.dbContext.Employees.FirstAsync(e => e.Id == id);
+                employee.CompanyId = null;
+                employee.Company = null;
+                await this.dbContext.SaveChangesAsync();
+            } 
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

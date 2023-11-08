@@ -14,17 +14,16 @@ namespace HCMS.Web.AutoMapperProfiles
         {
             CreateMap<QueryDto, PageQueryModel>().ReverseMap();
             
-            CreateMap<PageQueryModel, UserQueryModel>()
-                .ForMember(dest => dest.Items, opt => opt.Ignore())
-                .ReverseMap();
 
-            CreateMap<UserQueryModel, QueryDtoResult<UserViewDto>>()
+            CreateMap<ResultQueryModel<UserViewModel>, QueryDtoResult<UserViewDto>>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items))
                 .ForMember(dest => dest.TotalItems, opt => opt.MapFrom(src => src.TotalItems));
 
-            CreateMap<QueryDtoResult<UserViewDto>, UserQueryModel>()
+            CreateMap<QueryDtoResult<UserViewDto>, ResultQueryModel<UserViewModel>>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items))
                 .ForMember(dest => dest.TotalItems, opt => opt.MapFrom(src => src.TotalItems));
+
+
         }
     }
 }

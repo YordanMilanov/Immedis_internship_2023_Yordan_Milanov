@@ -42,7 +42,7 @@ namespace HCMS.Web.ViewModels.Employee
 
         [Required]
         [Display(Name = "Birth date")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         public DateTime AddDate { get; set; }
 

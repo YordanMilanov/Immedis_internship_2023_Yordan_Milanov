@@ -317,8 +317,7 @@ namespace HCMS.Web.Controllers
                     string jsonContent = await response.Content.ReadAsStringAsync();
 
                     QueryDtoResult<UserViewDto> userQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<UserViewDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-                    UserQueryModel check = new UserQueryModel();
-                    UserQueryModel userQueryModel = mapper.Map<UserQueryModel>(userQueryDto);
+                    ResultQueryModel<UserViewModel> userQueryModel = mapper.Map<ResultQueryModel<UserViewModel>>(userQueryDto);
                     return View(userQueryModel);
                 } catch(Exception) {
                     TempData[ErrorMessage] = "Unexpected error occurred!";

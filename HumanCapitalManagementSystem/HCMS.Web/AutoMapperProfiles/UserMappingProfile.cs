@@ -2,6 +2,10 @@
 using HCMS.Common.Structures;
 using HCMS.Web.ViewModels.User;
 using HCMS.Services.ServiceModels.User;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
+using HCMS.Web.ViewModels.BaseViewModel;
+using HCMS.Web.ViewModels.Employee;
 
 namespace HCMS.Web.AutoMapperProfiles
 {
@@ -31,6 +35,9 @@ namespace HCMS.Web.AutoMapperProfiles
             CreateMap<UserUpdateFormModel, UserUpdateDto>().ReverseMap();
             CreateMap<UserPasswordFormModel, UserPasswordDto>();
             CreateMap<UserRoleFormModel, UserRoleUpdateDto>().ReverseMap();
+
+            CreateMap<ResultQueryModel<UserViewModel>, QueryDto>();
+            CreateMap<QueryDtoResult<EmployeeDto>, ResultQueryModel<UserViewModel>>();
         }
     }
 }

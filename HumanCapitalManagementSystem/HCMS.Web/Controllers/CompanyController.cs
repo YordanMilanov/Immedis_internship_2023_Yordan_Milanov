@@ -64,7 +64,7 @@ namespace HCMS.Web.Controllers
             {
                 ModelState.AddModelError("ErrorMessage", "To be able to add the current workplace, first you need to add your personal information!");
                 TempData[ErrorMessage] = "Add employee information, please!";
-                return View("~/Views/Employee/Edit.cshtml");
+                return RedirectToAction("Edit", "Employee");
             }
 
             //user has employee information
@@ -78,25 +78,11 @@ namespace HCMS.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string responseContent = await response.Content.ReadAsStringAsync();
-                CompanyDto companyDto = JsonConvert.DeserializeObject<CompanyDto>(responseContent)!;
+                CompanyDto companyDto = JsonConvert.DeserializeObject<CompanyDto>(responseContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                 CompanyViewModel model = mapper.Map<CompanyViewModel>(companyDto);
 
-                //check if company has Location and take it
-                string LocationDtoApiUrl = $"/api/Location/GetLocationById?id={companyDto.LocationId}";
-                HttpResponseMessage locationResponse = await httpClient.GetAsync(LocationDtoApiUrl);
-
-                if (locationResponse.IsSuccessStatusCode)
-                {
-                    string locationResponseContent = await locationResponse.Content.ReadAsStringAsync();
-                    LocationDto locationDto = JsonConvert.DeserializeObject<LocationDto>(locationResponseContent)!;
-                    model.Country = locationDto.Country!;
-                    model.State = locationDto.State!;
-                    model.Address = locationDto.Address!;
-                }
 
                 //init double model
-
-
                 doubleModel.CardViewModel = model;
                 doubleModel.SelectViewModel = new CompanySelectViewModel();
 
@@ -139,7 +125,6 @@ namespace HCMS.Web.Controllers
                 returnModel.CardViewModel = mapper.Map<CompanyViewModel>(companyDto);
                 returnModel.SelectViewModel = new CompanySelectViewModel();
 
-                //the 3rd parameter is the route attribute for redirect and in the get method if it is success it adds tempdata(check in get method)
                 return RedirectToAction("Select", "Company", new { redirect = "success" });
             } else
             {

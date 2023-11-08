@@ -11,6 +11,8 @@ using HCMS.Services.ServiceModels.Employee;
 using System.Net.Http.Headers;
 using HCMS.Services.ServiceModels.Company;
 using HCMS.Web.ViewModels.Company;
+using HCMS.Common;
+using HCMS.Services.ServiceModels.BaseClasses;
 
 namespace HCMS.Web.Controllers
 {
@@ -26,7 +28,7 @@ namespace HCMS.Web.Controllers
             this.mapper = mapper;
         }
 
-        [Authorize(Roles = "AGENT,ADMIN")]
+        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
         public async Task<IActionResult> All(EmployeeQueryModel model)
         {
             if (model == null)
@@ -35,10 +37,13 @@ namespace HCMS.Web.Controllers
             }
 
 
+            //change
             EmployeeQueryDto companyQueryDto = mapper.Map<EmployeeQueryDto>(model);
+            QueryDto QueryDto = mapper.Map<QueryDto>(model);
+
 
             string url = "api/employee/page";
-            string json = JsonConvert.SerializeObject(companyQueryDto);
+            string json = JsonConvert.SerializeObject(QueryDto);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             //set JWT
@@ -50,7 +55,7 @@ namespace HCMS.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string jsonContent = await response.Content.ReadAsStringAsync();
-                EmployeeQueryDto responseQueryDto = JsonConvert.DeserializeObject<EmployeeQueryDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                QueryDtoResult<EmployeeDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<EmployeeDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                 EmployeeQueryModel employeeQueryModel = mapper.Map<EmployeeQueryModel>(responseQueryDto);
                 return View(employeeQueryModel);
             }
@@ -68,7 +73,7 @@ namespace HCMS.Web.Controllers
             if(redirect != null)
             {
                 TempData[WarningMessage] = redirect;
-                return View();
+                return View(new EmployeeFormModel());
             }
 
             //get currently logged user ID
@@ -105,7 +110,7 @@ namespace HCMS.Web.Controllers
                   return View(model);
                 }
             }
-            return View();
+            return View(new EmployeeFormModel());
         }
 
         [HttpPost]
@@ -180,5 +185,34 @@ namespace HCMS.Web.Controllers
                 return View(model);
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Dismiss(string id)
+        {
+            //set the userIdGuid as query param
+            string apiUrl = $"/api/employee/Dismiss?id={id}";
+
+            //set the JWT to the httpClient
+            string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
+
+            // Make get request
+            HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = "You have successfully left the company!";
+                return RedirectToAction("Home", "Home");
+            } 
+            else
+            {
+                TempData[ErrorMessage] = await response.Content.ReadAsStringAsync();
+                return RedirectToAction("Company", "Select");
+            }
+        }
+
+
     }
 }

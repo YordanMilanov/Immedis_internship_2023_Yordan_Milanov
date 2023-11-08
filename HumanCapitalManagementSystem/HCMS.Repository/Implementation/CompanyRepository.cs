@@ -93,6 +93,7 @@ namespace HCMS.Repository.Implementation
                 Company? company = await dbContext.Employees
                             .Where(e => e.Id == employeeId)
                             .Include(e => e.Company)
+                            .ThenInclude(c => c!.Location)
                             .Select(e => e.Company)
                             .FirstAsync();
                 return company!;

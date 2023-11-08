@@ -57,7 +57,7 @@ namespace HCMS.Web.Api.Controllers
             try
             {
                 CompanyDto companyDto = await companyService.GetCompanyDtoByEmployeeIdAsync(Guid.Parse(employeeId));
-                string jsonToSend = JsonConvert.SerializeObject(companyDto, Formatting.Indented);
+                string jsonToSend = JsonConvert.SerializeObject(companyDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
                 return Content(jsonToSend, "application/json");
             } catch (Exception)
             {

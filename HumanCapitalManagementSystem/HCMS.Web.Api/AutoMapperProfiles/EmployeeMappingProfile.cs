@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using HCMS.Common.Structures;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Services.AutoMapperProfiles
@@ -23,6 +25,12 @@ namespace HCMS.Services.AutoMapperProfiles
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.ToString()))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber.ToString()))
                 .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new Location {Address = src.Location.GetAddress(),State = src.Location.GetState(), Country = src.Location.GetCountry()}));
+
+            CreateMap<QueryPageWrapClass<Employee>, QueryDtoResult<EmployeeDto>>()
+                .ForMember(dest => dest.TotalItems, opt => opt.MapFrom(src => src.TotalItems))
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items))
+                .ReverseMap();
+
         }
     }
 }
