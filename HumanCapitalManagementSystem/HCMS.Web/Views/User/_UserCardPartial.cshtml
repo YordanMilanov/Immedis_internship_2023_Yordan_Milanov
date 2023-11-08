@@ -1,7 +1,13 @@
-﻿@model HCMS.Web.ViewModels.User.UserViewModel
+﻿@using System.Security.Claims;
+@using HCMS.Common;
+@using HCMS.Web.ViewModels.User;
+@model UserViewModel;
+
 
 @{
     string modelJson = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+    UserRoleFormModel roleModel = new UserRoleFormModel();
+    roleModel.Id = Model.Id;
 }
 <div class="col-3 card-partial">
     <div class="mb-3 mt-1 mx-2 technical-font">
@@ -13,16 +19,31 @@
             <p>Registration date: <b>@Model.RegisterDate.ToString("dd.MM.yyyy")</b></p>
             <p id="id" type="hidden" class="hidden" value="@Model.Id" />
             
-            <div class="mt-3 d-flex justify-content-center">
-                <form method="get" action="@Url.Action("EditProfile", "User")">
-                    <input type="hidden" name="modelJson" value="@modelJson" />
-                    <button type="submit" class="btn btn-outline-dark mx-1">Edit Profile</button>
-                </form>
-                <form method="get" action="@Url.Action("ChangePassword", "User")">
-                    <input type="hidden" name="modelJson" value="@modelJson" />
-                    <button class="btn btn-outline-dark mx-1">Change Password</button>
-                </form>
-            </div>
+            @if(User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value == Model.Id.ToString())
+            {
+                <div class="mt-3 d-flex justify-content-center">
+                    <form method="get" action="@Url.Action("EditProfile", "User")">
+                        <input type="hidden" name="modelJson" value="@modelJson" />
+                        <button type="submit" class="btn btn-outline-dark mx-1">Edit Profile</button>
+                    </form>
+                    <form method="get" action="@Url.Action("ChangePassword", "User")">
+                        <input type="hidden" name="modelJson" value="@modelJson" />
+                        <button class="btn btn-outline-dark mx-1">Change Password</button>
+                    </form>
+                </div>
+            }
+
+            @if (User.IsInRole(RoleConstants.ADMIN))
+            {
+                <hr />
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="d-flex justify-content-center mx-auto">
+                            <partial name="_UserRoleFormPartial" model="@roleModel" />
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

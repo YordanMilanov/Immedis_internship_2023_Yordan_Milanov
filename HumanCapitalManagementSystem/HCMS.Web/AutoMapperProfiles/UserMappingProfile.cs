@@ -30,6 +30,7 @@ namespace HCMS.Web.AutoMapperProfiles
             CreateMap<UserViewDto, UserViewModel>().ReverseMap();
             CreateMap<UserUpdateFormModel, UserUpdateDto>().ReverseMap();
             CreateMap<UserPasswordFormModel, UserPasswordDto>();
+            CreateMap<UserRoleFormModel, UserRoleUpdateDto>().ReverseMap();
         }
     }
 }

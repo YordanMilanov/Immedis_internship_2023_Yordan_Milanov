@@ -88,16 +88,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcX0VtcGxveWVlVmlld1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/Home/HomeAdmin.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lQWRtaW4uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/Home/HomeAgent.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lQWdlbnQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/Home/HomeEmployee.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lRW1wbG95ZWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/Home/HomeStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lU3RhZmYuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/Home/Index.cshtml]
@@ -162,6 +158,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserCardPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlckNhcmRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserRoleFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlclJvbGVGb3JtUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov_Failing/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserUpdatePartial.cshtml]

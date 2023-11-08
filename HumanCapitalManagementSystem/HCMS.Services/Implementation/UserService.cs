@@ -16,12 +16,14 @@ internal class UserService : IUserService
 {
     private readonly IRoleRepository roleRepository;
     private readonly IUserRepository userRepository;
+    private readonly IUserRoleRepository userRoleRepository;
     private readonly IMapper mapper;
 
-    public UserService(IRoleRepository roleRepository, IUserRepository userRepository, IMapper mapper)
+    public UserService(IRoleRepository roleRepository, IUserRepository userRepository, IMapper mapper, IUserRoleRepository userRoleRepository)
     {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.userRoleRepository = userRoleRepository;
         this.mapper = mapper;
     }
 
@@ -100,7 +102,7 @@ internal class UserService : IUserService
         }
     }
 
-    public async Task<UserDto> GetUserDtoByUsername(string username)
+    public async Task<UserDto> GetUserDtoByUsernameAsync(string username)
     {
         User user = await userRepository.GetUserByUsernameAsync(username);
         UserDto userDto = mapper.Map<UserDto>(user);
@@ -108,7 +110,7 @@ internal class UserService : IUserService
     }
 
 
-    public async Task<UserViewDto> GetUserViewDtoById(Guid id)
+    public async Task<UserViewDto> GetUserViewDtoByIdAsync(Guid id)
     {
         try
         {
@@ -135,7 +137,7 @@ internal class UserService : IUserService
         }
     }
 
-    public async Task UpdatePassword(UserPasswordDto model)
+    public async Task UpdatePasswordAsync(UserPasswordDto model)
     {
        User user = await this.userRepository.GetUserByIdAsync(model.Id);
         if(VerifyPassword(user.Password, model.CurrentPassword)){
@@ -153,10 +155,12 @@ internal class UserService : IUserService
 
             QueryPageWrapClass<User> pageItems = await this.userRepository.GetUserCurrentPageAsync(parameters);
             QueryDtoResult<UserViewDto> result = mapper.Map<QueryDtoResult<UserViewDto>>(pageItems);
+           
             result.ItemsPerPage = model.ItemsPerPage;
             result.CurrentPage = model.CurrentPage;
             result.OrderPageEnum = model.OrderPageEnum;
             result.SearchString = model.SearchString;
+
             return result;
         } catch(Exception ex)
         {
@@ -169,4 +173,30 @@ internal class UserService : IUserService
         return BCrypt.Verify(providedPlainPassword, hashedPassword);
     }
 
+    public async Task UpdateUserRoleAsync(UserRoleUpdateDto model)
+    {
+        try
+        {
+            Role role = await this.roleRepository.GetRoleByRoleName(model.Role);
+
+            UserRole userRole = new UserRole()
+            {
+                UserId = model.Id,
+                RoleId = role.Id
+            };
+
+            if(model.Action == ActionEnum.ADD)
+            {
+                await this.userRoleRepository.AddUserRoleAsync(userRole);
+            }
+            else if (model.Action == ActionEnum.REMOVE)
+            {
+                await this.userRoleRepository.RemoveUserRoleAsync(userRole);
+            }
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 }

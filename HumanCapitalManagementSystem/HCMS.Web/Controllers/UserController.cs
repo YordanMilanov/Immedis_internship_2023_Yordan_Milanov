@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using HCMS.Web.ViewModels.Employee;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Web.ViewModels.BaseViewModel;
+using HCMS.Common;
 
 namespace HCMS.Web.Controllers
 {
@@ -37,6 +38,8 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
+
         public async Task<IActionResult> Login(UserLoginFormModel model)
         {
             //validate input
@@ -119,6 +122,8 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
+
         public async Task<IActionResult> Register(UserRegisterFormModel model)
         {
             //validate input
@@ -161,6 +166,8 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
+
         public async Task<IActionResult> Logout() 
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -169,12 +176,9 @@ namespace HCMS.Web.Controllers
         
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Profile() {
+        public async Task<IActionResult> Profile(string id) {
 
-            Claim userIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!;
-            string userId = userIdClaim.Value;
-
-            string apiUrl = $"/api/users/GetUserViewDtoById?Id={userId}";
+            string apiUrl = $"/api/users/GetUserViewDtoById?Id={id}";
 
             string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
             this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
@@ -326,6 +330,33 @@ namespace HCMS.Web.Controllers
                 TempData[ErrorMessage] = "Unexpected error occurred!";
                 return RedirectToAction("Home", "Home");
             }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleConstants.ADMIN)]
+        public async Task<IActionResult> Role(UserRoleFormModel model)
+        {
+            UserRoleUpdateDto userToBeUpdated = mapper.Map<UserRoleUpdateDto>(model);
+
+            string apiUrl = $"/api/users/updateRole";
+
+            string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
+
+            string jsonToSend = JsonConvert.SerializeObject(userToBeUpdated, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+            HttpContent content = new StringContent(jsonToSend, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PatchAsync(apiUrl, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = "User roles have been successfully updated!";
+            } 
+            else
+            {
+                TempData[WarningMessage] = await response.Content.ReadAsStringAsync();
+            }
+            return RedirectToAction("Profile", "User", new { id = model.Id});
         }
     }
 }

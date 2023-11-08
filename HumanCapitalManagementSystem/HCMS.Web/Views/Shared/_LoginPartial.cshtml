@@ -6,7 +6,7 @@
                     @User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value
                 </button>
             <ul class="dropdown-menu dropdown-menu-lg-end custom-dropdown-menu my-2">
-                <li><a class="dropdown-item" href="/User/Profile">Profile</a></li>
+                <li><a class="dropdown-item" asp-controller="User" asp-action="Profile" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value">Profile</a></li>
                 @if (User.Claims.Any(c => c.Type == "Role" && c.Value == "AGENT"))
                 {
                     <li><a asp-controller="Employee" asp-action="All" class="dropdown-item">My Company employees</a></li>

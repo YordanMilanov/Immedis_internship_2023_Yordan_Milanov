@@ -12,13 +12,14 @@ namespace HCMS.Services.Interfaces
 
         public Task<bool> IsPasswordMatchByUsername(string username, string password);
 
-        public Task<UserDto> GetUserDtoByUsername(string username);
+        public Task<UserDto> GetUserDtoByUsernameAsync(string username);
 
-        public Task<UserViewDto> GetUserViewDtoById(Guid id);
+        public Task<UserViewDto> GetUserViewDtoByIdAsync(Guid id);
 
         public Task UpdateUserAsync(UserUpdateDto model);
 
-        public Task UpdatePassword(UserPasswordDto model);
+        public Task UpdatePasswordAsync(UserPasswordDto model);
         public Task<QueryDtoResult<UserViewDto>> GetUsersCurrentPageAsync(QueryDto model);
+        Task UpdateUserRoleAsync(UserRoleUpdateDto model);
     }
 }

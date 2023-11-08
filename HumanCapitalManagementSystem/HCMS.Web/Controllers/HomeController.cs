@@ -32,22 +32,18 @@ namespace HCMS.Web.Controllers
         [Authorize]
         public IActionResult Home()
         {
-            if (HttpContext.User.IsInRole(RoleConstants.ADMIN))
+            if (HttpContext.User.IsInRole(RoleConstants.AGENT) || HttpContext.User.IsInRole(RoleConstants.ADMIN))
             {
-                RedirectToAction("HomeAdmin");
-            } 
-            else if (HttpContext.User.IsInRole(RoleConstants.AGENT))
-            {
-                return RedirectToAction("HomeAgent");
-
+                return RedirectToAction("HomeStaff");
             }
             else if (HttpContext.User.IsInRole(RoleConstants.EMPLOYEE))
             {
                 return RedirectToAction("HomeEmployee");
 
             }
-                //something went wrong and it redirects to the index page
-                return View("index");
+
+            //something went wrong and it redirects to the index page
+            return View("index");
         }
 
         [Authorize(Roles = RoleConstants.EMPLOYEE)]
@@ -56,17 +52,12 @@ namespace HCMS.Web.Controllers
             return View();
         }
 
-        [Authorize(Roles = RoleConstants.AGENT)]
-        public IActionResult HomeAgent()
+        [Authorize(Roles = RoleConstants.AGENT + "," + RoleConstants.ADMIN)]
+        public IActionResult HomeStaff()
         {
             return View();
         }
 
-        [Authorize(Roles = RoleConstants.ADMIN)]
-        public IActionResult HomeAdmin()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

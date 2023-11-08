@@ -10,6 +10,7 @@ using System.Text;
 using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Common;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -26,6 +27,7 @@ namespace HCMS.Web.Api.Controllers
             this.employeeService = employeeService;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         [Produces("application/json")]
         [Consumes("application/json")]
@@ -71,6 +73,7 @@ namespace HCMS.Web.Api.Controllers
             return Ok("User has been successfully registered!");
         }
 
+        [AllowAnonymous]
         [HttpPost("loginValidate")]
         [Produces("application/json")]
         [Consumes("application/json")]
@@ -113,10 +116,11 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetUserDtoByUsername([FromQuery] string username)
         {
 
-            UserDto userDto = await userService.GetUserDtoByUsername(username);
+            UserDto userDto = await userService.GetUserDtoByUsernameAsync(username);
 
             if(userDto != null)
             {
@@ -164,7 +168,7 @@ namespace HCMS.Web.Api.Controllers
 
 
 
-            UserDto userDto = await userService.GetUserDtoByUsername(model.Username.ToString());
+            UserDto userDto = await userService.GetUserDtoByUsernameAsync(model.Username.ToString());
 
             //Create the required claims from the userInformation
             Claim userIdClaim = new Claim("UserId", userDto.Id.ToString()!);
@@ -211,11 +215,12 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetUserViewDtoById([FromQuery] string Id)
         {
             try
             {
-                UserViewDto userViewDto = await this.userService.GetUserViewDtoById(Guid.Parse(Id));
+                UserViewDto userViewDto = await this.userService.GetUserViewDtoByIdAsync(Guid.Parse(Id));
                 return Ok(userViewDto);
             } 
             catch(Exception)
@@ -230,6 +235,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> UpdateUser()
         {
             // Read the JSON from request body
@@ -246,7 +252,7 @@ namespace HCMS.Web.Api.Controllers
                 return BadRequest("Invalid JSON data");
             }
 
-            UserViewDto currentUser = await this.userService.GetUserViewDtoById(model.Id);
+            UserViewDto currentUser = await this.userService.GetUserViewDtoByIdAsync(model.Id);
 
 
             // validate email and username
@@ -264,7 +270,7 @@ namespace HCMS.Web.Api.Controllers
                 {
                     if (await userService.IsUsernameExists(model.Username.ToString()))
                     {
-                        return (BadRequest("Username is already used!"));
+                        return BadRequest("Username is already used!");
                     }
                 }
 
@@ -284,6 +290,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> UpdatePassword()
         {
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
@@ -301,7 +308,7 @@ namespace HCMS.Web.Api.Controllers
 
             try
             {
-                await userService.UpdatePassword(model);
+                await userService.UpdatePasswordAsync(model);
                 return Ok("Your password was successfully updated!");
             }
             catch (Exception)
@@ -315,6 +322,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize(Roles = $"{RoleConstants.AGENT}, {RoleConstants.ADMIN}")]
         public async Task<IActionResult> GetAllCurrentPage([FromBody]QueryDto model)
         {
             try
@@ -327,6 +335,25 @@ namespace HCMS.Web.Api.Controllers
             catch (Exception)
             {
                 return BadRequest("Unexpected error occurred while trying to load the page!");
+            }
+        }
+
+        [HttpPatch("updateRole")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [Authorize(Roles = RoleConstants.ADMIN)]
+        public async Task<IActionResult> UpdateRole([FromBody] UserRoleUpdateDto model)
+        {
+            try
+            {
+                await this.userService.UpdateUserRoleAsync(model);
+                return Ok("The user roles were successfully updated!");
+            }
+            catch(Exception ex) 
+            {
+                return BadRequest(ex.Message);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using HCMS.Data.Models;
+﻿using HCMS.Common;
+using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 
 namespace HCMS.Repository.Interfaces

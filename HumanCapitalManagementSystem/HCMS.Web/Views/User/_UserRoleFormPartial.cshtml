@@ -1,0 +1,44 @@
+﻿@using HCMS.Common;
+@using System.Security.Claims;
+@using HCMS.Web.ViewModels.User;
+@model UserRoleFormModel;
+
+<div class="row justify-content-center">
+    <div class="card-partial">
+        <div class="technical-font">
+            <p class="text-center fw-bold">Update Roles</p>
+
+            @* Error Messages for failed update *@
+
+            @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <h6 class="text-center">
+                    <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                </h6>
+            }
+
+            <form class="text-center"
+                  method="post"
+                  asp-controller="User"
+                  asp-action="Role"
+                  asp-route-id="@Model.Id">
+
+                <div class="form-group">
+                    <label class="text-black technical-font">Select Role</label>
+                    <select asp-for="Role">
+                            <option value="@RoleConstants.EMPLOYEE">@RoleConstants.EMPLOYEE</option>
+                            <option value="@RoleConstants.AGENT">@RoleConstants.AGENT</option>
+                            <option value="@RoleConstants.ADMIN">@RoleConstants.ADMIN</option>
+                    </select>
+                    <div class="row form-group">
+                        <label class="col-6 d-inline-block">Add <input type="radio" name="Action" value="Add" /></label>
+                        <label class="col-6 d-inline-block">Remove <input type="radio" name="Action" value="Remove" /></label>
+                    </div>
+                    <input type="submit" class="form-group row col-6 mx-auto align-content-center mt-2 btn btn-outline-dark technical-font" value="Update">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
