@@ -22,6 +22,7 @@ __User profile credentials update__
 - _Username change_
 - _Email change_
 - _Password change_
+  
 __Save, add, update and delete:__
 - _Personal Information - required to use the below described functionality_
 - _Experience history(as a work record)_
@@ -29,11 +30,13 @@ __Save, add, update and delete:__
 - _Current workplace_
 - _Review work records_
 - _Review educations_
+  
 __Agent functionality__ 
 - _Review All Companies_
 - _Save, Add, Update, Delete company information_
 - _Review All Employees, their personal information, work records and educations_
 - _Able to dismiss employees working in the agent's current company_
+  
 __Admin functionality__ 
 - _Managing users roles_
 
