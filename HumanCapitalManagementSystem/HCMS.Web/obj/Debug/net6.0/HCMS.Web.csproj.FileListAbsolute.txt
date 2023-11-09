@@ -102,8 +102,6 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapita
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
@@ -112,13 +110,11 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapita
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Common.dll
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Data.Models.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.ServiceModels.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.ViewModels.dll
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Common.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Services.ServiceModels.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Web.ViewModels.pdb
-C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\bin\Debug\net6.0\HCMS.Data.Models.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\obj\Debug\net6.0\staticwebassets\msbuild.HCMS.Web.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\obj\Debug\net6.0\staticwebassets\msbuild.build.HCMS.Web.props
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov_Failing\HumanCapitalManagementSystem\HCMS.Web\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.HCMS.Web.props

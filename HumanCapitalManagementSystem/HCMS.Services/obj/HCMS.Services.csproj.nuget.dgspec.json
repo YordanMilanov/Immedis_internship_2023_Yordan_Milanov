@@ -246,9 +246,6 @@
               },
               "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj": {
                 "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj"
-              },
-              "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj": {
-                "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj"
               }
             }
           }
@@ -314,9 +311,6 @@
             "projectReferences": {
               "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj": {
                 "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj"
-              },
-              "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data.Models\\HCMS.Data.Models.csproj": {
-                "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data.Models\\HCMS.Data.Models.csproj"
               }
             }
           }

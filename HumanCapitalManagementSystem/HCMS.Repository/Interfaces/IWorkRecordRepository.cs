@@ -1,7 +1,5 @@
-﻿using HCMS.Common;
-using HCMS.Data.Models;
+﻿using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
-using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Repository.Interfaces
 {

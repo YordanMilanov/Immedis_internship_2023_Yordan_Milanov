@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.Hosting;
+using HCMS.Web.Api.AutoMapperProfiles;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -26,8 +26,8 @@ builder.Services.AddControllers();
 builder.Services.AddServices();
 builder.Services.AddRepositories();
 
-//Add autoMapper
-builder.Services.AddAutoMapper(typeof(Program));
+var ServicesAssembly = typeof(UserMappingProfile).Assembly;
+builder.Services.AddAutoMapper(ServicesAssembly);
 
 //Add swagger
 builder.Services.AddEndpointsApiExplorer();

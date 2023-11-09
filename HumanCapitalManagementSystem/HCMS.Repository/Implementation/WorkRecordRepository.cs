@@ -3,7 +3,6 @@ using HCMS.Data;
 using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
-using HCMS.Services.ServiceModels.WorkRecord;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCMS.Repository.Implementation

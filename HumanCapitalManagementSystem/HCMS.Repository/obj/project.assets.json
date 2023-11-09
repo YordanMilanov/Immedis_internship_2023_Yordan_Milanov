@@ -2248,20 +2248,6 @@
         "runtime": {
           "bin/placeholder/HCMS.Data.Models.dll": {}
         }
-      },
-      "HCMS.Services.ServiceModels/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "HCMS.Common": "1.0.0",
-          "HCMS.Data.Models": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/HCMS.Services.ServiceModels.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/HCMS.Services.ServiceModels.dll": {}
-        }
       }
     }
   },
@@ -7108,11 +7094,6 @@
       "type": "project",
       "path": "../HCMS.Data.Models/HCMS.Data.Models.csproj",
       "msbuildProject": "../HCMS.Data.Models/HCMS.Data.Models.csproj"
-    },
-    "HCMS.Services.ServiceModels/1.0.0": {
-      "type": "project",
-      "path": "../HCMS.Services.ServiceModels/HCMS.Services.ServiceModels.csproj",
-      "msbuildProject": "../HCMS.Services.ServiceModels/HCMS.Services.ServiceModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -7120,8 +7101,7 @@
       "AutoMapper >= 11.0.0",
       "HCMS.Common >= 1.0.0",
       "HCMS.Data >= 1.0.0",
-      "HCMS.Data.Models >= 1.0.0",
-      "HCMS.Services.ServiceModels >= 1.0.0"
+      "HCMS.Data.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -7159,9 +7139,6 @@
             },
             "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj": {
               "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj"
-            },
-            "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj": {
-              "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj"
             }
           }
         }

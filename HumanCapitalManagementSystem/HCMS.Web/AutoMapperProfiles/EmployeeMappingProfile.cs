@@ -11,7 +11,6 @@
     {
         public EmployeeMappingProfile()
         {
-            CreateMap<EmployeeQueryModel, EmployeeQueryDto>().ReverseMap();
 
             //Mapping
             CreateMap<EmployeeFormModel, EmployeeDto>()

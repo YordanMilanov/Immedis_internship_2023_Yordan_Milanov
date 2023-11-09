@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Web.ViewModels.BaseViewModel;

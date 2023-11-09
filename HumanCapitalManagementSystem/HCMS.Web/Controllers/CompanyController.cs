@@ -15,6 +15,8 @@ using HCMS.Services.ServiceModels.User;
 using HCMS.Common;
 using HCMS.Web.ViewModels.BaseViewModel;
 using HCMS.Services.ServiceModels.BaseClasses;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace HCMS.Web.Controllers
 {
@@ -118,15 +120,15 @@ namespace HCMS.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
 
-                Claim employeeIdClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!;
-                string employeeApiUrl = $"/api/company/GetCompanyDtoByEmployeeId?EmployeeId={employeeIdClaim.Value}";
-                HttpResponseMessage CompanyDtoResponse = await httpClient.GetAsync(employeeApiUrl);
+                var existingClaims = HttpContext.User.Claims.ToList();
+                existingClaims.RemoveAll(c => c.Type == "EmployeeCompany");
+                var updatedClaim = new Claim("EmployeeCompany", model.Name);
+                existingClaims.Add(updatedClaim);
 
-                CompanyDto companyDto = JsonConvert.DeserializeObject<CompanyDto>(await CompanyDtoResponse.Content.ReadAsStringAsync())!;
-                CompanySelectCardViewModel returnModel = new CompanySelectCardViewModel();
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(existingClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-                returnModel.CardViewModel = mapper.Map<CompanyViewModel>(companyDto);
-                returnModel.SelectViewModel = new CompanySelectViewModel();
 
                 return RedirectToAction("Select", "Company", new { redirect = "success" });
             } else

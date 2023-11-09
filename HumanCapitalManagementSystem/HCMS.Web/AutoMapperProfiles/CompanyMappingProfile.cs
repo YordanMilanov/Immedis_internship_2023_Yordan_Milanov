@@ -23,8 +23,6 @@ namespace HCMS.Web.AutoMapperProfiles
             CreateMap<CompanyViewModel, CompanyDto>()
                 .ForMember(dest => dest.LocationId, opt => opt.Ignore());
 
-            CreateMap<CompanyQueryDto, CompanyQueryModel>().ReverseMap();
-
             CreateMap<CompanyDto, CompanyViewModel>()
                 .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src.Location.GetCountry()))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.Location.GetState()))

@@ -1,5 +1,4 @@
-﻿using HCMS.Common;
-using HCMS.Services.ServiceModels.BaseClasses;
+﻿using HCMS.Services.ServiceModels.BaseClasses;
 
 namespace HCMS.Services.ServiceModels.WorkRecord
 {
