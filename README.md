@@ -43,3 +43,8 @@ __Admin functionality__
 
 - [YordanMilanov](https://www.github.com/YordanMilanov) - GitHub
 
+
+## Application Architecture
+
+![App Screenshot](https://i.imgur.com/sNdBt1Q.jpg)
+
