@@ -2,6 +2,8 @@
 
 @{
     string address = $"{Model.State}, {Model.Country}";
+    string employeeId = User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value;
+    string educationOwnerId = ViewData["employeeId"]!.ToString()!;
 }
 <div class="col-3 my-2 mx-4 card-partial">
     <div class="mb-3">
@@ -19,8 +21,11 @@
             <p>Address: @address</p>
             
             <p id="id" value="@Model.Id" />
-            <a href="@Url.Action("Edit", "Education", new {educationId = @Model.Id})" class="btn btn-success">Edit</a>
-            <a href="@Url.Action("Delete", "Education", new {id = @Model.Id})" class="btn btn-danger">Delete</a>
+            @if (educationOwnerId == employeeId)
+            {
+                <a href="@Url.Action("Edit", "Education", new { educationId = Model.Id })" class="btn btn-success">Edit</a>
+                <a href="@Url.Action("Delete", "Education", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+            }
         </div>
     </div>
 </div>

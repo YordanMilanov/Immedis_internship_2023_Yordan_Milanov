@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HCMS.Common;
 using HCMS.Services.ServiceModels.Education;
 using HCMS.Web.ViewModels.Education;
 using Microsoft.AspNetCore.Authorization;
@@ -91,22 +92,22 @@ namespace HCMS.Web.Controllers
 
             HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
 
-            //if employee information successfully updated
+            //if employee education information successfully updated
             if (response.IsSuccessStatusCode)
             {
                 TempData[SuccessMessage] = "Education information has been successfully added!";
-                return RedirectToAction("All", "Education");
-            } else
+                return RedirectToAction("All", "Education", new { id = employeeId});
+            }
+            else
             {
                 TempData[ErrorMessage] = response.Content.ToString();
-                return View();
-
+                return View(new EducationFormModel());
             }
         }
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> All(EducationPageModel model, string? redirectMessage)
+        public async Task<IActionResult> All(EducationPageModel model,string? id,string? redirectMessage)
         {
             if(redirectMessage != null)
             {
@@ -118,14 +119,15 @@ namespace HCMS.Web.Controllers
                 model = new EducationPageModel();
             }
 
-            if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
+            if(!HttpContext.User.IsInRole(RoleConstants.AGENT) && !HttpContext.User.IsInRole(RoleConstants.ADMIN))
             {
-                return RedirectToAction("Edit", "Employee", new { redirect = "You have no personal information. Please first add personal information!" });
+                if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
+                {
+                    return RedirectToAction("Edit", "Employee", new { redirect = "You have no personal information. Please first add personal information!" });
+                }
             }
 
-            string employeeId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value;
-            
-            string url = $"api/education/EducationsPageByEmployeeId?employeeId={employeeId}&page={model.Page}";
+            string url = $"api/education/EducationsPageByEmployeeId?employeeId={id}&page={model.Page}";
 
             //set JWT
             string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
@@ -141,7 +143,7 @@ namespace HCMS.Web.Controllers
                 model.Educations = educationViewModels;
 
                 //take count of all educations
-                string countUrl = $"api/education/EducationsCountByEmployeeId?employeeId={employeeId}";
+                string countUrl = $"api/education/EducationsCountByEmployeeId?employeeId={id}";
                 HttpResponseMessage countResponse = await httpClient.GetAsync(countUrl);
                 if (countResponse.IsSuccessStatusCode)
                 {
@@ -149,7 +151,18 @@ namespace HCMS.Web.Controllers
                     string educationsCount = JsonConvert.DeserializeObject<string>(jsonCountContent)!;
                     model.TotalEducations = int.Parse(educationsCount);
                 }
-                    ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
+
+                //get employee name(first + last)
+                string employeeNameUrl = $"api/employee/fullName?employeeId={id}";
+                HttpResponseMessage employeeNameResponse = await httpClient.GetAsync(employeeNameUrl);
+                if (employeeNameResponse.IsSuccessStatusCode)
+                {
+                    string nameResponse = await employeeNameResponse.Content.ReadAsStringAsync();
+                    ViewData["employeeName"] = nameResponse.Substring(1, nameResponse.Length - 2);
+                }
+               
+                ViewData["employeeId"] = id;
+                ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
 
                 return View(model);
             } 

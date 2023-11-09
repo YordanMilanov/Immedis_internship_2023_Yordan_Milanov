@@ -3,11 +3,11 @@
 
 @{
     ViewBag.Title = "Educations";
-    string? username = ViewData["username"]!.ToString();
+    string? employeeName = ViewData["employeeName"]!.ToString();
 
-    if (username != null)
+    if (employeeName != null)
     {
-        ViewBag.Title += " - " + username;
+        ViewBag.Title += " - " + employeeName;
     }
 
     int educationPerPage = 3;
