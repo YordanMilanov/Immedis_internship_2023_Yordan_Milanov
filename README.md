@@ -15,6 +15,7 @@ __Application roles__
 - 👷🏼 Employee
 - 👨‍💼 Agent
 - 👨‍💼 Admin
+  
 __All roles common functionality__
 
 __User profile credentials update__
