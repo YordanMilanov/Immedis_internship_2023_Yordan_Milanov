@@ -10,7 +10,6 @@ namespace HCMS.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {}
 
-        //TODO: Add all DbSets
         public DbSet<Application> Applications { get; set; } = null!;
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Education> Educations { get; set; } = null!;
@@ -32,7 +31,7 @@ namespace HCMS.Data
             }
         }
 
-        //TODO: Define entity relations FKs
+   
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(ApplicationDbContext)) ??
