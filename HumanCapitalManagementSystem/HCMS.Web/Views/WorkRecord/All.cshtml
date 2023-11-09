@@ -1,14 +1,17 @@
 ﻿@using HCMS.Web.ViewModels.WorkRecord;
 @{
     ViewBag.Title = "All Work Records";
-    string? username = ViewData["username"]!.ToString();
+    string? employeeName = ViewData["employeeName"]!.ToString();
 
-    if(username != null)
+    if(employeeName != null)
     {
-        ViewBag.Title += " - " + username;
+        ViewBag.Title += " - " + employeeName;
     }
+
+    string? id = ViewData["employeeId"]!.ToString();
 }
-@model HCMS.Web.ViewModels.WorkRecord.WorkRecordQueryModel
+
+@model HCMS.Web.ViewModels.BaseViewModel.ResultQueryModel<WorkRecordViewModel>;
 
 
 @{
@@ -23,17 +26,17 @@
     }
 
     // take the total count of work records to calculate the pages depending no how many items per page
-    int maxPage = (int)Math.Ceiling((double)Model.TotalWorkRecords /
-                                    Model.WorkRecordsPerPage);
+    int maxPage = (int)Math.Ceiling((double)Model.TotalItems /
+                                    Model.ItemsPerPage);
 
     //check check if this page is the last
-        bool shouldNextPageButtonBeDisabled = Model.CurrentPage == maxPage || !Model.WorkRecords.Any();
+        bool shouldNextPageButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Items.Any();
 }
 
 <div class="container all-container">
     <h2 class="text-center">@ViewBag.Title</h2>
     <hr />
-    <form method="get" id="formId">
+    <form method="get" id="formId" asp-controller="WorkRecord" asp-action="AllPersonal" asp-route-id="@id">
         <div class="row justify-content-center">
             
             @* current page for navigation buttons used in jQuery *@
@@ -49,8 +52,8 @@
             @* Per Page Select *@
             <div class="col-3 form-group text-center justify-content-center">
                 <div class="form-group">
-                    <label asp-for="WorkRecordsPerPage"></label>
-                    <select asp-for="WorkRecordsPerPage" class="form-control text-center">
+                    <label asp-for="ItemsPerPage"></label>
+                    <select asp-for="ItemsPerPage" class="form-control text-center">
                         <option value="3">3</option>
                         <option value="6">6</option>
                         <option value="9">9</option>
@@ -99,14 +102,14 @@
     <hr />
 
     @* Work Record Cards *@
-    @if (!Model.WorkRecords.Any())
+    @if (!Model.Items.Any())
     {
         <h2 class="text-center">No work records found!</h2>
     }
 
     <div class="container">
         <div class="row justify-content-center">
-            @foreach (var workRecord in Model.WorkRecords)
+            @foreach (var workRecord in Model.Items)
             {
                 <partial name="_WorkRecordCardPartial" model="@workRecord" />
             }
@@ -118,7 +121,7 @@
     @* Page navigation *@
     <div class="row justify-content-center">
         <div class="col-1 mb-3 d-flex justify-content-center">
-            @if (Model.WorkRecords.Any())
+            @if (Model.Items.Any())
             {
                 @if (maxPage == 1)
                 {

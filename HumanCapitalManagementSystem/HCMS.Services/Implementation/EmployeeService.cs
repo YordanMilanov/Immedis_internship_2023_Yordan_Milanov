@@ -137,5 +137,16 @@ namespace HCMS.Services.Implementation
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<string> GetEmployeeFullNameById(Guid id)
+        {
+            try
+            {
+              return await this.employeeRepository.GetEmployeeFullNameById(id);
+            } catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

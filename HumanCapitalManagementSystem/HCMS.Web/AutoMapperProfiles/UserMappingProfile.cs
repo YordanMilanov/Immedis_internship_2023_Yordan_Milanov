@@ -38,6 +38,16 @@ namespace HCMS.Web.AutoMapperProfiles
 
             CreateMap<ResultQueryModel<UserViewModel>, QueryDto>();
             CreateMap<QueryDtoResult<EmployeeDto>, ResultQueryModel<UserViewModel>>();
+
+            CreateMap<ResultQueryModel<UserViewModel>, QueryDtoResult<UserViewDto>>()
+    .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items))
+    .ForMember(dest => dest.TotalItems, opt => opt.MapFrom(src => src.TotalItems));
+
+            CreateMap<QueryDtoResult<UserViewDto>, ResultQueryModel<UserViewModel>>()
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items))
+                .ForMember(dest => dest.TotalItems, opt => opt.MapFrom(src => src.TotalItems));
+
+
         }
     }
 }

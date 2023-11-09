@@ -14,5 +14,6 @@ namespace HCMS.Services.Interfaces
         Task UpdateEmployeeCompanyByCompanyName(Guid employeeId, string companyName);
         Task<QueryDtoResult<EmployeeDto>> GetCurrentPageAsync(QueryDto model);
         Task RemoveEmployeeCompanyByIdAsync(Guid id);
+        Task<string> GetEmployeeFullNameById(Guid id);
     }
 }

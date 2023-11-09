@@ -13,6 +13,7 @@ using HCMS.Services.ServiceModels.Company;
 using HCMS.Web.ViewModels.Company;
 using HCMS.Common;
 using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Web.ViewModels.BaseViewModel;
 
 namespace HCMS.Web.Controllers
 {
@@ -29,21 +30,15 @@ namespace HCMS.Web.Controllers
         }
 
         [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
-        public async Task<IActionResult> All(EmployeeQueryModel model)
+        public async Task<IActionResult> All(QueryDto model)
         {
             if (model == null)
             {
-                model = new EmployeeQueryModel();
+                model = new QueryDto();
             }
 
-
-            //change
-            EmployeeQueryDto companyQueryDto = mapper.Map<EmployeeQueryDto>(model);
-            QueryDto QueryDto = mapper.Map<QueryDto>(model);
-
-
             string url = "api/employee/page";
-            string json = JsonConvert.SerializeObject(QueryDto);
+            string json = JsonConvert.SerializeObject(model);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             //set JWT
@@ -56,7 +51,7 @@ namespace HCMS.Web.Controllers
             {
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 QueryDtoResult<EmployeeDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<EmployeeDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-                EmployeeQueryModel employeeQueryModel = mapper.Map<EmployeeQueryModel>(responseQueryDto);
+                ResultQueryModel<EmployeeViewModel> employeeQueryModel = mapper.Map<ResultQueryModel<EmployeeViewModel>>(responseQueryDto);
                 return View(employeeQueryModel);
             }
             else

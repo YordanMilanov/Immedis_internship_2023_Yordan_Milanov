@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using HCMS.Common;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.WorkRecord;
+using HCMS.Web.ViewModels.BaseViewModel;
 using HCMS.Web.ViewModels.WorkRecord;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +37,7 @@ namespace HCMS.Web.Controllers
             }
 
             //if the user has no employee information redirect to add employee information
-            if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId")) {
+            if (!HttpContext.User.Claims.Any(c => c.Type == "employeeId")) {
                 return RedirectToAction("Edit", "Employee", new { redirect = "Please first add your employee information to be able to add work records!" });
             }
             return View();
@@ -66,7 +69,7 @@ namespace HCMS.Web.Controllers
             {
                 string successMessage = "The work record has been successfully added!";
                 TempData[SuccessMessage] = successMessage;
-                return View();
+                return View("Home", "Home");
             } else
             {
                 ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");
@@ -76,59 +79,59 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> AllPersonal(WorkRecordQueryModel model, string redirectMessage)
+        public async Task<IActionResult> AllPersonal(QueryDto model, string id, string redirectMessage)
         {
-            if(redirectMessage != null)
+            if (redirectMessage != null)
             {
                 TempData[InformationMessage] = redirectMessage;
             }
 
             if (model == null)
             {
-                model = new WorkRecordQueryModel();
+                model = new QueryDto();
             }
 
-            
+
 
             if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
             {
                 return RedirectToAction("Edit", "Employee", new { redirect = "You have no personal information. Please first add personal information!" });
             }
 
-            //For Employees
-            if (HttpContext.User.Claims.Any(c => c.Type == ClaimTypes.Role && c.Value == "EMPLOYEE"))
+
+
+            string url = $"api/workRecord/currentPage?employeeId={id}";
+            string json = JsonConvert.SerializeObject(model, Formatting.Indented);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
             {
-                WorkRecordQueryDto workRecordQueryDto = mapper.Map<WorkRecordQueryDto>(model);
+                string jsonContent = await response.Content.ReadAsStringAsync();
+                QueryDtoResult<WorkRecordDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<WorkRecordDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                ResultQueryModel<WorkRecordViewModel> workRecordQueryModel = mapper.Map<ResultQueryModel<WorkRecordViewModel>>(responseQueryDto);
 
-                string EmployeeId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value;
-                workRecordQueryDto.EmployeeId = Guid.Parse(EmployeeId);
-
-                string url = "api/workRecord/currentPage";
-                string json = JsonConvert.SerializeObject(workRecordQueryDto);
-                HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                //set JWT
-                string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
-                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
-
-                HttpResponseMessage response = await httpClient.PostAsync(url, content);
-
-                if (response.IsSuccessStatusCode)
+                //get employee name(first + last)
+                string employeeNameUrl = $"api/employee/fullName?employeeId={id}";
+                HttpResponseMessage employeeNameResponse = await httpClient.GetAsync(employeeNameUrl);
+                if (employeeNameResponse.IsSuccessStatusCode)
                 {
-                    string jsonContent = await response.Content.ReadAsStringAsync();
-                    WorkRecordQueryDto responseQueryDto = JsonConvert.DeserializeObject<WorkRecordQueryDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-                    WorkRecordQueryModel workRecordQueryModel = mapper.Map<WorkRecordQueryModel>(responseQueryDto);
-                    ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
-                    return View("All", workRecordQueryModel);
+                    string nameResponse = await employeeNameResponse.Content.ReadAsStringAsync();
+                    ViewData["employeeName"] = nameResponse.Substring(1, nameResponse.Length - 2);
                 }
-                else
-                {
-                    return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no personal information. Please first add personal information!" });
-                }
-            } 
+                
+                ViewData["employeeId"] = id;
+                ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
+                return View("All", workRecordQueryModel);
+            }
             else
             {
-                return RedirectToAction("Add", "WorkRecord", new { redirect = "To be done for AGENT and ADMIN" });
+                return RedirectToAction("Add", "WorkRecord", new { redirect = "You have no personal information. Please first add personal information!" });
             }
         }
 

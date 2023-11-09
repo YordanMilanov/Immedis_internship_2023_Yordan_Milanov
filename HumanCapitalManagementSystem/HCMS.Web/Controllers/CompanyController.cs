@@ -12,6 +12,9 @@ using HCMS.Services.ServiceModels.Location;
 using System.Net.Http.Headers;
 using HCMS.Web.ViewModels.Employee;
 using HCMS.Services.ServiceModels.User;
+using HCMS.Common;
+using HCMS.Web.ViewModels.BaseViewModel;
+using HCMS.Services.ServiceModels.BaseClasses;
 
 namespace HCMS.Web.Controllers
 {
@@ -133,19 +136,19 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "AGENT,ADMIN")]
-        public async Task<IActionResult> All(CompanyQueryModel model)
+        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
+        public async Task<IActionResult> All(PageQueryModel model)
         {
             if (model == null)
             {
-                model = new CompanyQueryModel();
+                model = new PageQueryModel();
             }
 
 
-            CompanyQueryModel companyQueryDto = mapper.Map<CompanyQueryModel>(model);
+            QueryDto queryDto = mapper.Map<QueryDto>(model);
 
             string url = "api/company/all";
-            string json = JsonConvert.SerializeObject(companyQueryDto);
+            string json = JsonConvert.SerializeObject(queryDto, Formatting.Indented);
             HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             //set JWT
@@ -157,9 +160,8 @@ namespace HCMS.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string jsonContent = await response.Content.ReadAsStringAsync();
-                CompanyQueryDto responseQueryDto = JsonConvert.DeserializeObject<CompanyQueryDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-                CompanyQueryModel companyQueryModel = mapper.Map<CompanyQueryModel>(responseQueryDto);
-                ViewData["username"] = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value;
+                QueryDtoResult<CompanyDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<CompanyDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                ResultQueryModel<CompanyViewModel> companyQueryModel = mapper.Map<ResultQueryModel<CompanyViewModel>>(responseQueryDto);
                 return View("All", companyQueryModel);
             }
             else
@@ -169,7 +171,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "AGENT,ADMIN")]
+        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
         public async Task<IActionResult> Edit(string? id, string? redirectMessage)
         {
             if(id == null)
@@ -204,7 +206,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "AGENT,ADMIN")]
+        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
         public async Task<IActionResult> Edit(CompanyFormModel model)
         {
             //validate input

@@ -1,5 +1,6 @@
 ﻿using HCMS.Data;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -105,32 +106,36 @@ namespace HCMS.Repository.Implementation
 
         }
 
-        public async Task<(int, IEnumerable<Company>)> GetCurrentPageAndTotalCountAsync(int currentPage, string? searchString, int companiesPerPage)
+        public async Task<QueryPageWrapClass<Company>> GetCurrentPageAndTotalCountAsync(QueryParameterClass parameters)
         {
             try
             {
                 IQueryable<Company> query = dbContext.Companies.Include(c => c.Location);
 
                 //check the search string
-                if (searchString != null)
+                if (parameters.SearchString != null)
                 {
                     query = query.Where(company =>
-                    company.Name.Contains(searchString!) ||
-                    company.IndustryField.Contains(searchString!) ||
-                    company.Description.Contains(searchString!) ||
-                    company.Location!.Country.Contains(searchString!) ||
-                    company.Location!.State.Contains(searchString!) ||
-                    company.Location!.Address.Contains(searchString!));
+                    company.Name.Contains(parameters.SearchString!) ||
+                    company.IndustryField.Contains(parameters.SearchString!) ||
+                    company.Description.Contains(parameters.SearchString!) ||
+                    company.Location!.Country.Contains(parameters.SearchString!) ||
+                    company.Location!.State.Contains(parameters.SearchString!) ||
+                    company.Location!.Address.Contains(parameters.SearchString!));
                 }
 
                 int totalCount = await query.CountAsync();
 
                 //Pagination
-                int workRecordsCountToSkip = (currentPage - 1) * companiesPerPage;
-                query = query.Skip(workRecordsCountToSkip).Take(companiesPerPage);
+                int workRecordsCountToSkip = (parameters.CurrentPage - 1) * parameters.ItemsPerPage;
+                query = query.Skip(workRecordsCountToSkip).Take(parameters.ItemsPerPage);
 
                 List<Company> companies = await query.ToListAsync();
-                return (totalCount, companies);
+                return new QueryPageWrapClass<Company>()
+                {
+                    TotalItems = totalCount,
+                    Items = companies,
+                };
             }
             catch (Exception ex)
             {

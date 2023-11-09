@@ -1,7 +1,8 @@
 ﻿@using HCMS.Web.ViewModels.Company;
-@model HCMS.Web.ViewModels.Company.CompanyQueryModel;
+@using HCMS.Web.ViewModels.BaseViewModel;
+@model ResultQueryModel<CompanyViewModel>
 @{
-    ViewBag.Title = " - All Companies";
+    ViewBag.Title = "All Companies";
 }
 
 @{
@@ -16,11 +17,11 @@
     }
 
     // take the total count of companies to calculate the pages depending no how many items per page
-    int maxPage = (int)Math.Ceiling((double)Model.TotalCompanies /
-                                    Model.CompaniesPerPage);
+    int maxPage = (int)Math.Ceiling((double)Model.TotalItems /
+                                    Model.ItemsPerPage);
 
     //check check if this page is the last
-    bool shouldNextPageButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Companies.Any();
+    bool shouldNextPageButtonBeDisabled = Model.CurrentPage == maxPage || !Model.Items.Any();
 }
 
 <div class="container all-container">
@@ -42,8 +43,8 @@
             @* Per Page Select *@
             <div class="col-3 form-group text-center justify-content-center">
                 <div class="form-group">
-                    <label asp-for="CompaniesPerPage"></label>
-                    <select asp-for="CompaniesPerPage" class="form-control text-center">
+                    <label asp-for="ItemsPerPage"></label>
+                    <select asp-for="ItemsPerPage" class="form-control text-center">
                         <option value="3">3</option>
                         <option value="6">6</option>
                         <option value="9">9</option>
@@ -82,14 +83,14 @@
     <hr />
 
     @* Companies Cards *@
-    @if (!Model.Companies.Any())
+    @if (!Model.Items.Any())
     {
         <h2 class="text-center">No companies found!</h2>
     }
 
     <div class="container">
         <div class="row justify-content-center">
-            @foreach (var company in Model.Companies)
+            @foreach (var company in Model.Items)
             {
                 <partial name="_CompanyViewPartial" model="@company" />
             }
@@ -101,7 +102,7 @@
     @* Page navigation *@
     <div class="row justify-content-center">
         <div class="col-1 mb-3 d-flex justify-content-center">
-            @if (Model.Companies.Any())
+            @if (Model.Items.Any())
             {
                 @if (maxPage == 1)
                 {

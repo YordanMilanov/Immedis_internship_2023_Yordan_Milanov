@@ -1,4 +1,5 @@
 ﻿using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 
 namespace HCMS.Repository.Interfaces
 {
@@ -15,7 +16,7 @@ namespace HCMS.Repository.Interfaces
         Task<Company> GetCompanyByNameAsync(string name);
 
         Task<Company> GetCompanyByEmployeeIdAsync(Guid employeeId);
-        Task <(int, IEnumerable<Company>)> GetCurrentPageAndTotalCountAsync(int currentPage, string? searchString, int companiesPerPage);
+        Task <QueryPageWrapClass<Company>> GetCurrentPageAndTotalCountAsync(QueryParameterClass parameters);
 
         Task<bool> CompanyExistsByNameAsync(string name);
         Task AddCompanyAsync(Company model);

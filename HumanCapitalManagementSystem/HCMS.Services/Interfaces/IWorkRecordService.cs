@@ -1,4 +1,5 @@
-﻿using HCMS.Services.ServiceModels.WorkRecord;
+﻿using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Services.Interfaces
 {
@@ -10,7 +11,7 @@ namespace HCMS.Services.Interfaces
 
         public Task<List<WorkRecordDto>> GetAllWorkRecordsDtosAsync();
 
-        public Task<(int, List<WorkRecordDto>)> GetWorkRecordsPageAndTotalCountAsync(WorkRecordQueryDto searchModel);
+        public Task<QueryDtoResult<WorkRecordDto>> GetWorkRecordsPageAndTotalCountAsync(QueryDto model, Guid employeeId);
 
         public Task<int> GetWorkRecordsCountByEmployeeIdAsync(Guid employeeId);
         public Task DeleteById(Guid id);

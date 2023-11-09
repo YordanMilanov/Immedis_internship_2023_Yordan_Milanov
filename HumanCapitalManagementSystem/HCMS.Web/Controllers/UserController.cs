@@ -293,7 +293,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "AGENT,ADMIN")]
+        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
         public async Task<IActionResult> All(PageQueryModel model)
         {
 

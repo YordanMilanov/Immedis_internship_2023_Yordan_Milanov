@@ -1,4 +1,5 @@
-﻿using HCMS.Services.ServiceModels.Company;
+﻿using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Company;
 using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Services.Interfaces
@@ -10,7 +11,7 @@ namespace HCMS.Services.Interfaces
         Task<CompanyDto> GetCompanyDtoByEmployeeIdAsync(Guid employeeId);
 
         Task<CompanyDto> GetCompanyDtoByCompanyNameAsync(string companyName);
-        Task<(int, List<CompanyDto>)> GetCompaniesPageAndTotalCountAsync(CompanyQueryDto model);
+        Task<QueryDtoResult<CompanyDto>> GetCompaniesPageAndTotalCountAsync(QueryDto model);
         Task<CompanyDto> GetCompanyDtoByIdAsync(Guid id);
         Task AddCompanyDtoAsync(CompanyDto model);
         Task EditCompanyDtoAsync(CompanyDto model);

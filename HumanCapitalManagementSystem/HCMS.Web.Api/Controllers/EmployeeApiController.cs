@@ -1,4 +1,5 @@
-﻿using HCMS.Services.Interfaces;
+﻿using HCMS.Common;
+using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
 using HCMS.Services.ServiceModels.Employee;
@@ -141,6 +142,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
         public async Task<IActionResult> EmployeeDismissCompany([FromQuery]string id)
         {
             try
@@ -148,6 +150,26 @@ namespace HCMS.Web.Api.Controllers
                 await this.employeeService.RemoveEmployeeCompanyByIdAsync(Guid.Parse(id));
                 return Ok("The company was successfully left!");
             } catch(Exception)
+            {
+                return BadRequest("Unexpected error occurred!");
+            }
+        }
+
+        [HttpGet("fullName")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> EmployeeFullName()
+        {
+            var employeeId = HttpContext.Request.Query["employeeId"];
+
+            try
+            {
+               string fullName = await this.employeeService.GetEmployeeFullNameById(Guid.Parse(employeeId));
+                return Ok(fullName);
+            }
+            catch (Exception)
             {
                 return BadRequest("Unexpected error occurred!");
             }

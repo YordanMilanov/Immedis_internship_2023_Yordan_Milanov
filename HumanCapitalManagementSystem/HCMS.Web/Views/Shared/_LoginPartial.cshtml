@@ -14,7 +14,7 @@
                     <li><a asp-controller="Company" asp-action="Select" class="dropdown-item">My Company</a></li>
 
                 }
-                <li><a class="dropdown-item" href="/WorkRecord/AllPersonal">My Work Records</a></li>
+                <li><a class="dropdown-item" asp-controller="WorkRecord" asp-action="AllPersonal" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")?.Value">My Work Records</a></li>
                 <li><a class="dropdown-item" href="/Education/All">My Educations</a></li>
                 <li><a class="dropdown-item" href="/User/Logout">Logout</a></li>
             </ul>

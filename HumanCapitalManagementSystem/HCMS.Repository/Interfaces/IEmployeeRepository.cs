@@ -21,5 +21,6 @@ namespace HCMS.Repository.Interfaces
         Task<bool> IsEmployeeEmailUsedByAnotherEmployee(string email, Guid userId);
         Task<QueryPageWrapClass<Employee>> GetCurrentPageAsync(QueryParameterClass parameters);
         Task LeaveCompanyByIdAsync(Guid id);
+        Task<string> GetEmployeeFullNameById(Guid id);
     }
 }

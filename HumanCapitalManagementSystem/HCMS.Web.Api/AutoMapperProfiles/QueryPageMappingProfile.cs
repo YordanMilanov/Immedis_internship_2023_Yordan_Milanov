@@ -2,6 +2,7 @@
 using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Company;
 using HCMS.Services.ServiceModels.User;
 
 namespace HCMS.Web.Api.AutoMapperProfiles

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
 
 namespace HCMS.Services.Implementation
@@ -54,21 +56,19 @@ namespace HCMS.Services.Implementation
             }
         }
 
-        public async Task<(int, List<CompanyDto>)> GetCompaniesPageAndTotalCountAsync(CompanyQueryDto model)
+        public async Task<QueryDtoResult<CompanyDto>> GetCompaniesPageAndTotalCountAsync(QueryDto model)
         {
             try
             {
-                object result = await this.companyRepository.GetCurrentPageAndTotalCountAsync(model.CurrentPage, model.SearchString, model.CompaniesPerPage);
+                QueryParameterClass parameters = mapper.Map<QueryParameterClass>(model);
+                QueryPageWrapClass<Company> result = await this.companyRepository.GetCurrentPageAndTotalCountAsync(parameters);
+                QueryDtoResult<CompanyDto> modelToReturn = mapper.Map<QueryDtoResult<CompanyDto>>(result);
+                modelToReturn.SearchString = model.SearchString;
+                modelToReturn.OrderPageEnum = model.OrderPageEnum;
+                modelToReturn.ItemsPerPage = model.ItemsPerPage;
+                modelToReturn.CurrentPage = model.CurrentPage;
 
-                if (result is (int totalCount, List<Company> companies))
-                {
-                    List<CompanyDto> companyDtos = companies.Select(c => mapper.Map<CompanyDto>(c)).ToList();
-                    return (totalCount, companyDtos);
-                }
-                else
-                {
-                    throw new Exception("Unexpected error occurred!");
-                };
+                return modelToReturn;
             } 
             catch(Exception ex)
             {

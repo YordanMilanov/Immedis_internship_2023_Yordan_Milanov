@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Services.Implementation
@@ -75,26 +77,19 @@ namespace HCMS.Services.Implementation
 
         }
 
-        public async Task<(int, List<WorkRecordDto>)> GetWorkRecordsPageAndTotalCountAsync(WorkRecordQueryDto searchModel)
+        public async Task<QueryDtoResult<WorkRecordDto>> GetWorkRecordsPageAndTotalCountAsync(QueryDto model, Guid employeeId)
         {
             try
             {
-                object result = await workRecordRepository.GetWorkRecordsPageAndTotalCountAsync(
-                    searchModel.SearchString, 
-                    searchModel.OrderPageEnum, 
-                    searchModel.CurrentPage, 
-                    searchModel.WorkRecordsPerPage,
-                    Guid.Parse(searchModel.EmployeeId.ToString()));
-
-                if (result is (int totalCount, List<WorkRecord> workRecords))
-                {
-                    List<WorkRecordDto> workRecordDtos = workRecords.Select(wr => mapper.Map<WorkRecordDto>(wr)).ToList();
-                    return (totalCount, workRecordDtos);
-                }
-                else
-                {
-                    throw new Exception("Unexpected error occurred!");
-                 };
+                QueryParameterClass parameters = mapper.Map<QueryParameterClass>(model);
+                QueryPageWrapClass<WorkRecord> result = await workRecordRepository.GetWorkRecordsPageAndTotalCountAsync(
+                    parameters, employeeId);
+                QueryDtoResult<WorkRecordDto> modelToReturn = mapper.Map<QueryDtoResult<WorkRecordDto>>(result);
+                modelToReturn.SearchString = model.SearchString;
+                modelToReturn.OrderPageEnum = model.OrderPageEnum;
+                modelToReturn.CurrentPage = model.CurrentPage;
+                modelToReturn.ItemsPerPage = model.ItemsPerPage;
+                return modelToReturn;
             }
             catch (Exception)
             {

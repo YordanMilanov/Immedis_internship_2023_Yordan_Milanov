@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HCMS.Services;
 using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
 using HCMS.Services.ServiceModels.Education;
 using HCMS.Services.ServiceModels.User;
@@ -71,27 +72,13 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> GetAllCompanies()
+        public async Task<IActionResult> GetAllCompanies([FromBody]QueryDto queryDto)
         {
-            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
-            CompanyQueryDto model = JsonConvert.DeserializeObject<CompanyQueryDto>(jsonReceived)!;
-
             try
             {
-                object result = await companyService.GetCompaniesPageAndTotalCountAsync(model);
-                if (result is (int totalCount, List<CompanyDto> companies))
-                {
-                    model.Companies = companies;
-                    model.TotalCompanies = totalCount;
-
-                    string jsonString = JsonConvert.SerializeObject(model, JsonSerializerSettingsProvider.GetCustomSettings());
-                    return Content(jsonString, "application/json");
-                }
-                else
-                {
-                    throw new Exception();
-                }
-
+                QueryDtoResult<CompanyDto> companyQueryDto = await companyService.GetCompaniesPageAndTotalCountAsync(queryDto);
+                string jsonString = JsonConvert.SerializeObject(companyQueryDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(jsonString, "application/json");
             }
             catch (Exception)
             {

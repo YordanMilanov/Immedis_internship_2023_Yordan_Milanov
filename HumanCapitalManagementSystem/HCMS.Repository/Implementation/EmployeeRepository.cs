@@ -206,5 +206,20 @@ namespace HCMS.Repository.Implementation
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<string> GetEmployeeFullNameById(Guid id)
+        {
+            try
+            {
+
+                Employee employee = await this.dbContext.Employees.FirstAsync(e => e.Id == id)!;
+
+                return $"{employee.FirstName} {employee.LastName}";
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

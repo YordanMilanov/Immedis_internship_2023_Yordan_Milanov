@@ -1,5 +1,6 @@
 ﻿using HCMS.Common;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Repository.Interfaces
@@ -13,7 +14,7 @@ namespace HCMS.Repository.Interfaces
         public Task<List<WorkRecord>> AllWorkRecordsAsync();
 
         // Returns total Count with this settings and the records
-        public Task<(int, List<WorkRecord>)> GetWorkRecordsPageAndTotalCountAsync(string? searchString, OrderPageEnum orderPageEnum, int currentPage, int perPage, Guid employeeId);
+        public Task<QueryPageWrapClass<WorkRecord>> GetWorkRecordsPageAndTotalCountAsync(QueryParameterClass parameters, Guid employeeId);
 
         public Task<int> WorkRecordsCountByEmployeeIdAsync(Guid employeeId);
 

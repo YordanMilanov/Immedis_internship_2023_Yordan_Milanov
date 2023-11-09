@@ -7,6 +7,7 @@ using HCMS.Services.ServiceModels.WorkRecord;
 using HCMS.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using HCMS.Services.ServiceModels.BaseClasses;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -91,26 +92,15 @@ namespace HCMS.Web.Api.Controllers
         [Authorize]
         public async Task<IActionResult> WorkRecordsCurrentPage()
         {
-            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
-            WorkRecordQueryDto model = JsonConvert.DeserializeObject<WorkRecordQueryDto>(jsonReceived)!;
-
+            var requestBody = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
+            QueryDto queryDto = JsonConvert.DeserializeObject<QueryDto>(requestBody)!;
+            string employeeId = HttpContext.Request.Query["employeeId"].ToString();
             try
             {
-                object result = await workRecordService.GetWorkRecordsPageAndTotalCountAsync(model);
-                if (result is (int totalCount, List<WorkRecordDto> workRecords))
-                {
-                    model.WorkRecords = workRecords;
-                    model.TotalWorkRecords = totalCount;
+                QueryDtoResult<WorkRecordDto> result = await workRecordService.GetWorkRecordsPageAndTotalCountAsync(queryDto, Guid.Parse(employeeId));
 
-
-                    string jsonString = JsonConvert.SerializeObject(model, JsonSerializerSettingsProvider.GetCustomSettings());
+                    string jsonString = JsonConvert.SerializeObject(result,Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
                     return Content(jsonString, "application/json");
-                } 
-                else
-                {
-                    throw new Exception();
-                }
-
             }
             catch (Exception)
             {
