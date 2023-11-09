@@ -81,15 +81,7 @@ namespace HCMS.Web.Controllers
                     claimsIdentity.AddClaim(new Claim("JWT", tokenString));
                     ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-                    bool rememberMe = model.RememberMe;
-
-                    AuthenticationProperties authProperties = new AuthenticationProperties
-                    {
-                        IsPersistent = rememberMe,
-                    };
-
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal,
-                        authProperties);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
                     TempData[SuccessMessage] = "You have logged successfully!";
                     return RedirectToAction("Home", "Home");
