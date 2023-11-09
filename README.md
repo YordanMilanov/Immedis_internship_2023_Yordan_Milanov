@@ -15,26 +15,37 @@ __Application roles__
 - 👷🏼 Employee
 - 👨‍💼 Agent
 - 👨‍💼 Admin
-__All roles common functionality__
+  
+__Employee functionality__
 
-__User profile credentials update__
+User profile credentials update:
 - _Username change_
 - _Email change_
 - _Password change_
-__Save, add, update and delete:__
+  
+Save, add, update and delete:
 - _Personal Information - required to use the below described functionality_
 - _Experience history(as a work record)_
 - _Education Information_
 - _Current workplace_
 - _Review work records_
 - _Review educations_
+  
 __Agent functionality__ 
+
 - _Review All Companies_
 - _Save, Add, Update, Delete company information_
 - _Review All Employees, their personal information, work records and educations_
 - _Able to dismiss employees working in the agent's current company_
+  
 __Admin functionality__ 
 - _Managing users roles_
+
+
+
+## 📝Application Architecture
+
+![App Screenshot](https://i.imgur.com/sNdBt1Q.jpg)
 
 
 
@@ -42,9 +53,4 @@ __Admin functionality__
 ## 👨🏽‍💼Author
 
 - [YordanMilanov](https://www.github.com/YordanMilanov) - GitHub
-
-
-## Application Architecture
-
-![App Screenshot](https://i.imgur.com/sNdBt1Q.jpg)
 
