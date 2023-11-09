@@ -32,15 +32,23 @@
                 <p>Address: <b>@location</b></p>
             }
 
+            <div class="row d-flex justify-content-center">
             @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
             {
                 @if (User.Claims.Any(claim => claim.Type == "EmployeeCompany" && claim.Value == Model.CompanyName))
                 {
-                    <div class="text-center mb-1">
-                        <a asp-controller="Employee" asp-action="dismiss" asp-route-id="@Model.Id" class="btn btn-success">Dismiss</a>
+                    <div class="col-4 text-center mb-1">
+                        <a asp-controller="Employee" asp-action="dismiss" asp-route-id="@Model.Id" class="btn btn-sm btn-success">Dismiss</a>
                     </div>
                 }
+                <div class="col-4 text-center mb-1">
+                    <a asp-controller="WorkRecord" asp-action="AllPersonal" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Experience</a>
+                </div>
+                <div class="col-4 text-center mb-1">
+                    <a asp-controller="Education" asp-action="All" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">Education</a>
+                </div>
             }
+            </div>
         </div>
     </div>
 </div>

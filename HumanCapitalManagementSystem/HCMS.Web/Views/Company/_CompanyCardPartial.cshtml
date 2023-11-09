@@ -26,20 +26,20 @@
 
 @if (Model!.Name != null)
 {
-        <div class="card-partial">
-            <div>
-                <h4 class="card-title">@Model.Name</h4>
-                <h6 class="card-subtitle">@Model.IndustryField</h6>
+    <div class="card-partial">
+        <div>
+            <h4 class="card-title">@Model.Name</h4>
+            <h6 class="card-subtitle">@Model.IndustryField</h6>
             <p class="card-text p-y-1 my-2">@Model.Description</p>
-                @if (location != "")
-                {
-                    <p>Address: @location</p>
-                }
+            @if (location != "")
+            {
+                <p>Address: @location</p>
+            }
 
             <div class="text-center mb-2">
                 <a asp-controller="Employee" asp-action="Dismiss" asp-route-id="@employeeId" class="btn btn-warning">Leave</a>
             </div>
-            </div>
+        </div>
 
         @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
         {

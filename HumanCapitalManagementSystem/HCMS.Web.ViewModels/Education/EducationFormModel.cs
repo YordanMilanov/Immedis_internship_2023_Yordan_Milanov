@@ -8,7 +8,7 @@ namespace HCMS.Web.ViewModels.Education
     public class EducationFormModel
     {
 
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Required]
         [StringLength(UniversityMaxLength, MinimumLength = UniversityMinLength, ErrorMessage = "University name must be between {2} and {1} characters long")]
@@ -28,7 +28,7 @@ namespace HCMS.Web.ViewModels.Education
 
         [Required]
         [DisplayName("Start date")]
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now;
        
         [DisplayName("End date")]
         public DateTime? EndDate { get; set; }

@@ -37,7 +37,7 @@ namespace HCMS.Web.Controllers
             }
 
             //if the user has no employee information redirect to add employee information
-            if (!HttpContext.User.Claims.Any(c => c.Type == "employeeId")) {
+            if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId")) {
                 return RedirectToAction("Edit", "Employee", new { redirect = "Please first add your employee information to be able to add work records!" });
             }
             return View();
@@ -69,7 +69,7 @@ namespace HCMS.Web.Controllers
             {
                 string successMessage = "The work record has been successfully added!";
                 TempData[SuccessMessage] = successMessage;
-                return View("Home", "Home");
+                return RedirectToAction("Home", "Home");
             } else
             {
                 ModelState.AddModelError("ErrorMessage", "Unexpected error occurred!");

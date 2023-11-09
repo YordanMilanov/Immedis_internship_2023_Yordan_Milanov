@@ -26,14 +26,14 @@ namespace HCMS.Services.Implementation
 
         public async Task UpdateEmployeeAsync(EmployeeDto model)
         {
-            if (await employeeRepository.IsEmployeeEmailUsedByAnotherEmployee(model.Email.ToString(), new Guid(model.UserId.ToString()!)))
-            {
-                throw new Exception("The email you have provided is already used!");
-            }
-            else if (await employeeRepository.IsEmployeePhoneNumberUsedByAnotherEmployee(model.Email.ToString(), new Guid(model.UserId.ToString()!)))
-            {
-                throw new Exception("The phone number you have provided is already used!");
-            }
+            //if (await employeeRepository.IsEmployeeEmailUsedByAnotherEmployee(model.Email.ToString(), new Guid(model.UserId.ToString()!)))
+            //{
+            //    throw new Exception("The email you have provided is already used!");
+            //}
+            //else if (await employeeRepository.IsEmployeePhoneNumberUsedByAnotherEmployee(model.Email.ToString(), new Guid(model.UserId.ToString()!)))
+            //{
+            //    throw new Exception("The phone number you have provided is already used!");
+            //}
 
             //arrange update object
             Employee employee = mapper.Map<Employee>(model);

@@ -142,7 +142,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
+        [Authorize]
         public async Task<IActionResult> EmployeeDismissCompany([FromQuery]string id)
         {
             try

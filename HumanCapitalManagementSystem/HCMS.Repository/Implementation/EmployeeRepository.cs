@@ -30,12 +30,22 @@ namespace HCMS.Repository.Implementation
                     employeeToSave.Location.OwnerId = employeeToSave.Id;
                 }
 
+                if (await dbContext.Employees.AnyAsync(e => e.PhoneNumber == model.PhoneNumber))
+                {
+                    throw new Exception("Phone number is already used!");
+                } 
+                else if (await dbContext.Employees.AnyAsync(e => e.Email == model.Email))
+                {
+                    throw new Exception("Email is already used!");
+
+                }
+
                 await dbContext.Employees.AddAsync(employeeToSave);
                 await dbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Unexpected error ocurred while trying to add your employee information!");
+                throw new Exception(ex.Message);
             }
 
         }
@@ -114,6 +124,16 @@ namespace HCMS.Repository.Implementation
                     throw new Exception("Employee not found");
                 }
 
+                if (await dbContext.Employees.AnyAsync(e => e.PhoneNumber == model.PhoneNumber && e.Id != model.Id))
+                {
+                    throw new Exception("Phone number is already used by another employee!");
+                }
+                else if (await dbContext.Employees.AnyAsync(e => e.Email == model.Email && e.Id != model.Id))
+                {
+                    throw new Exception("Email is already used by another employee!");
+
+                }
+
                 if (employee.LocationId == null && model.Location != null)
                 {
                     Location location = model.Location!;
@@ -137,9 +157,9 @@ namespace HCMS.Repository.Implementation
 
                 await dbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("The update operation has ben corrupted!");
+                throw new Exception(ex.Message);
             }
         }
 
