@@ -228,6 +228,9 @@ namespace HCMS.Web.Controllers
             string jsonToSend = JsonConvert.SerializeObject(userToBeUpdated, JsonSerializerSettingsProvider.GetCustomSettings());
             HttpContent content = new StringContent(jsonToSend, Encoding.UTF8, "application/json");
 
+            string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
+
             HttpResponseMessage response = await httpClient.PostAsync("/api/users/update", content);
 
             if (response.IsSuccessStatusCode)
@@ -271,6 +274,9 @@ namespace HCMS.Web.Controllers
             UserPasswordDto userPassword = mapper.Map<UserPasswordDto>(model);
             string jsonToSend = JsonConvert.SerializeObject(userPassword, JsonSerializerSettingsProvider.GetCustomSettings());
             HttpContent content = new StringContent(jsonToSend, Encoding.UTF8, "application/json");
+
+            string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
 
             HttpResponseMessage response = await httpClient.PostAsync("/api/users/passwordUpdate", content);
 
