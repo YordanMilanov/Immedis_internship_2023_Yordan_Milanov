@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "j05oiI8+CY+rJ9PqbhZwQJ8f+K3tLTw0PyosMxgCOtVuwp2HhGI5yPzRp5etd3HCRW5+QrBcq2Tn7e70Xp9pRw==",
+  "dgSpecHash": "8mrjCR3lpssTZpvCJp3GafXo+W0zTdxreXA1wDXrgut07+DATfTBy3YGZ5az4mtj1BW2ct5iA27xHZin9hBLpQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Web\\HCMS.Web.csproj",
+  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\HCMS.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danch\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
+    "C:\\Users\\danch\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",

@@ -4,9 +4,8 @@ using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
-using HCMS.Services.ServiceModels.Employee;
 
-namespace HCMS.Web.Api.AutoMapperProfiles
+namespace HCMS.Services.AutoMapperProfiles
 {
     public class CompanyMappingProfile : Profile
     {

@@ -1,7 +1,5 @@
-﻿
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 using static HCMS.Common.DataModelConstants.Employee;
 using static HCMS.Common.DataModelConstants.Location;
 
@@ -37,8 +35,8 @@ namespace HCMS.Web.ViewModels.Employee
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; } = null!;
 
-        [Display(Name = "Photo link")]
-        public string? PhotoUrl { get; set; }
+        [Display(Name = "Upload Photo")]
+        public IFormFile? Photo { get; set; }
 
         [Required]
         [Display(Name = "Birth date")]

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using HCMS.Web.Extensions;
-
 namespace HCMS.Web
 {
     public class Program
@@ -9,6 +8,9 @@ namespace HCMS.Web
         {
 
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+            //Add configuration file (appsettings.json)
+            builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             //AutoMapper
             builder.Services.AddAutoMapper(typeof(Program));

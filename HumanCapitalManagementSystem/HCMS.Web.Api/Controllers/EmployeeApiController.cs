@@ -1,4 +1,6 @@
-﻿using HCMS.Common;
+﻿using CloudinaryDotNet.Actions;
+using CloudinaryDotNet;
+using HCMS.Common;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
@@ -16,10 +18,12 @@ namespace HCMS.Web.Api.Controllers
     public class EmployeeApiController : ControllerBase
     {
         private readonly IEmployeeService employeeService;
+        private readonly Cloudinary cloudinary;
 
-        public EmployeeApiController(IEmployeeService employeeService)
+        public EmployeeApiController(IEmployeeService employeeService, Cloudinary cloudinary)
         {
             this.employeeService = employeeService;
+            this.cloudinary = cloudinary;
         }
 
         [HttpGet("GetEmployeeDtoByUserId")]
@@ -30,7 +34,7 @@ namespace HCMS.Web.Api.Controllers
         [Authorize]
         public async Task<IActionResult> GetEmployeeDtoByUserId([FromQuery] string userId)
         {
-            //get the employeeDto
+            //get the employeeDtoModel
             EmployeeDto? employeeDto = await employeeService.GetEmployeeDtoByUserIdAsync(Guid.Parse(userId));
 
            //if employee found
@@ -49,19 +53,53 @@ namespace HCMS.Web.Api.Controllers
 
         [HttpPost("UpdateEmployee")]
         [Produces("application/json")]
-        [Consumes("application/json")]
+        [Consumes("multipart/form-data")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         [Authorize]
-        public async Task<IActionResult> UpdateEmployee()
+        public async Task<IActionResult> UpdateEmployee([FromForm]string employeeDto, [FromForm]IFormFile file)
         {
-            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
-            EmployeeDto model = JsonConvert.DeserializeObject<EmployeeDto>(jsonReceived, JsonSerializerSettingsProvider.GetCustomSettings())!;
-
+            EmployeeDto employeeDtoModel = JsonConvert.DeserializeObject<EmployeeDto>(employeeDto, JsonSerializerSettingsProvider.GetCustomSettings())!;
+            employeeDtoModel.Photo = file;
 
             try
             {
-                await employeeService.UpdateEmployeeAsync(model);
+                //validate
+                if (await employeeService.IsEmployeeEmailExistsAsync(employeeDtoModel))
+                {
+                    throw new Exception("Email is already used!");
+                }
+                if (await employeeService.IsEmployeePhoneNumberExistsAsync(employeeDtoModel))
+                {
+                    throw new Exception("Phone number is already used!");
+                }
+
+                var photoFile = employeeDtoModel.Photo;
+
+                //upload picture to cloudinary
+                if (photoFile != null && photoFile.Length > 0)
+                {
+                    
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        photoFile.CopyTo(memoryStream);
+                        var pictureData = memoryStream.ToArray();
+
+                        var folderName = "HCMS";
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(photoFile.FileName);
+
+                        // Upload the picture to Cloudinary
+                        var uploadParams = new ImageUploadParams
+                        {
+                            File = new FileDescription(fileName, new MemoryStream(pictureData)),
+                            Folder = folderName
+                        };
+
+                        var uploadResult = cloudinary.Upload(uploadParams);
+                        employeeDtoModel.PhotoUrl = uploadResult.Url.ToString();
+                    }
+                }
+                        await employeeService.UpdateEmployeeAsync(employeeDtoModel);
                 return Ok("The information has been succssesfully updated!");
             }
             catch (Exception ex)

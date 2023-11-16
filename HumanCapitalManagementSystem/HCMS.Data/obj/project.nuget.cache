@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ne6Pxe8ZrzD/4phWaQNpSuGNEnKpkG/jaIorid+Bni0252K9fr7wedEBq/+m9D4Noz67Xh+l6KBW+mn1reV+mA==",
+  "dgSpecHash": "xUNILirR+sHB9eRY0slJ8B5WIGQxq9AxEkTlCatHepfZwnKl2EGMYbMd0RRsZWh7UwwDS/9owaSBMozNeiD39Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj",
+  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danch\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

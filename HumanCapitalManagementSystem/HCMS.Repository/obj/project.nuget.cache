@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F7eGhKTpO0qzdE6+LovuHpwGvVMErjkKelFtfbiGyUzQh6cKL+z9JZxAQasn1Sao6cikzyGUr4qczm24EZBsUQ==",
+  "dgSpecHash": "LcojjbwAvNTTzftKkd1iR1VbpRrol+Yc3ZGB03XYTAh++TosLlFOHhZ0pkJOdvW5p80u9L/MZjzmy/pamc4XjA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov_Failing\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj",
+  "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\danch\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
     "C:\\Users\\danch\\.nuget\\packages\\castle.core\\4.4.1\\castle.core.4.4.1.nupkg.sha512",

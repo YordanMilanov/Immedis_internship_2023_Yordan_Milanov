@@ -84,14 +84,14 @@ namespace HCMS.Repository.Implementation
             }
         }
 
-        public async Task<bool> IsEmployeeEmailUsedByAnotherEmployee(string email, Guid userId)
+        public async Task<bool> IsEmployeeEmailUsedByAnotherEmployee(string email, Guid Id)
         {
-            return await dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.Email == email);
+            return await dbContext.Employees.Where(e => e.Id != Id).AnyAsync(e => e.Email == email);
         }
 
-        public async Task<bool> IsEmployeePhoneNumberUsedByAnotherEmployee(string phoneNumber, Guid userId)
+        public async Task<bool> IsEmployeePhoneNumberUsedByAnotherEmployee(string phoneNumber, Guid Id)
         {
-            return await dbContext.Employees.Where(e => e.UserId != userId).AnyAsync(e => e.PhoneNumber == phoneNumber);
+            return await dbContext.Employees.Where(e => e.Id != Id).AnyAsync(e => e.PhoneNumber == phoneNumber);
         }
 
         public async Task<Guid> GetEmployeeIdByUserIdAsync(Guid userId)

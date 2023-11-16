@@ -123,61 +123,78 @@ namespace HCMS.Web.Controllers
 
             EmployeeDto employeeDto = mapper.Map<EmployeeDto>(model);
             employeeDto.UserId = Guid.Parse(userIdClaim.Value);
-            string jsonContent = JsonConvert.SerializeObject(employeeDto, JsonSerializerSettingsProvider.GetCustomSettings());
-            HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            string apiUrl = "/api/employee/UpdateEmployee";
-            
-            //set JWT
-            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
-            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
-            
-            HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
-
-            //if employee information successfully updated
-            if(response.IsSuccessStatusCode)
+            using (var form = new MultipartFormDataContent())
             {
-                //if the principal has no employeeId claim -> add employee information for first time
-                if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
+                // Add the file content
+                if (model.Photo != null)
                 {
-                    string userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value;
-              
-                    //JWT is already set
-                    //set the employeeId to the claims of the user
-                    string employeeApiUrl = $"/api/employee/EmployeeIdByUserId?UserId={userId}";
-                    HttpResponseMessage employeeIdResponse = await httpClient.GetAsync(employeeApiUrl);
-                    if (employeeIdResponse.IsSuccessStatusCode)
-                    {
-                        var userClaims = new List<Claim>(HttpContext.User.Claims);
-
-                        // Add / update claims
-                        string employeeId = await employeeIdResponse.Content.ReadAsStringAsync();
-                        Claim employeeIdClaim = new Claim("EmployeeId", employeeId);
-                        userClaims.RemoveAll(c => c.Type == "EmployeeId");
-                        userClaims.Add(employeeIdClaim);
-
-                        ClaimsIdentity updatedIdentity = new ClaimsIdentity(userClaims, HttpContext.User.Identity!.AuthenticationType, ClaimTypes.Name, ClaimTypes.Role);
-
-                        ClaimsPrincipal updatedPrincipal = new ClaimsPrincipal(updatedIdentity);
-
-                        await HttpContext.SignInAsync(updatedPrincipal);
-                    }
+                    // Use a MemoryStream without disposing it here
+                    var stream = new MemoryStream();
+                    await model.Photo.CopyToAsync(stream);
+                    stream.Position = 0;
+                    form.Add(new StreamContent(stream), "file", model.Photo.FileName);
                 }
 
-                TempData[SuccessMessage] = "You have successfully edited your personal information!";
-                return RedirectToAction("Home", "Home");
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-            {
-                // Read the response content as a string
-                string responseContent = await response.Content.ReadAsStringAsync();
-               ModelState.AddModelError("GeneralError", responseContent);
-                return View(model);
-            } else
-            {
-                ModelState.AddModelError("GeneralError", "Unexpected error occurred!");
-                TempData[ErrorMessage] = "Unexpected error occurred!";
-                return View(model);
+                // Convert EmployeeDto to JSON and add it as a StringContent
+                employeeDto.Photo = null;
+                string jsonContent = JsonConvert.SerializeObject(employeeDto, JsonSerializerSettingsProvider.GetCustomSettings());
+                form.Add(new StringContent(jsonContent, Encoding.UTF8, "application/json"), "employeeDto");
+
+                string apiUrl = "/api/employee/UpdateEmployee";
+
+                // Set JWT
+                string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+                HttpResponseMessage response = await httpClient.PostAsync(apiUrl, form);
+
+                //if employee information successfully updated
+                if (response.IsSuccessStatusCode)
+                {
+                    //if the principal has no employeeId claim -> add employee information for first time
+                    if (!HttpContext.User.Claims.Any(c => c.Type == "EmployeeId"))
+                    {
+                        string userId = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value;
+
+                        //JWT is already set
+                        //set the employeeId to the claims of the user
+                        string employeeApiUrl = $"/api/employee/EmployeeIdByUserId?UserId={userId}";
+                        HttpResponseMessage employeeIdResponse = await httpClient.GetAsync(employeeApiUrl);
+                        if (employeeIdResponse.IsSuccessStatusCode)
+                        {
+                            var userClaims = new List<Claim>(HttpContext.User.Claims);
+
+                            // Add / update claims
+                            string employeeId = await employeeIdResponse.Content.ReadAsStringAsync();
+                            Claim employeeIdClaim = new Claim("EmployeeId", employeeId);
+                            userClaims.RemoveAll(c => c.Type == "EmployeeId");
+                            userClaims.Add(employeeIdClaim);
+
+                            ClaimsIdentity updatedIdentity = new ClaimsIdentity(userClaims, HttpContext.User.Identity!.AuthenticationType, ClaimTypes.Name, ClaimTypes.Role);
+
+                            ClaimsPrincipal updatedPrincipal = new ClaimsPrincipal(updatedIdentity);
+
+                            await HttpContext.SignInAsync(updatedPrincipal);
+                        }
+                    }
+
+                    TempData[SuccessMessage] = "You have successfully edited your personal information!";
+                    return RedirectToAction("Home", "Home");
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                {
+                    // Read the response content as a string
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError("GeneralError", responseContent);
+                    return View(model);
+                }
+                else
+                {
+                    ModelState.AddModelError("GeneralError", "Unexpected error occurred!");
+                    TempData[ErrorMessage] = "Unexpected error occurred!";
+                    return View(model);
+                }
             }
         }
 

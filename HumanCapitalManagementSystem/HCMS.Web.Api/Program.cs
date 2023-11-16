@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using HCMS.Web.Api.AutoMapperProfiles;
+using CloudinaryDotNet;
+using HCMS.Services.AutoMapperProfiles;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,12 @@ string connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection") ??
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+//Cloudinary for pictures 
+CloudinarySettings cloudinarySettings = builder.Configuration.GetSection("CloudinarySettings").Get<CloudinarySettings>();
+Account account = new Account(cloudinarySettings.CloudName, cloudinarySettings.ApiKey, cloudinarySettings.ApiSecret);
+Cloudinary cloudinary = new Cloudinary(account);
+builder.Services.AddSingleton(cloudinary);
+
 builder.Services
     .AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
@@ -26,8 +33,7 @@ builder.Services.AddControllers();
 builder.Services.AddServices();
 builder.Services.AddRepositories();
 
-var ServicesAssembly = typeof(UserMappingProfile).Assembly;
-builder.Services.AddAutoMapper(ServicesAssembly);
+builder.Services.AddAutoMapper(typeof(EmployeeMappingProfile).Assembly);
 
 //Add swagger
 builder.Services.AddEndpointsApiExplorer();

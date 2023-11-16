@@ -4,7 +4,7 @@ using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.WorkRecord;
 
-namespace HCMS.Web.Api.AutoMapperProfiles;
+namespace HCMS.Services.AutoMapperProfiles;
 public class WorkRecordMappingProfile : Profile
 {
     public WorkRecordMappingProfile()

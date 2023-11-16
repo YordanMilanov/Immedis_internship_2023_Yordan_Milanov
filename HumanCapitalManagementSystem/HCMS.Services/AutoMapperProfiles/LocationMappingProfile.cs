@@ -3,8 +3,8 @@ using HCMS.Common.Structures;
 using HCMS.Data.Models;
 using HCMS.Services.ServiceModels.Location;
 
-namespace HCMS.Web.Api.AutoMapperProfiles;
-    public class LocationMappingProfile : Profile
+namespace HCMS.Services.AutoMapperProfiles;
+public class LocationMappingProfile : Profile
     {
         public LocationMappingProfile()
         {

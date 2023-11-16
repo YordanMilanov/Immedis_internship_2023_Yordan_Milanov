@@ -1,4 +1,5 @@
 ﻿using HCMS.Common.Structures;
+using Microsoft.AspNetCore.Http;
 
 namespace HCMS.Services.ServiceModels.Employee
 {
@@ -12,6 +13,8 @@ namespace HCMS.Services.ServiceModels.Employee
         public Email Email { get; set; }
 
         public Phone PhoneNumber { get; set; }
+
+        public IFormFile? Photo { get; set; }
 
         public string? PhotoUrl { get; set; }
 

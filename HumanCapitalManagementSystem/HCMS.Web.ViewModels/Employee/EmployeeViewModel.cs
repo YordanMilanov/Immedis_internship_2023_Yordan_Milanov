@@ -7,6 +7,8 @@
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
+
+        public string? PhotoUrl { get; set; }
         public string? CompanyName { get; set; }
         public DateTime DateOfBirth { get; set; }
 

@@ -3,7 +3,7 @@ using HCMS.Common.Structures;
 using HCMS.Data.Models;
 using HCMS.Services.ServiceModels.Education;
 
-namespace HCMS.Web.Api.AutoMapperProfiles
+namespace HCMS.Services.AutoMapperProfiles
 {
     public class EducationMappingProfile : Profile
     {

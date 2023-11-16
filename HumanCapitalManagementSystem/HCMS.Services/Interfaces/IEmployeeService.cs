@@ -15,5 +15,7 @@ namespace HCMS.Services.Interfaces
         Task<QueryDtoResult<EmployeeDto>> GetCurrentPageAsync(QueryDto model);
         Task RemoveEmployeeCompanyByIdAsync(Guid id);
         Task<string> GetEmployeeFullNameById(Guid id);
+        Task<bool> IsEmployeeEmailExistsAsync(EmployeeDto model);
+        Task<bool> IsEmployeePhoneNumberExistsAsync(EmployeeDto model);
     }
 }

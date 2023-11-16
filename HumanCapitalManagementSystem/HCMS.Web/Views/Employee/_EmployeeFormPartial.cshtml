@@ -3,7 +3,9 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
-            <form method="post">
+            <form method="post"
+                  enctype="multipart/form-data">
+
                 <h1 class="text-white text-center technical-font">Personal Information</h1>
 
                 @* General Error Message Here *@
@@ -43,9 +45,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="text-white technical-font" asp-for="PhotoUrl"></label>
-                    <input asp-for="PhotoUrl" class="form-control" placeholder="Photo link...">
-                    <span asp-validation-for="PhotoUrl" class="small text-white bg-danger"></span>
+                    <label class="text-white technical-font" asp-for="Photo"></label>
+                    <input asp-for="Photo" type="file" class="form-control" placeholder="Upload Photo">
+                    <span asp-validation-for="Photo" class="small text-white bg-danger"></span>
                 </div>
 
                 <div class="form-group">
