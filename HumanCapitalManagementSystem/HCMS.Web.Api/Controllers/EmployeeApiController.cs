@@ -64,22 +64,39 @@ namespace HCMS.Web.Api.Controllers
 
             try
             {
-                //validate
-                if (await employeeService.IsEmployeeEmailExistsAsync(employeeDtoModel))
+                if (await this.employeeService.IsEmployeeEmailExistsAsync(employeeDtoModel))
                 {
                     throw new Exception("Email is already used!");
                 }
-                if (await employeeService.IsEmployeePhoneNumberExistsAsync(employeeDtoModel))
+                if (await this.employeeService.IsEmployeePhoneNumberExistsAsync(employeeDtoModel))
                 {
                     throw new Exception("Phone number is already used!");
                 }
 
+                EmployeeDto currentEmployeeDto = await employeeService.GetEmployeeDtoByIdAsync(employeeDtoModel.Id);
                 var photoFile = employeeDtoModel.Photo;
+
+                // Check if the user already has a photo and delete it from cloudinary
+                if (!string.IsNullOrEmpty(currentEmployeeDto.PhotoUrl))
+                {
+                    // Split the URL by slashes and take the last part
+                    string[] urlParts = currentEmployeeDto.PhotoUrl!.Split('/');
+                    string publicIdWithExtension = urlParts[urlParts.Length - 1];
+
+                    // Remove the file extension
+                    string publicId = Path.GetFileNameWithoutExtension(publicIdWithExtension);
+
+                    var deleteParams = new DeletionParams(publicId)
+                    {
+                        ResourceType = ResourceType.Image
+                    };
+
+                    cloudinary.Destroy(deleteParams);
+                }
 
                 //upload picture to cloudinary
                 if (photoFile != null && photoFile.Length > 0)
                 {
-                    
                     using (var memoryStream = new MemoryStream())
                     {
                         photoFile.CopyTo(memoryStream);
@@ -99,7 +116,7 @@ namespace HCMS.Web.Api.Controllers
                         employeeDtoModel.PhotoUrl = uploadResult.Url.ToString();
                     }
                 }
-                        await employeeService.UpdateEmployeeAsync(employeeDtoModel);
+                await employeeService.UpdateEmployeeAsync(employeeDtoModel);
                 return Ok("The information has been succssesfully updated!");
             }
             catch (Exception ex)

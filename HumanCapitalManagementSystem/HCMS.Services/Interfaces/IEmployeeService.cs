@@ -17,5 +17,6 @@ namespace HCMS.Services.Interfaces
         Task<string> GetEmployeeFullNameById(Guid id);
         Task<bool> IsEmployeeEmailExistsAsync(EmployeeDto model);
         Task<bool> IsEmployeePhoneNumberExistsAsync(EmployeeDto model);
+        Task<EmployeeDto> GetEmployeeDtoByIdAsync(Guid id);
     }
 }

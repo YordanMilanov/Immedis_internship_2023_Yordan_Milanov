@@ -150,5 +150,10 @@ namespace HCMS.Services.Implementation
         {
             return await this.employeeRepository.IsEmployeePhoneNumberUsedByAnotherEmployee(model.PhoneNumber.ToString(), model.Id);
         }
+
+        public async Task<EmployeeDto> GetEmployeeDtoByIdAsync(Guid id)
+        {
+            return mapper.Map<EmployeeDto>(await employeeRepository.GetEmployeeByIdAsync(id));
+        }
     }
 }
