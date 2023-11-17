@@ -1,0 +1,61 @@
+﻿@model HCMS.Web.ViewModels.Recommendation.RecommendationFormModel
+
+@using HCMS.Web.WebServices.Interfaces;
+@using HCMS.Web.ViewModels.Company;
+@inject ICompanyWebService companyWebService;
+@{
+    IEnumerable<string> companyNames = await companyWebService.GetAllCompanyNamesFromApiAsync();
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
+           
+            <form method="post"
+                  enctype="multipart/form-data">
+
+                <h1 class="text-white text-center technical-font">Create Recommendation</h1>
+
+                @* General Error Message Here *@
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <h3 class="mt-5 text-center">
+                        <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                    </h3>
+                }
+
+                <input asp-for="Id" class="d-none" value="@Model.Id">
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="Description"></label>
+                    <input asp-for="Description" class="form-control" placeholder="Description...">
+                    <span asp-validation-for="Description" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="EmployeeEmail"></label>
+                    <input asp-for="EmployeeEmail" class="form-control"
+                           placeholder="Employee Email...">
+                    <span asp-validation-for="EmployeeEmail" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="CompanyName">Select company</label>
+                    <select asp-for="CompanyName" id="companySelect">
+                        <option value="">Company...</option>
+                        @foreach (string name in companyNames)
+                        {
+                            <option value="@name">@name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3 technical-font" type="submit" value="Send Recommendation" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

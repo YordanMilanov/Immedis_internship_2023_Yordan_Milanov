@@ -74,5 +74,10 @@
             public const int DepartmentMaxLength = 50;
             public const int DepartmentMinLength = 2;
         }
+
+        public static class Recommendation
+        {
+            public const int DescriptionMinLength = 20;
+        }
     }
 }
