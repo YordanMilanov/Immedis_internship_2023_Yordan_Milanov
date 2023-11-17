@@ -37,6 +37,8 @@ __Agent functionality__
 - _Save, Add, Update, Delete company information_
 - _Review All Employees, their personal information, work records and educations_
 - _Able to dismiss employees working in the agent's current company_
+- _Can create and send recommendations for employees which work in his/her current workplace(company)_
+- _Can recieve recommendations from another companies agents_
   
 __Admin functionality__ 
 - _Managing users roles_
