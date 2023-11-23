@@ -8,6 +8,7 @@ namespace HCMS.Common.Structures
 
     public readonly struct Description
     {
+
         private readonly string value;
 
         [JsonConstructor]

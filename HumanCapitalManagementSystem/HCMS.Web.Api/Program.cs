@@ -10,10 +10,10 @@ using HCMS.Services.AutoMapperProfiles;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-//Add configuration file
+//AddAsync configuration file
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-// Add ApplicationDbContext
+// AddAsync ApplicationDbContext
 string connectionString =
     builder.Configuration.GetConnectionString("DefaultConnection") ??
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -35,11 +35,11 @@ builder.Services.AddRepositories();
 
 builder.Services.AddAutoMapper(typeof(EmployeeMappingProfile).Assembly);
 
-//Add swagger
+//AddAsync swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Add JWT
+//AddAsync JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

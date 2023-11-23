@@ -5,16 +5,22 @@ namespace HCMS.Web.ViewModels.Recommendation
 {
     public class RecommendationFormModel
     {
-        public Guid Id { get; set; }
+        public Guid RecommenderId { get; set; }
 
         [Required]
         [MinLength(DescriptionMinLength)]
+        [Display(Name = "Letter")]
         public string Description { get; set; } = null!;
 
         [EmailAddress]
+        [Display(Name = "Employee Email")]
         public string EmployeeEmail { get; set; } = null!;
 
-        public string CompanyName { get; set; }
+        [Display(Name = "Employee full name")]
+        public string EmployeeName { get; set; } = null!;
 
+        [Required]
+        [Display(Name = "Receiving company")]
+        public string CompanyName { get; set; } = null!;
     }
 }

@@ -181,7 +181,14 @@ namespace HCMS.Data
 
                 entity.Property(e => e.ForEmployeeId)
                     .IsRequired();
-                entity.HasOne(e => e.Employee)
+                entity.HasOne(e => e.ForEmployee)
+                    .WithMany()
+                    .HasForeignKey(e => e.ForEmployeeId)
+                    .IsRequired(false);
+
+                entity.Property(e => e.FromEmployeeId)
+                   .IsRequired();
+                entity.HasOne(e => e.FromEmployee)
                     .WithMany()
                     .HasForeignKey(e => e.ForEmployeeId)
                     .IsRequired(false);

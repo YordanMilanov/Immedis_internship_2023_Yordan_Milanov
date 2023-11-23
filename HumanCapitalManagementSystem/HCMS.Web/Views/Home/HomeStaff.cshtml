@@ -50,20 +50,20 @@
                 <div class="col-12 workrecords-background text-white height-25 d-flex flex-column align-items-center">
                     <!-- Content for the top right div -->
                     <div>
-                        <h1 class="text-center text-bold tech-font">All Users</h1>
-                        <p class="text-center mt-2">Information about the registered users, their roles and permissions</p>
+                        <h1 class="text-center text-bold tech-font">Recommendation</h1>
+                        <p class=" text-center mt-2">Create and send recommendation letter for a certain employee to a specific company</p>
                     </div>
-                    <a asp-controller="User" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to users</a>
+                    <a asp-controller="Recommendation" asp-action="Add" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Recommend</a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 recommendations-background text-white height-25 d-flex flex-column align-items-center">
                     <!-- Content for the bottom right div -->
                     <div>
-                        <h1 class="text-center text-bold tech-font">Current workplace</h1>
-                        <p class=" text-center mt-2">Add information about your current work place</p>
+                        <h1 class="text-center text-bold tech-font">Add new company</h1>
+                        <p class="text-center mt-2">Add new company with information about industry field, location and other.</p>
                     </div>
-                    <a asp-controller="Company" asp-action="Select" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Edit your workplace</a>
+                    <a asp-controller="Company" asp-action="Edit" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Add</a>
                 </div>
             </div>
         </div>
@@ -72,18 +72,18 @@
        
         <div class="col-4 employees-background text-white d-flex flex-column align-items-center">
             <div>
-                <h1 class="text-center text-bold tech-font">Employees</h1>
-                <p class="text-center mt-2">Discover a diverse and skilled workforce that's ready to make a difference. Explore their profiles, learn about their experiences, education and more</p>
+                <h1 class="text-center text-bold tech-font">All Users</h1>
+                <p class="text-center mt-2">Information about the registered users, their roles and permissions</p>
             </div>
-            <a asp-controller="Employee" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to employees</a>
+            <a asp-controller="User" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to users</a>
         </div>
 
         <div class="col-4 companies-background text-white d-flex flex-column align-items-center">
             <div>
-                <h1 class="text-center text-bold tech-font">Add new company</h1>
-                <p class="text-center mt-2">Add new company with information about industry field, location and other.</p>
+                <h1 class="text-center text-bold tech-font">Employees</h1>
+                <p class="text-center mt-2">Discover a diverse and skilled workforce that's ready to make a difference. Explore their profiles, learn about their experiences, education and more</p>
             </div>
-            <a asp-controller="Company" asp-action="Edit" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Add</a>
+            <a asp-controller="Employee" asp-action="All" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Go to employees</a>
         </div>
 
         <div class="col-4 employees-background text-white d-flex flex-column align-items-center">

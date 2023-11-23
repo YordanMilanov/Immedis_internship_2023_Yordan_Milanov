@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HCMS.Data.Models
 {
@@ -14,8 +13,10 @@ namespace HCMS.Data.Models
         public Guid Id { get; set; }
         public string Description { get; set; } = null!;
         public DateTime RecommendDate { get; set; } = DateTime.Now;
+        public Guid FromEmployeeId { get; set; }
+        public virtual Employee FromEmployee { get; set; } = null!;
         public Guid ForEmployeeId { get; set; }
-        public virtual Employee Employee { get; set; } = null!;
+        public virtual Employee ForEmployee { get; set; } = null!;
         public Guid ToCompanyId { get; set; }
         public virtual Company Company { get; set; } = null!;
 

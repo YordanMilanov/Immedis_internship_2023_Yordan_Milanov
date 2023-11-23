@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets\\css\\Employee.css"
     },
     {
+      "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\Recommendation.css",
+      "PackagePath": "staticwebassets\\css\\Recommendation.css"
+    },
+    {
       "Id": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web\\wwwroot\\css\\User.css",
       "PackagePath": "staticwebassets\\css\\User.css"
     },
