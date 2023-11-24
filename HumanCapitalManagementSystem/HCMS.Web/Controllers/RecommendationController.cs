@@ -8,6 +8,12 @@ using System.Text;
 using static HCMS.Common.RoleConstants;
 using HCMS.Services.ServiceModels.Recommendation;
 using static HCMS.Common.NotificationMessagesConstants;
+using HCMS.Common;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
+using HCMS.Web.ViewModels.BaseViewModel;
+using HCMS.Web.ViewModels.Employee;
+using System.Reflection;
 
 namespace HCMS.Web.Controllers
 {
@@ -41,7 +47,7 @@ namespace HCMS.Web.Controllers
 
             RecommendationDto recommendationDto = mapper.Map<RecommendationDto>(model);
 
-            string jsonContent = JsonConvert.SerializeObject(recommendationDto, Formatting.Indented);
+            string jsonContent = JsonConvert.SerializeObject(recommendationDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
             HttpContent content = new StringContent(jsonContent, Encoding.UTF8,"application/json");
 
             string apiUrl = "/api/recommendation/add";
@@ -51,14 +57,49 @@ namespace HCMS.Web.Controllers
             this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
 
             HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+            string responseMessage = await response.Content.ReadAsStringAsync();
 
-            if(response.IsSuccessStatusCode) 
-            { 
+            if (response.IsSuccessStatusCode) 
+            {
+                TempData[SuccessMessage] = responseMessage.Substring(1, responseMessage.Length - 2);
+
                 return RedirectToAction("Home", "Home");
             } 
             else
             {
-                TempData[ErrorMessage] = response.Content.ReadAsStringAsync();
+                TempData[ErrorMessage] = responseMessage.Substring(1, responseMessage.Length - 2);
+                return View(model);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All([FromRoute] string id, [FromQuery] QueryDto model)
+        {
+            if (model == null)
+            {
+                model = new QueryDto();
+            }
+            Guid companyId = Guid.Parse(id);
+
+            string url = $"api/recommendation/page?companyId={companyId}";
+            string json = JsonConvert.SerializeObject(model);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonContent = await response.Content.ReadAsStringAsync();
+                QueryDtoResult<RecommendationDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<RecommendationDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                ResultQueryModel<RecommendationViewModel> recommendationQueryModel = mapper.Map<ResultQueryModel<RecommendationViewModel>>(responseQueryDto);
+                return View(recommendationQueryModel);
+            }
+            else
+            {
                 return View(model);
             }
         }

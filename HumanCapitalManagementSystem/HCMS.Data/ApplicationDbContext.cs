@@ -190,7 +190,7 @@ namespace HCMS.Data
                    .IsRequired();
                 entity.HasOne(e => e.FromEmployee)
                     .WithMany()
-                    .HasForeignKey(e => e.ForEmployeeId)
+                    .HasForeignKey(e => e.FromEmployeeId)
                     .IsRequired(false);
 
                 entity.Property(e => e.ToCompanyId)

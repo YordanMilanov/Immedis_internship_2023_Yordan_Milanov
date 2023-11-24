@@ -241,5 +241,17 @@ namespace HCMS.Repository.Implementation
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<Employee> GetEmployeeByEmailAsync(string email)
+        {
+            try
+            {
+                return await this.dbContext.Employees.FirstAsync(e => e.Email == email);
+            } 
+            catch(Exception)
+            {
+                throw new Exception("Employee with this email does not exist!");
+            }
+        }
     }
 }

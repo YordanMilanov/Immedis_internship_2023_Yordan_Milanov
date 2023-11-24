@@ -8,16 +8,13 @@ namespace HCMS.Web.ViewModels.Recommendation
         public Guid RecommenderId { get; set; }
 
         [Required]
-        [MinLength(DescriptionMinLength)]
+        [MinLength(DescriptionMinLength, ErrorMessage = "Description length must be at least {1} characters long!")]
         [Display(Name = "Letter")]
         public string Description { get; set; } = null!;
 
         [EmailAddress]
         [Display(Name = "Employee Email")]
         public string EmployeeEmail { get; set; } = null!;
-
-        [Display(Name = "Employee full name")]
-        public string EmployeeName { get; set; } = null!;
 
         [Required]
         [Display(Name = "Receiving company")]

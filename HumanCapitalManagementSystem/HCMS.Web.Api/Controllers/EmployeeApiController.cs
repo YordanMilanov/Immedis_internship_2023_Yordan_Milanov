@@ -188,7 +188,7 @@ namespace HCMS.Web.Api.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Unexpected error occured while trying to update to new company!");
+                return BadRequest("Unexpected error occured while trying to load the current page!");
             }
         }
 

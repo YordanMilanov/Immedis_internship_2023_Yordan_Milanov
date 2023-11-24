@@ -22,5 +22,6 @@ namespace HCMS.Repository.Interfaces
         Task<QueryPageWrapClass<Employee>> GetCurrentPageAsync(QueryParameterClass parameters);
         Task LeaveCompanyByIdAsync(Guid id);
         Task<string> GetEmployeeFullNameById(Guid id);
+        Task<Employee> GetEmployeeByEmailAsync(string email);
     }
 }

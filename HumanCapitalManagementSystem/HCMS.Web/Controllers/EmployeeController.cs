@@ -29,6 +29,7 @@ namespace HCMS.Web.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
         [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
         public async Task<IActionResult> All(QueryDto model)
         {
