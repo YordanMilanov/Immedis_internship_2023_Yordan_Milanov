@@ -144,5 +144,25 @@ namespace HCMS.Web.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("GetCompanyNameById")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetCompanyNameById([FromQuery] string companyId)
+        {
+            try
+            {
+                string companyName = await companyService.GetCompanyNameById(Guid.Parse(companyId));
+                return Content(companyName, "application/json");
+            }
+            catch (Exception)
+            {
+                return NotFound("Company not found!");
+            }
+
+        }
     }
 }

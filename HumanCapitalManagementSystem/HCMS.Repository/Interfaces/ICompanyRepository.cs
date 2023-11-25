@@ -21,5 +21,6 @@ namespace HCMS.Repository.Interfaces
         Task<bool> CompanyExistsByNameAsync(string name);
         Task AddCompanyAsync(Company model);
         Task EditCompanyAsync(Company company);
+        Task<string> GetCompanyNameById(Guid id);
     }
 }

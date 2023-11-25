@@ -3,6 +3,7 @@ using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 namespace HCMS.Repository.Implementation
 {
@@ -182,6 +183,20 @@ namespace HCMS.Repository.Implementation
             catch(Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+
+       public async Task<string> GetCompanyNameById(Guid id)
+        {
+            try
+            {
+                return await this.dbContext.Companies
+                         .Where(c => c.Id == id)
+                         .Select(c => c.Name)
+                         .FirstAsync();
+            } catch(Exception)
+            {
+                throw new Exception("Company name was not found!");
             }
         }
     }

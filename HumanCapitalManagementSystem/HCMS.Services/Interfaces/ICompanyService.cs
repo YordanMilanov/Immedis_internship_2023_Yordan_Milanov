@@ -15,5 +15,6 @@ namespace HCMS.Services.Interfaces
         Task<CompanyDto> GetCompanyDtoByIdAsync(Guid id);
         Task AddCompanyDtoAsync(CompanyDto model);
         Task EditCompanyDtoAsync(CompanyDto model);
+        Task<string> GetCompanyNameById(Guid guid);
     }
 }

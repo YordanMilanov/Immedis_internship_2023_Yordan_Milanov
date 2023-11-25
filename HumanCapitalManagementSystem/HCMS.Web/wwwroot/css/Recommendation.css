@@ -30,3 +30,11 @@
     background-color: #134475;
     border-radius: 10px;
 }
+
+.profile-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 50%;
+    max-height: 50%;
+    border-radius: 5px;
+}

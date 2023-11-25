@@ -96,6 +96,14 @@ namespace HCMS.Web.Controllers
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 QueryDtoResult<RecommendationDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<RecommendationDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                 ResultQueryModel<RecommendationViewModel> recommendationQueryModel = mapper.Map<ResultQueryModel<RecommendationViewModel>>(responseQueryDto);
+
+                string CompanyNameUrl = $"api/company/GetCompanyNameById?companyId={companyId}";
+                HttpResponseMessage CompanyNameResponse = await httpClient.GetAsync(CompanyNameUrl);
+                if(CompanyNameResponse.IsSuccessStatusCode)
+                {
+                    string companyName = await CompanyNameResponse.Content.ReadAsStringAsync();
+                    TempData["CompanyName"] = companyName;
+                }
                 return View(recommendationQueryModel);
             }
             else

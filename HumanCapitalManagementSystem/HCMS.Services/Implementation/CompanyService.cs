@@ -123,5 +123,17 @@ namespace HCMS.Services.Implementation
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<string> GetCompanyNameById(Guid id)
+        {
+            try
+            {
+                return await this.companyRepository.GetCompanyNameById(id);
+            } 
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
