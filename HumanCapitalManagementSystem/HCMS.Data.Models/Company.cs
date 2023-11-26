@@ -17,5 +17,6 @@ namespace HCMS.Data.Models
         public string IndustryField { get; set; } = null!;
         public Guid? LocationId { get; set; }
         public virtual Location? Location { get; set; }
+        public virtual ICollection<Advert>? Adverts { get; set; }
     }
 }

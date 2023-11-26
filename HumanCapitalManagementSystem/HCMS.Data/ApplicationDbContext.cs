@@ -72,26 +72,45 @@ namespace HCMS.Data
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
-                entity.Property(e => e.Position)
-                    .IsRequired()
-                    .HasMaxLength(DataModelConstants.Application.PositionMaxLength);
-                entity.Property(e => e.Department)
-                    .IsRequired()
-                    .HasMaxLength(DataModelConstants.Application.DepartmentMaxLength);
                 entity.Property(e => e.CoverLetter).IsRequired();
                 entity.Property(e => e.AddDate).IsRequired();
-                entity.Property(e => e.ToCompanyId).IsRequired();
 
                 //FKs
-                entity.HasOne(e => e.Company)
+                entity.Property(e => e.AdvertId).IsRequired();
+                entity.HasOne(e => e.Advert)
                     .WithMany()
-                    .HasForeignKey(e => e.ToCompanyId);
+                    .HasForeignKey(e => e.AdvertId);
 
                 entity.Property(e => e.FromEmployeeId).IsRequired();
-
                 entity.HasOne(e => e.Employee)
                     .WithMany()
                     .HasForeignKey(e => e.FromEmployeeId);
+            });
+            builder.Entity<Advert>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+                entity.Property(e => e.Position)
+                    .IsRequired()
+                    .HasMaxLength(DataModelConstants.Advert.PositionMaxLength);
+                entity.Property(e => e.Department)
+                    .IsRequired()
+                    .HasMaxLength(DataModelConstants.Advert.DepartmentMaxLength);
+                entity.Property(e => e.Description).IsRequired();
+                entity.Property(e => e.AddDate).IsRequired();
+                entity.Property(e => e.RemoteOption);
+
+                //FKs
+                entity.Property(e => e.CompanyId).IsRequired();
+                entity.HasOne(e => e.Company)
+                    .WithMany()
+                    .HasForeignKey(e => e.CompanyId);
+
+                entity.HasMany(e => e.Applications)
+                     .WithOne(e => e.Advert)
+                     .HasForeignKey(a => a.AdvertId);
+
+
             });
             builder.Entity<Company>(entity =>
             {
@@ -105,12 +124,17 @@ namespace HCMS.Data
                     .IsRequired()
                     .HasMaxLength(DataModelConstants.Company.IndustryFieldMaxLength);
                 entity.Property(e => e.LocationId);
-
+                
+                //FKS
                 entity.HasOne(e => e.Location)
                     .WithOne()
                     .HasForeignKey<Company>(e => e.LocationId)
                     .IsRequired(false)
                     .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasMany(e => e.Adverts)
+                   .WithOne(a => a.Company)
+                   .HasForeignKey(a => a.CompanyId);
             });
             builder.Entity<Employee>(entity =>
             {

@@ -67,12 +67,14 @@
             public const int FieldOfEducationMinLength = 2;
         }
 
-        public static class Application
+        public static class Advert
         {
             public const int PositionMaxLength = 50;
             public const int PositionMinLength = 2;
             public const int DepartmentMaxLength = 50;
             public const int DepartmentMinLength = 2;
+            public const int DescriptionMinLength = 20;
+
         }
 
         public static class Recommendation

@@ -25,6 +25,7 @@ namespace HCMS.Data.Models
         public virtual User? User { get; set; }
         public Guid? LocationId {get; set; }
         public virtual Location? Location { get; set;}
-        public virtual ICollection<Education> Educations { get; set; }
+        public virtual ICollection<Education>? Educations { get; set; }
+        public virtual ICollection<Application>? Applications { get; set; }
     }
 }

@@ -1,0 +1,78 @@
+﻿@model HCMS.Web.ViewModels.Advert.AdvertFormModel
+
+<div class="container all-container">
+    <div class="row technical-font text-white">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
+            <form class="mx-1 mx-md-4"
+                  method="post"
+                  asp-controller="Advert"
+                  asp-action="Add">
+
+                <h2 class="text-white text-center technical-font">List A Job Offer</h2>
+
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <h3 class="mt-5 text-center">
+                        <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                    </h3>
+                }
+
+                <div class="d-flex flex-row align-items-center">
+                    <div class="form-outline flex-fill mb-0 mt-2">
+                        <label class="form-label" for="Position">Position</label>
+                        <input type="text"
+                               id="Position"
+                               asp-for="Position"
+                               class="form-control"
+                               placeholder="Position..." />
+                        <span asp-validation-for="Position" class="bg-danger text-white"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row align-items-center">
+                    <div class="form-outline flex-fill mb-0 mt-2">
+                        <label class="form-label" for="Department">Department</label>
+                        <input type="text"
+                               id="Department"
+                               asp-for="Department"
+                               class="form-control"
+                               placeholder="Department..." />
+                        <span asp-validation-for="Department" class="bg-danger text-white"></span>
+                    </div>
+                </div>
+
+
+                <div class="d-flex flex-row align-items-center">
+                    <div class="form-outline flex-fill mb-0 mt-2">
+                        <label class="text-white technical-font" asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" placeholder="Description..." rows="4"></textarea>
+                        <span asp-validation-for="Description" class="small text-white bg-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row align-items-center">
+                    <div class="form-outline flex-fill mb-0 mt-2">
+                        <label class="text-white technical-font" asp-for="Salary"></label>
+                        <input asp-for="Salary"
+                               type="number"
+                               class="form-control"
+                               placeholder="Salary...">
+                        <span asp-validation-for="Salary" class="small text-white bg-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-row align-items-center">
+                    <div class="form-check mb-0 mt-2">
+                        <input asp-for="RemoteOption" type="checkbox" class="form-check-input" />
+                        <label class="form-check-label text-white technical-font" asp-for="RemoteOption">Remote Option</label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mx-4 mt-5">
+                    <button type="submit" class="btn btn-primary btn-lg">Add Job</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
