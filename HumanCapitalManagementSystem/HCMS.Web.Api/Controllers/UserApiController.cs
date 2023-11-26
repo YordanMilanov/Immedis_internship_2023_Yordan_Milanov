@@ -193,6 +193,12 @@ namespace HCMS.Web.Api.Controllers
                     Claim employeeCompanyName = new Claim("EmployeeCompany", employeeDto.CompanyName!);
                     claims.Add(employeeCompanyName);
                 }
+
+                if (employeeDto.CompanyId != null)
+                {
+                    Claim employeeCompanyId = new Claim("EmployeeCompanyId", employeeDto.CompanyId!.ToString()!);
+                    claims.Add(employeeCompanyId);
+                }
             }
 
             foreach (string role in userDto.Roles!)

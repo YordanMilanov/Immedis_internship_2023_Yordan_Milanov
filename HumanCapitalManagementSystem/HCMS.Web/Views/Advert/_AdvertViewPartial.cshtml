@@ -1,9 +1,26 @@
-﻿<div class="col-32 my-2 mx-1">
-    <div">
+﻿@model HCMS.Web.ViewModels.Advert.AdvertViewModel;
+
+<div class="container">
+    <div class="row">
         <div>
-            <h3>@Model!.Name jlkjlkj</h3>
-            <p>Industry: <b>@Model.IndustryField</b>lkjlkjk</p>
-            <p>Industry: <b>@Model.Description</b>jlkjlkjlkj</p>
+            <p class="d-block"><b>Position: @Model.Position</b></p>
+            <p class="d-block"><b>Department: @Model.Department</b></p>
+            <p class="d-block"><b>Description: @Model.Description</b></p>
+            <p class="d-block"><b>Date posted: @Model.AddDate</b></p>
         </div>
+    </div>
+
+    <div class="row">
+        <div>
+            <p class="d-block"><b>Salary: @Model.Salary</b></p>
+            <p class="d-block"><b>Remote: @Model.RemoteOption</b></p>
+            <p class="d-block"><b>CompanyName: @Model.CompanyName</b></p>
+            <p class="d-block"><b>Location: @Model.Country @Model.City</b></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <h4>Description</h4>
+        <p>@Model.Description</p>
     </div>
 </div>

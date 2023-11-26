@@ -18,6 +18,7 @@ namespace HCMS.Web.ViewModels.Advert
         public string Description { get; set; } = null!;
 
         [Required]
+        [Display(Name = "Remote option")]
         public bool RemoteOption { get; set; }
 
         [Required]

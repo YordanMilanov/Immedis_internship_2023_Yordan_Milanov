@@ -1,16 +1,15 @@
-﻿@using HCMS.Web.ViewModels.Advert;
-@model AdvertFormModel;
-
+﻿@model HCMS.Web.ViewModels.Advert.AdvertFormModel;
 @{
-    ViewData["Title"] = "- Add Job Offer";
+    ViewData["Title"] = "- Personal info";
 }
 
 <partial name="_AdvertFormPartial" model="@Model" />
-
-<link rel="stylesheet" href="~/css/Advert.css" asp-append-version="true" />
-<link href="https://fonts.googleapis.com/css?family=Kanit:400,700" rel="stylesheet">
-
 @section Scripts
     {
+    <link href="https://fonts.googleapis.com/css?family=Kanit:400,700" rel="stylesheet">
     <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Employee.css" asp-append-version="true" />
 }

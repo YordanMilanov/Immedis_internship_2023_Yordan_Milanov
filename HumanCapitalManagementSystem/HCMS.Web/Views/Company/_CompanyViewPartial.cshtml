@@ -23,7 +23,7 @@
         <div>
             <h3 class="text-center">@Model!.Name</h3>
             <p>Industry: <b>@Model.IndustryField</b></p>
-            <p>Industry: <b>@Model.Description</b></p>
+            <p>Description: <b>@Model.Description</b></p>
             @if(location != "" || location != null)
             {
                 <p>Address: <b>@location</b></p>
@@ -34,8 +34,9 @@
                 @if (User.Claims.Any(claim => claim.Type == "EmployeeCompany" && claim.Value == Model.Name))
                 {
                     <div class="text-center mt-3">
-                        <a asp-controller="Company" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a>
-                        <a asp-controller="Recommendation" asp-action="All" asp-route-id="@Model.Id" class="btn btn-info">Recommendations</a>
+                        <a asp-controller="Company" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info my-1">Edit</a>
+                        <a asp-controller="Recommendation" asp-action="All" asp-route-id="@Model.Id" class="btn btn-info my-1">Recommendations</a>
+                        <a asp-controller="Advert" asp-action="All" asp-route-id="@Model.Id" class="btn btn-info my-1">Jobs</a>
 
                     </div>
                 }
