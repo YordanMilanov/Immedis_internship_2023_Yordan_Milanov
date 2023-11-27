@@ -1,15 +1,10 @@
-﻿using AutoMapper;
-using HCMS.Services;
-using HCMS.Services.Interfaces;
+﻿using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
-using HCMS.Services.ServiceModels.Education;
-using HCMS.Services.ServiceModels.User;
-using HCMS.Services.ServiceModels.WorkRecord;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Net;
-using System.Text;
+using static HCMS.Common.RoleConstants;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -29,6 +24,7 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetAllCompanyNames()
         {
             try
@@ -53,6 +49,7 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetCompanyDtoByEmployeeId([FromQuery]string employeeId)
         {
             try
@@ -72,6 +69,7 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetAllCompanies([FromBody]QueryDto queryDto)
         {
             try
@@ -93,6 +91,7 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetCompanyDtoById([FromQuery] string id)
         {
             try {
@@ -111,6 +110,7 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
         public async Task<IActionResult> UpdateCompany()
         {
             string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
@@ -151,6 +151,7 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
+        [Authorize]
         public async Task<IActionResult> GetCompanyNameById([FromQuery] string companyId)
         {
             try

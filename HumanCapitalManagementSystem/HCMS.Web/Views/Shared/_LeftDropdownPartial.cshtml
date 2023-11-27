@@ -1,0 +1,20 @@
+﻿@using HCMS.Common;
+<ul class="navbar-nav mx-3">
+    @if (User.Identity!.IsAuthenticated)
+    {
+        <li class="nav-item dropdown">
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-item" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Jobs</button>
+            <ul class="dropdown-menu dropdown-menu-lg-end custom-dropdown-menu my-2">
+                <li><a class="dropdown-item" asp-controller="Advert" asp-action="All" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value">All Jobs</a></li>
+                @if (User.Identity!.IsAuthenticated && User.Claims.Where(c => c.Type == "CompanyId").FirstOrDefault() != null)
+                {
+                    <li><a asp-controller="Advert" asp-action="All" asp-route-id="@User.Claims.Where(c => c.Type == "CompanyId").FirstOrDefault()!.Value" class="dropdown-item">My company Jobs</a></li>
+                }
+                @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
+                {
+                    <li><a asp-controller="Education" asp-action="Edit" class="dropdown-item">Add Job</a></li>
+                }
+            </ul>
+        </li>
+    }
+</ul>

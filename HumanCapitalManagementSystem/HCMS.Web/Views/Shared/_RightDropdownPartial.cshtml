@@ -1,0 +1,36 @@
+﻿@using HCMS.Common;
+<ul class="navbar-nav mx-3">
+    @if (User.Identity!.IsAuthenticated)
+    {
+        <li class="nav-item dropdown">
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-item" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    @User.Claims.FirstOrDefault(c => c.Type == "Username")!.Value
+                </button>
+            <ul class="dropdown-menu dropdown-menu-lg-end custom-dropdown-menu my-2">
+                <li><a class="dropdown-item" asp-controller="User" asp-action="Profile" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value">Profile</a></li>
+                @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
+                {
+                    <li><a asp-controller="Employee" asp-action="Edit" class="dropdown-item">Edit Personal Information</a></li>
+                    <li><a asp-controller="Education" asp-action="Edit" class="dropdown-item">Add Education</a></li>
+                }
+                <li><a class="dropdown-item" asp-controller="Education" asp-action="All" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")?.Value">My Educations</a></li>
+                @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
+                {
+                    <li><a asp-controller="WorkRecord" asp-action="Add" class="dropdown-item">Add Work Record</a></li>
+
+                }
+                <li><a class="dropdown-item" asp-controller="WorkRecord" asp-action="AllPersonal" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")?.Value">My Work Records</a></li>
+                <li><a class="dropdown-item" href="/User/Logout">Logout</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/User/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="/User/Login">Login</a>
+        </li>
+    }
+</ul>

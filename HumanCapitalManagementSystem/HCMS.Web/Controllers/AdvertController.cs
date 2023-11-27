@@ -3,15 +3,16 @@ using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
 using HCMS.Web.ViewModels.BaseViewModel;
 using HCMS.Web.ViewModels.Company;
+using HCMS.Web.ViewModels.Advert;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using static HCMS.Common.RoleConstants;
-
+using HCMS.Services.ServiceModels.Advert;
+using HCMS.Web.ViewModels.Education;
+using static HCMS.Common.NotificationMessagesConstants;
 namespace HCMS.Web.Controllers
 {
     public class AdvertController : Controller
@@ -81,9 +82,37 @@ namespace HCMS.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = $"{AGENT},{ADMIN}")]
-        public IActionResult Add(string post)
+        public async Task<IActionResult> Add(AdvertFormModel model)
         {
-            return View();
+            //validate input
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            AdvertAddDto advertDto = mapper.Map<AdvertAddDto>(model);
+
+            string jsonContent = JsonConvert.SerializeObject(advertDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+            HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            string apiUrl = "/api/advert/add";
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
+
+            //if advert added successfully
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = "Advert was successfully added!";
+                return RedirectToAction("Home", "Home");
+            }
+            else
+            {
+                TempData[ErrorMessage] = response.Content.ToString();
+                return View(model);
+            }
         }
     }
 }

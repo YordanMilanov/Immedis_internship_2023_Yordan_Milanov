@@ -11,10 +11,11 @@ namespace HCMS.Data
         {}
 
         public DbSet<Application> Applications { get; set; } = null!;
+        public DbSet<Advert> Adverts { get; set; } = null!;
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Education> Educations { get; set; } = null!;
         public DbSet<Employee> Employees { get; set; } = null!;
-        public DbSet<Data.Models.Location> Locations { get; set; } = null!;
+        public DbSet<Location> Locations { get; set; } = null!;
         public DbSet<Recommendation> Recommendations { get; set; } = null!;
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;

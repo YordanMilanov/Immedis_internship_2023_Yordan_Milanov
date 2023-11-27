@@ -17,6 +17,7 @@ namespace HCMS.Repository
             services.AddScoped<IWorkRecordRepository, WorkRecordRepository>();
             services.AddScoped<IEducationRepository, EducationRepository>();
             services.AddScoped<IRecommendationRepository, RecommendationRepository>();
+            services.AddScoped<IAdvertRepository, AdvertRepository>();
         }
     }
 }
