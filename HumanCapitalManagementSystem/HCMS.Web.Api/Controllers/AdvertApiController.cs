@@ -1,7 +1,9 @@
 ﻿using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Advert;
+using HCMS.Services.ServiceModels.BaseClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using static HCMS.Common.RoleConstants;
 
 namespace HCMS.Web.Api.Controllers
@@ -34,6 +36,26 @@ namespace HCMS.Web.Api.Controllers
             catch(Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("all")]
+        [Produces("application/json")]
+        [Consumes("application/json")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(200)]
+        [Authorize]
+        public async Task<IActionResult> All([FromBody] AdvertQueryDto queryDto, [FromRoute]Guid companyId)
+        {
+            try
+            {
+               AdvertQueryDtoResult queryResult = await this.advertService.GetCurrentPageByCompanyAsync( queryDto, companyId);
+               string jsonToSend = JsonConvert.SerializeObject(queryResult, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+               return Content(jsonToSend, "application/json");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred!");
             }
         }
     }

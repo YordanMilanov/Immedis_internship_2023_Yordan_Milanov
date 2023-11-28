@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Advert;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Services.Implementation
 {
@@ -28,6 +31,26 @@ namespace HCMS.Services.Implementation
                 throw new Exception(ex.Message);
             }
             throw new NotImplementedException();
+        }
+
+        public async Task<QueryDtoResult<AdvertViewDto>> GetCurrentPageByCompanyAsync(QueryDto queryDto, Guid companyId)
+        {
+            try
+            {
+                QueryParameterClass parameters = mapper.Map<QueryParameterClass>(queryDto);
+                QueryPageWrapClass<Employee> result = await this.employeeRepository.GetCurrentPageAsync(parameters,);
+
+                QueryDtoResult<EmployeeDto> modelToReturn = mapper.Map<QueryDtoResult<EmployeeDto>>(result);
+                modelToReturn.CurrentPage = model.CurrentPage;
+                modelToReturn.OrderPageEnum = model.OrderPageEnum;
+                modelToReturn.ItemsPerPage = model.ItemsPerPage;
+                modelToReturn.SearchString = model.SearchString;
+                return modelToReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

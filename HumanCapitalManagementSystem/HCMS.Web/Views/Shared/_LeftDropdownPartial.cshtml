@@ -10,10 +10,6 @@
                 {
                     <li><a asp-controller="Advert" asp-action="All" asp-route-id="@User.Claims.Where(c => c.Type == "CompanyId").FirstOrDefault()!.Value" class="dropdown-item">My company Jobs</a></li>
                 }
-                @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
-                {
-                    <li><a asp-controller="Education" asp-action="Edit" class="dropdown-item">Add Job</a></li>
-                }
             </ul>
         </li>
     }

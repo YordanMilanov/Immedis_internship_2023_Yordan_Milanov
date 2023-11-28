@@ -28,7 +28,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All(PageQueryModel queryModel,[FromRoute]string id)
+        public async Task<IActionResult> All(AdvertPageQueryModel queryModel,[FromRoute]string id)
         {
             Guid companyId = Guid.Parse(id);
 
@@ -36,11 +36,11 @@ namespace HCMS.Web.Controllers
             {
                 if(queryModel == null)
                 {
-                    queryModel = new PageQueryModel();
+                    queryModel = new AdvertPageQueryModel();
                     queryModel.ItemsPerPage = 10;
                 }
 
-                QueryDto queryDto = mapper.Map<QueryDto>(queryModel);
+                AdvertQueryDto queryDto = mapper.Map<AdvertQueryDto>(queryModel);
 
                 string url = $"api/advert/all?companyId={companyId}";
                 string json = JsonConvert.SerializeObject(queryDto, Formatting.Indented);
@@ -55,16 +55,16 @@ namespace HCMS.Web.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonContent = await response.Content.ReadAsStringAsync();
-                    QueryDtoResult<CompanyDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<CompanyDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-                    ResultQueryModel<CompanyViewModel> companyQueryModel = mapper.Map<ResultQueryModel<CompanyViewModel>>(responseQueryDto);
-                    return View("All", companyQueryModel);
+                    AdvertQueryDtoResult responseQueryDto = JsonConvert.DeserializeObject<AdvertQueryDtoResult>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                    AdvertResultQueryModel advertQueryModel = mapper.Map<AdvertResultQueryModel>(responseQueryDto);
+                    return View("All", advertQueryModel);
                 }
                 else
                 {
-                    return RedirectToAction("Add", "Company", new { redirect = "There is no any companies. Please first add company information!" });
+                    TempData[ErrorMessage] = "No job offers were found!";
+                    return View("Home", "Home");
                 }
             }
-            return View();
         }
 
         [HttpGet]
