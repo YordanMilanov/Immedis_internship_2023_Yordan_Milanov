@@ -1,0 +1,45 @@
+﻿@model HCMS.Web.ViewModels.Application.ApplicationFormModel
+
+@using HCMS.Web.WebServices.Interfaces;
+@using HCMS.Web.ViewModels.Company;
+@inject ICompanyWebService companyWebService;
+@{
+    IEnumerable<string> companyNames = await companyWebService.GetAllCompanyNamesFromApiAsync();
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
+
+            <form method="post"
+                asp-controller="Application"
+                asp-action="Apply">
+
+                <h1 class="text-white text-center technical-font">Apply For Job</h1>
+
+                @* General Error Message Here *@
+                @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <h3 class="mt-5 text-center">
+                        <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
+                    </h3>
+                }
+
+                <input asp-for="FromEmployeeId" class="d-none" value="@Context.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value">
+                <input asp-for="AdvertId" class="d-none">
+
+                <div class="form-group">
+                    <label class="text-white technical-font" asp-for="CoverLetter"></label>
+                    <textarea asp-for="CoverLetter" class="form-control" placeholder="CoverLetter..." rows="4"></textarea>
+                    <span asp-validation-for="CoverLetter" class="small text-white bg-danger"></span>
+                </div>
+
+                <div class="text-center">
+                    <input class="btn btn-primary mt-3 technical-font" type="submit" value="Apply For the Job"/>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

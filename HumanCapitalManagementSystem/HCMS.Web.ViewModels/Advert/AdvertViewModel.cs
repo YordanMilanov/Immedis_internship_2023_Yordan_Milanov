@@ -2,6 +2,7 @@
 {
     public class AdvertViewModel
     {
+        public Guid Id { get; set; }
         public string Position { get; set; } = null!;
         public string Department { get; set; } = null!;
         public string Description { get; set; } = null!;

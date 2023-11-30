@@ -1,8 +1,9 @@
-﻿@{
+﻿@using static HCMS.Common.RoleConstants;
+@{
     string remoteOption = Model.RemoteOption ? "Yes" : "No";
 }
 
-<div class="container card-partial mt-1 mb-1l">
+<div class="container card-partial mt-1 mb-1">
     <div class="row">
         <div class="col-md-4">
             <h4><b>@Model.CompanyName</b> - <b>@Model.Position</b></h4>
@@ -13,10 +14,36 @@
             <h6 class="d-flex"><b>Posted: @Model.AddDate.ToString("dd.MM.yyyy")</b></h6>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="technical-font">
                 <h4>Description</h4>
                 <p>@Model.Description</p>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="technical-font">
+                <div class="my-auto">
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <div class="text-center my-2">
+                            <a asp-controller="Application" asp-action="Apply" asp-route-advertId="@Model.Id" asp-route-employeeId="@User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value" class="btn btn-sm btn-success">Apply</a>
+                        </div>
+                    }
+
+                    @if (User.IsInRole(ADMIN))
+                    {
+                        <div class="text-center my-2">
+                            <a asp-controller="Application" asp-action="AllByAdvert" asp-route-id="@Model.CompanyId" class="btn btn-sm btn-primary">Applications</a>
+                        </div>
+                    }
+                    else if (User.IsInRole(AGENT) && User.Claims.FirstOrDefault(c => c.Type == "EmployeeCompanyId")!.Value == Model.CompanyId)
+                    {
+                        <div class="text-center my-2">
+                            <a asp-controller="Application" asp-action="AllByAdvert" asp-route-id="@Model.CompanyId" class="btn btn-sm btn-primary">Applications</a>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>

@@ -279,6 +279,7 @@ namespace HCMS.Data
                     .WithMany(u => u.UserClaims)
                     .HasForeignKey(e => e.UserId);
             });
+           
             //USER-ROLES
             // Configure the many-to-many relationship
             builder.Entity<UserRole>(entity =>

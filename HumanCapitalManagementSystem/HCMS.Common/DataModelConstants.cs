@@ -81,5 +81,10 @@
         {
             public const int DescriptionMinLength = 20;
         }
+
+        public static class Application
+        {
+            public const int CoverLetterMinLength = 20;
+        }
     }
 }
