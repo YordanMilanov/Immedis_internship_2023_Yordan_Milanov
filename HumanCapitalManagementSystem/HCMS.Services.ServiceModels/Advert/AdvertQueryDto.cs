@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HCMS.Services.ServiceModels.BaseClasses;
 
 namespace HCMS.Services.ServiceModels.Advert
 {
-    internal class AdvertQueryDto
+    public class AdvertQueryDto : QueryDto
     {
+        public bool? RemoteOption {  get; set; }
+
+        public string? CompanyId { get; set; }
     }
 }

@@ -1,39 +1,32 @@
-﻿.form-body {
+﻿.card-background {
     background-color: #134475;
     border-radius: 20px;
-    padding: 20px;
 }
 
 .technical-font {
     font-family: 'Kanit', sans-serif;
 }
 
-.right-search-button {
-    margin-left: 35px;
-    position: relative;
-}
-
 #companySelect + .select2 .select2-selection {
-    height: 38px;
+    height: 35px;
+    margin-bottom: 15px;
 }
 
-card-background {
-    background-color: #134475;
+.card-partial {
+    color: floralwhite;
+    background: linear-gradient(to right, #004785, #003454);
     border-radius: 10px;
+    border: 1px solid floralwhite;
+}
+
+.form-body {
+    background-color: #134475;
+    border-radius: 20px;
+    padding: 20px;
 }
 
 .all-container {
     color: white;
     background-color: #134475;
     border-radius: 10px;
-}
-
-.card-partial {
-    display: inline-block;
-    color: floralwhite;
-    background: linear-gradient(to right, #004785, #003454);
-    border-radius: 10px;
-    border: 1px solid floralwhite;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }

@@ -5,7 +5,6 @@ using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Advert;
 using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Services.Implementation
 {
@@ -33,23 +32,26 @@ namespace HCMS.Services.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<QueryDtoResult<AdvertViewDto>> GetCurrentPageByCompanyAsync(QueryDto queryDto, Guid companyId)
+        public async Task<AdvertQueryDtoResult> GetCurrentPageAsync(AdvertQueryDto advertQueryDto)
         {
             try
             {
+                QueryDto queryDto = mapper.Map<QueryDto>(advertQueryDto);
                 QueryParameterClass parameters = mapper.Map<QueryParameterClass>(queryDto);
-                QueryPageWrapClass<Employee> result = await this.employeeRepository.GetCurrentPageAsync(parameters,);
+                QueryPageWrapClass<Advert> result = await this.advertRepository.GetCurrentPageAsync(parameters, advertQueryDto.RemoteOption, advertQueryDto.CompanyId);
 
-                QueryDtoResult<EmployeeDto> modelToReturn = mapper.Map<QueryDtoResult<EmployeeDto>>(result);
-                modelToReturn.CurrentPage = model.CurrentPage;
-                modelToReturn.OrderPageEnum = model.OrderPageEnum;
-                modelToReturn.ItemsPerPage = model.ItemsPerPage;
-                modelToReturn.SearchString = model.SearchString;
+                AdvertQueryDtoResult modelToReturn = mapper.Map<AdvertQueryDtoResult>(result);
+                modelToReturn.CurrentPage = queryDto.CurrentPage;
+                modelToReturn.OrderPageEnum = queryDto.OrderPageEnum;
+                modelToReturn.ItemsPerPage = queryDto.ItemsPerPage;
+                modelToReturn.SearchString = queryDto.SearchString;
+                modelToReturn.RemoteOption = advertQueryDto.RemoteOption;
+                modelToReturn.CompanyId = advertQueryDto.CompanyId;
                 return modelToReturn;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                throw new Exception(ex.Message);
+                throw new Exception(e.Message);
             }
         }
     }

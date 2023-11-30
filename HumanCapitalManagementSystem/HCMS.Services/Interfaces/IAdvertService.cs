@@ -6,6 +6,6 @@ namespace HCMS.Services.Interfaces
     public interface IAdvertService
     {
         Task AddAsync(AdvertAddDto model);
-        Task<AdvertQueryDtoResult> GetCurrentPageByCompanyAsync(AdvertQueryDto AdvertQueryDto, Guid companyId);
+        Task<AdvertQueryDtoResult> GetCurrentPageAsync(AdvertQueryDto advertQueryDto);
     }
 }

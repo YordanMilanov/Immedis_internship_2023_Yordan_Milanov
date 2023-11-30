@@ -4,6 +4,9 @@ namespace HCMS.Web.ViewModels.Advert
 {
     public class AdvertPageQueryModel : PageQueryModel
     {
-        public bool remoteOption { get; set; }
+        public AdvertPageQueryModel() : base(1, 10){}
+
+        public bool RemoteOption { get; set; }
+        public string? CompanyId {get;set;}
     }
 }

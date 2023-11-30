@@ -30,16 +30,29 @@ namespace HCMS.Repository.Implementation
             }
         }
 
-        public async Task<QueryPageWrapClass<Advert>> GetCurrentPageByCompanyAsync(AdvertQueryParameterClass parameters, Guid companyId)
+        public async Task<QueryPageWrapClass<Advert>> GetCurrentPageAsync(QueryParameterClass parameters, bool? remoteOption, string? companyId)
         {
             try
             {
-                //check the remoteOption
+
                 IQueryable<Advert> query = dbContext.Adverts
-                    .Where(a => a.RemoteOption == parameters.RemoteOption)
                     .Include(a => a.Company)
                     .ThenInclude(c => c.Location);
-               
+
+                //check the companyId
+                if (companyId != null)
+                {
+                    query = query.Where(a => a.CompanyId == Guid.Parse(companyId!));
+                }
+
+                //check the remoteOption
+                if (remoteOption == true)
+                {
+                    query = query.Where(a => a.RemoteOption == remoteOption);
+                }
+
+                
+
                 //check the search string
                 if (parameters.SearchString != null)
                 {

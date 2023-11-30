@@ -44,12 +44,12 @@ namespace HCMS.Web.Api.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
-        [Authorize]
-        public async Task<IActionResult> All([FromBody] AdvertQueryDto queryDto, [FromRoute]Guid companyId)
+        [AllowAnonymous]
+        public async Task<IActionResult> All([FromBody] AdvertQueryDto advertQueryDto)
         {
             try
             {
-               AdvertQueryDtoResult queryResult = await this.advertService.GetCurrentPageByCompanyAsync( queryDto, companyId);
+               AdvertQueryDtoResult queryResult = await this.advertService.GetCurrentPageAsync(advertQueryDto);
                string jsonToSend = JsonConvert.SerializeObject(queryResult, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
                return Content(jsonToSend, "application/json");
             }

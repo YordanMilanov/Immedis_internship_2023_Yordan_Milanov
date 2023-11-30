@@ -1,16 +1,21 @@
 ﻿@using HCMS.Common;
+@using static HCMS.Common.RoleConstants;
 <ul class="navbar-nav mx-3">
-    @if (User.Identity!.IsAuthenticated)
-    {
-        <li class="nav-item dropdown">
-            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-item" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Jobs</button>
-            <ul class="dropdown-menu dropdown-menu-lg-end custom-dropdown-menu my-2">
-                <li><a class="dropdown-item" asp-controller="Advert" asp-action="All" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value">All Jobs</a></li>
-                @if (User.Identity!.IsAuthenticated && User.Claims.Where(c => c.Type == "CompanyId").FirstOrDefault() != null)
+    <li class="nav-item dropdown">
+        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-item" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">Jobs</button>
+        <ul class="dropdown-menu dropdown-menu-lg-end custom-dropdown-menu my-2">
+            <li><a class="dropdown-item" asp-controller="Advert" asp-action="All">All jobs</a></li>
+            @if (User.Identity!.IsAuthenticated)
+            {
+                @if(User.Claims.Where(c => c.Type == "CompanyId").FirstOrDefault() != null)
                 {
-                    <li><a asp-controller="Advert" asp-action="All" asp-route-id="@User.Claims.Where(c => c.Type == "CompanyId").FirstOrDefault()!.Value" class="dropdown-item">My company Jobs</a></li>
+                    <li><a asp-controller="Advert" asp-action="All" asp-route-id="@User.Claims.Where(c => c.Type == "CompanyId").FirstOrDefault()!.Value" class="dropdown-item">My company jobs</a></li>
                 }
-            </ul>
-        </li>
-    }
+                @if (User.IsInRole(AGENT) || User.IsInRole(ADMIN))
+                {
+                    <li><a asp-controller="Advert" asp-action="All" class="dropdown-item">Add job</a></li>
+                }
+            }
+        </ul>
+    </li>
 </ul>

@@ -6,6 +6,6 @@ namespace HCMS.Repository.Interfaces
     public interface IAdvertRepository
     {
         Task AddAsync(Advert advert);
-        Task<QueryPageWrapClass<Advert>> GetCurrentPageByCompanyAsync(QueryParameterClass parameters, Guid companyId);
+        Task<QueryPageWrapClass<Advert>> GetCurrentPageAsync(QueryParameterClass parameters, bool? remoteOption, string? companyId);
     }
 }

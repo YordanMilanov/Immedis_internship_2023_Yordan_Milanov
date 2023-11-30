@@ -12,6 +12,12 @@ namespace HCMS.Web.ViewModels.BaseViewModel
             this.ItemsPerPage = 3;
         }
 
+        public PageQueryModel(int currentPage, int itemsPerPage)
+        {
+            this.CurrentPage = currentPage;
+            this.ItemsPerPage = itemsPerPage;
+        }
+
         [DisplayName("Search by word")]
         public string? SearchString { get; set; }
 
