@@ -1,26 +1,23 @@
-﻿@model HCMS.Web.ViewModels.Advert.AdvertViewModel;
+﻿@{
+    string remoteOption = Model.RemoteOption ? "Yes" : "No";
+}
 
-<div class="container">
+<div class="container card-partial mt-1 mb-1l">
     <div class="row">
-        <div>
-            <p class="d-block"><b>Position: @Model.Position</b></p>
-            <p class="d-block"><b>Department: @Model.Department</b></p>
-            <p class="d-block"><b>Description: @Model.Description</b></p>
-            <p class="d-block"><b>Date posted: @Model.AddDate</b></p>
+        <div class="col-md-4">
+            <h4><b>@Model.CompanyName</b> - <b>@Model.Position</b></h4>
+            <h6 class="d-flex"><b>Department: @Model.Department</b></h6>
+            <h6 class="d-flex"><b>Location: @Model.Country, @Model.State</b></h6>
+            <h6 class="d-flex"><b>Salary: @Model.Salary$</b></h6>
+            <h6 class="d-flex"><b>Remote: @remoteOption</b></h6>
+            <h6 class="d-flex"><b>Posted: @Model.AddDate.ToString("dd.MM.yyyy")</b></h6>
         </div>
-    </div>
 
-    <div class="row">
-        <div>
-            <p class="d-block"><b>Salary: @Model.Salary</b></p>
-            <p class="d-block"><b>Remote: @Model.RemoteOption</b></p>
-            <p class="d-block"><b>CompanyName: @Model.CompanyName</b></p>
-            <p class="d-block"><b>Location: @Model.Country @Model.State\</b></p>
+        <div class="col-md-8">
+            <div class="technical-font">
+                <h4>Description</h4>
+                <p>@Model.Description</p>
+            </div>
         </div>
-    </div>
-
-    <div class="row">
-        <h4>Description</h4>
-        <p>@Model.Description</p>
     </div>
 </div>

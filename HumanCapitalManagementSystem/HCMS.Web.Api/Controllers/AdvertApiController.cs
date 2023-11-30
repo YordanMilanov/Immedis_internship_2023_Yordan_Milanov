@@ -1,6 +1,7 @@
 ﻿using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Advert;
 using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -25,8 +26,10 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         [Authorize(Roles = $"{AGENT},{ADMIN}")]
-        public async Task<IActionResult> Add([FromBody] AdvertAddDto model)
+        public async Task<IActionResult> Add()
         {
+            string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+            AdvertAddDto model = JsonConvert.DeserializeObject<AdvertAddDto>(jsonReceived, JsonSerializerSettingsProvider.GetCustomSettings())!;
 
             try
             {

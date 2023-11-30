@@ -13,7 +13,7 @@
                 }
                 @if (User.IsInRole(AGENT) || User.IsInRole(ADMIN))
                 {
-                    <li><a asp-controller="Advert" asp-action="All" class="dropdown-item">Add job</a></li>
+                    <li><a asp-controller="Advert" asp-action="Add" class="dropdown-item">Add job</a></li>
                 }
             }
         </ul>

@@ -1,4 +1,5 @@
 ﻿@model HCMS.Web.ViewModels.Advert.AdvertFormModel
+@using static HCMS.Common.RoleConstants
 
 <div class="container">
     <div class="row technical-font text-white">
@@ -16,6 +17,23 @@
                         <strong class="bg-danger rounded text-white">@modelError.ErrorMessage</strong>
                     </h3>
                 }
+
+                @if (User.IsInRole(AGENT) || User.IsInRole(ADMIN))
+                {
+                    <input type="hidden"
+                           class="d-none"
+                           id="CompanyId"
+                           asp-for="CompanyId"
+                           class="form-control"
+                           value="@User.Claims.Where(c => c.Type == "EmployeeCompanyId").FirstOrDefault()!.Value" />
+                }
+
+                        <input type="hidden"
+                               class="d-none"
+                               id="AddDate"
+                               asp-for="AddDate"
+                               class="form-control"
+                               value="@DateTime.Now"/>
 
                 <div class="d-flex flex-row align-items-center">
                     <div class="form-outline flex-fill mb-0 mt-2">

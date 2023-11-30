@@ -27,41 +27,6 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> AllByCompany(AdvertPageQueryModel queryModel, [FromRoute] string id)
-        {
-            Guid companyId = Guid.Parse(id);
-
-            if (queryModel == null)
-            {
-                queryModel = new AdvertPageQueryModel();
-                queryModel.ItemsPerPage = 10;
-            }
-
-            AdvertQueryDto advertQueryDto = mapper.Map<AdvertQueryDto>(queryModel);
-
-            string url = $"api/advert/all?companyId={companyId}";
-            string json = JsonConvert.SerializeObject(advertQueryDto, Formatting.Indented);
-            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            //set JWT
-            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
-            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
-
-            HttpResponseMessage response = await httpClient.PostAsync(url, content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                string jsonContent = await response.Content.ReadAsStringAsync();
-                AdvertQueryDtoResult responseQueryDto = JsonConvert.DeserializeObject<AdvertQueryDtoResult>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
-                AdvertResultQueryModel advertQueryModel = mapper.Map<AdvertResultQueryModel>(responseQueryDto);
-                return View("All", advertQueryModel);
-            }
-            TempData[ErrorMessage] = "No job offers were found!";
-            return View("Home", "Home");
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> All(AdvertPageQueryModel queryModel)
         {
             if (queryModel == null)
@@ -82,7 +47,7 @@ namespace HCMS.Web.Controllers
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 AdvertQueryDtoResult responseQueryDto = JsonConvert.DeserializeObject<AdvertQueryDtoResult>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                 AdvertResultQueryModel advertQueryModel = mapper.Map<AdvertResultQueryModel>(responseQueryDto);
-                return View("All", advertQueryModel);
+                return View(advertQueryModel);
             }
             TempData[ErrorMessage] = "No job offers were found!";
             return View("Home", "Home");
@@ -99,7 +64,12 @@ namespace HCMS.Web.Controllers
         [Authorize(Roles = $"{AGENT},{ADMIN}")]
         public IActionResult Add()
         {
-            return View();
+            if(User.Claims.Any(c => c.Type == "EmployeeCompanyId"))
+            {
+                return View();
+            }
+            TempData[ErrorMessage] = "You must be first employed into a company as agent to be able to add job offers!";
+            return RedirectToAction("Home", "Home");
         }
 
         [HttpPost]

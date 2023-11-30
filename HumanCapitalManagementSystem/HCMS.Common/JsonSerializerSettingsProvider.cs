@@ -16,7 +16,10 @@ public static class JsonSerializerSettingsProvider
                 new PhotoConverter(),
                 new PhoneConverter(),
                 new LocationConverter(),
+                new PositionConverter(),
+                new DepartmentConverter(),
                 new DescriptionConverter(),
+                new SalaryConverter()
             }
         };
 

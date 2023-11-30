@@ -16,6 +16,7 @@ namespace HCMS.Web.AutoMapperProfiles
             CreateMap<AdvertPageQueryModel, AdvertResultQueryModel>();
             CreateMap<AdvertQueryDto, AdvertPageQueryModel>().ReverseMap();
             CreateMap<AdvertQueryDto, AdvertResultQueryModel>().ReverseMap();
+            CreateMap<AdvertQueryDtoResult, AdvertResultQueryModel>().ReverseMap();
 
             CreateMap<AdvertFormModel, AdvertAddDto>()
                 .ForMember(dest => dest.Position, opt => opt.MapFrom(src => new Position(src.Position)))

@@ -29,7 +29,6 @@ namespace HCMS.Services.Implementation
             {
                 throw new Exception(ex.Message);
             }
-            throw new NotImplementedException();
         }
 
         public async Task<AdvertQueryDtoResult> GetCurrentPageAsync(AdvertQueryDto advertQueryDto)

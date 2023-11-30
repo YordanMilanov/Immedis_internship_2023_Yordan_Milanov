@@ -1,5 +1,7 @@
 ﻿@using HCMS.Web.ViewModels.Advert;
 @model AdvertResultQueryModel;
+
+
 @{
     ViewBag.Title = "All Jobs";
 }
@@ -42,6 +44,18 @@
                     <input asp-for="RemoteOption" type="checkbox" class="form-check-input text-center"/>
                 </div>
             </div>
+
+            @* Order Select *@
+            <div class="col-3 form-group text-center justify-content-center">
+                <div class="form-group">
+                    <label asp-for="OrderPageEnum"></label>
+                    <select asp-for="OrderPageEnum" class="form-control text-center">
+                        <option value="0">Date added - Newest</option>
+                        <option value="1">Date added - Oldest</option>
+                    </select>
+                </div>
+            </div>
+
             @* Search box *@
             <div class="col-3 form-group text-center justify-content-center">
                 <div class="form-group">
@@ -74,8 +88,8 @@
         <h2 class="text-center">No jobs found!</h2>
     }
 
-    <div class="container">
-        <div class="row justify-content-center overflow-y-scroll">
+    <div class="container overflow-y-scroll custom-scrollbar-css">
+        <div class="row justify-content-center">
             @foreach (var advert in Model.Items)
             {
                 <partial name="_AdvertViewPartial" model="@advert" />
@@ -126,5 +140,6 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/Advert.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Job.css">
 }
+
