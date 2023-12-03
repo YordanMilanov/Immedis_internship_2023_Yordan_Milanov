@@ -40,13 +40,13 @@ namespace HCMS.Services.Implementation
 
             try
             {
+                //update existing employee
 
-                //create new employee if employee == null
                 if (model.Id != Guid.Empty)
                 {
                     await employeeRepository.UpdateEmployeeAsync(employee);
                 }
-                //update existing employee
+                //create new employee if employee == null
                 else
                 {
                     await employeeRepository.AddEmployeeAsync(employee);

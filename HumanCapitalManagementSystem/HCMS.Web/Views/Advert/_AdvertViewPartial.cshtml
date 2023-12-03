@@ -1,6 +1,16 @@
-﻿@using static HCMS.Common.RoleConstants;
+﻿@model HCMS.Web.ViewModels.Advert.AdvertViewModel;
+@using static HCMS.Common.RoleConstants;
 @{
     string remoteOption = Model.RemoteOption ? "Yes" : "No";
+    string employeeId;
+    if (User.Claims.Any(c => c.Type == "EmployeeId"))
+    {
+        employeeId = User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value.ToString();
+    }
+    else
+    {
+        employeeId = null;
+    }
 }
 
 <div class="container card-partial mt-1 mb-1">
@@ -24,25 +34,30 @@
         <div class="col-md-2">
             <div class="technical-font">
                 <div class="my-auto">
-                    @if (User.Identity!.IsAuthenticated)
+                    @if (User.Identity!.IsAuthenticated && employeeId != null)
                     {
                         <div class="text-center my-2">
-                            <a asp-controller="Application" asp-action="Apply" asp-route-advertId="@Model.Id" asp-route-employeeId="@User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value" class="btn btn-sm btn-success">Apply</a>
+                            <a asp-controller="Application" 
+                            asp-action="Apply" 
+                            asp-route-advertId="@Model.Id" 
+                            asp-route-employeeId="@employeeId" 
+                            asp-route-job="@Model.CompanyName - @Model.Position" 
+                            class="btn btn-sm btn-success">Apply</a>
                         </div>
                     }
 
-                    @if (User.IsInRole(ADMIN))
+                    @if (User.IsInRole(ADMIN) || User.IsInRole(AGENT))
                     {
-                        <div class="text-center my-2">
-                            <a asp-controller="Application" asp-action="AllByAdvert" asp-route-id="@Model.CompanyId" class="btn btn-sm btn-primary">Applications</a>
-                        </div>
+                        if (User.Claims.FirstOrDefault(c => c.Type == "EmployeeCompanyId")!.Value == Model.CompanyId.ToString())
+                        {
+                            <div class="text-center my-2">
+                                <a asp-controller="Application" asp-action="AllByAdvert" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Applications</a>
+                            </div>
+                        }
                     }
-                    else if (User.IsInRole(AGENT) && User.Claims.FirstOrDefault(c => c.Type == "EmployeeCompanyId")!.Value == Model.CompanyId)
-                    {
-                        <div class="text-center my-2">
-                            <a asp-controller="Application" asp-action="AllByAdvert" asp-route-id="@Model.CompanyId" class="btn btn-sm btn-primary">Applications</a>
-                        </div>
-                    }
+        
+                    
+                  
                 </div>
             </div>
         </div>

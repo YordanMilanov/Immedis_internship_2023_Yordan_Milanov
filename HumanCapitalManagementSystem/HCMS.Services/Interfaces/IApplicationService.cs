@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HCMS.Services.ServiceModels.Application;
 
 namespace HCMS.Services.Interfaces
 {
-    internal interface IApplicationService
+    public interface IApplicationService
     {
+        Task AddAsync(ApplicationDto applicationDto);
     }
 }

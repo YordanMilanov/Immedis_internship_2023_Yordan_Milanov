@@ -72,27 +72,29 @@ namespace HCMS.Web.Api.Controllers
                 {
                     throw new Exception("Phone number is already used!");
                 }
-
-                EmployeeDto currentEmployeeDto = await employeeService.GetEmployeeDtoByIdAsync(employeeDtoModel.Id);
-                var photoFile = employeeDtoModel.Photo;
-
-                // Check if the user already has a photo and delete it from cloudinary
-                if (!string.IsNullOrEmpty(currentEmployeeDto.PhotoUrl))
+                if(employeeDtoModel.Id != Guid.Empty)
                 {
-                    // Split the URL by slashes and take the last part
-                    string[] urlParts = currentEmployeeDto.PhotoUrl!.Split('/');
-                    string publicIdWithExtension = urlParts[urlParts.Length - 1];
+                    EmployeeDto currentEmployeeDto = await employeeService.GetEmployeeDtoByIdAsync(employeeDtoModel.Id);
 
-                    // Remove the file extension
-                    string publicId = Path.GetFileNameWithoutExtension(publicIdWithExtension);
-
-                    var deleteParams = new DeletionParams(publicId)
+                    // Check if the employee already has a photo and delete it from cloudinary
+                    if (!string.IsNullOrEmpty(currentEmployeeDto.PhotoUrl))
                     {
-                        ResourceType = ResourceType.Image
-                    };
+                        // Split the URL by slashes and take the last part
+                        string[] urlParts = currentEmployeeDto.PhotoUrl!.Split('/');
+                        string publicIdWithExtension = urlParts[urlParts.Length - 1];
 
-                    cloudinary.Destroy(deleteParams);
+                        // Remove the file extension
+                        string publicId = Path.GetFileNameWithoutExtension(publicIdWithExtension);
+
+                        var deleteParams = new DeletionParams(publicId)
+                        {
+                            ResourceType = ResourceType.Image
+                        };
+
+                        cloudinary.Destroy(deleteParams);
+                    }
                 }
+                var photoFile = employeeDtoModel.Photo;
 
                 //upload picture to cloudinary
                 if (photoFile != null && photoFile.Length > 0)
@@ -117,7 +119,7 @@ namespace HCMS.Web.Api.Controllers
                     }
                 }
                 await employeeService.UpdateEmployeeAsync(employeeDtoModel);
-                return Ok("The information has been succssesfully updated!");
+                return Ok("The information has been successfully updated!");
             }
             catch (Exception ex)
             {

@@ -137,7 +137,6 @@ namespace HCMS.Web.Controllers
                     form.Add(new StreamContent(stream), "file", model.Photo.FileName);
                 }
 
-                // Convert EmployeeDto to JSON and add it as a StringContent
                 employeeDto.Photo = null;
                 string jsonContent = JsonConvert.SerializeObject(employeeDto, JsonSerializerSettingsProvider.GetCustomSettings());
                 form.Add(new StringContent(jsonContent, Encoding.UTF8, "application/json"), "employeeDto");

@@ -1,13 +1,4 @@
 ﻿@model HCMS.Web.ViewModels.Application.ApplicationFormModel
-
-@using HCMS.Web.WebServices.Interfaces;
-@using HCMS.Web.ViewModels.Company;
-@inject ICompanyWebService companyWebService;
-@{
-    IEnumerable<string> companyNames = await companyWebService.GetAllCompanyNamesFromApiAsync();
-}
-
-
 <div class="container">
     <div class="row">
         <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 form-body">
@@ -17,7 +8,7 @@
                 asp-action="Apply">
 
                 <h1 class="text-white text-center technical-font">Apply For Job</h1>
-
+                <h4 class="text-white text-center technical-font">@ViewData["Job"]</h4>
                 @* General Error Message Here *@
                 @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                 {
@@ -26,11 +17,11 @@
                     </h3>
                 }
 
-                <input asp-for="FromEmployeeId" class="d-none" value="@Context.User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value">
-                <input asp-for="AdvertId" class="d-none">
+                <input asp-for="FromEmployeeId" class="d-none" value="@Model.FromEmployeeId">
+                <input asp-for="AdvertId" class="d-none" value="@Model.AdvertId">
 
                 <div class="form-group">
-                    <label class="text-white technical-font" asp-for="CoverLetter"></label>
+                    <label class="text-white text-center technical-font" asp-for="CoverLetter"></label>
                     <textarea asp-for="CoverLetter" class="form-control" placeholder="CoverLetter..." rows="4"></textarea>
                     <span asp-validation-for="CoverLetter" class="small text-white bg-danger"></span>
                 </div>

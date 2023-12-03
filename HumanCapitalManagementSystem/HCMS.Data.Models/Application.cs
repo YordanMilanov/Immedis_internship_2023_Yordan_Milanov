@@ -14,6 +14,9 @@ namespace HCMS.Data.Models
         public Guid Id { get; set; }
         public string CoverLetter { get; set; } = null!;
         public DateTime AddDate { get; set; }
+
+
+        [ForeignKey("Employee")]
         public Guid FromEmployeeId { get; set; }
         public virtual Employee Employee { get; set; } = null!;
         public Guid AdvertId { get; set; }

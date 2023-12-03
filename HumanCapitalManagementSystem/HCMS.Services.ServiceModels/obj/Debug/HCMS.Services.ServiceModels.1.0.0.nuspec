@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>HCMS.Services.ServiceModels</id>
+    <version>1.0.0</version>
+    <authors>HCMS.Services.ServiceModels</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="HCMS.Common" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Http.Features" version="2.2.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Services.ServiceModels\bin\Debug\net6.0\HCMS.Services.ServiceModels.dll" target="lib\net6.0\HCMS.Services.ServiceModels.dll" />
+  </files>
+</package>

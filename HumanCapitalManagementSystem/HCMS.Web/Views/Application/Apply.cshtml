@@ -1,5 +1,15 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "- Apply";
+}
+
+<partial name="_ApplicationFormPartial" model="@Model" />
+
+@section Scripts
+    {
+    <link href="https://fonts.googleapis.com/css?family=Kanit:400,700" rel="stylesheet">
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Job.css" asp-append-version="true" />
 }

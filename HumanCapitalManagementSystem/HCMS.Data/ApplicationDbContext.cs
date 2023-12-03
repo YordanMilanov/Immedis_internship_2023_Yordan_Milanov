@@ -82,10 +82,14 @@ namespace HCMS.Data
                     .WithMany()
                     .HasForeignKey(e => e.AdvertId);
 
-                entity.Property(e => e.FromEmployeeId).IsRequired();
                 entity.HasOne(e => e.Employee)
                     .WithMany()
-                    .HasForeignKey(e => e.FromEmployeeId);
+                    .HasForeignKey(e => e.FromEmployeeId)
+                    .HasPrincipalKey(e => e.Id);
+
+                entity.HasIndex(e => new { e.FromEmployeeId, e.AdvertId })
+                .IsUnique()
+                .HasDatabaseName("UC_AdvertId_FromEmployeeId_Index");
             });
             builder.Entity<Advert>(entity =>
             {
@@ -177,6 +181,10 @@ namespace HCMS.Data
 
                 entity.HasMany(e => e.Educations)
                     .WithOne(e => e.Employee);
+
+                entity.HasMany(e => e.Applications)
+                    .WithOne(e => e.Employee)
+                    .HasForeignKey(e => e.FromEmployeeId);
             });
             builder.Entity<Location>(entity =>
             {

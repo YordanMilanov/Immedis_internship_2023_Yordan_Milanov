@@ -18,6 +18,7 @@ namespace HCMS.Repository
             services.AddScoped<IEducationRepository, EducationRepository>();
             services.AddScoped<IRecommendationRepository, RecommendationRepository>();
             services.AddScoped<IAdvertRepository, AdvertRepository>();
+            services.AddScoped<IApplicationRepository, ApplicationRepository>();
         }
     }
 }

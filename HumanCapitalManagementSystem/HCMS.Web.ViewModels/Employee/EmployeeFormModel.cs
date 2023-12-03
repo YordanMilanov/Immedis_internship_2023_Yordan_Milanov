@@ -36,6 +36,7 @@ namespace HCMS.Web.ViewModels.Employee
         public string PhoneNumber { get; set; } = null!;
 
         [Display(Name = "Upload Photo")]
+        [Required(AllowEmptyStrings = true)]
         public IFormFile? Photo { get; set; }
 
         [Required]

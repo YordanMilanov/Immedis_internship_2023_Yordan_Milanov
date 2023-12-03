@@ -4,6 +4,15 @@
 
 @{
     ViewBag.Title = "All Jobs";
+
+    string employeeId;
+    if (User.Claims.Any(c => c.Type == "EmployeeId"))
+    {
+        employeeId = User.Claims.FirstOrDefault(c => c.Type == "EmployeeId")!.Value.ToString();
+    } else
+    {
+        employeeId = null;
+    }
 }
 
 @{
@@ -23,6 +32,9 @@
 
 <div class="container all-container">
     <h2 class="text-center"><b>All Jobs</b></h2>
+    @if(employeeId == null || employeeId == Guid.Empty.ToString()){
+        <h5 class="text-center text-warning">Add employee information to apply</h5>
+    }
     <hr />
     <form method="get" id="formId">
         <div class="row justify-content-center technical-font">
@@ -92,7 +104,7 @@
         <div class="row justify-content-center">
             @foreach (var advert in Model.Items)
             {
-                <partial name="_AdvertViewPartial" model="@advert" />
+                <partial name="_AdvertViewPartial" model="advert" />
             }
         </div>
     </div>
@@ -137,6 +149,7 @@
 @section Scripts
     {
     <script src="~/js/Page.js"></script>
+    <script src="~/js/Blink.js"></script>
 }
 
 @section Styles {
