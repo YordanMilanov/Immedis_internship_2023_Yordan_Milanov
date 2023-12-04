@@ -1,7 +1,10 @@
-﻿using HCMS.Data;
+﻿using HCMS.Common;
+using HCMS.Data;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace HCMS.Repository.Implementation
 {
@@ -41,6 +44,46 @@ namespace HCMS.Repository.Implementation
                 }
 
             }
+        }
+
+        public async Task<QueryPageWrapClass<Application>> GetCurrentByAdvertPageAsync(QueryParameterClass parameters, Guid advertId)
+        {
+            try
+            {
+                IQueryable<Application> query = dbContext.Applications
+                    .Where(a => a.AdvertId == advertId)
+                    .Include(a => a.Employee)
+                    .Include(a => a.Advert);
+               
+
+                int countOfElements = query.Count();
+
+                //check the order
+                switch (parameters.OrderPageEnum)
+                {
+                    case OrderPageEnum.Newest:
+                        query = query.OrderBy(e => e.AddDate);
+                        break;
+                    case OrderPageEnum.Oldest:
+                        query = query.OrderByDescending(e => e.AddDate);
+                        break;
+                }
+
+                //Pagination
+                int applicationsCountToSkip = (parameters.CurrentPage - 1) * parameters.ItemsPerPage;
+                query = query.Skip(applicationsCountToSkip).Take(parameters.ItemsPerPage);
+
+                List<Application> applications = await query.ToListAsync();
+                return new QueryPageWrapClass<Application>()
+                {
+                    Items = applications,
+                    TotalItems = countOfElements
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            };
         }
     }
 }

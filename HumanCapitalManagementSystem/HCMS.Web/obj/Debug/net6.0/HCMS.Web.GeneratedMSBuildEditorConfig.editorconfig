@@ -1,0 +1,241 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = HCMS.Web
+build_property.RootNamespace = HCMS.Web
+build_property.ProjectDir = C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.Web
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Advert/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWR2ZXJ0XEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Advert/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWR2ZXJ0XEFsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Advert/_AdvertFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWR2ZXJ0XF9BZHZlcnRGb3JtUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Advert/_AdvertViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWR2ZXJ0XF9BZHZlcnRWaWV3UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Application/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cQWxsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Application/Apply.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cQXBwbHkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Application/_ApplicationFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cX0FwcGxpY2F0aW9uRm9ybVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Application/_ApplicationViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwbGljYXRpb25cX0FwcGxpY2F0aW9uVmlld1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Company/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxBbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Company/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Company/Select.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxTZWxlY3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Company/_CompanyAddPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueUFkZFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Company/_CompanyCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueUNhcmRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Company/_CompanyFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueUZvcm1QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Company/_CompanySelectPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueVNlbGVjdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Company/_CompanyViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueVZpZXdQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Education/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWR1Y2F0aW9uXEFsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Education/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWR1Y2F0aW9uXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Education/_EducationCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWR1Y2F0aW9uXF9FZHVjYXRpb25DYXJkUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Education/_EducationFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRWR1Y2F0aW9uXF9FZHVjYXRpb25Gb3JtUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Employee/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQWxsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Employee/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Employee/_EmployeeFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcX0VtcGxveWVlRm9ybVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Employee/_EmployeeViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcX0VtcGxveWVlVmlld1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Home/HomeEmployee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lRW1wbG95ZWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Home/HomeStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lU3RhZmYuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Recommendation/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb21tZW5kYXRpb25cQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Recommendation/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb21tZW5kYXRpb25cQWxsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Recommendation/_RecommendationFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb21tZW5kYXRpb25cX1JlY29tbWVuZGF0aW9uRm9ybVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Recommendation/_RecommendationViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb21tZW5kYXRpb25cX1JlY29tbWVuZGF0aW9uVmlld1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Shared/_LeftDropdownPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MZWZ0RHJvcGRvd25QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Shared/_Modal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Nb2RhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Shared/_NotificationsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ob3RpZmljYXRpb25zUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Shared/_RightDropdownPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9SaWdodERyb3Bkb3duUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0UHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/_PasswordUpdatePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfUGFzc3dvcmRVcGRhdGVQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserAllViewPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlckFsbFZpZXdQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlckNhcmRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserRoleFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlclJvbGVGb3JtUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/User/_UserUpdatePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlclVwZGF0ZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/WorkRecord/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1JlY29yZFxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/WorkRecord/All.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1JlY29yZFxBbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/WorkRecord/_WorkRecordCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1JlY29yZFxfV29ya1JlY29yZENhcmRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/WorkRecord/_WorkRecordFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV29ya1JlY29yZFxfV29ya1JlY29yZEZvcm1QYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/danch/source/Immedis_internship_2023_Yordan_Milanov/HumanCapitalManagementSystem/HCMS.Web/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-zkho1b3y2e

@@ -8,6 +8,13 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
 using HCMS.Services.ServiceModels.Application;
+using HCMS.Services.ServiceModels.Advert;
+using HCMS.Web.ViewModels.Advert;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
+using HCMS.Web.ViewModels.BaseViewModel;
+using HCMS.Web.ViewModels.Employee;
+using System.Reflection;
 
 namespace HCMS.Web.Controllers
 {
@@ -81,6 +88,39 @@ namespace HCMS.Web.Controllers
                 TempData[ErrorMessage] = messageResponse.Substring(1, messageResponse.Length - 2);
             }
             return RedirectToAction("All", "Advert");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> AllByAdvert(QueryDto model,string advertId)
+        {
+            if (model == null)
+            {
+                model = new QueryDto();
+            }
+            model.ItemsPerPage = 10;
+
+            string url = $"api/application/all?advertId={advertId}";
+            string json = JsonConvert.SerializeObject(model);
+            HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.PostAsync(url, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonContent = await response.Content.ReadAsStringAsync();
+                QueryDtoResult<ApplicationDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<ApplicationDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
+                ResultQueryModel<ApplicationViewModel> applicationQueryModel = mapper.Map<ResultQueryModel<ApplicationViewModel>>(responseQueryDto);
+                return View(applicationQueryModel);
+            }
+            else
+            {
+                return View(model);
+            }
         }
     }
 }
