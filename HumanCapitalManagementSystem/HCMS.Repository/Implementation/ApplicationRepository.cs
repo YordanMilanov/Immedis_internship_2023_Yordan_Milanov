@@ -5,6 +5,7 @@ using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace HCMS.Repository.Implementation
 {
@@ -85,6 +86,38 @@ namespace HCMS.Repository.Implementation
             {
                 throw new Exception(ex.Message);
             };
+        }
+
+        public async Task acceptApplicationByIdAsync(Guid id)
+        {
+            try
+            {
+                Application application = await this.dbContext.Applications.Include(a => a.Advert).FirstAsync(a => a.Id == id);
+                Guid companyId = application.Advert.CompanyId;
+                Guid employeeId = application.FromEmployeeId;
+                Employee employee = await this.dbContext.Employees.FirstAsync(e => e.Id == employeeId);
+                employee.CompanyId = companyId;
+                this.dbContext.Applications.Remove(application);
+                await this.dbContext.SaveChangesAsync();
+            } 
+            catch(Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task declineApplicationByIdAsync(Guid id)
+        {
+            try
+            {
+                Application application = await this.dbContext.Applications.FirstAsync(a => a.Id == id);
+                this.dbContext.Applications.Remove(application);
+                await this.dbContext.SaveChangesAsync();
+            } 
+            catch(Exception)
+            {
+                throw;
+            }
         }
     }
 }

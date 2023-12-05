@@ -3,16 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using HCMS.Web.ViewModels.Company;
 using static HCMS.Common.NotificationMessagesConstants;
+using static HCMS.Common.RoleConstants;
 using Newtonsoft.Json;
 using HCMS.Services.ServiceModels.Company;
 using AutoMapper;
 using HCMS.Services.ServiceModels.Employee;
 using System.Text;
-using HCMS.Services.ServiceModels.Location;
 using System.Net.Http.Headers;
-using HCMS.Web.ViewModels.Employee;
-using HCMS.Services.ServiceModels.User;
-using HCMS.Common;
 using HCMS.Web.ViewModels.BaseViewModel;
 using HCMS.Services.ServiceModels.BaseClasses;
 using Microsoft.AspNetCore.Authentication;
@@ -31,7 +28,7 @@ namespace HCMS.Web.Controllers
             this.httpClient = httpClientFactory.CreateClient("WebApi");
         }
 
-        [Authorize(Roles = "AGENT,ADMIN")]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
         public IActionResult Details()
         {
             return View();
@@ -39,7 +36,7 @@ namespace HCMS.Web.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = $"{ADMIN}")]
         public async Task<IActionResult> Select(string redirect)
         {
             //first check if this is redirect from the same page
@@ -101,7 +98,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = $"{ADMIN}")]
         public async Task<IActionResult> Select(CompanySelectViewModel model)
         {
             EmployeeCompanyUpdateDto employeeDto = new EmployeeCompanyUpdateDto();
@@ -138,7 +135,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
         public async Task<IActionResult> All(PageQueryModel model)
         {
             if (model == null)
@@ -173,7 +170,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
         public async Task<IActionResult> Edit(string? id, string? redirectMessage)
         {
             if(id == null)
@@ -208,7 +205,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = $"{RoleConstants.AGENT},{RoleConstants.ADMIN}")]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
         public async Task<IActionResult> Edit(CompanyFormModel model)
         {
             //validate input

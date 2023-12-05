@@ -5,7 +5,6 @@ using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Application;
 using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Services.ServiceModels.Employee;
 
 namespace HCMS.Services.Implementation
 {
@@ -52,6 +51,30 @@ namespace HCMS.Services.Implementation
                 throw new Exception(ex.Message);
             }
             throw new NotImplementedException();
+        }
+
+        public async Task acceptApplicationByIdAsync(Guid id)
+        {
+            try
+            {
+                await this.applicationRepository.acceptApplicationByIdAsync(id);
+            } 
+            catch(Exception) 
+            {
+                throw;
+            }
+        }
+
+        public async Task declineApplicationByIdAsync(Guid id)
+        {
+            try
+            {
+                await this.applicationRepository.declineApplicationByIdAsync(id);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

@@ -128,7 +128,7 @@ namespace HCMS.Web.Controllers
         public async Task<IActionResult> Accept(string id)
         {
 
-            string url = $"api/application/accept/{id}";
+            string url = $"api/application/accept?id={id}";
 
             //set JWT
             string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
@@ -152,7 +152,7 @@ namespace HCMS.Web.Controllers
         [Authorize(Roles = $"{AGENT},{ADMIN}")]
         public async Task<IActionResult> Decline(string id)
         {
-            string url = $"api/application/decline/{id}";
+            string url = $"api/application/decline?id={id}";
 
             //set JWT
             string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;

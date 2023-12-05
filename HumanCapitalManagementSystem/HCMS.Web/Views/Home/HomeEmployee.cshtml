@@ -91,10 +91,10 @@
 
         <div class="col-4 applications-background text-white d-flex flex-column align-items-center">
             <div>
-                <h1 class="text-center text-bold tech-font">Current workplace</h1>
-                <p class=" text-center mt-2">Add information about your current work place</p>
+                <h1 class="text-center text-bold tech-font">User profile</h1>
+                <p class=" text-center mt-2">Review and edit your login credentials</p>
             </div>
-            <a asp-controller="Company" asp-action="Select" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Edit your workplace</a>
+            <a asp-controller="User" asp-action="Profile" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value" class="btn btn-outline-primary text-white border-white mt-auto mb-4">Edit your workplace</a>
         </div>
     </div>
 </div>

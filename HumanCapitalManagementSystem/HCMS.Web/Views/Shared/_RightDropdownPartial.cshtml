@@ -8,6 +8,10 @@
                 </button>
             <ul class="dropdown-menu dropdown-menu-lg-end custom-dropdown-menu my-2">
                 <li><a class="dropdown-item" asp-controller="User" asp-action="Profile" asp-route-id="@User.Claims.FirstOrDefault(c => c.Type == "UserId")!.Value">Profile</a></li>
+                @if (User.IsInRole(RoleConstants.ADMIN))
+                {
+                    <li><a asp-controller="Company" asp-action="Select" class="dropdown-item">Select workplace</a></li>
+                }
                 @if (User.IsInRole(RoleConstants.AGENT) || User.IsInRole(RoleConstants.ADMIN))
                 {
                     <li><a asp-controller="Employee" asp-action="Edit" class="dropdown-item">Edit Personal Information</a></li>

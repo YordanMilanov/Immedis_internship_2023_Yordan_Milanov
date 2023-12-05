@@ -1,6 +1,7 @@
 ﻿using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Application;
 using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -28,11 +29,13 @@ namespace HCMS.Web.Api.Controllers
         [Produces("application/json")]
         [Consumes("application/json")]
         [Authorize]
-        public async Task<IActionResult> Apply([FromBody] ApplicationDto applicationDto)
+        public async Task<IActionResult> Apply()
         {
             try
             {
-                await this.applicationService.AddAsync(applicationDto);
+                string jsonReceived = await new StreamReader(Request.Body).ReadToEndAsync();
+                ApplicationDto model = JsonConvert.DeserializeObject<ApplicationDto>(jsonReceived)!;
+                await this.applicationService.AddAsync(model);
                 return Ok("You have successfully applied for the job");
             }
             catch (Exception ex)
@@ -61,6 +64,40 @@ namespace HCMS.Web.Api.Controllers
             catch (Exception)
             {
                 return BadRequest("Unexpected error occurred while trying to load the current page!");
+            }
+        }
+
+        [HttpGet("accept")]
+        [ProducesResponseType(400, Type = typeof(string))]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
+        public async Task<IActionResult> Accept([FromQuery] Guid id)
+        {
+            try
+            {
+                await this.applicationService.acceptApplicationByIdAsync(id);
+                return Ok("The employee was successfully recruited to the company!");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to accept the application!");
+            }
+        }
+
+        [HttpDelete("decline")]
+        [ProducesResponseType(400, Type = typeof(string))]
+        [ProducesResponseType(200, Type = typeof(string))]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
+        public async Task<IActionResult> Decline([FromQuery] Guid id)
+        {
+            try
+            {
+                await this.applicationService.acceptApplicationByIdAsync(id);
+                return Ok("The application was successfully rejected!");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Unexpected error occurred while trying to decline the application!");
             }
         }
     }
