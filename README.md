@@ -30,6 +30,10 @@ Save, add, update and delete:
 - _Current workplace_
 - _Review work records_
 - _Review educations_
+
+Jobs
+-_Review job offers_
+-_Apply for any job advert_
   
 __Agent functionality__ 
 
@@ -37,11 +41,14 @@ __Agent functionality__
 - _Save, Add, Update, Delete company information_
 - _Review All Employees, their personal information, work records and educations_
 - _Able to dismiss employees working in the agent's current company_
-- _Can create and send recommendations for employees which work in his/her current workplace(company)_
-- _Can recieve recommendations from another companies agents_
-  
+- _Can create and send recommendations for employees which work in his/her current company(unemployed cannot be recommended), and cannot self recommend_
+- _Can view recommendations directed to his/her company_
+- _Additional information - expired recommendations(older than 1 month) are automatically deleted_
+-_Can add compnay job offer_
+-_Can accept or decline applications for the company job adverts_
 __Admin functionality__ 
 - _Managing users roles_
+-_Can select his/her own company(without applying)_
 
 
 
@@ -49,6 +56,9 @@ __Admin functionality__
 
 ![App Screenshot](https://i.imgur.com/sNdBt1Q.jpg)
 
+## 📝Database Diagram
+
+![App Screenshot](https://i.imgur.com/hLNPmj8.jpg)
 
 
 

@@ -56,13 +56,22 @@ CREATE TABLE "WorkRecords" (
 	"EmployeeId" UNIQUEIDENTIFIER NOT NULL,
 );
 
+CREATE TABLE "Adverts" (
+		"Id" UNIQUEIDENTIFIER PRIMARY KEY, --GUID
+		"Position" VARCHAR(50) NOT NULL,
+	    "Department" VARCHAR(50) NOT NULL,
+		"Description" TEXT NOT NULL,
+		"RemoteOption" BIT NOT NULL, 
+		"Salary" DECIMAL(19, 2) NOT NULL,
+		"AddDate" DATETIME NOT NULL,
+		"CompanyId" UNIQUEIDENTIFIER NOT NULL,
+);
+
 CREATE TABLE "Applications" (
 	"Id" UNIQUEIDENTIFIER PRIMARY KEY, --GUID
-	"Position" VARCHAR(50) NOT NULL,
-	"Department" VARCHAR(50) NOT NULL,
     "CoverLetter" varchar(max) NULL,
 	"AddDate" DATETIME NOT NULL,
-	"ToCompanyId" UNIQUEIDENTIFIER NOT NULL,
+	"AdvertId" UNIQUEIDENTIFIER NOT NULL,
 	"FromEmployeeId" UNIQUEIDENTIFIER NOT NULL,
 );
 
@@ -86,6 +95,7 @@ CREATE TABLE "Recommendations" (
 	"RecommendDate" DATETIME NOT NULL,
 	"ForEmployeeId" UNIQUEIDENTIFIER NOT NULL,
 	"ToCompanyId" UNIQUEIDENTIFIER NOT NULL,
+	"FromEmployeeId" UNIQUEIDENTIFIER NOT NULL,
 );
 
 --Location(Address) of specific entity
@@ -112,4 +122,5 @@ CREATE TABLE "UsersClaims" (
 	"ClaimType" VARCHAR(255) NOT NULL,
 	"ClaimValue" varchar(max)
 );
+
 

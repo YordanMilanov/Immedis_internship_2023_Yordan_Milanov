@@ -14,6 +14,11 @@ ALTER TABLE "Employees"
 ADD CONSTRAINT "FK_Employees_Locations"
 FOREIGN KEY (LocationId) REFERENCES Locations(Id);
 
+--Many to One Employees-Locations
+ALTER TABLE "Employees"
+ADD CONSTRAINT "FK_Employees_Companies"
+FOREIGN KEY (CompanyId) REFERENCES Companies(Id);
+
 --Many to One Companies-Locations
 ALTER TABLE "Companies"
 ADD CONSTRAINT "FK_Companies_Locations"
@@ -29,10 +34,10 @@ ALTER TABLE "WorkRecords"
 ADD CONSTRAINT "FK_WorkRecords_Employees"
 FOREIGN KEY (EmployeeId) REFERENCES Employees(Id);
 
---Many to One Applications-Companies
+--Many to One Applications-Adverts
 ALTER TABLE "Applications"
-ADD CONSTRAINT "FK_Applications_Companies"
-FOREIGN KEY (ToCompanyId) REFERENCES Companies(Id);
+ADD CONSTRAINT "FK_Applications_Adverts"
+FOREIGN KEY (AdvertId) REFERENCES Adverts(Id);
 
 --Many to One Applications-Employees
 ALTER TABLE "Applications"
@@ -54,10 +59,20 @@ ALTER TABLE "Recommendations"
 ADD CONSTRAINT "FK_Recommendations_Employees"
 FOREIGN KEY (ForEmployeeId) REFERENCES Employees(Id);
 
+--Many to One Recommendations-Companies
+ALTER TABLE "Recommendations"
+ADD CONSTRAINT "FK_Recommendations_to_Companies"
+FOREIGN KEY (ToCompanyId) REFERENCES Companies(Id);
+
 --Many to One Recommendations-Employees
 ALTER TABLE "Recommendations"
-ADD CONSTRAINT "FK_Recommendations_Companies"
-FOREIGN KEY (ToCompanyId) REFERENCES Companies(Id);
+ADD CONSTRAINT "FK_Recommendations_from_Employees"
+FOREIGN KEY (FromEmployeeId) REFERENCES Employees(Id);
+
+--Many to One Advert-Companies
+ALTER TABLE "Adverts"
+ADD CONSTRAINT "FK_Adverts_Companies"
+FOREIGN KEY (CompanyId) REFERENCES Companies(Id);
 
 --Many to Many User - UserRoles - Roles
 ALTER TABLE "UsersRoles"
