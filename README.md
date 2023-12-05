@@ -44,11 +44,13 @@ __Agent functionality__
 - _Can create and send recommendations for employees which work in his/her current company(unemployed cannot be recommended), and cannot self recommend_
 - _Can view recommendations directed to his/her company_
 - _Additional information - expired recommendations(older than 1 month) are automatically deleted_
--_Can add compnay job offer_
--_Can accept or decline applications for the company job adverts_
-__Admin functionality__ 
+- _Can add compnay job offer_
+- _Can accept or decline applications for the company job adverts_
+
+__Admin functionality__
+ 
 - _Managing users roles_
--_Can select his/her own company(without applying)_
+- _Can select his/her own company(without applying)_
 
 
 
