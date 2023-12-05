@@ -1,5 +1,6 @@
-﻿@using HCMS.Web.ViewModels.Advert;
-@model AdvertResultQueryModel;
+﻿@using HCMS.Web.ViewModels.BaseViewModel;
+@using HCMS.Web.ViewModels.Application;
+@model ResultQueryModel<ApplicationViewModel>;
 
 
 @{
@@ -35,14 +36,6 @@
                 </div>
             </div>
 
-            @* Reomte Option *@
-            <div class="col-2 mt-4 d-flex form-group text-center justify-content-center ">
-                <div class="form-group mt-2">
-                    <label>Only remote option</label>
-                    <input asp-for="RemoteOption" type="checkbox" class="form-check-input text-center" />
-                </div>
-            </div>
-
             @* Order Select *@
             <div class="col-3 form-group text-center justify-content-center">
                 <div class="form-group">
@@ -51,14 +44,6 @@
                         <option value="0">Date added - Newest</option>
                         <option value="1">Date added - Oldest</option>
                     </select>
-                </div>
-            </div>
-
-            @* Search box *@
-            <div class="col-3 form-group text-center justify-content-center">
-                <div class="form-group">
-                    <label asp-for="SearchString"></label>
-                    <input asp-for="SearchString" type="text" class="form-control text-center" placeholder="Search word" />
                 </div>
             </div>
 
@@ -80,17 +65,17 @@
 
     <hr />
 
-    @* Adverts Cards *@
+    @* Application Cards *@
     @if (!Model.Items.Any())
     {
-        <h2 class="text-center">No jobs found!</h2>
+        <h2 class="text-center">There is no applications for this job offer!</h2>
     }
 
     <div class="container overflow-y-scroll custom-scrollbar-css">
         <div class="row justify-content-center">
-            @foreach (var advert in Model.Items)
+            @foreach (var application in Model.Items)
             {
-                <partial name="_AdvertViewPartial" model="@advert" />
+                <partial name="_ApplicationViewPartial" model="@application" />
             }
         </div>
     </div>

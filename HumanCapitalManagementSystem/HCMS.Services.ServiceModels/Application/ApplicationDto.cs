@@ -5,6 +5,7 @@ namespace HCMS.Services.ServiceModels.Application
 {
     public class ApplicationDto
     {
+        public Guid Id { get; set; }
         public string CoverLetter { get; set; } = null!;
         public DateTime AddDate { get; set; }
         public Guid FromEmployeeId{ get; set; }

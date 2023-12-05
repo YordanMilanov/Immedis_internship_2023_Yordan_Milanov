@@ -51,13 +51,10 @@
                         if (User.Claims.FirstOrDefault(c => c.Type == "EmployeeCompanyId")!.Value == Model.CompanyId.ToString())
                         {
                             <div class="text-center my-2">
-                                <a asp-controller="Application" asp-action="AllByAdvert" asp-route-id="@Model.Id" class="btn btn-sm btn-primary">Applications</a>
+                                <a asp-controller="Application" asp-action="AllByAdvert" asp-route-advertId="@Model.Id" class="btn btn-sm btn-primary">Applications</a>
                             </div>
                         }
                     }
-        
-                    
-                  
                 </div>
             </div>
         </div>

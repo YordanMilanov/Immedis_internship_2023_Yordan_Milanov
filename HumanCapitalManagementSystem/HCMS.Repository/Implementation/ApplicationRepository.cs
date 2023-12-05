@@ -53,7 +53,8 @@ namespace HCMS.Repository.Implementation
                 IQueryable<Application> query = dbContext.Applications
                     .Where(a => a.AdvertId == advertId)
                     .Include(a => a.Employee)
-                    .Include(a => a.Advert);
+                    .Include(a => a.Advert)
+                    .ThenInclude(a => a.Company);
                
 
                 int countOfElements = query.Count();

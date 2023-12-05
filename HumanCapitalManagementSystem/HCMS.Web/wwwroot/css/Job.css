@@ -56,3 +56,8 @@
         border-radius: 1rem;
         background-image: linear-gradient(to bottom, #3bb4ff 0%, #1c5e8c 100%);
     }
+
+.word-wrap {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

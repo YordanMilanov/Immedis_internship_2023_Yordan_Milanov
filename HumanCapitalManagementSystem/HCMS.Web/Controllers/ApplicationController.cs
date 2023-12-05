@@ -91,7 +91,7 @@ namespace HCMS.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
         public async Task<IActionResult> AllByAdvert(QueryDto model,string advertId)
         {
             if (model == null)
@@ -115,12 +115,61 @@ namespace HCMS.Web.Controllers
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 QueryDtoResult<ApplicationDto> responseQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<ApplicationDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                 ResultQueryModel<ApplicationViewModel> applicationQueryModel = mapper.Map<ResultQueryModel<ApplicationViewModel>>(responseQueryDto);
-                return View(applicationQueryModel);
+                return View("All",applicationQueryModel);
             }
             else
             {
-                return View(model);
+                return View("All",model);
             }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
+        public async Task<IActionResult> Accept(string id)
+        {
+
+            string url = $"api/application/accept/{id}";
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.GetAsync(url);
+            string message = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = message;
+            }
+            else
+            {
+                TempData[WarningMessage] = message;
+            }
+            return RedirectToAction("All", "Advert");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = $"{AGENT},{ADMIN}")]
+        public async Task<IActionResult> Decline(string id)
+        {
+            string url = $"api/application/decline/{id}";
+
+            //set JWT
+            string tokenString = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
+            this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenString);
+
+            HttpResponseMessage response = await httpClient.DeleteAsync(url);
+            string message = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                TempData[SuccessMessage] = message;
+            }
+            else
+            {
+                TempData[WarningMessage] = message;
+            }
+            return RedirectToAction("All", "Advert");
         }
     }
 }

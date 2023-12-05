@@ -2,51 +2,50 @@
 @using static HCMS.Common.RoleConstants;
 
 <div class="container card-partial mt-1 mb-1">
-    <div class="row">
-        <div class="col-md-4 technical-font">
+    <div class="row technical-font">
+        <div class="col-md-4">
             <h5>Employee Information</h5>
             <h4><b>@Model.Employee.FirstName - @Model.Employee.LastName</b></h4>
-            <h6 class="d-flex"><b>Salary: @Model.Employee.Email</b></h6>
-            <h6 class="d-flex"><b>Salary: @Model.Employee.PhoneNumber</b></h6>
-            <h6 class="d-flex"><b>Posted: @Model.Employee.DateOfBirth.ToString("dd.MM.yyyy")</b></h6>
+            <h6 class="d-flex"><b>Email: @Model.Employee.Email</b></h6>
+            <h6 class="d-flex"><b>Phone: @Model.Employee.PhoneNumber</b></h6>
+            <h6 class="d-flex"><b>Birth date: @Model.Employee.DateOfBirth.ToString("dd.MM.yyyy")</b></h6>
         </div>
 
-        <div class="col-md-3 technical-font">
+        <div class="col-md-3">
             <h5>Job Information</h5>
-            <h4><b>Company name: @Model.Advert.CompanyName</b></h4>
-            <h6 class="d-flex"><b>Company position: @Model.Advert.Position</b></h6>
-            <h6 class="d-flex"><b>Company department: @Model.Advert.Department</b></h6>
-            <h6 class="d-flex"><b>Company description: @Model.Advert.Description</b></h6>
+            <h4><b>@Model.Advert.CompanyName</b></h4>
+            <h6 class="d-flex"><b>position: @Model.Advert.Position</b></h6>
+            <h6 class="d-flex"><b>department: @Model.Advert.Department</b></h6>
+            <h6 class="d-flex"><b>description: @Model.Advert.Description</b></h6>
             <h6 class="d-flex"><b>Posted: @Model.Advert.AddDate.ToString("dd.MM.yyyy")</b></h6>
         </div>
 
-        <div class="col-md-3 technical-font">
+        <div class="col-md-3">
             <h5>Application Information</h5>
+            <h6 class="word-wrap"><b>Cover letter: @Model.CoverLetter</b></h6>
             <h6 class="d-flex"><b>Posted: @Model.Advert.AddDate.ToString("dd.MM.yyyy")</b></h6>
-            <h6 class="d-flex"><b>Cover letter: @Model.CoverLetter</b></h6>
         </div>
 
         <div class="col-md-2">
-            <div class="technical-font">
-
-                <div class="my-auto">
-                    @if (User.IsInRole(ADMIN) || User.IsInRole(AGENT))
+            <div class=" my-auto">
+                @if (User.IsInRole(ADMIN) || User.IsInRole(AGENT))
+                {
+                    @if (User.Claims.FirstOrDefault(c => c.Type == "EmployeeCompanyId")!.Value == Model.Advert.CompanyId.ToString())
                     {
-                        @if (User.Claims.FirstOrDefault(c => c.Type == "EmployeeCompanyId")!.Value == Model.CompanyId.ToString())
-                        {
-                            <div class="text-center my-2">
-                                <a asp-controller="Application" asp-action="Accept" asp-route-id="@Model.Id" class="btn btn-sm btn-success">Accept</a>
-                            </div>   
+                        <div class="text-center my-2">
+                            <a asp-controller="Application" asp-action="Accept" asp-route-id="@Model.Id" class="btn btn-sm btn-success">Accept</a>
+                        </div>
 
-                            <div class="text-center my-2">
-                                <a asp-controller="Application" asp-action="Decline" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Decline</a>
-                            </div>
-                        }   
+                        <div class="text-center my-2">
+                            <a asp-controller="Application" asp-action="Decline" asp-route-id="@Model.Id" class="btn btn-sm btn-danger">Decline</a>
+                        </div>
                     }
-                </div>
-
+                }
             </div>
         </div>
-
     </div>
 </div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Job.css">
+}

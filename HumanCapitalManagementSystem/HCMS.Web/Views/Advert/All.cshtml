@@ -32,9 +32,19 @@
 
 <div class="container all-container">
     <h2 class="text-center"><b>All Jobs</b></h2>
-    @if(employeeId == null || employeeId == Guid.Empty.ToString()){
-        <h5 class="text-center text-warning">Add employee information to apply</h5>
+
+    @if(User.Identity!.IsAuthenticated)
+    {
+        @if (employeeId == null || employeeId == Guid.Empty.ToString())
+        {
+            <h5 class="text-center text-warning">Add employee information to apply</h5>
+        }
+    } 
+    else
+    {
+        <h5 class="text-center text-warning">Please log in to be able to apply for job!</h5>
     }
+
     <hr />
     <form method="get" id="formId">
         <div class="row justify-content-center technical-font">
