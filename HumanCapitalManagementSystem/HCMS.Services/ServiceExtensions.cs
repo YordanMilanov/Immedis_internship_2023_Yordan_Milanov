@@ -1,7 +1,9 @@
 ﻿using HCMS.Services.Implementation;
 using HCMS.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("HCMS.UnitTest.Services")]
 namespace HCMS.Services
 {
     public static class ServiceExtensions

@@ -1,7 +1,9 @@
 ﻿using HCMS.Repository.Interfaces;
 using HCMS.Repository.Implementation;
 using Microsoft.Extensions.DependencyInjection;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("HCMS.UnitTest.Repository")]
 namespace HCMS.Repository
 {
     public static class RepositoryExtensions

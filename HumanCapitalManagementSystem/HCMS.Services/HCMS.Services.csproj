@@ -17,5 +17,5 @@
     <ProjectReference Include="..\HCMS.Repository\HCMS.Repository.csproj" />
     <ProjectReference Include="..\HCMS.Services.ServiceModels\HCMS.Services.ServiceModels.csproj" />
   </ItemGroup>
-
+	
 </Project>

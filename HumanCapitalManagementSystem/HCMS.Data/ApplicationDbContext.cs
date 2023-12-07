@@ -2,7 +2,9 @@
 using HCMS.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("HCMS.UnitTest.Services")]
 namespace HCMS.Data
 {
     public class ApplicationDbContext : DbContext
@@ -102,6 +104,7 @@ namespace HCMS.Data
                     .IsRequired()
                     .HasMaxLength(DataModelConstants.Advert.DepartmentMaxLength);
                 entity.Property(e => e.Description).IsRequired();
+                entity.Property(e => e.Salary);
                 entity.Property(e => e.AddDate).IsRequired();
                 entity.Property(e => e.RemoteOption);
 

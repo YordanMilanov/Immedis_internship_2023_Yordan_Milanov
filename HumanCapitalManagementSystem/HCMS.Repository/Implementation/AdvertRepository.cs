@@ -21,6 +21,10 @@ namespace HCMS.Repository.Implementation
         {
           try
             {
+                if(advert.CompanyId == Guid.Empty)
+                {
+                    throw new Exception();
+                }
                 await this.dbContext.Adverts.AddAsync(advert);
                 await this.dbContext.SaveChangesAsync();
             } 
