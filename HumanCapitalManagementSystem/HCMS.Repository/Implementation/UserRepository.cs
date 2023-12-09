@@ -23,9 +23,9 @@ namespace HCMS.Repository.Implementation
             {
                 await dbContext.SaveChangesAsync();
             }
-            catch (Exception)
+            catch (DbUpdateException)
             {
-                throw new Exception();
+                throw;
             }
         }
 

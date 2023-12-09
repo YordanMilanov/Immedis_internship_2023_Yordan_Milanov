@@ -17,7 +17,7 @@ namespace HCMS.Services
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IWorkRecordService, WorkRecordService>();
             services.AddScoped<IRecommendationService, RecommendationService>();
-            services.AddScoped<IAdvertService, AdvertService>();
+            services.AddScoped<IAdvertService, IAdvertService>();
             services.AddScoped<IApplicationService, ApplicationService>();
         }
     }

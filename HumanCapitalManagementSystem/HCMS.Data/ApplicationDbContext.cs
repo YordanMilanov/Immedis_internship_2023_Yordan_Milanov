@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("HCMS.UnitTest.Services")]
+[assembly: InternalsVisibleTo("HCMS.UnitTests")]
 namespace HCMS.Data
 {
     public class ApplicationDbContext : DbContext
@@ -46,10 +46,11 @@ namespace HCMS.Data
             builder.Entity<Education>(entity =>
             {
                 entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
                 entity.Property(e => e.StartDate).IsRequired();
                 entity.Property(e => e.EndDate).IsRequired(false);
                 entity.Property(e => e.University)
-                    .IsRequired()
+                    .IsRequired(false)
                     .HasMaxLength(DataModelConstants.Education.UniversityMaxLength);
                 entity.Property(e => e.Degree)
                     .IsRequired()
@@ -75,7 +76,7 @@ namespace HCMS.Data
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
-                entity.Property(e => e.CoverLetter).IsRequired();
+                entity.Property(e => e.CoverLetter);
                 entity.Property(e => e.AddDate).IsRequired();
 
                 //FKs
@@ -86,7 +87,7 @@ namespace HCMS.Data
 
                 entity.HasOne(e => e.Employee)
                     .WithMany()
-                    .HasForeignKey(e => e.FromEmployeeId)
+                    .HasForeignKey(e => e.FromEmployeeId).IsRequired()
                     .HasPrincipalKey(e => e.Id);
 
                 entity.HasIndex(e => new { e.FromEmployeeId, e.AdvertId })
@@ -104,9 +105,9 @@ namespace HCMS.Data
                     .IsRequired()
                     .HasMaxLength(DataModelConstants.Advert.DepartmentMaxLength);
                 entity.Property(e => e.Description).IsRequired();
-                entity.Property(e => e.Salary);
+                entity.Property(e => e.Salary).IsRequired();
                 entity.Property(e => e.AddDate).IsRequired();
-                entity.Property(e => e.RemoteOption);
+                entity.Property(e => e.RemoteOption).IsRequired();
 
                 //FKs
                 entity.Property(e => e.CompanyId).IsRequired();
@@ -127,9 +128,8 @@ namespace HCMS.Data
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(DataModelConstants.VarcharDefaultLength);
-                entity.Property(e => e.Description).IsRequired();
+                entity.Property(e => e.Description);
                 entity.Property(e => e.IndustryField)
-                    .IsRequired()
                     .HasMaxLength(DataModelConstants.Company.IndustryFieldMaxLength);
                 entity.Property(e => e.LocationId);
                 
@@ -162,7 +162,7 @@ namespace HCMS.Data
                     .HasMaxLength(DataModelConstants.Employee.PhoneNumberMaxLength);
                 entity.Property(e => e.PhotoUrl);
                 entity.Property(e => e.DateOfBirth).IsRequired();
-                entity.Property(e => e.AddDate);
+                entity.Property(e => e.AddDate).IsRequired();
                
                 entity.Property(e => e.CompanyId);
                 entity.HasOne(e => e.Company)
@@ -181,6 +181,9 @@ namespace HCMS.Data
                     .WithMany()
                     .HasForeignKey(e => e.LocationId)
                     .IsRequired(false);
+
+                entity.HasMany(e => e.WorkRecords)
+            .WithOne(e => e.Employee);
 
                 entity.HasMany(e => e.Educations)
                     .WithOne(e => e.Employee);
@@ -220,21 +223,21 @@ namespace HCMS.Data
                 entity.HasOne(e => e.ForEmployee)
                     .WithMany()
                     .HasForeignKey(e => e.ForEmployeeId)
-                    .IsRequired(false);
+                    .IsRequired();
 
                 entity.Property(e => e.FromEmployeeId)
                    .IsRequired();
                 entity.HasOne(e => e.FromEmployee)
                     .WithMany()
                     .HasForeignKey(e => e.FromEmployeeId)
-                    .IsRequired(false);
+                    .IsRequired();
 
                 entity.Property(e => e.ToCompanyId)
                     .IsRequired();
                 entity.HasOne(e => e.Company)
                     .WithMany()
                     .HasForeignKey(e => e.ToCompanyId)
-                    .IsRequired(false);
+                    .IsRequired();
             });
             builder.Entity<Role>(entity =>
             {
@@ -290,7 +293,39 @@ namespace HCMS.Data
                     .WithMany(u => u.UserClaims)
                     .HasForeignKey(e => e.UserId);
             });
-           
+            builder.Entity<WorkRecord>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+               
+                entity.Property(e => e.Position)
+                    .IsRequired();
+
+                entity.Property(e => e.Department);
+
+                entity.Property(e => e.Salary)
+                    .IsRequired();
+
+                entity.Property(e => e.StartDate)
+                    .IsRequired();
+
+                entity.Property(e => e.EndDate);
+
+                entity.Property(e => e.AddDate)
+                .IsRequired();
+
+                entity.HasOne(e => e.Employee)
+                    .WithMany()
+                    .HasForeignKey(e => e.EmployeeId)
+                    .IsRequired();
+
+                entity.Property(e => e.CompanyId)
+                   .IsRequired();
+                entity.HasOne(e => e.Company)
+                    .WithMany()
+                    .HasForeignKey(e => e.CompanyId)
+                    .IsRequired();
+            });
             //USER-ROLES
             // Configure the many-to-many relationship
             builder.Entity<UserRole>(entity =>
@@ -311,5 +346,13 @@ namespace HCMS.Data
 
           
         }
+
+        public static DbContextOptions<ApplicationDbContext> GetApplicationDbOptions()
+        {
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            builder.UseSqlServer(ConnectionConfiguration.ConnectionString);
+            return builder.Options;
+        }
+
     }
 }

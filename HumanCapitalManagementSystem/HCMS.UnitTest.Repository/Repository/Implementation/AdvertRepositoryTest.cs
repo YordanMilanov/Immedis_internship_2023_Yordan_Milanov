@@ -1,9 +1,10 @@
 ﻿using HCMS.Data;
 using HCMS.Data.Models;
+using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Implementation;
 using Microsoft.EntityFrameworkCore;
 
-namespace HCMS.UnitTest.Repository.Implementation
+namespace HCMS.Tests.Repository.Implementation
 {
     internal class AdvertRepositoryTest
     {
@@ -41,8 +42,8 @@ namespace HCMS.UnitTest.Repository.Implementation
         {
             // Arrange
             var advertRepository = new AdvertRepository(dbContext);
-            advert.Position = null!;
             // Act
+            advert.Position = null!;
             // Assert
             Assert.ThrowsAsync<DbUpdateException>(async () => await advertRepository.AddAsync(advert));
             Assert.IsFalse(dbContext.Adverts.Contains(advert));
@@ -54,6 +55,7 @@ namespace HCMS.UnitTest.Repository.Implementation
         {
             // Arrange
             var advertRepository = new AdvertRepository(dbContext);
+            // Act
             advert.Department = null!;
             // Assert
             Assert.ThrowsAsync<DbUpdateException>(async () => await advertRepository.AddAsync(advert));
@@ -66,6 +68,7 @@ namespace HCMS.UnitTest.Repository.Implementation
         {
             // Arrange
             var advertRepository = new AdvertRepository(dbContext);
+            // Act
             advert.CompanyId = Guid.Empty;
             // Assert
             Assert.ThrowsAsync<Exception>(async () => await advertRepository.AddAsync(advert));
@@ -78,6 +81,7 @@ namespace HCMS.UnitTest.Repository.Implementation
         {
             // Arrange
             var advertRepository = new AdvertRepository(dbContext);
+            //Act
             advert.Description = null!;
             // Assert
             Assert.ThrowsAsync<DbUpdateException>(async () => await advertRepository.AddAsync(advert));
@@ -96,6 +100,27 @@ namespace HCMS.UnitTest.Repository.Implementation
             // Assert
             Assert.IsTrue(dbContext.Adverts.Contains(advert));
             Assert.That(advert, Is.EqualTo(await dbContext.Adverts.FirstOrDefaultAsync(a => a.Id == advert.Id)));
+        }
+
+        //Default parameters test
+        [Test]
+        public async Task GetCurrentPageAsync_Default_Parameters_Works_Test()
+        {
+            // Arrange
+            var advertRepository = new AdvertRepository(dbContext);
+            QueryParameterClass queryParameterClass = new QueryParameterClass();
+            queryParameterClass.ItemsPerPage = 10;
+            queryParameterClass.OrderPageEnum = Common.OrderPageEnum.Newest;
+            queryParameterClass.SearchString = null;
+            bool? remoteOption = null;
+
+            Guid companyId = await dbContext.Adverts
+                .OrderBy(a => a.Id)
+                .Select(a => a.CompanyId)
+                .FirstOrDefaultAsync();
+
+            await advertRepository.GetCurrentPageAsync(queryParameterClass, remoteOption, companyId.ToString());
+
         }
     }
 }

@@ -5,7 +5,6 @@ using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace HCMS.Repository.Implementation
 {
