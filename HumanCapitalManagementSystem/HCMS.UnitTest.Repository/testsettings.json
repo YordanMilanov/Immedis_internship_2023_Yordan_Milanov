@@ -1,10 +1,11 @@
 {
-  "exclude": [
-    "**/bin",
-    "**/bower_components",
-    "**/jspm_packages",
-    "**/node_modules",
-    "**/obj",
-    "**/platforms"
-  ]
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=192.168.0.126;Database=HCMSImmedisTest;User ID=sa;Password=Dancho.10;Trusted_Connection=True;Integrated Security=true;Encrypt=false"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
 }

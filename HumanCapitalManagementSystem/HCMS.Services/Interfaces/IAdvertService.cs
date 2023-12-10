@@ -1,5 +1,4 @@
 ﻿using HCMS.Services.ServiceModels.Advert;
-using HCMS.Services.ServiceModels.BaseClasses;
 
 namespace HCMS.Services.Interfaces
 {

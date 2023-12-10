@@ -1,6 +1,7 @@
 ﻿using HCMS.Common;
 using HCMS.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -9,8 +10,16 @@ namespace HCMS.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {}
+        private readonly IConfiguration? configuration;
+
+        //for production
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration) : base(options)
+        {
+            this.configuration = configuration;
+        }
+
+        //for tests
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
 
         public DbSet<Application> Applications { get; set; } = null!;
         public DbSet<Advert> Adverts { get; set; } = null!;
@@ -30,7 +39,7 @@ namespace HCMS.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder
-                    .UseSqlServer(ConnectionConfiguration.ConnectionString);
+                    .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             }
         }
 

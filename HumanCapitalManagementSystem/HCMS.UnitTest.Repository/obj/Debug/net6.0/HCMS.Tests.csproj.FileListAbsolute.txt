@@ -162,3 +162,9 @@ C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagem
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\obj\Debug\net6.0\HCMS.Tests.pdb
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\obj\Debug\net6.0\HCMS.Tests.genruntimeconfig.cache
 C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\obj\Debug\net6.0\ref\HCMS.Tests.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Physical.dll
+C:\Users\danch\source\Immedis_internship_2023_Yordan_Milanov\HumanCapitalManagementSystem\HCMS.UnitTest.Repository\bin\Debug\net6.0\Microsoft.Extensions.FileSystemGlobbing.dll

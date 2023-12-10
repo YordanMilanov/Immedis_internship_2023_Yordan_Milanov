@@ -11,7 +11,7 @@ namespace HCMS.Common.JsonConverter
         {
             if (reader.TokenType == JsonToken.String)
             {
-                string name = (string)reader.Value;
+                string name = (string)reader.Value!;
                 if (name != null)
                 {
                     return new Name(name);

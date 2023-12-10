@@ -22,7 +22,7 @@ namespace HCMS.Tests.Repository.Implementation
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase("InMemoryDb")
                 .Options;
-            dbContext = new ApplicationDbContext(options);
+            //dbContext = new ApplicationDbContext(options);
             userRepository = new UserRepository(dbContext);
 
             user = new User()

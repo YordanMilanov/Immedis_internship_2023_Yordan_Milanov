@@ -2,23 +2,22 @@
 using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Implementation;
+using HCMS.Repository.Interfaces;
+using HCMS.Tests.Unit.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace HCMS.Tests.Repository.Implementation
 {
-    internal class AdvertRepositoryTest
+    internal class AdvertRepositoryTest : BaseRepositoryTest
     {
-        private ApplicationDbContext dbContext;
         private Advert advert;
+        private AdvertRepository advertRepository;
 
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                    .Options;
-
-            dbContext = new ApplicationDbContext(options);
+            //Arrange
+            advertRepository = new AdvertRepository(dbContext);
 
             //populate the advert correctly
             advert = new Advert();
@@ -40,8 +39,7 @@ namespace HCMS.Tests.Repository.Implementation
         [Test]
         public async Task AddAsync_Should_Not_Add_Missing_Position()
         {
-            // Arrange
-            var advertRepository = new AdvertRepository(dbContext);
+
             // Act
             advert.Position = null!;
             // Assert

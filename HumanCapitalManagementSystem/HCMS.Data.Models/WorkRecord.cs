@@ -18,8 +18,8 @@ namespace HCMS.Data.Models
         public DateTime? EndDate { get; set; }
         public DateTime AddDate { get; set; } = DateTime.Now;
         public Guid CompanyId { get; set; }
-        public virtual Company Company { get; set; }
+        public virtual Company? Company { get; set; }
         public Guid EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+        public virtual Employee? Employee { get; set; }
     }
 }
