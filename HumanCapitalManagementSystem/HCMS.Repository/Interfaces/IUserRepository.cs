@@ -7,10 +7,10 @@ namespace HCMS.Repository.Interfaces
     public interface IUserRepository
 
     {
-    Task RegisterUser(User user);
+    Task RegisterUserAsync(User user);
 
-    Task<bool> UserExistsByUsername(string username);
-    Task<bool> UserExistsByEmail(string email);
+    Task<bool> UserExistsByUsernameAsync(string username);
+    Task<bool> UserExistsByEmailAsync(string email);
     Task<User> GetUserByIdAsync(Guid id);
     Task<User> GetUserByUsernameAsync(string username);
     Task UpdateUserAsync(User user);

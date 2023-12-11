@@ -59,7 +59,7 @@ internal class UserService : IUserService
 
         try
         {
-            await userRepository.RegisterUser(user);
+            await userRepository.RegisterUserAsync(user);
         }
         catch (Exception)
         {
@@ -71,7 +71,7 @@ internal class UserService : IUserService
     {
         try
         {
-            return await userRepository.UserExistsByUsername(username);
+            return await userRepository.UserExistsByUsernameAsync(username);
         }
         catch (Exception)
         {
@@ -81,7 +81,7 @@ internal class UserService : IUserService
 
     public async Task<bool> IsEmailExists(string email)
     {
-        return await userRepository.UserExistsByEmail(email);
+        return await userRepository.UserExistsByEmailAsync(email);
 
     }
 

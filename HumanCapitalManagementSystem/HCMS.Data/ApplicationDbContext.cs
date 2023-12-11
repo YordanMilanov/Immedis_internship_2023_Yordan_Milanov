@@ -262,7 +262,7 @@ namespace HCMS.Data
             });
             builder.Entity<User>(entity =>
             {
-                entity.HasKey(e => e.Id);
+                entity.HasKey(e => e.Id).HasName("PK_Users_Id");
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd();
                 entity.Property(e => e.Username)
@@ -280,7 +280,11 @@ namespace HCMS.Data
                 entity.Property(e => e.RegisterDate)
                     .IsRequired()
                     .HasColumnName("RegisterDate");
-
+                //Constraints
+                entity.HasIndex(e => e.Username, "UC_Users_Username_Unique").IsUnique();
+                entity.HasIndex(e => e.Email, "UC_Users_Email_Unique").IsUnique();
+                
+                //FKs
                 entity.HasMany(e => e.UsersRoles)
                     .WithOne(ur => ur.User)
                     .HasForeignKey(ur => ur.UserId);

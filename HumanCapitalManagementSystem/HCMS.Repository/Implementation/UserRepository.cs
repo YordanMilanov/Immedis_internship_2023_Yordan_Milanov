@@ -4,6 +4,7 @@ using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace HCMS.Repository.Implementation
 {
@@ -16,20 +17,41 @@ namespace HCMS.Repository.Implementation
             this.dbContext = dbContext;
         }
 
-        public async Task RegisterUser(User user)
+        public async Task RegisterUserAsync(User user)
         {
+            if (await this.dbContext.Users.AnyAsync(u => u.Username == user.Username))
+            {
+                throw new ConstraintException("Username is already used!");
+            }
+            else if (await this.dbContext.Users.AnyAsync(u => u.Email == user.Email))
+            {
+                throw new ConstraintException("Email is already used!");
+            }
+
             await dbContext.Users.AddAsync(user);
             try
             {
                 await dbContext.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
+                if (ex.Message.Contains("UC_Username_Unique"))
+                {
+                    throw new ConstraintException("Username is already used!");
+                }
+                else if (ex.Message.Contains("UC_Email_Unique"))
+                {
+                    throw new ConstraintException("Email is already used!");
+                }
                 throw;
+            }
+            catch (ArgumentException)
+            {
+                throw new ArgumentException("User with this Id already exists");
             }
         }
 
-        public async Task<bool> UserExistsByUsername(string username)
+        public async Task<bool> UserExistsByUsernameAsync(string username)
         {
             try
             {
@@ -37,12 +59,12 @@ namespace HCMS.Repository.Implementation
             }
             catch (Exception)
             {
-                throw new Exception();
+                throw;
             }
 
         }
 
-        public async Task<bool> UserExistsByEmail(string email)
+        public async Task<bool> UserExistsByEmailAsync(string email)
         {
             try
             {
@@ -64,9 +86,9 @@ namespace HCMS.Repository.Implementation
                     .Where(user => user.Id == id)
                     .FirstAsync();
             }
-            catch (Exception ex)
+            catch (InvalidOperationException)
             {
-                throw new Exception(ex.Message);
+                throw new InvalidOperationException($"User with Id: {id} does not exists!");
             }
 
         }
@@ -81,9 +103,9 @@ namespace HCMS.Repository.Implementation
                 .ThenInclude(ur => ur.Role)
                 .FirstAsync();
             } 
-            catch(Exception ex)
+            catch(InvalidOperationException)
             {
-                throw new Exception(ex.Message);
+                throw new InvalidOperationException($"User with username: {username} does not exists!");
             }
         }
 
@@ -91,21 +113,27 @@ namespace HCMS.Repository.Implementation
         {
             try
             {
+
+
                 if(await this.dbContext.Users.AnyAsync(u => u.Username == model.Username && u.Id != model.Id)) {
-                    throw new Exception("Username is already used!");
+                    throw new ConstraintException("Username is already used!");
                 } 
                 else if(await this.dbContext.Users.AnyAsync(u => u.Email == model.Email && u.Id != model.Id))
                 {
-                    throw new Exception("Email is already used!");
+                    throw new ConstraintException("Email is already used!");
+                }
+                else if (await this.dbContext.Users.AnyAsync(u => u.Id == model.Id) == false)
+                {
+                    throw new MissingPrimaryKeyException("No user with the current id was found!");
                 }
                 User user = await this.dbContext.Users.FirstAsync(u => u.Id == model.Id);
                 user.Username = model.Username;
                 user.Email = model.Email;
                 await dbContext.SaveChangesAsync();
             } 
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw new Exception(ex.Message);
+                throw;
             }
         }
 
