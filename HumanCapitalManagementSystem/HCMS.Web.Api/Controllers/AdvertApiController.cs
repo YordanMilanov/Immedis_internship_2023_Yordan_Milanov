@@ -1,7 +1,5 @@
 ﻿using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Advert;
-using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Services.ServiceModels.Employee;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -33,10 +31,10 @@ namespace HCMS.Web.Api.Controllers
 
             try
             {
-               await this.advertService.AddAsync(model);
+                await this.advertService.AddAsync(model);
                 return Ok("Job offer was successfully added!");
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -52,9 +50,9 @@ namespace HCMS.Web.Api.Controllers
         {
             try
             {
-               AdvertQueryDtoResult queryResult = await this.advertService.GetCurrentPageAsync(advertQueryDto);
-               string jsonToSend = JsonConvert.SerializeObject(queryResult, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
-               return Content(jsonToSend, "application/json");
+                AdvertQueryDtoResult queryResult = await this.advertService.GetCurrentPageAsync(advertQueryDto);
+                string jsonToSend = JsonConvert.SerializeObject(queryResult, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(jsonToSend, "application/json");
             }
             catch (Exception)
             {

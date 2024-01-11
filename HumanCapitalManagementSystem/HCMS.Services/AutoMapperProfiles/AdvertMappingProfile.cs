@@ -16,7 +16,7 @@ namespace HCMS.Services.AutoMapperProfiles
                 .ReverseMap();
 
             CreateMap<AdvertAddDto, Advert>()
-                .ForMember(dest => dest.Position, opt => opt.MapFrom(src =>src.Position.ToString()))
+                .ForMember(dest => dest.Position, opt => opt.MapFrom(src => src.Position.ToString()))
                 .ForMember(dest => dest.Department, opt => opt.MapFrom(src => src.Department.ToString()))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description.ToString()))
                 .ForMember(dest => dest.Salary, opt => opt.MapFrom(src => src.Salary.ToString()));
@@ -26,7 +26,7 @@ namespace HCMS.Services.AutoMapperProfiles
                 .ForMember(dest => dest.Department, opt => opt.MapFrom(src => new Department(src.Department)))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => new Description(src.Description)))
                 .ForMember(dest => dest.Salary, opt => opt.MapFrom(src => new Salary(src.Salary)));
-            
+
             CreateMap<Advert, AdvertViewDto>()
                 .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new LocationStruct(src.Company.Location!.Address, src.Company.Location.State, src.Company.Location.Country)))
                 .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => new Name(src.Company.Name)));

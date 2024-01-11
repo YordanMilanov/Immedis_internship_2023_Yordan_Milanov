@@ -22,7 +22,8 @@ namespace HCMS.Repository.Implementation
             {
                 await this.dbContext.AddAsync(recommendation);
                 await this.dbContext.SaveChangesAsync();
-            }catch(DbUpdateException ex)
+            }
+            catch (DbUpdateException ex)
             {
                 throw ex;
             }

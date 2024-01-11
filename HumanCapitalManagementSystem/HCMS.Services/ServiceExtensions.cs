@@ -8,7 +8,7 @@ namespace HCMS.Services
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserService,UserService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IEducationService, EducationService>();

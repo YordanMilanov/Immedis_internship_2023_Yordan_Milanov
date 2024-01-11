@@ -1,21 +1,20 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
+using HCMS.Common;
+using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.User;
+using HCMS.Web.ViewModels.BaseViewModel;
 using HCMS.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using static HCMS.Common.NotificationMessagesConstants;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
-using HCMS.Web.ViewModels.Employee;
-using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Web.ViewModels.BaseViewModel;
-using HCMS.Common;
+using System.Security.Claims;
+using System.Text;
+using static HCMS.Common.NotificationMessagesConstants;
 
 namespace HCMS.Web.Controllers
 {
@@ -73,7 +72,7 @@ namespace HCMS.Web.Controllers
                         ValidIssuer = "http://localhost:9090",
                         ValidAudience = "http://localhost:8080",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretKeySecretKey")),
-                         RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+                        RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
                     };
 
                     IEnumerable<Claim> claims = tokenHandler.ValidateToken(tokenString, tokenValidationParameters, out var validatedToken).Claims;
@@ -160,15 +159,16 @@ namespace HCMS.Web.Controllers
         [HttpGet]
         [AllowAnonymous]
 
-        public async Task<IActionResult> Logout() 
+        public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
-        
+
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Profile(string id) {
+        public async Task<IActionResult> Profile(string id)
+        {
 
             string apiUrl = $"/api/users/GetUserViewDtoById?Id={id}";
 
@@ -246,7 +246,7 @@ namespace HCMS.Web.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult ChangePassword() 
+        public IActionResult ChangePassword()
         {
             ViewData["Id"] = HttpContext.User.FindFirst("UserId")!.Value!;
             return View();
@@ -254,7 +254,7 @@ namespace HCMS.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> ChangePassword(UserPasswordFormModel model) 
+        public async Task<IActionResult> ChangePassword(UserPasswordFormModel model)
         {
             //validate input
 
@@ -299,7 +299,7 @@ namespace HCMS.Web.Controllers
 
             string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
             this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
-           
+
             QueryDto queryDto = mapper.Map<QueryDto>(model);
             string jsonToSend = JsonConvert.SerializeObject(queryDto, Formatting.Indented);
 
@@ -317,11 +317,13 @@ namespace HCMS.Web.Controllers
                     QueryDtoResult<UserViewDto> userQueryDto = JsonConvert.DeserializeObject<QueryDtoResult<UserViewDto>>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings())!;
                     ResultQueryModel<UserViewModel> userQueryModel = mapper.Map<ResultQueryModel<UserViewModel>>(userQueryDto);
                     return View(userQueryModel);
-                } catch(Exception) {
+                }
+                catch (Exception)
+                {
                     TempData[ErrorMessage] = "Unexpected error occurred!";
                     return RedirectToAction("Home", "Home");
-                } 
-            } 
+                }
+            }
             else
             {
                 TempData[ErrorMessage] = "Unexpected error occurred!";
@@ -348,12 +350,12 @@ namespace HCMS.Web.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData[SuccessMessage] = "User roles have been successfully updated!";
-            } 
+            }
             else
             {
                 TempData[WarningMessage] = await response.Content.ReadAsStringAsync();
             }
-            return RedirectToAction("Profile", "User", new { id = model.Id});
+            return RedirectToAction("Profile", "User", new { id = model.Id });
         }
     }
 }

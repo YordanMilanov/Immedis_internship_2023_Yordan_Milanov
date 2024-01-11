@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
 using HCMS.Web.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 namespace HCMS.Web
 {
     public class Program

@@ -10,10 +10,11 @@
         "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj",
         "projectName": "HCMS.Common",
         "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Common\\HCMS.Common.csproj",
-        "packagesPath": "C:\\Users\\danch\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages",
         "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\NuGet.Config",
           "C:\\Users\\danch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -21,7 +22,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -71,10 +71,11 @@
         "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data.Models\\HCMS.Data.Models.csproj",
         "projectName": "HCMS.Data.Models",
         "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data.Models\\HCMS.Data.Models.csproj",
-        "packagesPath": "C:\\Users\\danch\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages",
         "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data.Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\NuGet.Config",
           "C:\\Users\\danch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -82,7 +83,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -142,10 +142,11 @@
         "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj",
         "projectName": "HCMS.Data",
         "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data\\HCMS.Data.csproj",
-        "packagesPath": "C:\\Users\\danch\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages",
         "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\NuGet.Config",
           "C:\\Users\\danch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -153,7 +154,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -220,10 +220,11 @@
         "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj",
         "projectName": "HCMS.Repository",
         "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Repository\\HCMS.Repository.csproj",
-        "packagesPath": "C:\\Users\\danch\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages",
         "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\NuGet.Config",
           "C:\\Users\\danch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -231,7 +232,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -291,10 +291,11 @@
         "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj",
         "projectName": "HCMS.Services.ServiceModels",
         "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\HCMS.Services.ServiceModels.csproj",
-        "packagesPath": "C:\\Users\\danch\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages",
         "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services.ServiceModels\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\NuGet.Config",
           "C:\\Users\\danch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -302,7 +303,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -356,10 +356,11 @@
         "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services\\HCMS.Services.csproj",
         "projectName": "HCMS.Services",
         "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services\\HCMS.Services.csproj",
-        "packagesPath": "C:\\Users\\danch\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages",
         "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\NuGet.Config",
           "C:\\Users\\danch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -367,7 +368,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -434,10 +434,11 @@
         "projectUniqueName": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web.Api\\HCMS.Web.Api.csproj",
         "projectName": "HCMS.Web.Api",
         "projectPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web.Api\\HCMS.Web.Api.csproj",
-        "packagesPath": "C:\\Users\\danch\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages",
         "outputPath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\NuGet.Config",
           "C:\\Users\\danch\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -445,7 +446,6 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

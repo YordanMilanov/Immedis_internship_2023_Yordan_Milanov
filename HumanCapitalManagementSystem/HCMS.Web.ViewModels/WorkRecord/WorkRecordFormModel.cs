@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using HCMS.Common.CustomValidationAnnotation;
+﻿using HCMS.Common.CustomValidationAnnotation;
+using System.ComponentModel.DataAnnotations;
 using static HCMS.Common.DataModelConstants.WorkRecord;
 
 namespace HCMS.Web.ViewModels.WorkRecord

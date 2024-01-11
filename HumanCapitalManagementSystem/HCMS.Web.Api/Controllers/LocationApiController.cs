@@ -1,10 +1,7 @@
-﻿using HCMS.Services.ServiceModels.Company;
-using HCMS.Services;
-using Microsoft.AspNetCore.Http;
+﻿using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.Location;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using HCMS.Services.Interfaces;
-using HCMS.Services.ServiceModels.Location;
 
 namespace HCMS.Web.Api.Controllers
 {

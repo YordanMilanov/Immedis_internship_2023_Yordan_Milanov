@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HCMS.Tests": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

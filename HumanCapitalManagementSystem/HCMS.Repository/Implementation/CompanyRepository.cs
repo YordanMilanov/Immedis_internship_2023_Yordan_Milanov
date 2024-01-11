@@ -3,7 +3,6 @@ using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
 
 namespace HCMS.Repository.Implementation
 {
@@ -155,8 +154,8 @@ namespace HCMS.Repository.Implementation
             {
                 await this.dbContext.Companies.AddAsync(model);
                 await this.dbContext.SaveChangesAsync();
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -166,7 +165,7 @@ namespace HCMS.Repository.Implementation
         {
             try
             {
-                if(await this.dbContext.Companies.AnyAsync(c => c.Name == model.Name && c.Id != model.Id))
+                if (await this.dbContext.Companies.AnyAsync(c => c.Name == model.Name && c.Id != model.Id))
                 {
                     throw new Exception("Company name is already used");
                 }
@@ -179,14 +178,14 @@ namespace HCMS.Repository.Implementation
                 company.Location.State = model.Location.State;
                 company.Location.Country = model.Location.Country;
                 await this.dbContext.SaveChangesAsync();
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
-       public async Task<string> GetCompanyNameById(Guid id)
+        public async Task<string> GetCompanyNameById(Guid id)
         {
             try
             {
@@ -194,7 +193,8 @@ namespace HCMS.Repository.Implementation
                          .Where(c => c.Id == id)
                          .Select(c => c.Name)
                          .FirstAsync();
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 throw new Exception("Company name was not found!");
             }

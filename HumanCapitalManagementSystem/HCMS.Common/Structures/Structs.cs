@@ -27,7 +27,7 @@ namespace HCMS.Common.Structures
     public readonly struct Name
     {
         private readonly string value;
-      
+
         [JsonConstructor]
         public Name(string name)
         {
@@ -258,7 +258,7 @@ namespace HCMS.Common.Structures
         [StringLength(Location.AddressMaxLength, MinimumLength = Location.AddressMaxLength, ErrorMessage = "Address must be between {2} and {1} characters long")]
         private readonly string? address;
 
-        [StringLength(Location.StateMaxLength,MinimumLength = Location.StateMinLength, ErrorMessage = "State must be between {2} and {1} characters long")]
+        [StringLength(Location.StateMaxLength, MinimumLength = Location.StateMinLength, ErrorMessage = "State must be between {2} and {1} characters long")]
         private readonly string state;
 
         [StringLength(Location.CountryMaxLength, MinimumLength = Location.CountryMinLength, ErrorMessage = "Country must be between {2} and {1} characters long")]

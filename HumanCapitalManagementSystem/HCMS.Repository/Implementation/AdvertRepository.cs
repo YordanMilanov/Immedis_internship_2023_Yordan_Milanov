@@ -19,15 +19,15 @@ namespace HCMS.Repository.Implementation
 
         public async Task AddAsync(Advert advert)
         {
-          try
+            try
             {
-                if(advert.CompanyId == Guid.Empty)
+                if (advert.CompanyId == Guid.Empty)
                 {
                     throw new Exception();
                 }
                 await this.dbContext.Adverts.AddAsync(advert);
                 await this.dbContext.SaveChangesAsync();
-            } 
+            }
             catch (Exception)
             {
                 throw;
@@ -55,7 +55,7 @@ namespace HCMS.Repository.Implementation
                     query = query.Where(a => a.RemoteOption == remoteOption);
                 }
 
-                
+
 
                 //check the search string
                 if (parameters.SearchString != null)

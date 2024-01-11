@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using HCMS.Common.Structures;
 using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.Recommendation;
 using HCMS.Web.ViewModels.BaseViewModel;
-using HCMS.Web.ViewModels.Employee;
 using HCMS.Web.ViewModels.Recommendation;
 
 namespace HCMS.Web.AutoMapperProfiles

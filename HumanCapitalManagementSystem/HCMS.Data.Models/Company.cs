@@ -2,7 +2,7 @@
 
 namespace HCMS.Data.Models
 {
-    
+
     [Table("Companies")]
     public class Company
     {

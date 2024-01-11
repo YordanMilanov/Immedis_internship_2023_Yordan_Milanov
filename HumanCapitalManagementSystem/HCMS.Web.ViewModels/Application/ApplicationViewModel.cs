@@ -10,6 +10,6 @@ namespace HCMS.Web.ViewModels.Application
         public Guid CompanyId { get; set; }
         public CompanyViewModel Company { get; set; } = null!;
         public EmployeeViewModel Employee { get; set; } = null!;
-        public AdvertViewModel Advert { get; set;} = null!;
+        public AdvertViewModel Advert { get; set; } = null!;
     }
 }

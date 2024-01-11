@@ -23,7 +23,7 @@ namespace HCMS.Repository.Implementation
             education.Id = Guid.NewGuid();
             try
             {
-                if(education.Location != null)
+                if (education.Location != null)
                 {
                     Location location = new Location
                     {
@@ -70,12 +70,13 @@ namespace HCMS.Repository.Implementation
                 education.Grade = educationInfo.Grade;
                 education.StartDate = educationInfo.StartDate;
                 education.EndDate = educationInfo.EndDate;
-                if(education.LocationId != Guid.Empty)
+                if (education.LocationId != Guid.Empty)
                 {
                     education.Location!.Country = educationInfo.Location!.Address;
                     education.Location.State = educationInfo.Location.State;
                     education.Location.Country = educationInfo.Location.Country;
-                } else
+                }
+                else
                 {
                     Location location = new Location
                     {
@@ -99,11 +100,12 @@ namespace HCMS.Repository.Implementation
 
         public async Task<IEnumerable<Education>> GetEducationsPageByEmployeeIdAsync(Guid employeeId, int page)
         {
-            
+
             try
             {
                 return await dbContext.Educations.Include(e => e.Location).Where(e => e.EmployeeId == employeeId).Skip((page - 1) * 3).Take(3).ToListAsync();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -114,7 +116,9 @@ namespace HCMS.Repository.Implementation
             try
             {
                 return await dbContext.Educations.Where(e => e.EmployeeId == employeeId).CountAsync();
-            } catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
@@ -126,7 +130,7 @@ namespace HCMS.Repository.Implementation
                 Education educationToDelete = await this.dbContext.Educations.FirstAsync(e => e.Id == id);
                 this.dbContext.Educations.Remove(educationToDelete);
                 await this.dbContext.SaveChangesAsync();
-            } 
+            }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);

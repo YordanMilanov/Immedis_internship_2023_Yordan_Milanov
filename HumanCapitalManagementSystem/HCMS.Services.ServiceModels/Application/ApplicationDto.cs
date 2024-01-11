@@ -8,7 +8,7 @@ namespace HCMS.Services.ServiceModels.Application
         public Guid Id { get; set; }
         public string CoverLetter { get; set; } = null!;
         public DateTime AddDate { get; set; }
-        public Guid FromEmployeeId{ get; set; }
+        public Guid FromEmployeeId { get; set; }
 
         public EmployeeDto Employee { get; set; } = null!;
         public Guid AdvertId { get; set; }

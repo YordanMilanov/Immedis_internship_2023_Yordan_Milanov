@@ -25,7 +25,7 @@ namespace HCMS.Web.ViewModels.BaseViewModel
         public OrderPageEnum OrderPageEnum { get; set; }
         public int CurrentPage { get; set; }
         public int TotalItems { get; set; }
-       
+
         [DisplayName("Per page")]
         public int ItemsPerPage { get; set; }
     }

@@ -8,7 +8,7 @@ namespace HCMS.Web.ViewModels.Advert
         [Required]
         [StringLength(PositionMaxLength, MinimumLength = PositionMinLength)]
         public string Position { get; set; } = null!;
-       
+
         [Required]
         [StringLength(DepartmentMaxLength, MinimumLength = DepartmentMinLength)]
         public string Department { get; set; } = null!;
@@ -22,9 +22,9 @@ namespace HCMS.Web.ViewModels.Advert
         public bool RemoteOption { get; set; }
 
         [Required]
-        [Range(0,Double.MaxValue)]
+        [Range(0, Double.MaxValue)]
         public decimal Salary { get; set; }
-       
+
         [Required]
         public DateTime AddDate { get; set; }
         public Guid CompanyId { get; set; }

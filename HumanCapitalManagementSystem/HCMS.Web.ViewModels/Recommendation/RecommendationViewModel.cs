@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace HCMS.Web.ViewModels.Recommendation
+﻿namespace HCMS.Web.ViewModels.Recommendation
 {
     public class RecommendationViewModel
     {

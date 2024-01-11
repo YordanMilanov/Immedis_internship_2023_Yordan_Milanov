@@ -18,7 +18,7 @@ namespace HCMS.Data.Models
         public string Degree { get; set; } = null!;
         public string FieldOfEducation { get; set; } = null!;
         public decimal Grade { get; set; }
-        public Guid EmployeeId {get; set; }
+        public Guid EmployeeId { get; set; }
         public virtual Employee Employee { get; set; } = null!;
         public Guid? LocationId { get; set; }
         public virtual Location? Location { get; set; }

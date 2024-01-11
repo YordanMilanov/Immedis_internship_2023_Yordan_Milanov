@@ -4,7 +4,6 @@ using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
 using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.Recommendation;
 
 namespace HCMS.Services.Implementation
@@ -17,7 +16,7 @@ namespace HCMS.Services.Implementation
         private readonly IEmployeeRepository employeeRepository;
         private readonly IMapper mapper;
 
-        public RecommendationService(IRecommendationRepository recommendationRepository, ICompanyRepository companyRepository, IEmployeeRepository employeeRepository,IMapper mapper)
+        public RecommendationService(IRecommendationRepository recommendationRepository, ICompanyRepository companyRepository, IEmployeeRepository employeeRepository, IMapper mapper)
         {
             this.recommendationRepository = recommendationRepository;
             this.employeeRepository = employeeRepository;
@@ -34,10 +33,11 @@ namespace HCMS.Services.Implementation
                 Recommendation recommendation = mapper.Map<Recommendation>(recommendationDto);
                 Employee recommender = await this.employeeRepository.GetEmployeeByIdAsync(recommendationDto.RecommenderId);
                 Employee recommendedEmployee = await this.employeeRepository.GetEmployeeByEmailAsync(recommendationDto.EmployeeEmail.ToString());
-                if(recommender.CompanyId != recommendedEmployee.CompanyId)
+                if (recommender.CompanyId != recommendedEmployee.CompanyId)
                 {
                     throw new InvalidOperationException("The employee you are trying to recommend is not working in your company!");
-                } else if (recommendedEmployee.Id == recommender.Id)
+                }
+                else if (recommendedEmployee.Id == recommender.Id)
                 {
                     throw new InvalidOperationException("You cannot recommend yourself!");
                 }
@@ -45,9 +45,10 @@ namespace HCMS.Services.Implementation
 
                 recommendation.ForEmployeeId = recommendedEmployee.Id;
                 recommendation.ToCompanyId = receivingCompany.Id;
-                
+
                 await recommendationRepository.AddAsync(recommendation);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

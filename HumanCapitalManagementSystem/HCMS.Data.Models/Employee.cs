@@ -19,12 +19,12 @@ namespace HCMS.Data.Models
         public string? PhotoUrl { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime AddDate { get; set; } = DateTime.Now;
-        public Guid? CompanyId {get; set; }
+        public Guid? CompanyId { get; set; }
         public virtual Company? Company { get; set; }
         public Guid? UserId { get; set; }
         public virtual User? User { get; set; }
-        public Guid? LocationId {get; set; }
-        public virtual Location? Location { get; set;}
+        public Guid? LocationId { get; set; }
+        public virtual Location? Location { get; set; }
         public virtual ICollection<WorkRecord>? WorkRecords { get; set; }
         public virtual ICollection<Education>? Educations { get; set; }
         public virtual ICollection<Application>? Applications { get; set; }

@@ -9,7 +9,7 @@ namespace HCMS.Services.AutoMapperProfiles
     public class QueryPageMappingProfile : Profile
     {
         public QueryPageMappingProfile()
-        { 
+        {
             CreateMap<QueryDto, QueryParameterClass>().ReverseMap();
 
             CreateMap<QueryDto, QueryDtoResult<UserViewDto>>()

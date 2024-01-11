@@ -1,7 +1,7 @@
-﻿using static HCMS.Common.DataModelConstants.Education;
-using static HCMS.Common.DataModelConstants.Location;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+using static HCMS.Common.DataModelConstants.Education;
+using static HCMS.Common.DataModelConstants.Location;
 
 namespace HCMS.Web.ViewModels.Education
 {
@@ -29,18 +29,18 @@ namespace HCMS.Web.ViewModels.Education
         [Required]
         [DisplayName("Start date")]
         public DateTime StartDate { get; set; } = DateTime.Now;
-       
+
         [DisplayName("End date")]
         public DateTime? EndDate { get; set; }
 
 
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength, ErrorMessage = "Address must be between {2} and {1} characters long")]
         public string? Address { get; set; }
-       
+
         [Required]
         [StringLength(StateMaxLength, MinimumLength = StateMinLength, ErrorMessage = "State must be between {2} and {1} characters long")]
         public string State { get; set; } = null!;
-        
+
         [Required]
         [StringLength(CountryMaxLength, MinimumLength = CountryMinLength, ErrorMessage = "Country must be between {2} and {1} characters long")]
         public string Country { get; set; } = null!;

@@ -19,7 +19,7 @@ namespace HCMS.Data
         }
 
         //for tests
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Application> Applications { get; set; } = null!;
         public DbSet<Advert> Adverts { get; set; } = null!;
@@ -43,7 +43,7 @@ namespace HCMS.Data
             }
         }
 
-   
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(ApplicationDbContext)) ??
@@ -68,7 +68,7 @@ namespace HCMS.Data
                     .IsRequired()
                     .HasMaxLength(DataModelConstants.Education.FieldOfEducationMaxLength);
                 entity.Property(e => e.Grade).IsRequired();
-                
+
                 entity.Property(e => e.EmployeeId).IsRequired();
                 entity.HasOne(e => e.Employee)
                     .WithMany(e => e.Educations)
@@ -141,7 +141,7 @@ namespace HCMS.Data
                 entity.Property(e => e.IndustryField)
                     .HasMaxLength(DataModelConstants.Company.IndustryFieldMaxLength);
                 entity.Property(e => e.LocationId);
-                
+
                 //FKS
                 entity.HasOne(e => e.Location)
                     .WithOne()
@@ -172,7 +172,7 @@ namespace HCMS.Data
                 entity.Property(e => e.PhotoUrl);
                 entity.Property(e => e.DateOfBirth).IsRequired();
                 entity.Property(e => e.AddDate).IsRequired();
-               
+
                 entity.Property(e => e.CompanyId);
                 entity.HasOne(e => e.Company)
                     .WithMany()
@@ -283,7 +283,7 @@ namespace HCMS.Data
                 //Constraints
                 entity.HasIndex(e => e.Username, "UC_Users_Username_Unique").IsUnique();
                 entity.HasIndex(e => e.Email, "UC_Users_Email_Unique").IsUnique();
-                
+
                 //FKs
                 entity.HasMany(e => e.UsersRoles)
                     .WithOne(ur => ur.User)
@@ -310,7 +310,7 @@ namespace HCMS.Data
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).ValueGeneratedOnAdd();
-               
+
                 entity.Property(e => e.Position)
                     .IsRequired();
 
@@ -357,7 +357,7 @@ namespace HCMS.Data
 
             base.OnModelCreating(builder);
 
-          
+
         }
 
         public static DbContextOptions<ApplicationDbContext> GetApplicationDbOptions()

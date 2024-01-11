@@ -1,19 +1,15 @@
 ﻿using AutoMapper;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Recommendation;
+using HCMS.Web.ViewModels.BaseViewModel;
 using HCMS.Web.ViewModels.Recommendation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using static HCMS.Common.RoleConstants;
-using HCMS.Services.ServiceModels.Recommendation;
 using static HCMS.Common.NotificationMessagesConstants;
-using HCMS.Common;
-using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Services.ServiceModels.Employee;
-using HCMS.Web.ViewModels.BaseViewModel;
-using HCMS.Web.ViewModels.Employee;
-using System.Reflection;
+using static HCMS.Common.RoleConstants;
 
 namespace HCMS.Web.Controllers
 {
@@ -48,7 +44,7 @@ namespace HCMS.Web.Controllers
             RecommendationDto recommendationDto = mapper.Map<RecommendationDto>(model);
 
             string jsonContent = JsonConvert.SerializeObject(recommendationDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
-            HttpContent content = new StringContent(jsonContent, Encoding.UTF8,"application/json");
+            HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             string apiUrl = "/api/recommendation/add";
 
@@ -59,12 +55,12 @@ namespace HCMS.Web.Controllers
             HttpResponseMessage response = await httpClient.PostAsync(apiUrl, content);
             string responseMessage = await response.Content.ReadAsStringAsync();
 
-            if (response.IsSuccessStatusCode) 
+            if (response.IsSuccessStatusCode)
             {
                 TempData[SuccessMessage] = responseMessage.Substring(1, responseMessage.Length - 2);
 
                 return RedirectToAction("Home", "Home");
-            } 
+            }
             else
             {
                 TempData[ErrorMessage] = responseMessage.Substring(1, responseMessage.Length - 2);
@@ -99,7 +95,7 @@ namespace HCMS.Web.Controllers
 
                 string CompanyNameUrl = $"api/company/GetCompanyNameById?companyId={companyId}";
                 HttpResponseMessage CompanyNameResponse = await httpClient.GetAsync(CompanyNameUrl);
-                if(CompanyNameResponse.IsSuccessStatusCode)
+                if (CompanyNameResponse.IsSuccessStatusCode)
                 {
                     string companyName = await CompanyNameResponse.Content.ReadAsStringAsync();
                     TempData["CompanyName"] = companyName;

@@ -1,8 +1,7 @@
-﻿using HCMS.Services.Interfaces;
-using HCMS.Common;
+﻿using HCMS.Common;
 using HCMS.Data.Models;
-using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Repository.Interfaces;
+using HCMS.Services.Interfaces;
 
 namespace HCMS.Services.Implementation;
 
@@ -114,10 +113,10 @@ internal class UserService : IUserService
     {
         try
         {
-           User user = await this.userRepository.GetUserByIdAsync(id);
+            User user = await this.userRepository.GetUserByIdAsync(id);
             return mapper.Map<UserViewDto>(user);
-        } 
-        catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }
@@ -125,13 +124,14 @@ internal class UserService : IUserService
 
     public async Task UpdateUserAsync(UserUpdateDto model)
     {
-        try {
+        try
+        {
             User user = await this.userRepository.GetUserByIdAsync(model.Id);
             user.Username = model.Username;
             user.Email = model.Email;
             await this.userRepository.UpdateUserAsync(user);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }
@@ -139,8 +139,9 @@ internal class UserService : IUserService
 
     public async Task UpdatePasswordAsync(UserPasswordDto model)
     {
-       User user = await this.userRepository.GetUserByIdAsync(model.Id);
-        if(VerifyPassword(user.Password, model.CurrentPassword)){
+        User user = await this.userRepository.GetUserByIdAsync(model.Id);
+        if (VerifyPassword(user.Password, model.CurrentPassword))
+        {
             string newPassword = BCrypt.HashPassword(model.NewPassword);
             user.Password = newPassword;
         };
@@ -155,14 +156,15 @@ internal class UserService : IUserService
 
             QueryPageWrapClass<User> pageItems = await this.userRepository.GetUserCurrentPageAsync(parameters);
             QueryDtoResult<UserViewDto> result = mapper.Map<QueryDtoResult<UserViewDto>>(pageItems);
-           
+
             result.ItemsPerPage = model.ItemsPerPage;
             result.CurrentPage = model.CurrentPage;
             result.OrderPageEnum = model.OrderPageEnum;
             result.SearchString = model.SearchString;
 
             return result;
-        } catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }
@@ -185,7 +187,7 @@ internal class UserService : IUserService
                 RoleId = role.Id
             };
 
-            if(model.Action == ActionEnum.ADD)
+            if (model.Action == ActionEnum.ADD)
             {
                 await this.userRoleRepository.AddUserRoleAsync(userRole);
             }
@@ -194,7 +196,7 @@ internal class UserService : IUserService
                 await this.userRoleRepository.RemoveUserRoleAsync(userRole);
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }

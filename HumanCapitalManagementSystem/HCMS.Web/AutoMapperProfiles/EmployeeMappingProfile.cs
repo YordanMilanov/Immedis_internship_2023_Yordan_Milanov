@@ -16,11 +16,11 @@
             CreateMap<EmployeeFormModel, EmployeeDto>()
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => new Name(src.FirstName)))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => new Name(src.LastName)))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => new Email (src.Email)))
-                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => new Phone (src.PhoneNumber)))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => new Email(src.Email)))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => new Phone(src.PhoneNumber)))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth))
                 .ForMember(dest => dest.AddDate, opt => opt.MapFrom(src => src.AddDate))
-                .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new LocationStruct (src.Address, src.State, src.Country)));
+                .ForMember(dest => dest.Location, opt => opt.MapFrom(src => new LocationStruct(src.Address, src.State, src.Country)));
 
             //Reverse mapping
             CreateMap<EmployeeDto, EmployeeFormModel>()

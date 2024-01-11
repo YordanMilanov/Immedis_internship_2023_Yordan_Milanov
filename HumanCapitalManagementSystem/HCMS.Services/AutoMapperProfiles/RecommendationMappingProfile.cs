@@ -2,14 +2,13 @@
 using HCMS.Data.Models;
 using HCMS.Data.Models.QueryPageGenerics;
 using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.Recommendation;
 
 namespace HCMS.Services.AutoMapperProfiles
 {
     public class RecommendationMappingProfile : Profile
     {
-        public RecommendationMappingProfile() 
+        public RecommendationMappingProfile()
         {
             CreateMap<RecommendationDto, Recommendation>()
           .ForMember(dest => dest.FromEmployeeId, opt => opt.MapFrom(src => src.RecommenderId))

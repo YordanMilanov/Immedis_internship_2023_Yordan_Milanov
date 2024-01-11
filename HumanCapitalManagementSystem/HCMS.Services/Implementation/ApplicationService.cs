@@ -21,12 +21,12 @@ namespace HCMS.Services.Implementation
 
         public async Task AddAsync(ApplicationDto applicationDto)
         {
-           try
+            try
             {
                 Application application = mapper.Map<Application>(applicationDto);
                 await this.applicationRepository.AddAsync(application);
-            } 
-            catch(Exception)
+            }
+            catch (Exception)
             {
                 throw;
             }
@@ -58,8 +58,8 @@ namespace HCMS.Services.Implementation
             try
             {
                 await this.applicationRepository.acceptApplicationByIdAsync(id);
-            } 
-            catch(Exception) 
+            }
+            catch (Exception)
             {
                 throw;
             }

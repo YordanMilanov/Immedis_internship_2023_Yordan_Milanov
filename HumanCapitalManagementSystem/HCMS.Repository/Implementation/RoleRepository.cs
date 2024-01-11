@@ -19,8 +19,9 @@ namespace HCMS.Repository.Implementation
         {
             try
             {
-              return await dbContext.Roles.FirstAsync(r => r.Name == roleName);
-            } catch(Exception ex)
+                return await dbContext.Roles.FirstAsync(r => r.Name == roleName);
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

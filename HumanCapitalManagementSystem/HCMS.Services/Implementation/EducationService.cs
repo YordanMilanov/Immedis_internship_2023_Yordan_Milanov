@@ -66,7 +66,8 @@ namespace HCMS.Services.Implementation
                 IEnumerable<Education> educations = await educationRepository.GetEducationsPageByEmployeeIdAsync(employeeId, page);
                 List<EducationDto> educationDtos = educations.Select(e => mapper.Map<EducationDto>(e)).ToList();
                 return educationDtos;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -77,7 +78,8 @@ namespace HCMS.Services.Implementation
             try
             {
                 return await educationRepository.GetEducationCountByEmployeeIdAsync(employeeId);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -88,8 +90,8 @@ namespace HCMS.Services.Implementation
             try
             {
                 await educationRepository.DeleteByIdAsync(id);
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

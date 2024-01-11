@@ -16,7 +16,7 @@ namespace HCMS.Repository.Interfaces
         Task<Company> GetCompanyByNameAsync(string name);
 
         Task<Company> GetCompanyByEmployeeIdAsync(Guid employeeId);
-        Task <QueryPageWrapClass<Company>> GetCurrentPageAndTotalCountAsync(QueryParameterClass parameters);
+        Task<QueryPageWrapClass<Company>> GetCurrentPageAndTotalCountAsync(QueryParameterClass parameters);
 
         Task<bool> CompanyExistsByNameAsync(string name);
         Task AddCompanyAsync(Company model);

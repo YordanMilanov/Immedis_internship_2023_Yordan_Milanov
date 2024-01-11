@@ -53,16 +53,16 @@ namespace HCMS.Repository.Implementation
             try
             {
                 IQueryable<WorkRecord> query = dbContext.WorkRecords.Include(wr => wr.Company);
-                
+
                 //check if the page is for certain employee or no
                 query = query.Where(wr => wr.EmployeeId == employeeId);
 
                 //check the search string
                 if (parameters.SearchString != null)
                 {
-                    query = query.Where(wr => 
-                    wr.Position.Contains(parameters.SearchString!) || 
-                    wr.Department!.Contains(parameters.SearchString!) || 
+                    query = query.Where(wr =>
+                    wr.Position.Contains(parameters.SearchString!) ||
+                    wr.Department!.Contains(parameters.SearchString!) ||
                     wr.Company.Name.Contains(parameters.SearchString!));
                 }
 
@@ -121,8 +121,8 @@ namespace HCMS.Repository.Implementation
                 WorkRecord workRecord = await this.dbContext.WorkRecords.FirstAsync(wr => wr.Id == id);
                 this.dbContext.WorkRecords.Remove(workRecord);
                 await this.dbContext.SaveChangesAsync();
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

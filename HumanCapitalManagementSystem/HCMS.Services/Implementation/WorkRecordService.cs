@@ -114,7 +114,8 @@ namespace HCMS.Services.Implementation
             try
             {
                 await this.workRecordRepository.DeleteById(id);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

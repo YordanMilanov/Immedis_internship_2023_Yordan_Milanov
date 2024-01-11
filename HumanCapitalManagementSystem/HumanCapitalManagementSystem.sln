@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Services.ServiceModels
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Web.Api", "HCMS.Web.Api\HCMS.Web.Api.csproj", "{EFDC6294-E78C-4DFB-8618-C31DBB65C926}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Tests", "HCMS.UnitTest.Repository\HCMS.Tests.csproj", "{4B465E5E-8EC9-41F5-AC05-704798289FF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HCMS.Tests", "HCMS.Tests\HCMS.Tests.csproj", "{4B465E5E-8EC9-41F5-AC05-704798289FF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

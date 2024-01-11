@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using HCMS.Web.WebServices.Interfaces;
+﻿using HCMS.Web.WebServices.Interfaces;
+using Newtonsoft.Json;
 
 namespace HCMS.Web.WebServices
 {

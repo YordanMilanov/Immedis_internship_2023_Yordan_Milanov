@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using HCMS.Common.Structures;
 using Newtonsoft.Json;
-using HCMS.Common.Structures;
+using Newtonsoft.Json.Linq;
 
 namespace HCMS.Common.JsonConverter
 {

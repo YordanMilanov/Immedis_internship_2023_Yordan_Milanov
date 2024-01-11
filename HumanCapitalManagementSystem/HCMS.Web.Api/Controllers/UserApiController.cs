@@ -1,16 +1,15 @@
-﻿using HCMS.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using HCMS.Common;
+using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
 using HCMS.Services.ServiceModels.User;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
-using HCMS.Services.ServiceModels.Employee;
-using HCMS.Services.ServiceModels.WorkRecord;
-using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Common;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -122,10 +121,11 @@ namespace HCMS.Web.Api.Controllers
 
             UserDto userDto = await userService.GetUserDtoByUsernameAsync(username);
 
-            if(userDto != null)
+            if (userDto != null)
             {
                 return Ok(userDto);
-            } else
+            }
+            else
             {
                 return BadRequest("Unexpected error occurred!");
             }
@@ -228,10 +228,10 @@ namespace HCMS.Web.Api.Controllers
             {
                 UserViewDto userViewDto = await this.userService.GetUserViewDtoByIdAsync(Guid.Parse(Id));
                 return Ok(userViewDto);
-            } 
-            catch(Exception)
+            }
+            catch (Exception)
             {
-               return BadRequest("No user was found!");
+                return BadRequest("No user was found!");
             }
         }
 
@@ -329,12 +329,12 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         [Authorize(Roles = $"{RoleConstants.AGENT}, {RoleConstants.ADMIN}")]
-        public async Task<IActionResult> GetAllCurrentPage([FromBody]QueryDto model)
+        public async Task<IActionResult> GetAllCurrentPage([FromBody] QueryDto model)
         {
             try
             {
                 QueryDtoResult<UserViewDto> userQueryDto = await userService.GetUsersCurrentPageAsync(model);
-                string jsonString = JsonConvert.SerializeObject(userQueryDto,Formatting.Indented,JsonSerializerSettingsProvider.GetCustomSettings());
+                string jsonString = JsonConvert.SerializeObject(userQueryDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
                 return Content(jsonString, "application/json");
 
             }
@@ -357,7 +357,7 @@ namespace HCMS.Web.Api.Controllers
                 await this.userService.UpdateUserRoleAsync(model);
                 return Ok("The user roles were successfully updated!");
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }

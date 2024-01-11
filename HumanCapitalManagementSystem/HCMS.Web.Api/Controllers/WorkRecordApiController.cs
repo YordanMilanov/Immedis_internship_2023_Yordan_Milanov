@@ -1,13 +1,9 @@
-﻿using HCMS.Services.ServiceModels;
-using HCMS.Services;
-using Microsoft.AspNetCore.Http;
+﻿using HCMS.Services.Interfaces;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.WorkRecord;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using HCMS.Services.ServiceModels.WorkRecord;
-using HCMS.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using AutoMapper;
-using HCMS.Services.ServiceModels.BaseClasses;
 
 namespace HCMS.Web.Api.Controllers
 {
@@ -58,7 +54,8 @@ namespace HCMS.Web.Api.Controllers
                 List<WorkRecordDto> allWorkRecords = await workRecordService.GetAllWorkRecordsDtosByEmployeeIdAsync(id);
                 string jsonString = JsonConvert.SerializeObject(allWorkRecords, JsonSerializerSettingsProvider.GetCustomSettings());
                 return Content(jsonString, "application/json");
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return BadRequest("Could not complete get all work records operation!");
             }
@@ -99,8 +96,8 @@ namespace HCMS.Web.Api.Controllers
             {
                 QueryDtoResult<WorkRecordDto> result = await workRecordService.GetWorkRecordsPageAndTotalCountAsync(queryDto, Guid.Parse(employeeId));
 
-                    string jsonString = JsonConvert.SerializeObject(result,Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
-                    return Content(jsonString, "application/json");
+                string jsonString = JsonConvert.SerializeObject(result, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(jsonString, "application/json");
             }
             catch (Exception)
             {

@@ -13,7 +13,7 @@ namespace HCMS.Repository.Interfaces
         Task<IEnumerable<Education>> GetEducationsPageByEmployeeIdAsync(Guid employeeId, int page);
 
         Task<int> GetEducationCountByEmployeeIdAsync(Guid employeeId);
-    
-        Task DeleteByIdAsync (Guid id);
+
+        Task DeleteByIdAsync(Guid id);
     }
 }

@@ -2,10 +2,11 @@
 {
     public class ResultQueryModel<T> : PageQueryModel
     {
-        public ResultQueryModel() : base() { 
+        public ResultQueryModel() : base()
+        {
             this.Items = new List<T>();
         }
-        
+
         public IEnumerable<T> Items { get; set; }
     }
 }

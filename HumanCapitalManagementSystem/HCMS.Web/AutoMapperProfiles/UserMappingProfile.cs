@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using HCMS.Common.Structures;
-using HCMS.Web.ViewModels.User;
-using HCMS.Services.ServiceModels.User;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Employee;
+using HCMS.Services.ServiceModels.User;
 using HCMS.Web.ViewModels.BaseViewModel;
-using HCMS.Web.ViewModels.Employee;
+using HCMS.Web.ViewModels.User;
 
 namespace HCMS.Web.AutoMapperProfiles
 {

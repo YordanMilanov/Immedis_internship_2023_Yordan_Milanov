@@ -5,7 +5,7 @@ namespace HCMS.Repository.Interfaces
 {
     public interface IWorkRecordRepository
     {
-       public Task AddWorkRecordAsync(WorkRecord model);
+        public Task AddWorkRecordAsync(WorkRecord model);
 
         public Task<List<WorkRecord>> AllWorkRecordsByEmployeeIdAsync(Guid id);
 

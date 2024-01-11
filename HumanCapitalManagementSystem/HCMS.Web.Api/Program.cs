@@ -1,12 +1,12 @@
+using CloudinaryDotNet;
+using HCMS.Data;
 using HCMS.Repository;
 using HCMS.Services;
-using HCMS.Data;
-using Microsoft.EntityFrameworkCore;
+using HCMS.Services.AutoMapperProfiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using CloudinaryDotNet;
-using HCMS.Services.AutoMapperProfiles;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

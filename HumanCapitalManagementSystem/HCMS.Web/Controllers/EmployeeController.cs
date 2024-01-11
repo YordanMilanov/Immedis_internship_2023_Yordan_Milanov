@@ -1,19 +1,17 @@
-﻿using System.Security.Claims;
-using AutoMapper;
+﻿using AutoMapper;
+using HCMS.Common;
+using HCMS.Services.ServiceModels.BaseClasses;
+using HCMS.Services.ServiceModels.Employee;
+using HCMS.Web.ViewModels.BaseViewModel;
 using HCMS.Web.ViewModels.Employee;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using static HCMS.Common.NotificationMessagesConstants;
-using System.Text;
-using Microsoft.AspNetCore.Authentication;
-using HCMS.Services.ServiceModels.Employee;
 using System.Net.Http.Headers;
-using HCMS.Services.ServiceModels.Company;
-using HCMS.Web.ViewModels.Company;
-using HCMS.Common;
-using HCMS.Services.ServiceModels.BaseClasses;
-using HCMS.Web.ViewModels.BaseViewModel;
+using System.Security.Claims;
+using System.Text;
+using static HCMS.Common.NotificationMessagesConstants;
 
 namespace HCMS.Web.Controllers
 {
@@ -66,7 +64,7 @@ namespace HCMS.Web.Controllers
         public async Task<IActionResult> Edit(string? redirect)
         {
             //check if it is redirect
-            if(redirect != null)
+            if (redirect != null)
             {
                 TempData[WarningMessage] = redirect;
                 return View(new EmployeeFormModel());
@@ -78,7 +76,7 @@ namespace HCMS.Web.Controllers
 
             //set the userIdGuid as query param
             string apiUrl = $"/api/employee/GetEmployeeDtoByUserId?userId={userId}";
-           
+
             //set the JWT to the httpClient
             string JWT = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "JWT")!.Value;
             this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JWT);
@@ -98,12 +96,12 @@ namespace HCMS.Web.Controllers
 
                 //deserializing (if not working check the request from the other side) the JsonSerializerSettingsProvider is custom made in common
                 EmployeeDto? employeeDto = JsonConvert.DeserializeObject<EmployeeDto>(jsonContent, JsonSerializerSettingsProvider.GetCustomSettings());
-                
+
                 //check if employee is not empty and attach it as a view model
                 if (employeeDto != null)
                 {
-                  EmployeeFormModel model = mapper.Map<EmployeeFormModel>(employeeDto);
-                  return View(model);
+                    EmployeeFormModel model = mapper.Map<EmployeeFormModel>(employeeDto);
+                    return View(model);
                 }
             }
             return View(new EmployeeFormModel());
@@ -217,7 +215,7 @@ namespace HCMS.Web.Controllers
             {
                 TempData[SuccessMessage] = "You have successfully left the company!";
                 return RedirectToAction("Home", "Home");
-            } 
+            }
             else
             {
                 TempData[ErrorMessage] = await response.Content.ReadAsStringAsync();

@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "VqC4xRRkeSO672kG9mmbC7a3IGLDk8+WvkRUfgzpodz1wDIskcj777qJuog3jt8P8ow6EuuCwoz0n701u6y5Pw==",
+  "dgSpecHash": "fUTcMGRLV+Kfe2JBYYTwj9/L+uVlL5pcwpMl2CuiVBD/4+59+Hdv1bzfZiIBl+3RFOhTuvGExIaq3gcpudiZBA==",
   "success": true,
   "projectFilePath": "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\HCMS.Web.ViewModels\\HCMS.Web.ViewModels.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\danch\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
-    "C:\\Users\\danch\\.nuget\\packages\\microsoft.extensions.primitives\\2.2.0\\microsoft.extensions.primitives.2.2.0.nupkg.sha512",
-    "C:\\Users\\danch\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
-    "C:\\Users\\danch\\.nuget\\packages\\system.memory\\4.5.1\\system.memory.4.5.1.nupkg.sha512",
-    "C:\\Users\\danch\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.1\\system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512"
+    "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+    "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages\\microsoft.extensions.primitives\\2.2.0\\microsoft.extensions.primitives.2.2.0.nupkg.sha512",
+    "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages\\system.memory\\4.5.1\\system.memory.4.5.1.nupkg.sha512",
+    "C:\\Users\\danch\\source\\Immedis_internship_2023_Yordan_Milanov\\HumanCapitalManagementSystem\\packages\\system.runtime.compilerservices.unsafe\\4.5.1\\system.runtime.compilerservices.unsafe.4.5.1.nupkg.sha512"
   ],
   "logs": []
 }

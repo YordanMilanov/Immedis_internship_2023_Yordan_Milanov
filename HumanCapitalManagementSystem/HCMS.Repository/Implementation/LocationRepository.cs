@@ -43,7 +43,8 @@ namespace HCMS.Repository.Implementation
                 Location location = await dbContext.Locations.FirstAsync(l => l.Id == locationInfo.Id);
                 location = mapper.Map<Location>(locationInfo);
                 await dbContext.SaveChangesAsync();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

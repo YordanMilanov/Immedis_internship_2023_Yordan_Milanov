@@ -30,7 +30,8 @@ namespace HCMS.Web.Api.Controllers
             try
             {
                 IEnumerable<string> names = await companyService.GetAllCompanyNamesAsync();
-                if(!names.Any()) {
+                if (!names.Any())
+                {
                     throw new Exception();
                 }
                 string jsonToSend = JsonConvert.SerializeObject(names, Formatting.Indented);
@@ -50,14 +51,15 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         [Authorize]
-        public async Task<IActionResult> GetCompanyDtoByEmployeeId([FromQuery]string employeeId)
+        public async Task<IActionResult> GetCompanyDtoByEmployeeId([FromQuery] string employeeId)
         {
             try
             {
                 CompanyDto companyDto = await companyService.GetCompanyDtoByEmployeeIdAsync(Guid.Parse(employeeId));
                 string jsonToSend = JsonConvert.SerializeObject(companyDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
                 return Content(jsonToSend, "application/json");
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return NotFound("Company not found!");
             }
@@ -70,7 +72,7 @@ namespace HCMS.Web.Api.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         [Authorize]
-        public async Task<IActionResult> GetAllCompanies([FromBody]QueryDto queryDto)
+        public async Task<IActionResult> GetAllCompanies([FromBody] QueryDto queryDto)
         {
             try
             {
@@ -94,11 +96,14 @@ namespace HCMS.Web.Api.Controllers
         [Authorize]
         public async Task<IActionResult> GetCompanyDtoById([FromQuery] string id)
         {
-            try {
-            CompanyDto companyDto = await companyService.GetCompanyDtoByIdAsync(Guid.Parse(id));
-            string jsonToSend = JsonConvert.SerializeObject(companyDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
-            return Content(jsonToSend, "application/json");
-            } catch (Exception) {
+            try
+            {
+                CompanyDto companyDto = await companyService.GetCompanyDtoByIdAsync(Guid.Parse(id));
+                string jsonToSend = JsonConvert.SerializeObject(companyDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
+                return Content(jsonToSend, "application/json");
+            }
+            catch (Exception)
+            {
                 return NotFound("Company not found!");
             }
 

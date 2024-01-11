@@ -5,11 +5,11 @@ namespace HCMS.Repository.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Task AddEmployeeAsync (Employee employee);
+        Task AddEmployeeAsync(Employee employee);
 
         Task UpdateEmployeeAsync(Employee employee);
 
-        Task<Employee?> GetEmployeeByUserIdAsync (Guid id);
+        Task<Employee?> GetEmployeeByUserIdAsync(Guid id);
 
         Task<Employee> GetEmployeeByIdAsync(Guid id);
 

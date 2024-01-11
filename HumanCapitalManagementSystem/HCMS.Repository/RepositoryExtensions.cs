@@ -1,5 +1,5 @@
-﻿using HCMS.Repository.Interfaces;
-using HCMS.Repository.Implementation;
+﻿using HCMS.Repository.Implementation;
+using HCMS.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 

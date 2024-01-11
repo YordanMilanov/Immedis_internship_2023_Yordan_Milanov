@@ -25,7 +25,8 @@ namespace HCMS.Services.Implementation
             {
                 Advert advert = mapper.Map<Advert>(model);
                 await advertRepository.AddAsync(advert);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

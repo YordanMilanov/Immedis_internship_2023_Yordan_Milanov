@@ -2,12 +2,8 @@
 using HCMS.Common.Structures;
 using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
-using HCMS.Services.ServiceModels.Education;
-using HCMS.Services.ServiceModels.User;
 using HCMS.Web.ViewModels.BaseViewModel;
 using HCMS.Web.ViewModels.Company;
-using HCMS.Web.ViewModels.Education;
-using HCMS.Web.ViewModels.User;
 
 namespace HCMS.Web.AutoMapperProfiles
 {

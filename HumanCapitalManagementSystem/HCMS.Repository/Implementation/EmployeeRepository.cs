@@ -23,7 +23,7 @@ namespace HCMS.Repository.Implementation
             {
                 Employee employeeToSave = model;
                 employeeToSave.Id = Guid.NewGuid();
-                if(model.Location != null)
+                if (model.Location != null)
                 {
                     employeeToSave.Location!.Id = Guid.NewGuid();
                     employeeToSave.LocationId = employeeToSave.Location!.Id;
@@ -33,7 +33,7 @@ namespace HCMS.Repository.Implementation
                 if (await dbContext.Employees.AnyAsync(e => e.PhoneNumber == model.PhoneNumber))
                 {
                     throw new Exception("Phone number is already used!");
-                } 
+                }
                 else if (await dbContext.Employees.AnyAsync(e => e.Email == model.Email))
                 {
                     throw new Exception("Email is already used!");
@@ -99,7 +99,7 @@ namespace HCMS.Repository.Implementation
             return await dbContext.Employees
                     .Where(e => e.UserId == userId)
                     .Select(e => e.Id)
-                    .FirstOrDefaultAsync(); 
+                    .FirstOrDefaultAsync();
         }
 
         public async Task<Employee> GetEmployeeByIdAsync(Guid id)
@@ -140,8 +140,8 @@ namespace HCMS.Repository.Implementation
                     location.Id = Guid.NewGuid();
                     employee.Location = location;
                     employee.LocationId = location.Id;
-                } 
-                else if(employee.LocationId != null && model.Location != null)
+                }
+                else if (employee.LocationId != null && model.Location != null)
                 {
                     employee.Location!.Address = model.Location.Address;
                     employee.Location.State = model.Location.State;
@@ -220,8 +220,8 @@ namespace HCMS.Repository.Implementation
                 employee.CompanyId = null;
                 employee.Company = null;
                 await this.dbContext.SaveChangesAsync();
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -247,8 +247,8 @@ namespace HCMS.Repository.Implementation
             try
             {
                 return await this.dbContext.Employees.FirstAsync(e => e.Email == email);
-            } 
-            catch(Exception)
+            }
+            catch (Exception)
             {
                 throw new Exception("Employee with this email does not exist!");
             }

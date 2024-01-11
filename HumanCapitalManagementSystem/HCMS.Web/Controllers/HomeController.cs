@@ -1,8 +1,8 @@
-﻿using HCMS.Web.Models;
+﻿using HCMS.Common;
+using HCMS.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
-using HCMS.Common;
 
 
 namespace HCMS.Web.Controllers

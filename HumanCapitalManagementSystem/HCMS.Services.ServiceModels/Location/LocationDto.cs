@@ -1,7 +1,4 @@
-﻿using HCMS.Common;
-using System.ComponentModel.DataAnnotations;
-
-namespace HCMS.Services.ServiceModels.Location
+﻿namespace HCMS.Services.ServiceModels.Location
 {
     public class LocationDto
     {

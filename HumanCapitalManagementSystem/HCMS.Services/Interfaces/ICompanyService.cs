@@ -1,6 +1,5 @@
 ﻿using HCMS.Services.ServiceModels.BaseClasses;
 using HCMS.Services.ServiceModels.Company;
-using HCMS.Services.ServiceModels.WorkRecord;
 
 namespace HCMS.Services.Interfaces
 {

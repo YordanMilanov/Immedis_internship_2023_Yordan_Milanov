@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using HCMS.Services.Interfaces;
+﻿using HCMS.Services.Interfaces;
 using HCMS.Services.ServiceModels.Education;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,9 +51,9 @@ namespace HCMS.Web.Api.Controllers
                     }
                     catch (Exception)
                     {
-                       return BadRequest("Unexpected error occurred!");
+                        return BadRequest("Unexpected error occurred!");
                     }
-                } 
+                }
                 else
                 {
                     await educationService.EditEducationAsync(model);
@@ -67,14 +66,14 @@ namespace HCMS.Web.Api.Controllers
                 return BadRequest("Unexpected error occurred!");
             }
         }
-       
+
         [HttpGet("EducationsPageByEmployeeId")]
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(400)]
         [ProducesResponseType(200)]
         [Authorize]
-        public async Task<IActionResult> GetEducationsPageByEmployeeId([FromQuery]string employeeId, [FromQuery]int page)
+        public async Task<IActionResult> GetEducationsPageByEmployeeId([FromQuery] string employeeId, [FromQuery] int page)
         {
             try
             {
@@ -83,7 +82,8 @@ namespace HCMS.Web.Api.Controllers
                 string educationsJson = JsonConvert.SerializeObject(educations, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
 
                 return Content(educationsJson, "application/json");
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 return BadRequest("Unexpected error occurred while trying to load your educations!");
             }
@@ -124,7 +124,8 @@ namespace HCMS.Web.Api.Controllers
                 EducationDto educationDto = await educationService.GetEducationDtoByIdAsync(Guid.Parse(educationId));
                 string educationDtoJson = JsonConvert.SerializeObject(educationDto, Formatting.Indented, JsonSerializerSettingsProvider.GetCustomSettings());
                 return Content(educationDtoJson, "application/json");
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 return BadRequest("Education was not found!");
             }
@@ -144,8 +145,8 @@ namespace HCMS.Web.Api.Controllers
             {
                 await educationService.DeleteById(Guid.Parse(EducationId));
                 return Ok("Successfully deleted the education record!");
-            } 
-            catch(Exception)
+            }
+            catch (Exception)
             {
                 return BadRequest("Unexpected error occurred while trying to delete your education information!");
             }

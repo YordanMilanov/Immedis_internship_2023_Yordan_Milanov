@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace HCMS.Common.JsonConverter
 {
-    
+
     public class NameConverter : JsonConverter<Name>
     {
         //reads and cast it to Name

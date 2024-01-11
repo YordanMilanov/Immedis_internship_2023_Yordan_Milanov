@@ -51,7 +51,8 @@ namespace HCMS.Services.Implementation
                 {
                     await employeeRepository.AddEmployeeAsync(employee);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -74,8 +75,8 @@ namespace HCMS.Services.Implementation
 
         public async Task<Guid> GetEmployeeIdByUserId(Guid userId)
         {
-                return await employeeRepository.GetEmployeeIdByUserIdAsync(userId);
-                
+            return await employeeRepository.GetEmployeeIdByUserIdAsync(userId);
+
         }
 
         public async Task UpdateEmployeeCompanyByCompanyName(Guid employeeId, string companyName)
@@ -123,8 +124,8 @@ namespace HCMS.Services.Implementation
             try
             {
                 await this.employeeRepository.LeaveCompanyByIdAsync(id);
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -134,8 +135,9 @@ namespace HCMS.Services.Implementation
         {
             try
             {
-              return await this.employeeRepository.GetEmployeeFullNameById(id);
-            } catch(Exception ex)
+                return await this.employeeRepository.GetEmployeeFullNameById(id);
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
